@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/content/arrow-down.png</file>
+        <file>qml/content/arrow-up.png</file>
+        <file>qml/content/list-delete.png</file>
+        <file>qml/content/minus-sign.png</file>
+        <file>qml/content/moreDown.png</file>
+        <file>qml/content/moreUp.png</file>
+        <file>qml/content/plus-sign.png</file>
+        <file>qml/DualNumber.qml</file>
+        <file>qml/HeaderOtcepsView.qml</file>
+        <file>qml/Icons.qml</file>
+        <file>qml/main.qml</file>
+        <file>qml/Number.qml</file>
+        <file>qml/OtcepsModel.qml</file>
+        <file>qml/OtcepsView.qml</file>
+        <file>qml/OtcepViewDelegate.qml</file>
+        <file>qml/EditOtceps.qml</file>
+        <file>qml/TuvkChangePage.qml</file>
+        <file>qml/TuvkMainPage.qml</file>
+        <file>qml/MultiButton.qml</file>
+    </qresource>
+</RCC>
