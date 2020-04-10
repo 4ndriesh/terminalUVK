@@ -11,16 +11,33 @@
 #include <random>
 #include <iostream>
 
+//  SYB
+#include "mvp_system.h"
+#include "gtbuffers_udp_d2.h"
+#include "modelgroupgorka.h"
+
 
 int main(int argc, char *argv[])
 {
+
+    //  SYB
+    GtBuffers_UDP_D2 udp;
+    MVP.setGetGtBufferInterface(&udp);
+    QObject *O=MVP.loadObject("d:\\__E\\EXE\\gorki\\kombi\\arms\\sta\\M.xml");
+    ModelGroupGorka *gorka=qobject_cast<ModelGroupGorka *>(O);
+    if (!gorka){
+        exit(-1);
+    }
+    m_Otceps *otceps=gorka->findChildren<m_Otceps *>().first();
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
 
     //        std::uniform_real_distribution<double> dist(0.0, 10.0);
-    ViewOtcepsModel model;
+
+
+    ViewOtcepsModel model(nullptr,otceps);
     EditOtcepsModel model1;
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("otcepsModel", &model);

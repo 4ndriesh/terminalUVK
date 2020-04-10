@@ -1,5 +1,6 @@
 #include "otcepsobject.h"
 
+#include "m_otcep.h"
 
 DataObject::DataObject(int n,
                        QString mar,

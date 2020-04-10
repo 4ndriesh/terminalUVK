@@ -6,6 +6,8 @@
 #include <QAbstractListModel>
 #include <QTimer>
 
+class m_Otceps;
+
 
 class ViewOtcepsModel : public QAbstractListModel
 {
@@ -37,7 +39,7 @@ public:
 
     };
     void getBySYB();
-    explicit ViewOtcepsModel(QObject *parent = nullptr);
+    explicit ViewOtcepsModel(QObject *parent, m_Otceps *otceps);
     void deleteDataSourceObject();
     void addDataObject(const DataObject &DataObject);
     QVariantMap get(int row) const;

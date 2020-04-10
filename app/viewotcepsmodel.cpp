@@ -4,27 +4,31 @@
 #include <QMapIterator>
 #include "editotcepsmodel.h"
 #include <QThread>
-ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
+
+#include "m_otceps.h"
+
+ViewOtcepsModel::ViewOtcepsModel(QObject *parent,m_Otceps *otceps)
     : QAbstractListModel(parent)
     ,timer(new QTimer(this))
 
 {
     index=0;
 
-    for (int i=0; i<10;i++) {
-        addDataObject(DataObject{i,
-                                 QString::number(i),
-                                 QString::number(i),
-                                 QString::number(i),
-                                 QString::number(i),
-                                 QString::number(i),
-                                 QString::number(i),
-                                 QString::number(i),
-                                 QString::number(i),
-                                 QString::number(i),
-                                 QString::number(i),
-                                 QString::number(i)
-                      });
+    for (int i=0; i<otceps->l_otceps.size();i++) {
+        addDataObject(DataObject(otceps->l_otceps[i]));
+//        addDataObject(DataObject{i,
+//                                 QString::number(i),
+//                                 QString::number(i),
+//                                 QString::number(i),
+//                                 QString::number(i),
+//                                 QString::number(i),
+//                                 QString::number(i),
+//                                 QString::number(i),
+//                                 QString::number(i),
+//                                 QString::number(i),
+//                                 QString::number(i),
+//                                 QString::number(i)
+//                      });
     }
 
     timer->setInterval(1000);    
@@ -35,7 +39,7 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
 void ViewOtcepsModel::getBySYB()
 {
     std::cout << "getBySYB" << std::endl;
-    index++;
+    //index++;
     if(index>=rowCount(QModelIndex())) {
         index=0;
     }
@@ -71,6 +75,63 @@ int ViewOtcepsModel::rowCount(const QModelIndex &parent) const
     return ViewOtcepList.count();
 }
 
+//QVariant ViewOtcepsModel::data(const QModelIndex &index, int role) const
+//{
+//    if(index.row() < 0 || index.row() >= ViewOtcepList.count() || !index.isValid())
+//        return  QVariant();
+
+//    const DataObject &DataObject = ViewOtcepList[index.row()];
+
+//    switch (role)
+//    {
+//    case nRole:
+//        return DataObject.n();
+//        break;
+
+//    case marRole:
+//        return DataObject.mar();
+//        break;
+
+//    case mar_fRole:
+//        return DataObject.mar_f();
+//        break;
+
+//    case lenRole:
+//        return DataObject.len();
+//        break;
+//    case len_fRole:
+//        return DataObject.len_f();
+//        break;
+
+//    case katRole:
+//        return DataObject.kat();
+//        break;
+//    case kat_fRole:
+//        return DataObject.kat_f();
+//        break;
+//    case bazRole:
+//        return DataObject.baz();
+//        break;
+
+//    case nagRole:
+//        return DataObject.nag();
+//        break;
+
+//    case urRole:
+//        return DataObject.ur();
+//        break;
+
+//    case VRole:
+//        return DataObject.V();
+//        break;
+
+//    case kzpRole:
+//        return DataObject.kzp();
+//        break;
+//    }
+//    return QVariant();
+//}
+
 QVariant ViewOtcepsModel::data(const QModelIndex &index, int role) const
 {
     if(index.row() < 0 || index.row() >= ViewOtcepList.count() || !index.isValid())
@@ -81,52 +142,53 @@ QVariant ViewOtcepsModel::data(const QModelIndex &index, int role) const
     switch (role)
     {
     case nRole:
-        return DataObject.n();
+        return QString::number(DataObject.otcep->NUM());
         break;
 
     case marRole:
-        return DataObject.mar();
+        return QString::number(DataObject.otcep->STATE_MAR());
         break;
 
     case mar_fRole:
-        return DataObject.mar_f();
+        return QString::number(DataObject.otcep->STATE_MAR_F());
         break;
 
     case lenRole:
-        return DataObject.len();
+        return QString::number(DataObject.otcep->STATE_LEN());
         break;
     case len_fRole:
-        return DataObject.len_f();
+        return QString::number(DataObject.otcep->STATE_LEN());// ??
         break;
 
     case katRole:
-        return DataObject.kat();
+        return QString::number(0);// ??
         break;
     case kat_fRole:
-        return DataObject.kat_f();
+        return QString::number(0);// ??
         break;
     case bazRole:
-        return DataObject.baz();
+        return QString::number(DataObject.otcep->STATE_BAZA());
         break;
 
     case nagRole:
-        return DataObject.nag();
+        return QString::number(0);// ??
         break;
 
     case urRole:
-        return DataObject.ur();
+        return QString::number(0);// ??
         break;
 
     case VRole:
-        return DataObject.V();
+        return QString::number(DataObject.otcep->STATE_V());
         break;
 
     case kzpRole:
-        return DataObject.kzp();
+        return QString::number(0);// ??
         break;
     }
     return QVariant();
 }
+
 
 bool ViewOtcepsModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {

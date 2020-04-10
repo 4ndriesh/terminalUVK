@@ -36,3 +36,11 @@ HEADERS += \
     app/editotcepsmodel.h \
     app/otcepsobject.h \
     app/viewotcepsmodel.h
+
+# SYB
+DEFINES += NO_LIBRARY
+MVP_ROOT=$$PWD/../..
+
+include($$MVP_ROOT/mvp_classes/mvp_model_gorka.pri)
+include($$MVP_ROOT/common_src/signalmanager/signalmanager.pri)
+include($$MVP_ROOT/common_src/gtcommandinterface/gtcommandinterface.pri)
