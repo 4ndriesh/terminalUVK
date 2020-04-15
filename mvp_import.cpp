@@ -3,7 +3,7 @@
 
 MVP_Import::MVP_Import()
 {
-    GtBuffers_UDP_D2 udp;
+
     MVP.setGetGtBufferInterface(&udp);
 }
 

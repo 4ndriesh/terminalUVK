@@ -16,6 +16,7 @@ public:
            return &one;
 
     }
+    GtBuffers_UDP_D2 udp;
     bool load(QString fn);
     ModelGroupGorka *gorka=nullptr;
 };
