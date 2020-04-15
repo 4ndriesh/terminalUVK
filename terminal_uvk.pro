@@ -17,7 +17,8 @@ SOURCES += \
         app/editotcepsmodel.cpp \
         app/otcepsobject.cpp \
         app/viewotcepsmodel.cpp \
-        main.cpp
+        main.cpp \
+    mvp_import.cpp
 
 RESOURCES += qml.qrc
 
@@ -35,7 +36,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     app/editotcepsmodel.h \
     app/otcepsobject.h \
-    app/viewotcepsmodel.h
+    app/viewotcepsmodel.h \
+    mvp_import.h
 
 # SYB
 DEFINES += NO_LIBRARY

@@ -5,54 +5,37 @@
 #include "editotcepsmodel.h"
 #include <QThread>
 
-#include "m_otceps.h"
 
-ViewOtcepsModel::ViewOtcepsModel(QObject *parent,m_Otceps *otceps)
+#include "mvp_import.h"
+
+
+ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
     : QAbstractListModel(parent)
     ,timer(new QTimer(this))
 
 {
-    index=0;
+    current_index=0;
+    if (MVP_Import::instance()->gorka!=nullptr){
 
-    for (int i=0; i<otceps->l_otceps.size();i++) {
-        addDataObject(DataObject(otceps->l_otceps[i]));
-//        addDataObject(DataObject{i,
-//                                 QString::number(i),
-//                                 QString::number(i),
-//                                 QString::number(i),
-//                                 QString::number(i),
-//                                 QString::number(i),
-//                                 QString::number(i),
-//                                 QString::number(i),
-//                                 QString::number(i),
-//                                 QString::number(i),
-//                                 QString::number(i),
-//                                 QString::number(i)
-//                      });
+        m_Otceps *otceps=MVP_Import::instance()->gorka->findChildren<m_Otceps *>().first();
+        for (int i=0; i<otceps->l_otceps.size();i++) {
+            addDataObject(DataObject(otceps->l_otceps[i]));
+        }
+
     }
 
-    timer->setInterval(1000);    
+    timer->setInterval(1000);
     connect(timer, &QTimer::timeout , this, &ViewOtcepsModel::getBySYB);
     timer->start();
 }
 
 void ViewOtcepsModel::getBySYB()
 {
-    std::cout << "getBySYB" << std::endl;
-    //index++;
-    if(index>=rowCount(QModelIndex())) {
-        index=0;
-    }
-    emit setCurrentItem(index);
+    QModelIndex topLeft = index( 0);
+    QModelIndex bottomRight = index(rowCount() - 1);
 
-    if (index % 2 == 0)
-        {
-            emit showMessage("#FFFFE0","YELLOW");
-        }
-        else
-        {
-            emit showMessage("red","RED");
-        }
+    emit dataChanged(topLeft, bottomRight);
+    emit layoutChanged();
 
 }
 
