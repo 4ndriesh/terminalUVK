@@ -7,10 +7,12 @@
 #include "modelgroupgorka.h"
 #include "m_otceps.h"
 
-class MVP_Import
+class MVP_Import: public QObject
 {
+    Q_OBJECT
 public:
-    MVP_Import();
+    explicit MVP_Import();
+    virtual ~MVP_Import(){}
     static MVP_Import* instance(){
            static MVP_Import one;
            return &one;
@@ -19,6 +21,8 @@ public:
     GtBuffers_UDP_D2 udp;
     bool load(QString fn);
     ModelGroupGorka *gorka=nullptr;
+public slots:
+    void slotTimer();
 };
 
 #endif // MVP_IMPORT_H

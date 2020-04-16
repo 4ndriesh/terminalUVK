@@ -43,6 +43,8 @@ HEADERS += \
 DEFINES += NO_LIBRARY
 MVP_ROOT=$$PWD/../..
 
+#https://github.com/yx500/mvp_classes.git
 include($$MVP_ROOT/mvp_classes/mvp_model_gorka.pri)
+#https://github.com/yx500/common_src.git
 include($$MVP_ROOT/common_src/signalmanager/signalmanager.pri)
 include($$MVP_ROOT/common_src/gtcommandinterface/gtcommandinterface.pri)

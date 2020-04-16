@@ -1,7 +1,7 @@
 #include "mvp_import.h"
 #include <QFileInfo>
 
-MVP_Import::MVP_Import()
+MVP_Import::MVP_Import():QObject(nullptr)
 {
 
     MVP.setGetGtBufferInterface(&udp);
@@ -13,6 +13,8 @@ bool MVP_Import::load(QString fn)
         qDebug() << "file not found " << QFileInfo(fn).absoluteFilePath();
         return false;
     }
+    QTimer *timer=new QTimer(this);
+    connect(timer,&QTimer::timeout,this,&MVP_Import::slotTimer);
     QObject *O=MVP.loadObject(fn);
     gorka=qobject_cast<ModelGroupGorka *>(O);
     if (!gorka) {
@@ -21,4 +23,9 @@ bool MVP_Import::load(QString fn)
         return  false;
     }
     return true;
+}
+
+void MVP_Import::slotTimer()
+{
+    gorka->updateStates();
 }
