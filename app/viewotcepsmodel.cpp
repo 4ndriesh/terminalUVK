@@ -31,11 +31,14 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
 
 void ViewOtcepsModel::getBySYB()
 {
-    QModelIndex topLeft = index( 0);
-    QModelIndex bottomRight = index(rowCount() - 1);
+    beginResetModel();
+    endResetModel();
 
-    emit dataChanged(topLeft, bottomRight);
-    emit layoutChanged();
+//    QModelIndex topLeft = index( 0);
+//    QModelIndex bottomRight = index(rowCount() - 1);
+
+//    emit dataChanged(topLeft, bottomRight);
+//    emit layoutChanged();
 
 }
 
