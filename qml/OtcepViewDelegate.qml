@@ -47,15 +47,15 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         spacing: 1
 
-        Number { txt: n; name: 'n'}
-        DualNumber { txt1: mar; name1: 'mar'; txt2: mar_f; name2: 'mar_f'  }
-        DualNumber { txt1: len; name1: 'len'; txt2: len_f; name2: 'len_f'  }
-        DualNumber { txt1: kat; name1: 'kat'; txt2: kat_f; name2: 'kat_f';  }
-        Number { txt: baz; name: 'baz' }
-        Number { txt: nag; name: 'nag' }
-        Number { txt: ur; name: 'ur' }
-        Number { txt: V; name: 'V' }
-        Number { txt: kzp; name: 'kzp' }
+        Number { txt: STATE_NUM; name: 'STATE_NUM'}
+        DualNumber { txt1: STATE_MAR; name1: 'STATE_MAR'; txt2: STATE_MAR_F; name2: 'STATE_MAR_F'  }
+        DualNumber { txt1: STATE_SL_VAGON_CNT; name1: 'STATE_SL_VAGON_CNT'; txt2: STATE_ZKR_VAGON_CNT; name2: 'STATE_ZKR_VAGON_CNT'  }
+        DualNumber { txt1: STATE_SL_KAT; name1: 'STATE_SL_KAT'; txt2: STATE_ZKR_KAT; name2: 'STATE_ZKR_KAT';  }
+        Number { txt: STATE_ZKR_BAZA; name: 'STATE_ZKR_BAZA' }
+        Number { txt: STATE_NAGON; name: 'STATE_NAGON' }
+        Number { txt: STATE_UR; name: 'STATE_UR' }
+        Number { txt: STATE_V; name: 'STATE_V' }
+        Number { txt: STATE_KZP; name: 'STATE_KZP' }
         Icons {
             src: "content/list-delete.png"
             MouseArea {anchors.fill:parent; onClicked: otcepsModelRedact.deleteFromEditOtcepList(index)            }

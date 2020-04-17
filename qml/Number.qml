@@ -13,29 +13,29 @@ Item {
         id: text
         onEditingFinished: {
             switch(name) {
-            case "n": n=text.text;
+            case "STATE_NUM": STATE_NUM=text.text;
                 break;
-            case "mar": mar=text.text;
+            case "STATE_MAR": STATE_MAR=text.text;
                 break;
-            case "mar_f": mar_f=text.text;
+            case "STATE_MAR_F": STATE_MAR_F=text.text;
                 break;
-            case "len": len=text.text;
+            case "STATE_SL_KAT": STATE_SL_KAT=text.text;
                 break;
-            case "len_f": len_f=text.text;
+            case "STATE_ZKR_KAT": STATE_ZKR_KAT=text.text;
                 break;
-            case "kat": kat=text.text;
+            case "STATE_SL_KAT": STATE_SL_KAT=text.text;
                 break;
-            case "kat_f": kat_f=text.text;
+            case "STATE_ZKR_KAT": STATE_ZKR_KAT=text.text;
                 break;
-            case "baz": baz=text.text;
+            case "STATE_ZKR_BAZA": STATE_ZKR_BAZA=text.text;
                 break;
-            case "nag": nag=text.text;
+            case "STATE_NAGON": STATE_NAGON=text.text;
                 break;
-            case "ur": ur=text.text;
+            case "STATE_UR": STATE_UR=text.text;
                 break;
-            case "V": V=text.text;
+            case "STATE_V": STATE_V=text.text;
                 break;
-            case "kzp": kzp=text.text;
+            case "STATE_KZP": STATE_KZP=text.text;
                 break;
 
             }

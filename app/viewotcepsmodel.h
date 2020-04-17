@@ -37,7 +37,6 @@ public:
 
 
     };
-    void getBySYB();
     explicit ViewOtcepsModel(QObject *parent=nullptr);
     void deleteDataSourceObject();
     void addDataObject(const DataObject &DataObject);
@@ -56,5 +55,9 @@ public:
 private:
     int current_index;
     QList<DataObject> ViewOtcepList;
+    QHash<int, QByteArray> otcepRoles;
+public slots:
+    void slotOtcepChanged();
+
 };
 #endif // DATASOURCEMODEL_H

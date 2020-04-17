@@ -13,7 +13,6 @@ class EditOtcepsModel : public QAbstractListModel
 public slots:
     void deleteFromEditOtcepList(int);
     void addToList();
-    void sendToSYB();
 signals:
 public:
     enum datasourceRoles {

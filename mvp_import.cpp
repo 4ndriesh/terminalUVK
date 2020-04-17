@@ -5,6 +5,7 @@ MVP_Import::MVP_Import():QObject(nullptr)
 {
 
     MVP.setGetGtBufferInterface(&udp);
+    cmd=new GtCommandInterface(this,&udp);
 }
 
 bool MVP_Import::load(QString fn)

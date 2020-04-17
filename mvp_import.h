@@ -6,6 +6,7 @@
 #include "gtbuffers_udp_d2.h"
 #include "modelgroupgorka.h"
 #include "m_otceps.h"
+#include "gtcommandinterface.h"
 
 class MVP_Import: public QObject
 {
@@ -21,6 +22,7 @@ public:
     GtBuffers_UDP_D2 udp;
     bool load(QString fn);
     ModelGroupGorka *gorka=nullptr;
+    GtCommandInterface *cmd;
 public slots:
     void slotTimer();
 };
