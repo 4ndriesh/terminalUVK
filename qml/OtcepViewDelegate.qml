@@ -1,10 +1,14 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.4
-
+import QtQuick.Layouts 1.14
 Rectangle {
     id: delegate
+    //цвет в зависимости от STATE_LOCATION
+    property variant items_color: ["brown", "yellow","green"]
     width: parent.width;
-    height: 64
+    height: 65
+    visible: STATE_ENABLED
+    //    enabled: STATE_ENABLED
     states:
         [
         State {
@@ -21,7 +25,8 @@ Rectangle {
             when: model.index>delegate.ListView.view.currentIndex // bind to isCurrentItem to set the state
             PropertyChanges {
                 target: delegate
-                color: "#b7b7b7"
+                color: delegate.items_color[STATE_LOCATION]
+
             }
         },
         State {
@@ -34,18 +39,14 @@ Rectangle {
         }
 
     ]
-    MouseArea {
+    MouseAreaQml {}
+
+    RowLayout   {
+        id: layout
         anchors.fill: parent
-        onClicked: delegate.ListView.view.currentIndex = index // if only selection is wanted
-
-    }
-
-
-
-    Row {
+        spacing: 1
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
-        spacing: 1
 
         Number { txt: STATE_NUM; name: 'STATE_NUM'}
         DualNumber { txt1: STATE_MAR; name1: 'STATE_MAR'; txt2: STATE_MAR_F; name2: 'STATE_MAR_F'  }

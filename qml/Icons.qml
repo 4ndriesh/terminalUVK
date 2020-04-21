@@ -1,10 +1,12 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.4
-
+import QtQuick.Layouts 1.14
 Item {
     id: icons
-    width: 50
-    height: 50
+    Layout.fillWidth: true
+            Layout.minimumWidth: 60
+            Layout.maximumWidth: 300
+            Layout.minimumHeight: 60
     property var src
     Image {
         anchors.horizontalCenter: parent.horizontalCenter

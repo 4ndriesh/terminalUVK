@@ -1,16 +1,26 @@
 import QtQuick 2.7
-import QtQuick.Controls 2.0
+import QtQuick.Layouts 1.14
+Rectangle {
+    id: textField
 
-Item {
-    id: item
-    width: 50
-    height: 50
+    Layout.fillWidth: true
+    Layout.minimumWidth: 60
+    Layout.maximumWidth: 300
+    Layout.minimumHeight: 60
+    color: delegate.color
+    border.width: 1
+    border.color: "grey"
+    //    radius: height/4
+    smooth: true
+
     property alias txt: text.text
+    property int echoMode: TextInput.Normal
     property color col
     property var name
 
     TextInput {
         id: text
+
         onEditingFinished: {
             switch(name) {
             case "STATE_NUM": STATE_NUM=text.text;
@@ -40,13 +50,27 @@ Item {
 
             }
         }
-        font.bold: false
-        font.pointSize: 18
-        color: col
+        //        width: parent.width - (2 * font.pointSize)
+
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
         horizontalAlignment: Text.AlignHCenter;
         verticalAlignment: Text.AlignVCenter
+        font.pointSize: 18
+
+
+//        echoMode: textField.echoMode
+
+//                onTextChanged: textField.textChanged(text)
+
+        onFocusChanged: {
+            if(focus){
+                textField.border.color = "red"
+                textField.border.width = 5
+            }else{
+                textField.border.color = "grey"
+                textField.border.width = 1
+            }
+        }
     }
 }
-

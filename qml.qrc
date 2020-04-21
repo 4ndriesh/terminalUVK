@@ -19,5 +19,7 @@
         <file>qml/TuvkChangePage.qml</file>
         <file>qml/TuvkMainPage.qml</file>
         <file>qml/MultiButton.qml</file>
+        <file>qml/HighlightBar.qml</file>
+        <file>qml/MouseAreaQml.qml</file>
     </qresource>
 </RCC>

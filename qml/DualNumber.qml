@@ -1,10 +1,11 @@
 import QtQuick 2.0
-
+import QtQuick.Layouts 1.14
 Item {
     id: container
-    width: 110
-    //    height: parent.height
-    height: 60
+    Layout.fillWidth: true
+    Layout.minimumWidth: 120
+    Layout.maximumWidth: 600
+    Layout.minimumHeight: 60
 
     property alias  txt1: num1.txt
     property alias  txt2: num2.txt
@@ -31,10 +32,13 @@ Item {
         clip: true
         radius: 4
 
-        Row {
+
+        RowLayout {
+            id: layout
+            anchors.fill: parent
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
-            spacing: 4
+            spacing: 1
 
             Number { id: num1; name: name1}
             Number { id: num2; name: name2;visible: getVisible(); }

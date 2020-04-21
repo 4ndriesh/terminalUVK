@@ -16,6 +16,8 @@ Page {
         anchors.fill: parent
     }
 
+//    GridLayoutOtcepsView {anchors.fill: parent}
+
     //    footer: Label {
     //        text: qsTr("Вы находитесь в нужном месте ;) Main TUVK.")
     //    }
