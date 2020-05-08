@@ -9,6 +9,39 @@
 #include "mvp_import.h"
 #include <QMetaProperty>
 
+
+
+
+/*
+    Видимость -  STATE_ENABLED
+    цвет
+    серый   STATE_LOCATION = 2(locationOnSpusk) && STATE_MAR==STATE_MAR_F
+            или STATE_LOCATION = 3(locationOnPark)
+    светло серый   STATE_LOCATION = 2(locationOnSpusk) && STATE_MAR!=STATE_MAR_F
+    желтый         STATE_LOCATION = 2 &&   STATE_ZKR_PROGRESS==1
+    красный STATE_ERROR==1
+    белый STATE_LOCATION = 1(locationOnPrib)
+    в остальный случаях темно серый
+
+    КНОПКИ: ВВОД СЛ
+            РОСПУСК1 ПАУЗА СТОП MVP_Import::instance()->gorka->STATE_REGIM
+            РОСПУСК1/РОСПУСК2 - сделаю доп свойство gorka->PUT_NADVIG = 1..2
+
+    РЕЖИМ ВВОД СЛ - появляется курсор
+    так же вход в режим при щелкани мышью по отцепу
+    выход - по кнопке любой
+    правой кнмн на РОСПУСК1 - выбор РОСПУСК1/РОСПУСК2
+
+    команды в увк
+    РОСПУСК: CMD=SET_RIGIME  REGIME=ROSPUSK
+    ПАУЗА: CMD=SET_RIGIME  REGIME=PAUSE
+    СТОП: CMD=SET_RIGIME  REGIME=STOP
+    РОСПУСК1/РОСПУСК2: CMD=SET_ACT_ZKR  ACT_ZKR =1/2
+
+ */
+
+
+
 ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
     : QAbstractListModel(parent)
     ,timer(new QTimer(this))
@@ -34,7 +67,7 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
 
     timer->setInterval(1000);
     connect(timer, &QTimer::timeout , this, &ViewOtcepsModel::slotOtcepChanged);
-    timer->start();
+    //timer->start();
 }
 
 

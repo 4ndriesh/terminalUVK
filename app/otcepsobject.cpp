@@ -22,8 +22,12 @@ void DataObject::setState(QString stateName, QVariant val)
         m["DEST"]="UVK";
         m["CMD"]="SET_OTCEP_STATE";
         m["N"]=QString::number(otcep->NUM());
+
+        // убираю STATE
+        stateName=stateName.replace("STATE_","");
         m[stateName]=val.toString();
         MVP_Import::instance()->cmd->send_cmd(m);
+
         // надо отслеживать что увк воспринял.. или пофиг
     }
 }

@@ -1,6 +1,6 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.4
-import QtQuick.Layouts 1.14
+import QtQuick.Layouts 1.3
 Rectangle {
     id: delegate
     //цвет в зависимости от STATE_LOCATION
