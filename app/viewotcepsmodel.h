@@ -6,7 +6,7 @@
 #include <QAbstractListModel>
 #include <QTimer>
 
-
+struct tSl2Odo2;
 
 class ViewOtcepsModel : public QAbstractListModel
 {
@@ -51,6 +51,7 @@ public:
     Qt::ItemFlags flags(const QModelIndex& index) const override;
     QHash<int, QByteArray> roleNames() const override;
     //bool checkIndex(const QModelIndex &index) const;
+    bool loadSortirToUvk(const tSl2Odo2 *srt);
 
 private:
     int current_index;
@@ -58,6 +59,7 @@ private:
     QHash<int, QByteArray> otcepRoles;
 public slots:
     void slotOtcepChanged();
+    void sortirArrived(const tSl2Odo2 *srt);
 
 };
 #endif // DATASOURCEMODEL_H
