@@ -21,7 +21,7 @@ ColumnLayout {
             model: otcepsModelRedact
             delegate: OtcepViewDelegate{}
             clip: true
-//            highlight: highlightBar
+            //            highlight: highlightBar
             highlightRangeMode: ListView.StrictlyEnforceRange
             preferredHighlightBegin: height/3
             preferredHighlightEnd: height/3
@@ -35,8 +35,8 @@ ColumnLayout {
         }
     }
     RowLayout {
-        MultiButton{text: "Добавить"; Layout.fillWidth: true}
-        MultiButton{text: "Отправить"; Layout.fillWidth: true}
+        Button{text: "Добавить"; Layout.fillWidth: true}
+        Button{text: "Отправить"; Layout.fillWidth: true}
 
     }
 }

@@ -4,16 +4,28 @@ import QtQuick.Layouts 1.3
 Rectangle {
     id: delegate
     //цвет в зависимости от STATE_LOCATION
-    property variant items_color: ["brown", "yellow","green"]
+    property variant items_color: ["red", "yellow","green","dimgrey","white","LightGray"]
+
     width: parent.width;
     height: 65
     visible: STATE_ENABLED
-    //    enabled: STATE_ENABLED
+    //    state: "dimgrey"
     states:
         [
+        //        State {
+        //            name: "black1"
+        ////            when: model.index<delegate.ListView.view.currentIndex // bind to isCurrentItem to set the state
+        ////            when: model.index<delegate.ListView.view.currentIndex
+        //            PropertyChanges {
+        //                target: delegate
+        //                color: "black"
+        ////                opacity: 0.2
+        //            }
+        //        },
         State {
             name: "opacity_grey"
-            when: model.index<delegate.ListView.view.currentIndex // bind to isCurrentItem to set the state
+            //            when: model.index<delegate.ListView.view.currentIndex // bind to isCurrentItem to set the state
+            //            when: model.index<delegate.ListView.view.currentIndex
             PropertyChanges {
                 target: delegate
                 color: "#b7b7b7"
@@ -22,11 +34,34 @@ Rectangle {
         },
         State {
             name: "grey"
-            when: model.index>delegate.ListView.view.currentIndex // bind to isCurrentItem to set the state
+            when: STATE_LOCATION==2 && STATE_MAR==STATE_MAR_F || STATE_LOCATION == 3// bind to isCurrentItem to set the state
             PropertyChanges {
                 target: delegate
-                color: delegate.items_color[STATE_LOCATION]
-
+                color:delegate.items_color[3]
+            }
+        },
+        State {
+            name: "lightgrey"
+            when: STATE_LOCATION==2 && STATE_MAR!=STATE_MAR_F// bind to isCurrentItem to set the state
+            PropertyChanges {
+                target: delegate
+                color:delegate.items_color[5]
+            }
+        },
+        State {
+            name: "yellow"
+            when: STATE_LOCATION == 2 &&   STATE_ZKR_PROGRESS==1// bind to isCurrentItem to set the state
+            PropertyChanges {
+                target: delegate
+                color:delegate.items_color[1]
+            }
+        },
+        State {
+            name: "red"
+            when: STATE_ERROR==1// bind to isCurrentItem to set the state
+            PropertyChanges {
+                target: delegate
+                color:delegate.items_color[0]
             }
         },
         State {
@@ -36,10 +71,25 @@ Rectangle {
                 target: delegate
                 color: "lightsteelblue"
             }
+        },
+        State {
+            name: "white"
+            when: STATE_LOCATION == 1// bind to isCurrentItem to set the state
+            PropertyChanges {
+                target: delegate
+                color: delegate.items_color[4]
+            }
+        },
+        State {
+            name: "dimgrey"
+            when: !delegate.ListView.isCurrentItem
+            PropertyChanges {
+                target: delegate
+                color: "dimgrey"
+            }
         }
-
     ]
-    MouseAreaQml {}
+    MouseAreaQml {id: mouseArea}
 
     RowLayout   {
         id: layout
@@ -58,12 +108,25 @@ Rectangle {
         Number { txt: STATE_V; name: 'STATE_V' }
         Number { txt: STATE_KZP; name: 'STATE_KZP' }
         Icons {
+            id:iconDel
             src: "content/list-delete.png"
+            visible: visibleIcon
             MouseArea {anchors.fill:parent; onClicked: otcepsModelRedact.deleteFromEditOtcepList(index)            }
         }
         Icons {
+            id:iconAdd
             src: "content/plus-sign.png"
+            visible: visibleIcon
             MouseArea {anchors.fill:parent; onClicked: otcepsModelRedact.addToList()            }
+        }
+    }
+
+    Connections {
+        target: otcepsModel
+        onSetEnabledEdit: {
+            visibleIcon=qmlVisible
+            iconDel.visible=visibleIcon
+            iconAdd.visible=visibleIcon
         }
     }
 }

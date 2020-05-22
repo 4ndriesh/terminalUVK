@@ -1,4 +1,4 @@
-QT += quick
+QT += charts qml quick
 
 CONFIG += c++11
 
@@ -17,7 +17,7 @@ SOURCES += \
         app/editotcepsmodel.cpp \
         app/otcepsobject.cpp \
         app/viewotcepsmodel.cpp \
-        main.cpp \
+    main.cpp \
     mvp_import.cpp
 
 RESOURCES += qml.qrc
@@ -35,16 +35,19 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     app/editotcepsmodel.h \
+#    app/emitwinthread.h \
     app/otcepsobject.h \
     app/viewotcepsmodel.h \
     mvp_import.h
 
 # SYB
 DEFINES += NO_LIBRARY
-MVP_ROOT=$$PWD/../..
+MVP_ROOT=$$PWD/../fromSYB
 
 #https://github.com/yx500/mvp_classes.git
 include($$MVP_ROOT/mvp_classes/mvp_model_gorka.pri)
 #https://github.com/yx500/common_src.git
 include($$MVP_ROOT/common_src/signalmanager/signalmanager.pri)
 include($$MVP_ROOT/common_src/gtcommandinterface/gtcommandinterface.pri)
+
+DISTFILES +=

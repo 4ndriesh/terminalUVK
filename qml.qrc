@@ -12,14 +12,17 @@
         <file>qml/Icons.qml</file>
         <file>qml/main.qml</file>
         <file>qml/Number.qml</file>
-        <file>qml/OtcepsModel.qml</file>
         <file>qml/OtcepsView.qml</file>
         <file>qml/OtcepViewDelegate.qml</file>
         <file>qml/EditOtceps.qml</file>
         <file>qml/TuvkChangePage.qml</file>
         <file>qml/TuvkMainPage.qml</file>
-        <file>qml/MultiButton.qml</file>
         <file>qml/HighlightBar.qml</file>
         <file>qml/MouseAreaQml.qml</file>
+        <file>qml/MultiButton.qml</file>
+        <file>qml/DialogWin.qml</file>
+        <file>qml/ButtonPanel.qml</file>
+        <file>qml/terminalUVK.js</file>
+        <file>qml/ChartSpeed.qml</file>
     </qresource>
 </RCC>

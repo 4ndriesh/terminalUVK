@@ -12,15 +12,13 @@ Rectangle {
     border.color: "grey"
     //    radius: height/4
     smooth: true
-
     property alias txt: text.text
     property int echoMode: TextInput.Normal
     property color col
     property var name
-
     TextInput {
         id: text
-
+        enabled: visibleIcon
         onEditingFinished: {
             switch(name) {
             case "STATE_NUM": STATE_NUM=text.text;
@@ -59,18 +57,29 @@ Rectangle {
         font.pointSize: 18
 
 
-//        echoMode: textField.echoMode
+        echoMode: textField.echoMode
 
-//                onTextChanged: textField.textChanged(text)
+        //                onTextChanged: textField.textChanged(text)
 
         onFocusChanged: {
-            if(focus){
+            if(focus && visibleIcon==true){
                 textField.border.color = "red"
                 textField.border.width = 5
+                num2.visible = true
             }else{
                 textField.border.color = "grey"
                 textField.border.width = 1
             }
+        }
+
+    }
+    Connections {
+        target: otcepsModel
+        onSetEnabledEdit: {
+            visibleIcon=qmlVisible
+            textField.border.color = "grey"
+            textField.border.width = 1
+            text.enabled = visibleIcon
         }
     }
 }

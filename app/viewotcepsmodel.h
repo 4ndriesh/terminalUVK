@@ -14,10 +14,21 @@ class ViewOtcepsModel : public QAbstractListModel
     QTimer * timer;
 public slots:
     void deleteFromList();
+    void setPutNadviga(int);
+    int getPutNadviga();
+    void setStopPause(int);
+    int getStopPause();
+    void editSortir(bool qmlVisivle);
 
 signals:
     void showMessage(QString colorMessage, QString textMessage);
     void setCurrentItem(int index);
+    void setColorPutNadviga(int qmlPUT_NADVIG);
+    void setColorStop(int qmlStopPause);
+    void setColorPause(int qmlStopPause);
+    void setEnabledEdit(bool qmlVisible);
+    void sendStartProgressBar();
+    void sendStopProgressBar();
 
 
 public:
@@ -54,6 +65,10 @@ public:
     bool loadSortirToUvk(const tSl2Odo2 *srt);
 
 private:
+    int qmlPUT_NADVIG;
+    int qmlStopPause;
+    bool qmlVisible;
+//    bool qmlEnabled;
     int current_index;
     QList<DataObject> ViewOtcepList;
     QHash<int, QByteArray> otcepRoles;

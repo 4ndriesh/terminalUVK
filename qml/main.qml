@@ -9,7 +9,7 @@ ApplicationWindow {
     visible: true
     width: 1200
     height: 600
-    title: qsTr("Терминал УВК")
+    //    title: qsTr("Терминал УВК")
 
     Connections{
         target: otcepsModel
@@ -32,12 +32,15 @@ ApplicationWindow {
             Rectangle {
                 color: "#565656"
                 Layout.fillHeight: true
-                Layout.minimumWidth: 100
-                Layout.maximumWidth: 200
-                Text {
-                    text: "View 1"
-                    anchors.centerIn: parent
+                Layout.minimumWidth: 200
+                Layout.maximumWidth: 400
+                ChartSpeed{
+                    id: idChartView
                 }
+                //                Text {
+                //                    text: "View 1"
+                //                    anchors.centerIn: parent
+                //                }
             }
 
             StackLayout {
@@ -48,18 +51,19 @@ ApplicationWindow {
                 TuvkMainPage{
                 }
 
-                TuvkChangePage{
-                }
+
+                //                TuvkChangePage{
+                //                }
+
             }
 
             Rectangle {
                 color: "#565656"
                 //Layout.fillHeight: true
-                Layout.minimumWidth: 100
-                Layout.maximumWidth: 200
-                Text {
-                    text: "View 2"
-                    anchors.centerIn: parent
+                Layout.minimumWidth: 200
+                Layout.maximumWidth: 400
+                ChartSpeed{
+                    id: idChartView2
                 }
             }
         }
