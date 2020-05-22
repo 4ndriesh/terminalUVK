@@ -47,6 +47,9 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
     ,timer(new QTimer(this))
 
 {
+    qmlVisible=false;
+    qmlPUT_NADVIG=MVP_Import::instance()->gorka->PUT_NADVIG();
+    qmlStopPause = MVP_Import::instance()->gorka->STATE_REGIM();
     int irole=Qt::UserRole+1;
     for (int idx = 0; idx < m_Otcep::staticMetaObject.propertyCount(); idx++) {
         QMetaProperty metaProperty = m_Otcep::staticMetaObject.property(idx);
@@ -59,26 +62,30 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
 
         m_Otceps *otceps=MVP_Import::instance()->gorka->findChildren<m_Otceps *>().first();
         for (int i=0; i<otceps->l_otceps.size();i++) {
+
             addDataObject(DataObject(otceps->l_otceps[i]));
             connect(otceps->l_otceps[i],&m_Otcep::stateChanged,this,&ViewOtcepsModel::slotOtcepChanged);
         }
 
     }
 
-    timer->setInterval(1000);
-    connect(timer, &QTimer::timeout , this, &ViewOtcepsModel::slotOtcepChanged);
+    //    timer->setInterval(1000);
+    //    connect(timer, &QTimer::timeout , this, &ViewOtcepsModel::slotOtcepChanged);
     //timer->start();
+
     connect(MVP_Import::instance(),&MVP_Import::sortirArrived,this,&ViewOtcepsModel::sortirArrived);
+
 }
 
 
 void ViewOtcepsModel::slotOtcepChanged()
-{
+{        
+    emit setColorStop(MVP_Import::instance()->gorka->STATE_REGIM());
+    emit setColorPause(MVP_Import::instance()->gorka->STATE_REGIM());
+    emit setColorPutNadviga(MVP_Import::instance()->gorka->PUT_NADVIG());
     beginResetModel();
     endResetModel();
 }
-
-
 
 
 QVariantMap ViewOtcepsModel::get(int row) const
@@ -89,6 +96,7 @@ QVariantMap ViewOtcepsModel::get(int row) const
 
 void ViewOtcepsModel::addDataObject(const DataObject &dataSourceObject)
 {
+
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     ViewOtcepList << dataSourceObject;
     endInsertRows();
@@ -104,6 +112,7 @@ int ViewOtcepsModel::rowCount(const QModelIndex &parent) const
 
 QVariant ViewOtcepsModel::data(const QModelIndex &index, int role) const
 {
+
     if(index.row() < 0 || index.row() >= ViewOtcepList.count() || !index.isValid())
         return  QVariant();
 
@@ -161,6 +170,7 @@ void ViewOtcepsModel::sortirArrived(const tSl2Odo2 *srt)
 }
 bool ViewOtcepsModel::loadSortirToUvk(const tSl2Odo2 *srt)
 {
+
     m_Otceps *otceps=MVP_Import::instance()->gorka->findChildren<m_Otceps *>().first();
 
     QMap<QString,QString> m;
@@ -168,6 +178,7 @@ bool ViewOtcepsModel::loadSortirToUvk(const tSl2Odo2 *srt)
     m["CMD"]="OTCEPS";
     m["CLEAR_ALL"]="1";
     MVP_Import::instance()->cmd->send_cmd(m);
+    emit sendStartProgressBar();
     qDebug()<< "sortir send clear " ;
     QElapsedTimer t;
     t.start();
@@ -176,7 +187,7 @@ bool ViewOtcepsModel::loadSortirToUvk(const tSl2Odo2 *srt)
         QCoreApplication::processEvents();
     }
     if (!otceps->enabledOtceps().isEmpty()){
-        // не прошла команда очистки
+        // не прошла команда очистки        
         qDebug()<< "error sortir send clear " ;
         return false;
     }
@@ -249,6 +260,7 @@ bool ViewOtcepsModel::loadSortirToUvk(const tSl2Odo2 *srt)
         m["CLEAR_ALL"]="1";
         MVP_Import::instance()->cmd->send_cmd(m);
     }
+    emit sendStopProgressBar();
     return errorLoad;
 }
 
@@ -257,3 +269,37 @@ void ViewOtcepsModel::deleteFromList()
 {
 
 }
+
+void ViewOtcepsModel::setPutNadviga(int valuePutNadviga)
+{
+    qDebug()<< valuePutNadviga;
+    //    здесь установить путь надвига
+    qmlPUT_NADVIG = valuePutNadviga;
+}
+
+int ViewOtcepsModel::getPutNadviga()
+{
+//    qmlPUT_NADVIG=MVP_Import::instance()->gorka->PUT_NADVIG();
+    return qmlPUT_NADVIG;
+}
+
+void ViewOtcepsModel::setStopPause(int valueStopPause)
+{
+//    здесь установить режим стоп/пауза
+    qmlStopPause = valueStopPause;
+}
+
+int ViewOtcepsModel::getStopPause()
+{
+//    qmlStopPause=MVP_Import::instance()->gorka->STATE_REGIM();
+    return qmlStopPause;
+}
+
+void ViewOtcepsModel::editSortir(bool valueVisible)
+{
+//    qmlStopPause=MVP_Import::instance()->gorka->STATE_REGIM();
+    qmlVisible=valueVisible;
+    emit setEnabledEdit(qmlVisible);
+}
+
+

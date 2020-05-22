@@ -72,3 +72,4 @@ Thumbs.db
 *.exe
 *.pro
 /terminal_uvk.pro
+app/CChartView.qml

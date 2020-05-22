@@ -38,15 +38,15 @@ int EditOtcepsModel::rowCount(const QModelIndex &parent) const
 
 QVariant EditOtcepsModel::data(const QModelIndex &index, int role) const
 {
-    Q_ASSERT(checkIndex(index, QAbstractItemModel::CheckIndexOption::IndexIsValid));
+//    Q_ASSERT(checkIndex(index, QAbstractItemModel::CheckIndexOption::IndexIsValid));
 
-    if(index.row() < 0 || index.row() >= EditOtcepList.count() || !index.isValid())
-        return  QVariant();
+//    if(index.row() < 0 || index.row() >= EditOtcepList.count() || !index.isValid())
+//        return  QVariant();
 
-    const DataObject &DataObject = EditOtcepList[index.row()];
+//    const DataObject &DataObject = EditOtcepList[index.row()];
 
 
-    return QVariant();
+//    return QVariant();
 }
 
 bool EditOtcepsModel::setData(const QModelIndex &index, const QVariant &value, int role)
