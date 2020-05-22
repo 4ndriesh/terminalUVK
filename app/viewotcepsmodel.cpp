@@ -155,6 +155,7 @@ QHash<int, QByteArray> ViewOtcepsModel::roleNames() const
 void ViewOtcepsModel::sortirArrived(const tSl2Odo2 *srt)
 {
     // прверить что режим ввода установлен
+    // если нет то запомнить и мигать кнопкой
     if (!loadSortirToUvk(srt)) {
         MVP_Import::instance()->_Id=0;
     }
@@ -192,6 +193,7 @@ bool ViewOtcepsModel::loadSortirToUvk(const tSl2Odo2 *srt)
         m["SP"]=QString::number(o.SP);
         m["SL_VAGON_CNT"]=QString::number(o.vVag.size());
         m["SL_OSY_CNT"]=QString::number(o.Osy);
+        m["SL_LEN"]=QString::number(o.Ln);
         m["SL_VES"]=QString::number(o.ves_sl);
         m["SL_BAZA"]=QString::number(o.aDb);
         m["SL_UR"]=QString::number(o.Ne);

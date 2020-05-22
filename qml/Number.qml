@@ -41,7 +41,7 @@ Rectangle {
                 break;
             case "STATE_NAGON": STATE_NAGON=text.text;
                 break;
-            case "STATE_UR": STATE_UR=text.text;
+            case "STATE_SL_UR": STATE_SL_UR=text.text;
                 break;
             case "STATE_V": STATE_V=text.text;
                 break;

@@ -54,7 +54,7 @@ Rectangle {
         DualNumber { txt1: STATE_SL_KAT; name1: 'STATE_SL_KAT'; txt2: STATE_ZKR_KAT; name2: 'STATE_ZKR_KAT';  }
         Number { txt: STATE_ZKR_BAZA; name: 'STATE_ZKR_BAZA' }
         Number { txt: STATE_NAGON; name: 'STATE_NAGON' }
-        Number { txt: STATE_UR; name: 'STATE_UR' }
+        Number { txt: STATE_SL_UR; name: 'STATE_SL_UR' }
         Number { txt: STATE_V; name: 'STATE_V' }
         Number { txt: STATE_KZP; name: 'STATE_KZP' }
         Icons {

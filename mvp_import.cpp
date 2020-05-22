@@ -101,8 +101,7 @@ void MVP_Import::makeSortir()
             o.Osy=0;
         }
         o.vVag.push_back(*v);
-        o.Ln+=v->Ln;
-        o.ves_sl+= (v->MassV + v->MassG);
+        o.Ln+=v->Ln/1000.;
         sum_ves+= (v->MassV + v->MassG);
 
         o.Ne = SumUR(o.Ne, v->Ur);
