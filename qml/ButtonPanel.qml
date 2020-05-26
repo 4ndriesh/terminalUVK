@@ -38,7 +38,7 @@ RowLayout {
         items: [1, 2]
         currentSelection: 0
         onSelectionLeftMouse: setRegime(currentSelection == 1,
-                                        otcepsModel.setPutNadviga(currentSelection+1),
+                                        otcepsModel.setPutNadviga(items[currentSelection]),
                                         putnadviga.colorRect =MyScript.getColore(otcepsModel.getPutNadviga()))
         onSelectionRightMouse: setPutNadviga(
                                    dialselectputinadviga.name=putnadviga.text + putnadviga.items[(currentSelection + 1) % items.length],
@@ -80,9 +80,16 @@ RowLayout {
             target: otcepsModel
             onSetColorPause: {
                 pause.colorRect =MyScript.getColorePause(qmlStopPause)
-
             }
         }
+    }
+
+    MultiButton {
+        id: tmp
+        text: "ПАУЗА"
+        items: [""]
+        currentSelection: 0
+        onSelectionLeftMouse: otcepsModel.getRndChart()
     }
 
 }
