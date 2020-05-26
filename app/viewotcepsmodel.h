@@ -10,6 +10,7 @@ struct tSl2Odo2;
 
 class ViewOtcepsModel : public QAbstractListModel
 {
+
     Q_OBJECT
     QTimer * timer;
 public slots:
@@ -19,6 +20,7 @@ public slots:
     void setStopPause(int);
     int getStopPause();
     void editSortir(bool qmlVisivle);
+    void getRndChart();
 
 signals:
     void showMessage(QString colorMessage, QString textMessage);
@@ -27,6 +29,7 @@ signals:
     void setColorStop(int qmlStopPause);
     void setColorPause(int qmlStopPause);
     void setEnabledEdit(bool qmlVisible);
+    void setRndChart(int qmlX, int qmlY);
     void sendStartProgressBar();
     void sendStopProgressBar();
 
@@ -68,6 +71,8 @@ private:
     int qmlPUT_NADVIG;
     int qmlStopPause;
     bool qmlVisible;
+    int qmlX;
+    int qmlY;
 //    bool qmlEnabled;
     int current_index;
     QList<DataObject> ViewOtcepList;

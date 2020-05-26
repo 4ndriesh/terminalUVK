@@ -76,8 +76,8 @@ Dialog {
                 }
                 onClicked: {
 
-                    putnadviga.currentSelection = (putnadviga.currentSelection + 1) % putnadviga.items.length;//
-                    putnadviga.colorRect =MyScript.getColore(otcepsModel.setPutNadviga(putnadviga.currentSelection))
+                    putnadviga.currentSelection = (putnadviga.currentSelection+1) % putnadviga.items.length;//
+                    putnadviga.colorRect =MyScript.getColore(otcepsModel.getPutNadviga(putnadviga.currentSelection))
                     dialselectputinadviga.close()
                 }
             }

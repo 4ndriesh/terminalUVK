@@ -11,7 +11,6 @@
 
 
 
-
 /*
     Видимость -  STATE_ENABLED
     цвет
@@ -47,6 +46,7 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
     ,timer(new QTimer(this))
 
 {
+    qmlX=1;
     qmlVisible=false;
     qmlPUT_NADVIG=MVP_Import::instance()->gorka->PUT_NADVIG();
     qmlStopPause = MVP_Import::instance()->gorka->STATE_REGIM();
@@ -281,6 +281,7 @@ void ViewOtcepsModel::setPutNadviga(int valuePutNadviga)
 
 int ViewOtcepsModel::getPutNadviga()
 {
+    qDebug()<<qmlPUT_NADVIG;
 //    qmlPUT_NADVIG=MVP_Import::instance()->gorka->PUT_NADVIG();
     return qmlPUT_NADVIG;
 }
@@ -304,4 +305,11 @@ void ViewOtcepsModel::editSortir(bool valueVisible)
     emit setEnabledEdit(qmlVisible);
 }
 
+void ViewOtcepsModel::getRndChart()
+{
+//    qmlStopPause=MVP_Import::instance()->gorka->STATE_REGIM();
+    qmlX+=1;
+    qmlY=qrand() % 10;
+    emit setRndChart(qmlX,qmlY);
+}
 
