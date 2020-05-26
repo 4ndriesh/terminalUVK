@@ -42,7 +42,7 @@ HEADERS += \
 
 # SYB
 DEFINES += NO_LIBRARY
-MVP_ROOT=$$PWD/../fromSYB
+MVP_ROOT=$$PWD/libs
 
 #https://github.com/yx500/mvp_classes.git
 include($$MVP_ROOT/mvp_classes/mvp_model_gorka.pri)
