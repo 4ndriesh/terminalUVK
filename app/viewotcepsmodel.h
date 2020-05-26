@@ -21,6 +21,8 @@ public slots:
     int getStopPause();
     void editSortir(bool qmlVisivle);
     void getRndChart();
+    void slotStartProgressBar(){emit sendStartProgressBar();}
+    void slotStopProgressBar(){emit sendStopProgressBar();}
 
 signals:
     void showMessage(QString colorMessage, QString textMessage);

@@ -34,7 +34,7 @@ Rectangle {
         },
         State {
             name: "grey"
-            when: STATE_LOCATION==2 && STATE_MAR==STATE_MAR_F || STATE_LOCATION == 3// bind to isCurrentItem to set the state
+            when: STATE_LOCATION==2 && STATE_SP==STATE_SP_F || STATE_LOCATION == 3// bind to isCurrentItem to set the state
             PropertyChanges {
                 target: delegate
                 color:delegate.items_color[3]
@@ -42,7 +42,7 @@ Rectangle {
         },
         State {
             name: "lightgrey"
-            when: STATE_LOCATION==2 && STATE_MAR!=STATE_MAR_F// bind to isCurrentItem to set the state
+            when: STATE_LOCATION==2 && STATE_SP!=STATE_SP_F// bind to isCurrentItem to set the state
             PropertyChanges {
                 target: delegate
                 color:delegate.items_color[5]
@@ -99,14 +99,14 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
 
         Number { txt: STATE_NUM; name: 'STATE_NUM'}
-        DualNumber { txt1: STATE_MAR; name1: 'STATE_MAR'; txt2: STATE_MAR_F; name2: 'STATE_MAR_F'  }
+        DualNumber { txt1: STATE_SP; name1: 'STATE_SP'; txt2: STATE_SP_F; name2: 'STATE_SP_F'  }
         DualNumber { txt1: STATE_SL_VAGON_CNT; name1: 'STATE_SL_VAGON_CNT'; txt2: STATE_ZKR_VAGON_CNT; name2: 'STATE_ZKR_VAGON_CNT'  }
-        DualNumber { txt1: STATE_SL_KAT; name1: 'STATE_SL_KAT'; txt2: STATE_ZKR_KAT; name2: 'STATE_ZKR_KAT';  }
+        DualNumber { txt1: STATE_SL_VES; name1: 'STATE_SL_VES'; txt2: STATE_ZKR_VES; name2: 'STATE_ZKR_VES';  }
         Number { txt: STATE_ZKR_BAZA; name: 'STATE_ZKR_BAZA' }
         Number { txt: STATE_NAGON; name: 'STATE_NAGON' }
         Number { txt: STATE_SL_UR; name: 'STATE_SL_UR' }
         Number { txt: STATE_V; name: 'STATE_V' }
-        Number { txt: STATE_KZP; name: 'STATE_KZP' }
+        Number { txt: STATE_V; name: 'STATE_V' }
         Icons {
             id:iconDel
             src: "content/list-delete.png"

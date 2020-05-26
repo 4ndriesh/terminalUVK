@@ -57,7 +57,7 @@ RowLayout {
         text: "СТОП"
         items: [""]
         currentSelection: 0
-        onSelectionLeftMouse: setStopPause(otcepsModel.setStopPause(1),
+        onSelectionLeftMouse: setStopPause(otcepsModel.setStopPause(0),
                                            stop.colorRect =MyScript.getColoreStop(otcepsModel.getStopPause()))
         Connections {
             target: otcepsModel

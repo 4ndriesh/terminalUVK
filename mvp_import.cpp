@@ -25,8 +25,9 @@ bool MVP_Import::load(QString fn)
     if (!gorka) {
         qDebug() << "load problem " << fn;
         return false;
-        return  false;
     }
+    otceps=MVP_Import::instance()->gorka->findChildren<m_Otceps *>().first();
+
 
     // прием сортира от дспг
 
@@ -125,4 +126,141 @@ void MVP_Import::buffer14Changed(GtBuffer *)
         // ждем изменения 2 сек
         QTimer::singleShot(2000, this, &MVP_Import::makeSortir);
     }
+}
+bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
+{
+
+    m_Otceps *otceps=MVP_Import::instance()->gorka->findChildren<m_Otceps *>().first();
+
+    QMap<QString,QString> m;
+    m["DEST"]="UVK";
+    m["CMD"]="OTCEPS";
+    m["CLEAR_ALL"]="1";
+    MVP_Import::instance()->cmd->send_cmd(m);
+    emit sendStartProgressBar();
+    qDebug()<< "sortir send clear " ;
+    QElapsedTimer t;
+    t.start();
+
+    while ((!otceps->enabledOtceps().isEmpty())&&(t.elapsed()<1000)){
+        QCoreApplication::processEvents();
+    }
+    if (!otceps->enabledOtceps().isEmpty()){
+        // не прошла команда очистки
+        qDebug()<< "error sortir send clear " ;
+        return false;
+    }
+    bool errorLoad=false;
+    foreach (const tSl2OdoRec2 &o, srt->vOtceps) {
+        m.clear();
+        m["DEST"]="UVK";
+        m["CMD"]="SET_OTCEP_STATE";
+        m["N"]=QString::number(o.NO);
+
+        m["ENABLED"]=QString::number(1);
+        m["ID_ROSP"]=QString::number(srt->Id);
+        m["SP"]=QString::number(o.SP);
+        m["SL_VAGON_CNT"]=QString::number(o.vVag.size());
+        m["SL_OSY_CNT"]=QString::number(o.Osy);
+        m["SL_LEN"]=QString::number(o.Ln);
+        m["SL_VES"]=QString::number(o.ves_sl);
+        m["SL_BAZA"]=QString::number(o.aDb);
+        m["SL_UR"]=QString::number(o.Ne);
+        m["SL_OSO"]=QString::number(o.OSO);
+        MVP_Import::instance()->cmd->send_cmd(m);
+        qDebug()<< "sortir send otcep " << o.NO;
+        t.start();
+        m_Otcep *otcep=otceps->otcepByNum(o.NO);
+        if (otcep==nullptr){
+            errorLoad=true;
+
+            break;
+        }
+        while ((otcep->STATE_SP()!=o.SP)&&(t.elapsed()<1000)){
+            QCoreApplication::processEvents();
+        }
+        if ((otcep->STATE_SP()!=o.SP)){
+            // не прошла команда на отцеп
+            errorLoad=true;
+            qDebug()<< "error sortir send otcep " << o.NO;
+            break;
+        }
+
+        foreach (const tSlVagon &v, o.vVag) {
+
+            m.clear();
+            m["DEST"]="UVK";
+            m["CMD"]="ADD_OTCEP_VAG";
+            m["N"]=QString::number(o.NO);
+            QVariantHash vm=tSlVagon2Map(v);
+            foreach (QString key, vm.keys()) {
+                m[key]=vm[key].toString();
+            }
+
+            MVP_Import::instance()->cmd->send_cmd(m);
+            qDebug()<< "sortir send otcep vagon" << o.NO << v.IV;
+            t.start();
+            while (((otcep->vVag.isEmpty())||(otcep->vVag.last().IV!=v.IV))&&(t.elapsed()<1000)){
+                QCoreApplication::processEvents();
+            }
+            if ((otcep->vVag.isEmpty())||(otcep->vVag.last().IV!=v.IV)){
+                // не прошла команда на вагон
+                errorLoad=true;
+                qDebug()<< "error sortir send otcep vagon" << o.NO << v.IV;
+                break;
+            }
+        }
+        if (errorLoad) break;
+    }
+    if (errorLoad){
+        // чистим все
+        m.clear();
+        m["DEST"]="UVK";
+        m["CMD"]="OTCEPS";
+        m["CLEAR_ALL"]="1";
+        MVP_Import::instance()->cmd->send_cmd(m);
+    }
+    emit sendStopProgressBar();
+    return errorLoad;
+}
+
+void MVP_Import::setRegim(int p)
+{
+    QMap<QString,QString> m;
+    m["DEST"]="UVK";
+    m["CMD"]="SET_RIGIME";
+    switch (p){
+    case ModelGroupGorka::regimRospusk:
+        m["REGIME"]="ROSPUSK";
+        break;
+    case ModelGroupGorka::regimPausa:
+        m["REGIME"]="PAUSE";
+        break;
+    case ModelGroupGorka::regimStop:
+        m["REGIME"]="STOP";
+        break;
+    default: return;
+    }
+    MVP_Import::instance()->cmd->send_cmd(m);
+    qDebug()<< "setRegim to uvk" << p;
+
+}
+
+void MVP_Import::setPutNadvig(int p)
+{
+    QMap<QString,QString> m;
+    m["DEST"]="UVK";
+    m["CMD"]="SET_ACT_ZKR";
+    switch (p){
+    case 1:
+        m["ACT_ZKR"]="1";
+        break;
+    case 2:
+        m["ACT_ZKR"]="2";
+        break;
+
+    default: return;
+    }
+    MVP_Import::instance()->cmd->send_cmd(m);
+    qDebug()<< "setPutNadvig to uvk" << p;
 }

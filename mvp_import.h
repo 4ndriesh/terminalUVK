@@ -43,11 +43,17 @@ public:
     GtBuffers_UDP_D2 udp;
     bool load(QString fn);
     ModelGroupGorka *gorka=nullptr;
+    m_Otceps *otceps=nullptr;
     GtCommandInterface *cmd;
     uint32 _Id=0;
+    bool loadSortirToUvk(const tSl2Odo2 *srt);
+    void setRegim(int p);
+    void setPutNadvig(int p);
 
 signals:
     void sortirArrived(const tSl2Odo2 *srt);
+    void sendStartProgressBar();
+    void sendStopProgressBar();
 public slots:
     void slotTimer();
     void buffer14Changed(GtBuffer *B);

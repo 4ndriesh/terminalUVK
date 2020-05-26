@@ -14,9 +14,9 @@
 /*
     Видимость -  STATE_ENABLED
     цвет
-    серый   STATE_LOCATION = 2(locationOnSpusk) && STATE_MAR==STATE_MAR_F
+    серый   STATE_LOCATION = 2(locationOnSpusk) && STATE_SP==STATE_SP_F
             или STATE_LOCATION = 3(locationOnPark)
-    светло серый   STATE_LOCATION = 2(locationOnSpusk) && STATE_MAR!=STATE_MAR_F
+    светло серый   STATE_LOCATION = 2(locationOnSpusk) && STATE_SP!=STATE_SP_F
     желтый         STATE_LOCATION = 2 &&   STATE_ZKR_PROGRESS==1
     красный STATE_ERROR==1
     белый STATE_LOCATION = 1(locationOnPrib)
@@ -60,12 +60,13 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
     current_index=0;
     if (MVP_Import::instance()->gorka!=nullptr){
 
-        m_Otceps *otceps=MVP_Import::instance()->gorka->findChildren<m_Otceps *>().first();
-        for (int i=0; i<otceps->l_otceps.size();i++) {
+                for (int i=0; i<MVP_Import::instance()->otceps->l_otceps.size();i++) {
 
-            addDataObject(DataObject(otceps->l_otceps[i]));
-            connect(otceps->l_otceps[i],&m_Otcep::stateChanged,this,&ViewOtcepsModel::slotOtcepChanged);
+            addDataObject(DataObject(MVP_Import::instance()->otceps->l_otceps[i]));
+            connect(MVP_Import::instance()->otceps->l_otceps[i],&m_Otcep::stateChanged,this,&ViewOtcepsModel::slotOtcepChanged);
         }
+        connect(MVP_Import::instance()->gorka,&ModelGroupGorka::stateChanged,this,&ViewOtcepsModel::slotOtcepChanged);
+
 
     }
 
@@ -74,7 +75,8 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
     //timer->start();
 
     connect(MVP_Import::instance(),&MVP_Import::sortirArrived,this,&ViewOtcepsModel::sortirArrived);
-
+    connect(MVP_Import::instance(),&MVP_Import::sendStartProgressBar,this,&ViewOtcepsModel::slotStartProgressBar);
+    connect(MVP_Import::instance(),&MVP_Import::sendStopProgressBar,this,&ViewOtcepsModel::slotStopProgressBar);
 }
 
 
@@ -171,99 +173,7 @@ void ViewOtcepsModel::sortirArrived(const tSl2Odo2 *srt)
 }
 bool ViewOtcepsModel::loadSortirToUvk(const tSl2Odo2 *srt)
 {
-
-    m_Otceps *otceps=MVP_Import::instance()->gorka->findChildren<m_Otceps *>().first();
-
-    QMap<QString,QString> m;
-    m["DEST"]="UVK";
-    m["CMD"]="OTCEPS";
-    m["CLEAR_ALL"]="1";
-    MVP_Import::instance()->cmd->send_cmd(m);
-    emit sendStartProgressBar();
-    qDebug()<< "sortir send clear " ;
-    QElapsedTimer t;
-    t.start();
-
-    while ((!otceps->enabledOtceps().isEmpty())&&(t.elapsed()<1000)){
-        QCoreApplication::processEvents();
-    }
-    if (!otceps->enabledOtceps().isEmpty()){
-        // не прошла команда очистки        
-        qDebug()<< "error sortir send clear " ;
-        return false;
-    }
-    bool errorLoad=false;
-    foreach (const tSl2OdoRec2 &o, srt->vOtceps) {
-        m.clear();
-        m["DEST"]="UVK";
-        m["CMD"]="SET_OTCEP_STATE";
-        m["N"]=QString::number(o.NO);
-
-        m["ENABLED"]=QString::number(1);
-        m["ID_ROSP"]=QString::number(srt->Id);
-        m["SP"]=QString::number(o.SP);
-        m["SL_VAGON_CNT"]=QString::number(o.vVag.size());
-        m["SL_OSY_CNT"]=QString::number(o.Osy);
-        m["SL_LEN"]=QString::number(o.Ln);
-        m["SL_VES"]=QString::number(o.ves_sl);
-        m["SL_BAZA"]=QString::number(o.aDb);
-        m["SL_UR"]=QString::number(o.Ne);
-        m["SL_OSO"]=QString::number(o.OSO);
-        MVP_Import::instance()->cmd->send_cmd(m);
-        qDebug()<< "sortir send otcep " << o.NO;
-        t.start();
-        m_Otcep *otcep=otceps->otcepByNum(o.NO);
-        if (otcep==nullptr){
-            errorLoad=true;
-
-            break;
-        }
-        while ((otcep->STATE_SP()!=o.SP)&&(t.elapsed()<1000)){
-            QCoreApplication::processEvents();
-        }
-        if ((otcep->STATE_SP()!=o.SP)){
-            // не прошла команда на отцеп
-            errorLoad=true;
-            qDebug()<< "error sortir send otcep " << o.NO;
-            break;
-        }
-
-        foreach (const tSlVagon &v, o.vVag) {
-
-            m.clear();
-            m["DEST"]="UVK";
-            m["CMD"]="ADD_OTCEP_VAG";
-            m["N"]=QString::number(o.NO);
-            QVariantHash vm=tSlVagon2Map(v);
-            foreach (QString key, vm.keys()) {
-                m[key]=vm[key].toString();
-            }
-
-            MVP_Import::instance()->cmd->send_cmd(m);
-            qDebug()<< "sortir send otcep vagon" << o.NO << v.IV;
-            t.start();
-            while (((otcep->vVag.isEmpty())||(otcep->vVag.last().IV!=v.IV))&&(t.elapsed()<1000)){
-                QCoreApplication::processEvents();
-            }
-            if ((otcep->vVag.isEmpty())||(otcep->vVag.last().IV!=v.IV)){
-                // не прошла команда на вагон
-                errorLoad=true;
-                qDebug()<< "error sortir send otcep vagon" << o.NO << v.IV;
-                break;
-            }
-        }
-        if (errorLoad) break;
-    }
-    if (errorLoad){
-        // чистим все
-        m.clear();
-        m["DEST"]="UVK";
-        m["CMD"]="OTCEPS";
-        m["CLEAR_ALL"]="1";
-        MVP_Import::instance()->cmd->send_cmd(m);
-    }
-    emit sendStopProgressBar();
-    return errorLoad;
+    return MVP_Import::instance()->loadSortirToUvk(srt);
 }
 
 
@@ -276,25 +186,47 @@ void ViewOtcepsModel::setPutNadviga(int valuePutNadviga)
 {
     qDebug()<< valuePutNadviga;
     //    здесь установить путь надвига
+    MVP_Import::instance()->setPutNadvig(valuePutNadviga);
+    MVP_Import::instance()->setRegim(ModelGroupGorka::regimRospusk);
+
     qmlPUT_NADVIG = valuePutNadviga;
 }
 
 int ViewOtcepsModel::getPutNadviga()
 {
     qDebug()<<qmlPUT_NADVIG;
-//    qmlPUT_NADVIG=MVP_Import::instance()->gorka->PUT_NADVIG();
+
+    qmlPUT_NADVIG=MVP_Import::instance()->gorka->PUT_NADVIG();
     return qmlPUT_NADVIG;
 }
 
 void ViewOtcepsModel::setStopPause(int valueStopPause)
 {
 //    здесь установить режим стоп/пауза
+    if (valueStopPause==ModelGroupGorka::regimStop){
+        if (MVP_Import::instance()->gorka->STATE_REGIM()!=ModelGroupGorka::regimStop)
+        {
+            // проверяем отцепы в ходу
+            int otcvhod=0;
+            foreach (auto otcep, MVP_Import::instance()->otceps->l_otceps) {
+                if ((otcep->STATE_ENABLED()) && (otcep->STATE_SP()!=otcep->STATE_SP())&&
+                        (otcep->STATE_V()!=_undefV_)&&(otcep->STATE_V()>0)) otcvhod++;
+            }
+            if (otcvhod>0){
+                qDebug() << "Отцепы в ходу!";
+            }
+            MVP_Import::instance()->setRegim(ModelGroupGorka::regimStop);
+        }
+
+    } else {
+        MVP_Import::instance()->setRegim(valueStopPause);
+    }
     qmlStopPause = valueStopPause;
 }
 
 int ViewOtcepsModel::getStopPause()
 {
-//    qmlStopPause=MVP_Import::instance()->gorka->STATE_REGIM();
+    qmlStopPause=MVP_Import::instance()->gorka->STATE_REGIM();
     return qmlStopPause;
 }
 

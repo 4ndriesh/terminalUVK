@@ -28,7 +28,7 @@ function getColore(qmlPUT_NADVIG)
 function getColoreStop(qmlStopPause)
 {
     var Colore="lightsteelblue";
-    if(qmlStopPause===1 && stop.buttonText==="СТОП"){
+    if(qmlStopPause===0 && stop.buttonText==="СТОП"){
         Colore="orange"
     }
     else{

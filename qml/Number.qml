@@ -23,17 +23,17 @@ Rectangle {
             switch(name) {
             case "STATE_NUM": STATE_NUM=text.text;
                 break;
-            case "STATE_MAR": STATE_MAR=text.text;
+            case "STATE_SP": STATE_SP=text.text;
                 break;
-            case "STATE_MAR_F": STATE_MAR_F=text.text;
+            case "STATE_SP_F": STATE_SP_F=text.text;
                 break;
-            case "STATE_SL_KAT": STATE_SL_KAT=text.text;
+            case "STATE_SL_VES": STATE_SL_VES=text.text;
                 break;
-            case "STATE_ZKR_KAT": STATE_ZKR_KAT=text.text;
+            case "STATE_ZKR_VES": STATE_ZKR_VES=text.text;
                 break;
-            case "STATE_SL_KAT": STATE_SL_KAT=text.text;
+            case "STATE_SL_VES": STATE_SL_VES=text.text;
                 break;
-            case "STATE_ZKR_KAT": STATE_ZKR_KAT=text.text;
+            case "STATE_ZKR_VES": STATE_ZKR_VES=text.text;
                 break;
             case "STATE_ZKR_BAZA": STATE_ZKR_BAZA=text.text;
                 break;
