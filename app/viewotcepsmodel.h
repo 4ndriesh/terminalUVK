@@ -21,6 +21,9 @@ public slots:
     int getStopPause();
     void editSortir(bool qmlVisivle);
     void getRndChart();
+    void addOtcepUP(int);
+    void addOtcepDown(int);
+    void addOtcepClearAll();
     void slotStartProgressBar(){emit sendStartProgressBar();}
     void slotStopProgressBar(){emit sendStopProgressBar();}
 
@@ -53,6 +56,7 @@ public:
 
 
     };
+    static ViewOtcepsModel *instance();
     explicit ViewOtcepsModel(QObject *parent=nullptr);
     void deleteDataSourceObject();
     void addDataObject(const DataObject &DataObject);
@@ -70,6 +74,7 @@ public:
     bool loadSortirToUvk(const tSl2Odo2 *srt);
 
 private:
+    static ViewOtcepsModel* model;
     int qmlPUT_NADVIG;
     int qmlStopPause;
     bool qmlVisible;

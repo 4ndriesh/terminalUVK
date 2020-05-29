@@ -137,7 +137,7 @@ bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
     m["CMD"]="OTCEPS";
     m["CLEAR_ALL"]="1";
     MVP_Import::instance()->cmd->send_cmd(m);
-    emit sendStartProgressBar();
+//    emit sendStartProgressBar();
     qDebug()<< "sortir send clear " ;
     QElapsedTimer t;
     t.start();
@@ -220,7 +220,7 @@ bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
         m["CLEAR_ALL"]="1";
         MVP_Import::instance()->cmd->send_cmd(m);
     }
-    emit sendStopProgressBar();
+//    emit sendStopProgressBar();
     return errorLoad;
 }
 

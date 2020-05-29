@@ -1,24 +1,41 @@
 import QtQuick 2.0
+import QtQuick.Controls 2.0
 //Item {
 //    id: itemMouseArea
 //    property alias enabledList: mouseArea.enabled
+
 MouseArea {
     id: mouseArea
+    function selectCurentIndex()
+    {
+        if (delegate.ListView.isCurrentItem)
+            delegate.ListView.view.currentIndex = -1;
+        else
+            delegate.ListView.view.currentIndex = model.index;
+    }
     anchors.fill: parent
     enabled: visibleIcon
+    acceptedButtons: Qt.LeftButton | Qt.RightButton
     //onClicked: delegate.ListView.view.currentIndex = model.index // if only selection is wanted
     onClicked: {
         //console.debug("click");
-        if (delegate.ListView.isCurrentItem)
+        if (mouse.button === Qt.RightButton)
         {
-            delegate.ListView.view.currentIndex = -1;
+            selectCurentIndex();
+            subMenu.popup();
 
         }
-        else
+
+        if (mouse.button === Qt.LeftButton)
         {
-            delegate.ListView.view.currentIndex = model.index;
+            selectCurentIndex();
         }
     }
+    onPressAndHold: {
+        if (mouse.source === Qt.MouseEventNotSynthesized)
+            subMenu.popup()
+    }
+    SubMenuOtcepView{id:subMenu}
     Connections {
         target: otcepsModel
         onSetEnabledEdit: {

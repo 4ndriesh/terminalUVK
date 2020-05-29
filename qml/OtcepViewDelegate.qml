@@ -22,14 +22,24 @@ Rectangle {
         ////                opacity: 0.2
         //            }
         //        },
+
+
+//        State {
+//            name: "opacity_grey"
+//            //            when: model.index<delegate.ListView.view.currentIndex // bind to isCurrentItem to set the state
+//            //            when: model.index<delegate.ListView.view.currentIndex
+//            PropertyChanges {
+//                target: delegate
+//                color: "#b7b7b7"
+//                opacity: 0.2
+//            }
+//        },
         State {
-            name: "opacity_grey"
-            //            when: model.index<delegate.ListView.view.currentIndex // bind to isCurrentItem to set the state
-            //            when: model.index<delegate.ListView.view.currentIndex
+            name: "red"
+            when: STATE_ERROR==1// bind to isCurrentItem to set the state
             PropertyChanges {
                 target: delegate
-                color: "#b7b7b7"
-                opacity: 0.2
+                color:delegate.items_color[0]
             }
         },
         State {
@@ -54,14 +64,6 @@ Rectangle {
             PropertyChanges {
                 target: delegate
                 color:delegate.items_color[1]
-            }
-        },
-        State {
-            name: "red"
-            when: STATE_ERROR==1// bind to isCurrentItem to set the state
-            PropertyChanges {
-                target: delegate
-                color:delegate.items_color[0]
             }
         },
         State {
@@ -90,7 +92,34 @@ Rectangle {
         }
     ]
     MouseAreaQml {id: mouseArea}
+//    function selectCurentIndex()
+//    {
+//        if (delegate.ListView.isCurrentItem)
+//            delegate.ListView.view.currentIndex = -1;
+//        else
+//            delegate.ListView.view.currentIndex = model.index;
+//    }
+//    Connections{
+//        target: mouseArea
+//        onClicked: {
+//            if (mouse.button === Qt.RightButton)
+//            {
+//                selectCurentIndex();
+//                subMenu.popup();
 
+//            }
+
+//            if (mouse.button === Qt.LeftButton)
+//            {
+//                selectCurentIndex();
+//            }
+//        }
+//        onPressAndHold: {
+//            if (mouse.source === Qt.MouseEventNotSynthesized)
+//                subMenu.popup()
+//        }
+
+//    }
     RowLayout   {
         id: layout
         anchors.fill: parent
@@ -98,10 +127,10 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
 
-        Number { txt: STATE_NUM; name: 'STATE_NUM'}
+        Number { txt: STATE_ERROR; name: 'STATE_NUM'}
         DualNumber { txt1: STATE_SP; name1: 'STATE_SP'; txt2: STATE_SP_F; name2: 'STATE_SP_F'  }
         DualNumber { txt1: STATE_SL_VAGON_CNT; name1: 'STATE_SL_VAGON_CNT'; txt2: STATE_ZKR_VAGON_CNT; name2: 'STATE_ZKR_VAGON_CNT'  }
-        DualNumber { txt1: STATE_SL_VES; name1: 'STATE_SL_VES'; txt2: STATE_ZKR_VES; name2: 'STATE_ZKR_VES';  }
+        DualNumber { txt1: STATE_SL_VES.toFixed(2); name1: 'STATE_SL_VES'; txt2: STATE_ZKR_VES.toFixed(2); name2: 'STATE_ZKR_VES';  }
         Number { txt: STATE_ZKR_BAZA; name: 'STATE_ZKR_BAZA' }
         Number { txt: STATE_NAGON; name: 'STATE_NAGON' }
         Number { txt: STATE_SL_UR; name: 'STATE_SL_UR' }

@@ -1,7 +1,7 @@
 QT += charts qml quick
 
 CONFIG += c++11
-
+TARGET = kbHook
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
 # depend on your compiler). Refer to the documentation for the
@@ -15,6 +15,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         app/editotcepsmodel.cpp \
+    app/kbdllhooks.cpp \
         app/otcepsobject.cpp \
         app/viewotcepsmodel.cpp \
     main.cpp \
@@ -36,13 +37,15 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     app/editotcepsmodel.h \
 #    app/emitwinthread.h \
+    app/kbdllhooks.h \
     app/otcepsobject.h \
     app/viewotcepsmodel.h \
     mvp_import.h
 
 # SYB
 DEFINES += NO_LIBRARY
-MVP_ROOT=$$PWD/libs
+MVP_ROOT=$$PWD/../fromSYB
+#MVP_ROOT=$$PWD/libs
 
 #https://github.com/yx500/mvp_classes.git
 include($$MVP_ROOT/mvp_classes/mvp_model_gorka.pri)

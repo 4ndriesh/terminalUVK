@@ -1,3 +1,4 @@
+
 function getColoreedirSortList(qmlVisible)
 {
     var Colore="lightsteelblue";

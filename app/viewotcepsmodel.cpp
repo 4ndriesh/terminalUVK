@@ -40,7 +40,7 @@
  */
 
 
-
+ViewOtcepsModel* ViewOtcepsModel::model = nullptr;
 ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
     : QAbstractListModel(parent)
     ,timer(new QTimer(this))
@@ -78,7 +78,12 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
     connect(MVP_Import::instance(),&MVP_Import::sendStartProgressBar,this,&ViewOtcepsModel::slotStartProgressBar);
     connect(MVP_Import::instance(),&MVP_Import::sendStopProgressBar,this,&ViewOtcepsModel::slotStopProgressBar);
 }
-
+ViewOtcepsModel *ViewOtcepsModel::instance()
+{
+    if (model == nullptr) // avoid creation of new instances
+        model = new ViewOtcepsModel;
+    return model;
+}
 
 void ViewOtcepsModel::slotOtcepChanged()
 {        
@@ -187,22 +192,25 @@ void ViewOtcepsModel::setPutNadviga(int valuePutNadviga)
     qDebug()<< valuePutNadviga;
     //    здесь установить путь надвига
     MVP_Import::instance()->setPutNadvig(valuePutNadviga);
-    MVP_Import::instance()->setRegim(ModelGroupGorka::regimRospusk);
+    MVP_Import::instance()->setRegim(valuePutNadviga);
+//    MVP_Import::instance()->setRegim(ModelGroupGorka::regimRospusk);
 
     qmlPUT_NADVIG = valuePutNadviga;
+    emit setColorPutNadviga(qmlPUT_NADVIG);
 }
 
 int ViewOtcepsModel::getPutNadviga()
 {
-    qDebug()<<qmlPUT_NADVIG;
+    qDebug()<<"getPut"<<qmlPUT_NADVIG;
 
-    qmlPUT_NADVIG=MVP_Import::instance()->gorka->PUT_NADVIG();
+//    qmlPUT_NADVIG=MVP_Import::instance()->gorka->PUT_NADVIG();
     return qmlPUT_NADVIG;
 }
 
 void ViewOtcepsModel::setStopPause(int valueStopPause)
 {
-//    здесь установить режим стоп/пауза
+qDebug()<<"Stop";
+    //    здесь установить режим стоп/пауза
     if (valueStopPause==ModelGroupGorka::regimStop){
         if (MVP_Import::instance()->gorka->STATE_REGIM()!=ModelGroupGorka::regimStop)
         {
@@ -222,6 +230,7 @@ void ViewOtcepsModel::setStopPause(int valueStopPause)
         MVP_Import::instance()->setRegim(valueStopPause);
     }
     qmlStopPause = valueStopPause;
+    emit setColorStop(qmlStopPause);
 }
 
 int ViewOtcepsModel::getStopPause()
@@ -245,3 +254,25 @@ void ViewOtcepsModel::getRndChart()
     emit setRndChart(qmlX,qmlY);
 }
 
+void ViewOtcepsModel::addOtcepUP(int index)
+{
+    if(index!=-1)
+    qDebug()<<"addup"<<index;
+}
+
+void ViewOtcepsModel::addOtcepDown(int index)
+{
+    if(index!=-1)
+    qDebug()<<"addDown"<<index;
+}
+
+void ViewOtcepsModel::addOtcepClearAll()
+{
+    qDebug()<<"addupClearAll";
+    QMap<QString,QString> m;
+    m.clear();
+    m["DEST"]="UVK";
+    m["CMD"]="OTCEPS";
+    m["CLEAR_ALL"]="1";
+    MVP_Import::instance()->cmd->send_cmd(m);
+}

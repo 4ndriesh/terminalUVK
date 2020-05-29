@@ -7,7 +7,7 @@ import QtQuick.Controls 2.4
 
 ApplicationWindow {
     visible: true
-    width: 1200
+    width: 1400
     height: 600
     //    title: qsTr("Терминал УВК")
 

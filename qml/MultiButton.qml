@@ -7,7 +7,7 @@ Item {
     height: 50
     property int put_nadviga: 0
     property string text: "РОСПУСК: "
-
+    property int mouseButtonClicked: Qt.NoButton
     //    property string text: "Hovering"
     property variant items: ["1","2"]
     property int currentSelection: 0
@@ -77,21 +77,14 @@ Item {
         }
     ]
     MouseArea {
-        property int mouseButtonClicked: Qt.NoButton
+        id: buttonMouseArea
+
         acceptedButtons: Qt.RightButton | Qt.LeftButton
         hoverEnabled: true
         anchors.fill: button
         onEntered: { button.state='Hovering'}
         onExited: { button.state=''}
-        onClicked: { button.clicked();
-            if (mouseButtonClicked === Qt.LeftButton) {
-                selectionLeftMouse(button.items[currentSelection]);
 
-            } else if (mouseButtonClicked === Qt.RightButton) {
-                selectionRightMouse();
-
-            }
-        }
         onPressed: {
             button.state="Pressed"
             if (pressedButtons & Qt.LeftButton) {
@@ -107,6 +100,18 @@ Item {
                 button.state="Hovering";
             else
                 button.state="";
+        }
+    }
+    Connections{
+        target: buttonMouseArea
+        onClicked: { button.clicked();
+            if (mouseButtonClicked === Qt.LeftButton) {
+                selectionLeftMouse(button.items[currentSelection]);
+
+            } else if (mouseButtonClicked === Qt.RightButton) {
+                selectionRightMouse();
+
+            }
         }
     }
 }

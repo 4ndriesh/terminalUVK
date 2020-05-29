@@ -35,6 +35,8 @@
 #include <QtCore/QDir>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlEngine>
+#include "app/kbdllhooks.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -44,16 +46,21 @@ int main(int argc, char *argv[])
     // Qt Charts uses Qt Graphics View Framework for drawing, therefore QApplication must be used.
     QApplication app(argc, argv);
     //  SYB
+    QObject::connect(&KBdllhooks::instance(), &KBdllhooks::mouseEvent,
+                     [](){
+        qDebug() << "Mouse Event";
+    });
+
     if (!MVP_Import::instance()->load("./M.xml"))
     {
         exit(-1);
     }
     QQuickView viewer;
-    ViewOtcepsModel model;
+    ViewOtcepsModel *model = ViewOtcepsModel::instance();
+//    ViewOtcepsModel model;
     EditOtcepsModel model1;
-
     viewer.setTitle(QStringLiteral("QML Weather"));
-    viewer.rootContext()->setContextProperty("otcepsModel", &model);
+    viewer.rootContext()->setContextProperty("otcepsModel", model);
     viewer.rootContext()->setContextProperty("otcepsModelRedact", &model1);
 //    viewer.rootContext()->setContextProperty("weatherAppKey", appKey);
     viewer.setSource(QUrl("qrc:/qml/main.qml"));

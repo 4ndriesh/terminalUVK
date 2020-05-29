@@ -57,8 +57,7 @@ RowLayout {
         text: "СТОП"
         items: [""]
         currentSelection: 0
-        onSelectionLeftMouse: setStopPause(otcepsModel.setStopPause(0),
-                                           stop.colorRect =MyScript.getColoreStop(otcepsModel.getStopPause()))
+        onSelectionLeftMouse: setStopPause(otcepsModel.setStopPause(0))
         Connections {
             target: otcepsModel
             onSetColorStop: {
@@ -83,13 +82,4 @@ RowLayout {
             }
         }
     }
-
-    MultiButton {
-        id: tmp
-        text: "ПАУЗА"
-        items: [""]
-        currentSelection: 0
-        onSelectionLeftMouse: otcepsModel.getRndChart()
-    }
-
 }
