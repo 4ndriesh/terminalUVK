@@ -30,7 +30,7 @@ LRESULT CALLBACK KBdllhooks::mouseProc(int Code, WPARAM wParam, LPARAM lParam)
         qDebug()<<pMouseStruct->vkCode;
         if(pMouseStruct != nullptr) {
             switch (pMouseStruct->vkCode) {
-
+            qDebug()<<pMouseStruct->vkCode;
             case 13:
                 keyboardtouch->editSortir(instance().VisibleEditButton);
                 instance().VisibleEditButton=(instance().VisibleEditButton+1)%2;
@@ -47,7 +47,15 @@ LRESULT CALLBACK KBdllhooks::mouseProc(int Code, WPARAM wParam, LPARAM lParam)
                 break;
             case 83:
                 keyboardtouch->setStopPause(0);
-                break;           
+                break;
+            case 38:
+                //UP
+                keyboardtouch->setCurrentItem(-1);
+                break;
+            case 40:
+                //DOWN
+                keyboardtouch->setCurrentItem(1);
+                break;
             default:
                 break;
             }

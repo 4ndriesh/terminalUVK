@@ -127,7 +127,7 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
 
-        Number { txt: STATE_ERROR; name: 'STATE_NUM'}
+        Number { txt: STATE_NUM; name: 'STATE_NUM'}
         DualNumber { txt1: STATE_SP; name1: 'STATE_SP'; txt2: STATE_SP_F; name2: 'STATE_SP_F'  }
         DualNumber { txt1: STATE_SL_VAGON_CNT; name1: 'STATE_SL_VAGON_CNT'; txt2: STATE_ZKR_VAGON_CNT; name2: 'STATE_ZKR_VAGON_CNT'  }
         DualNumber { txt1: STATE_SL_VES.toFixed(2); name1: 'STATE_SL_VES'; txt2: STATE_ZKR_VES.toFixed(2); name2: 'STATE_ZKR_VES';  }

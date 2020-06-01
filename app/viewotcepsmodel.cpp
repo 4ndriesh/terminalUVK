@@ -57,10 +57,10 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
         otcepRoles[irole++] = qPrintable(proprtyName);
     }
 
-    current_index=0;
+    qmlCurentIndex=0;
     if (MVP_Import::instance()->gorka!=nullptr){
 
-                for (int i=0; i<MVP_Import::instance()->otceps->l_otceps.size();i++) {
+        for (int i=0; i<MVP_Import::instance()->otceps->l_otceps.size();i++) {
 
             addDataObject(DataObject(MVP_Import::instance()->otceps->l_otceps[i]));
             connect(MVP_Import::instance()->otceps->l_otceps[i],&m_Otcep::stateChanged,this,&ViewOtcepsModel::slotOtcepChanged);
@@ -193,8 +193,7 @@ void ViewOtcepsModel::setPutNadviga(int valuePutNadviga)
     //    здесь установить путь надвига
     MVP_Import::instance()->setPutNadvig(valuePutNadviga);
     MVP_Import::instance()->setRegim(valuePutNadviga);
-//    MVP_Import::instance()->setRegim(ModelGroupGorka::regimRospusk);
-
+    //    MVP_Import::instance()->setRegim(ModelGroupGorka::regimRospusk);
     qmlPUT_NADVIG = valuePutNadviga;
     emit setColorPutNadviga(qmlPUT_NADVIG);
 }
@@ -203,13 +202,13 @@ int ViewOtcepsModel::getPutNadviga()
 {
     qDebug()<<"getPut"<<qmlPUT_NADVIG;
 
-//    qmlPUT_NADVIG=MVP_Import::instance()->gorka->PUT_NADVIG();
+    //    qmlPUT_NADVIG=MVP_Import::instance()->gorka->PUT_NADVIG();
     return qmlPUT_NADVIG;
 }
 
 void ViewOtcepsModel::setStopPause(int valueStopPause)
 {
-qDebug()<<"Stop";
+    qDebug()<<"Stop";
     //    здесь установить режим стоп/пауза
     if (valueStopPause==ModelGroupGorka::regimStop){
         if (MVP_Import::instance()->gorka->STATE_REGIM()!=ModelGroupGorka::regimStop)
@@ -241,14 +240,14 @@ int ViewOtcepsModel::getStopPause()
 
 void ViewOtcepsModel::editSortir(bool valueVisible)
 {
-//    qmlStopPause=MVP_Import::instance()->gorka->STATE_REGIM();
+    //    qmlStopPause=MVP_Import::instance()->gorka->STATE_REGIM();
     qmlVisible=valueVisible;
     emit setEnabledEdit(qmlVisible);
 }
 
 void ViewOtcepsModel::getRndChart()
 {
-//    qmlStopPause=MVP_Import::instance()->gorka->STATE_REGIM();
+    //    qmlStopPause=MVP_Import::instance()->gorka->STATE_REGIM();
     qmlX+=1;
     qmlY=qrand() % 10;
     emit setRndChart(qmlX,qmlY);
@@ -257,13 +256,15 @@ void ViewOtcepsModel::getRndChart()
 void ViewOtcepsModel::addOtcepUP(int index)
 {
     if(index!=-1)
-    qDebug()<<"addup"<<index;
+    {
+        qDebug()<<"addup"<<index;
+    }
 }
 
 void ViewOtcepsModel::addOtcepDown(int index)
 {
     if(index!=-1)
-    qDebug()<<"addDown"<<index;
+        qDebug()<<"addDown"<<index;
 }
 
 void ViewOtcepsModel::addOtcepClearAll()
@@ -276,3 +277,15 @@ void ViewOtcepsModel::addOtcepClearAll()
     m["CLEAR_ALL"]="1";
     MVP_Import::instance()->cmd->send_cmd(m);
 }
+void ViewOtcepsModel::setCurrentItem(int inc_dec)
+{
+    qmlCurentIndex=qmlCurentIndex+inc_dec;
+    emit setQmlCurrentItem(qmlCurentIndex);
+}
+
+void ViewOtcepsModel::setGlobalCurentIndex(int index)
+{
+    qmlCurentIndex = index;
+}
+
+

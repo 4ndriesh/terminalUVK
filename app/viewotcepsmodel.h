@@ -12,7 +12,7 @@ class ViewOtcepsModel : public QAbstractListModel
 {
 
     Q_OBJECT
-    QTimer * timer;
+      QTimer * timer;
 public slots:
     void deleteFromList();
     void setPutNadviga(int);
@@ -26,10 +26,11 @@ public slots:
     void addOtcepClearAll();
     void slotStartProgressBar(){emit sendStartProgressBar();}
     void slotStopProgressBar(){emit sendStopProgressBar();}
-
+    void setCurrentItem(int);
+    void setGlobalCurentIndex(int);
 signals:
     void showMessage(QString colorMessage, QString textMessage);
-    void setCurrentItem(int index);
+    void setQmlCurrentItem(int inc_dec);
     void setColorPutNadviga(int qmlPUT_NADVIG);
     void setColorStop(int qmlStopPause);
     void setColorPause(int qmlStopPause);
@@ -72,7 +73,7 @@ public:
     QHash<int, QByteArray> roleNames() const override;
     //bool checkIndex(const QModelIndex &index) const;
     bool loadSortirToUvk(const tSl2Odo2 *srt);
-
+    int qmlCurentIndex;
 private:
     static ViewOtcepsModel* model;
     int qmlPUT_NADVIG;
@@ -80,11 +81,12 @@ private:
     bool qmlVisible;
     int qmlX;
     int qmlY;
-//    bool qmlEnabled;
+    //    bool qmlEnabled;
     int current_index;
     QList<DataObject> ViewOtcepList;
     QHash<int, QByteArray> otcepRoles;
 public slots:
+
     void slotOtcepChanged();
     void sortirArrived(const tSl2Odo2 *srt);
 

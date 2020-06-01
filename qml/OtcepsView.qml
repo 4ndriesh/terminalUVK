@@ -20,12 +20,6 @@ ColumnLayout {
     Frame {
         Layout.fillWidth: true
         Layout.fillHeight: true
-        //        Connections{
-        //            target: otcepsModel
-        //            onSetCurrentItem: {
-        //                listView.currentIndex=index
-        //            }
-        //        }
         //        ScrollView {
         //            anchors.fill: parent
         //            horizontalScrollBarPolicy: Qt.ScrollBarAsNeeded
@@ -85,5 +79,7 @@ ColumnLayout {
             simpletimer.running=true;
         }
     }
+
+
 }
 

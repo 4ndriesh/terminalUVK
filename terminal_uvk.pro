@@ -1,4 +1,4 @@
-QT += charts qml quick
+QT += charts qml quick core
 
 CONFIG += c++11
 TARGET = kbHook
@@ -44,7 +44,7 @@ HEADERS += \
 
 # SYB
 DEFINES += NO_LIBRARY
-MVP_ROOT=$$PWD/../fromSYB
+MVP_ROOT=$$PWD/libs
 #MVP_ROOT=$$PWD/libs
 
 #https://github.com/yx500/mvp_classes.git

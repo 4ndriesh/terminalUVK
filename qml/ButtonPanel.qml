@@ -21,14 +21,18 @@ RowLayout {
         id: edirSortList
         property variant visibleForEdit: [false,true]
         text: ""
-        //        items:[1, 2]
         items: ["ВВОД СЛ", "ВВОД СЛ"]
         currentSelection: 0
         onSelectionLeftMouse:setFocus(currentSelection = (currentSelection + 1) % visibleForEdit.length,
                                       edirSortList.colorRect =MyScript.getColoreedirSortList(visibleForEdit[currentSelection]),
                                       otcepsModel.editSortir(visibleForEdit[currentSelection]))
 
-        //        onSelectionRightMouse:
+        Connections {
+            target: otcepsModel
+            onSetEnabledEdit: {
+                    edirSortList.colorRect =MyScript.getColoreedirSortList(qmlVisible);
+            }
+        }
 
     }
 
@@ -40,14 +44,15 @@ RowLayout {
         onSelectionLeftMouse: setRegime(currentSelection == 1,
                                         otcepsModel.setPutNadviga(items[currentSelection]),
                                         putnadviga.colorRect =MyScript.getColore(otcepsModel.getPutNadviga()))
+
         onSelectionRightMouse: setPutNadviga(
                                    dialselectputinadviga.name=putnadviga.text + putnadviga.items[(currentSelection + 1) % items.length],
                                    dialselectputinadviga.open());
         Connections {
             target: otcepsModel
             onSetColorPutNadviga: {
-                putnadviga.colorRect =MyScript.getColore(qmlPUT_NADVIG)
-
+                putnadviga.buttonText=putnadviga.text + qmlPUT_NADVIG
+                putnadviga.colorRect =MyScript.getColore(qmlPUT_NADVIG);
             }
         }
     }

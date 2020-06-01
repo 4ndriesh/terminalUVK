@@ -8,10 +8,14 @@ MouseArea {
     id: mouseArea
     function selectCurentIndex()
     {
+
         if (delegate.ListView.isCurrentItem)
-            delegate.ListView.view.currentIndex = -1;
+//            delegate.ListView.view.currentIndex = -1;
+            delegate.ListView.view.currentIndex = model.index;
         else
             delegate.ListView.view.currentIndex = model.index;
+
+    otcepsModel.setGlobalCurentIndex(listView.currentIndex);
     }
     anchors.fill: parent
     enabled: visibleIcon
@@ -48,6 +52,13 @@ MouseArea {
                 listView.currentIndex=-1;
                 mouseArea.enabled=qmlVisible;
             }
+        }
+    }
+    Connections{
+        target: otcepsModel
+        onSetQmlCurrentItem: {
+//            console.log(listView.currentIndex)
+            delegate.ListView.view.currentIndex = inc_dec;
         }
     }
 }
