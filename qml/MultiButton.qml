@@ -9,7 +9,7 @@ Item {
     property string text: "РОСПУСК: "
     property int mouseButtonClicked: Qt.NoButton
     //    property string text: "Hovering"
-    property variant items: ["1","2"]
+    property variant items: ["",""]
     property int currentSelection: 0
     signal selectionLeftMouse(variant selection)
     signal selectionRightMouse()

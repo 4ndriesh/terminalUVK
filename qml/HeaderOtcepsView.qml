@@ -15,14 +15,14 @@ GridLayout {
     columns: 15
     columnSpacing: 1
     rowSpacing: 1
-    Connections {
-        target: otcepsModel
-        onSetEnabledEdit: {
-            visibleIcon=qmlVisible
-            visibledel.visible=visibleIcon
-            visibleadd.visible=visibleIcon
-        }
-    }
+//    Connections {
+//        target: otcepsModel
+//        onSetEnabledEdit: {
+//            visibleIcon=qmlVisible
+//            visibledel.visible=visibleIcon
+//            visibleadd.visible=visibleIcon
+//        }
+//    }
     Rectangle {
 
         color: "lightsteelblue"
@@ -111,7 +111,7 @@ GridLayout {
     //    }
     Rectangle {
         id:del
-        visible: visibleIcon
+        visible: otcepsModel.qmlVisibleObject
         color: "lightsteelblue"
         Layout.fillWidth: true
         Layout.minimumWidth: 60
@@ -126,7 +126,7 @@ GridLayout {
 
     Rectangle {
         id:add
-        visible: visibleIcon
+        visible: otcepsModel.qmlVisibleObject
         color: "lightsteelblue"
         Layout.fillWidth: true
         Layout.minimumWidth: 60

@@ -1,90 +1,48 @@
 import QtQuick 2.1
 import QtQuick.Layouts 1.0
 import "terminalUVK.js" as MyScript
+
+
 RowLayout {
-    property alias openGLButton: putnadviga
     signal setRegime(bool enabled)
     signal setPutNadviga(bool enabled)
-    signal setStopPause()
-    signal setFocus()
+
     DialogWin{
         id: dialselectputinadviga
-
-    }
-    Text {
-        text: "Scope"
-        font.pointSize: 18
-        color: "white"
     }
 
     MultiButton {
         id: edirSortList
-        property variant visibleForEdit: [false,true]
-        text: ""
-        items: ["ВВОД СЛ", "ВВОД СЛ"]
-        currentSelection: 0
-        onSelectionLeftMouse:setFocus(currentSelection = (currentSelection + 1) % visibleForEdit.length,
-                                      edirSortList.colorRect =MyScript.getColoreedirSortList(visibleForEdit[currentSelection]),
-                                      otcepsModel.editSortir(visibleForEdit[currentSelection]))
-
-        Connections {
-            target: otcepsModel
-            onSetEnabledEdit: {
-                    edirSortList.colorRect =MyScript.getColoreedirSortList(qmlVisible);
-            }
-        }
-
+        text: "ВВОД СЛ"
+        onSelectionLeftMouse: otcepsModel.qmlVisibleObject=(otcepsModel.qmlVisibleObject+1)%2;
+        colorRect: otcepsModel.qmlVisibleObject ? "orange":"lightsteelblue"
     }
 
     MultiButton {
         id: putnadviga
-        text: "РОСПУСК: "
-        items: [1, 2]
-        currentSelection: 0
-        onSelectionLeftMouse: setRegime(currentSelection == 1,
-                                        otcepsModel.setPutNadviga(items[currentSelection]),
-                                        putnadviga.colorRect =MyScript.getColore(otcepsModel.getPutNadviga()))
+        buttonText: otcepsModel.qmlPutNadviga.select_putnadviga ? "РОСПУСК: 2":"РОСПУСК: 1"
+        onSelectionLeftMouse:
+            otcepsModel.qmlPutNadviga.set_putnadviga=otcepsModel.qmlPutNadviga.select_putnadviga+1
 
-        onSelectionRightMouse: setPutNadviga(
-                                   dialselectputinadviga.name=putnadviga.text + putnadviga.items[(currentSelection + 1) % items.length],
-                                   dialselectputinadviga.open());
-        Connections {
-            target: otcepsModel
-            onSetColorPutNadviga: {
-                putnadviga.buttonText=putnadviga.text + qmlPUT_NADVIG
-                putnadviga.colorRect =MyScript.getColore(qmlPUT_NADVIG);
-            }
-        }
+        onSelectionRightMouse:
+            otcepsModel.qmlPutNadviga.select_putnadviga=(otcepsModel.qmlPutNadviga.select_putnadviga+1)%2
+
+        colorRect: MyScript.getColore(otcepsModel.qmlRegim, otcepsModel.qmlPutNadviga.set_putnadviga)
     }
+
+
 
     MultiButton {
         id: stop
         text: "СТОП"
-        items: [""]
-        currentSelection: 0
-        onSelectionLeftMouse: setStopPause(otcepsModel.setStopPause(0))
-        Connections {
-            target: otcepsModel
-            onSetColorStop: {
-                stop.colorRect =MyScript.getColoreStop(qmlStopPause)
-
-            }
-        }
-
+        onSelectionLeftMouse:otcepsModel.qmlRegim=0;
+        colorRect: otcepsModel.qmlRegim ? "lightsteelblue":"orange"
 
     }
     MultiButton {
         id: pause
         text: "ПАУЗА"
-        items: [""]
-        currentSelection: 0
-        onSelectionLeftMouse: setStopPause(otcepsModel.setStopPause(2),
-                                           pause.colorRect =MyScript.getColorePause(otcepsModel.getStopPause()))
-        Connections {
-            target: otcepsModel
-            onSetColorPause: {
-                pause.colorRect =MyScript.getColorePause(qmlStopPause)
-            }
-        }
+        onSelectionLeftMouse: otcepsModel.qmlRegim=2;
+        colorRect: otcepsModel.qmlRegim<2 ? "lightsteelblue":"orange"
     }
 }

@@ -9,7 +9,6 @@ Rectangle {
     Layout.minimumHeight: 60
     color: delegate.color
     border.width: 1
-    border.color: "grey"
     //    radius: height/4
     smooth: true
     property alias txt: text.text
@@ -18,7 +17,7 @@ Rectangle {
     property var name
     TextInput {
         id: text
-        enabled: visibleIcon
+        enabled: otcepsModel.qmlVisibleObject
         onEditingFinished: {
             switch(name) {
             case "STATE_NUM": STATE_NUM=text.text;
@@ -62,7 +61,8 @@ Rectangle {
         //                onTextChanged: textField.textChanged(text)
 
         onFocusChanged: {
-            if(focus && visibleIcon==true){
+            otcepsModel.qmlCurentIndex=index;
+            if(focus && otcepsModel.qmlVisibleObject===1){
                 textField.border.color = "red"
                 textField.border.width = 5
                 num2.visible = true
@@ -73,13 +73,13 @@ Rectangle {
         }
 
     }
-    Connections {
-        target: otcepsModel
-        onSetEnabledEdit: {
-            visibleIcon=qmlVisible
-            textField.border.color = "grey"
-            textField.border.width = 1
-            text.enabled = visibleIcon
-        }
-    }
+//    Connections {
+//        target: otcepsModel
+//        onSetEnabledEdit: {
+//            visibleIcon=qmlVisible
+//            textField.border.color = "grey"
+//            textField.border.width = 1
+//            text.enabled = visibleIcon
+//        }
+//    }
 }

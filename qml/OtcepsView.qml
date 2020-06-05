@@ -6,11 +6,11 @@ import QtQuick.Controls 1.4
 ColumnLayout {
     id:columnListView
     property alias visiblePB: pb1.visible
-    property bool visibleIcon: false
     DialogWin{
         id: dialogAndroid
 
     }
+
     Frame {
         Layout.fillWidth: true
         ButtonPanel {
@@ -28,11 +28,10 @@ ColumnLayout {
         //        }
         ListView {
             id: listView
-            currentIndex: -1
             anchors.fill: parent
-
             model: otcepsModel
-
+            currentIndex: otcepsModel.qmlCurentIndex
+//            currentIndex: otcepsModel.qmlVisibleObject ? 0:-1
             delegate: OtcepViewDelegate{}
             clip: true
             highlight: HighlightBar{}
@@ -45,8 +44,8 @@ ColumnLayout {
             }
             highlightFollowsCurrentItem: false
             focus: true
+       }
 
-        }
     }
 
     ProgressBar {

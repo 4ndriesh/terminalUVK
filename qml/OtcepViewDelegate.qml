@@ -1,14 +1,15 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.4
 import QtQuick.Layouts 1.3
+
 Rectangle {
     id: delegate
     //цвет в зависимости от STATE_LOCATION
     property variant items_color: ["red", "yellow","green","dimgrey","white","LightGray"]
-
     width: parent.width;
     height: 65
     visible: STATE_ENABLED
+
     //    state: "dimgrey"
     states:
         [
@@ -90,7 +91,7 @@ Rectangle {
                 color: "dimgrey"
             }
         }
-    ]
+    ]    
     MouseAreaQml {id: mouseArea}
 //    function selectCurentIndex()
 //    {
@@ -139,23 +140,14 @@ Rectangle {
         Icons {
             id:iconDel
             src: "content/list-delete.png"
-            visible: visibleIcon
-            MouseArea {anchors.fill:parent; onClicked: otcepsModelRedact.deleteFromEditOtcepList(index)            }
+            visible: otcepsModel.qmlVisibleObject
+            MouseArea {anchors.fill:parent; onClicked: otcepsModelRedact.deleteFromEditOtcepList(index)}
         }
         Icons {
             id:iconAdd
             src: "content/plus-sign.png"
-            visible: visibleIcon
-            MouseArea {anchors.fill:parent; onClicked: otcepsModelRedact.addToList()            }
-        }
-    }
-
-    Connections {
-        target: otcepsModel
-        onSetEnabledEdit: {
-            visibleIcon=qmlVisible
-            iconDel.visible=visibleIcon
-            iconAdd.visible=visibleIcon
+            visible: otcepsModel.qmlVisibleObject
+            MouseArea {anchors.fill:parent; onClicked: otcepsModelRedact.addToList()}
         }
     }
 }

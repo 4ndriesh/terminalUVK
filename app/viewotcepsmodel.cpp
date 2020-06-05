@@ -9,7 +9,8 @@
 #include "mvp_import.h"
 #include <QMetaProperty>
 
-
+//Всегда возвращает 1
+//qmlStopPause=MVP_Import::instance()->gorka->STATE_REGIM();
 
 /*
     Видимость -  STATE_ENABLED
@@ -46,10 +47,12 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
     ,timer(new QTimer(this))
 
 {
+    qmlPutNadviga.m_set_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();;
+    qmlPutNadviga.m_select_putnadviga=0;
+    qmlRegim=MVP_Import::instance()->gorka->STATE_REGIM();
     qmlX=1;
-    qmlVisible=false;
-    qmlPUT_NADVIG=MVP_Import::instance()->gorka->PUT_NADVIG();
-    qmlStopPause = MVP_Import::instance()->gorka->STATE_REGIM();
+    qmlVisibleObject=false;
+    qmlCurentIndex=-1;
     int irole=Qt::UserRole+1;
     for (int idx = 0; idx < m_Otcep::staticMetaObject.propertyCount(); idx++) {
         QMetaProperty metaProperty = m_Otcep::staticMetaObject.property(idx);
@@ -57,7 +60,7 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
         otcepRoles[irole++] = qPrintable(proprtyName);
     }
 
-    qmlCurentIndex=0;
+    //    qmlCurentIndex=0;
     if (MVP_Import::instance()->gorka!=nullptr){
 
         for (int i=0; i<MVP_Import::instance()->otceps->l_otceps.size();i++) {
@@ -176,6 +179,7 @@ void ViewOtcepsModel::sortirArrived(const tSl2Odo2 *srt)
         MVP_Import::instance()->_Id=0;
     }
 }
+
 bool ViewOtcepsModel::loadSortirToUvk(const tSl2Odo2 *srt)
 {
     return MVP_Import::instance()->loadSortirToUvk(srt);
@@ -185,64 +189,6 @@ bool ViewOtcepsModel::loadSortirToUvk(const tSl2Odo2 *srt)
 void ViewOtcepsModel::deleteFromList()
 {
 
-}
-
-void ViewOtcepsModel::setPutNadviga(int valuePutNadviga)
-{
-    qDebug()<< valuePutNadviga;
-    //    здесь установить путь надвига
-    MVP_Import::instance()->setPutNadvig(valuePutNadviga);
-    MVP_Import::instance()->setRegim(valuePutNadviga);
-    //    MVP_Import::instance()->setRegim(ModelGroupGorka::regimRospusk);
-    qmlPUT_NADVIG = valuePutNadviga;
-    emit setColorPutNadviga(qmlPUT_NADVIG);
-}
-
-int ViewOtcepsModel::getPutNadviga()
-{
-    qDebug()<<"getPut"<<qmlPUT_NADVIG;
-
-    //    qmlPUT_NADVIG=MVP_Import::instance()->gorka->PUT_NADVIG();
-    return qmlPUT_NADVIG;
-}
-
-void ViewOtcepsModel::setStopPause(int valueStopPause)
-{
-    qDebug()<<"Stop";
-    //    здесь установить режим стоп/пауза
-    if (valueStopPause==ModelGroupGorka::regimStop){
-        if (MVP_Import::instance()->gorka->STATE_REGIM()!=ModelGroupGorka::regimStop)
-        {
-            // проверяем отцепы в ходу
-            int otcvhod=0;
-            foreach (auto otcep, MVP_Import::instance()->otceps->l_otceps) {
-                if ((otcep->STATE_ENABLED()) && (otcep->STATE_SP()!=otcep->STATE_SP())&&
-                        (otcep->STATE_V()!=_undefV_)&&(otcep->STATE_V()>0)) otcvhod++;
-            }
-            if (otcvhod>0){
-                qDebug() << "Отцепы в ходу!";
-            }
-            MVP_Import::instance()->setRegim(ModelGroupGorka::regimStop);
-        }
-
-    } else {
-        MVP_Import::instance()->setRegim(valueStopPause);
-    }
-    qmlStopPause = valueStopPause;
-    emit setColorStop(qmlStopPause);
-}
-
-int ViewOtcepsModel::getStopPause()
-{
-    qmlStopPause=MVP_Import::instance()->gorka->STATE_REGIM();
-    return qmlStopPause;
-}
-
-void ViewOtcepsModel::editSortir(bool valueVisible)
-{
-    //    qmlStopPause=MVP_Import::instance()->gorka->STATE_REGIM();
-    qmlVisible=valueVisible;
-    emit setEnabledEdit(qmlVisible);
 }
 
 void ViewOtcepsModel::getRndChart()
@@ -277,15 +223,87 @@ void ViewOtcepsModel::addOtcepClearAll()
     m["CLEAR_ALL"]="1";
     MVP_Import::instance()->cmd->send_cmd(m);
 }
-void ViewOtcepsModel::setCurrentItem(int inc_dec)
+
+void ViewOtcepsModel::setPutNadviga(const StructPutNadviga &set_putnadviga)
 {
-    qmlCurentIndex=qmlCurentIndex+inc_dec;
-    emit setQmlCurrentItem(qmlCurentIndex);
+    qmlPutNadviga = set_putnadviga;
+    //    здесь установить путь надвига
+    MVP_Import::instance()->setPutNadvig(qmlPutNadviga.m_set_putnadviga);
+    MVP_Import::instance()->setRegim(ModelGroupGorka::regimRospusk);
+
+    //Хотелось бы получить ответ об установке режима
+    qmlRegim=MVP_Import::instance()->gorka->STATE_REGIM();
+
+    //Временно(забыть удалить)
+    qmlRegim=1;
+
+    emit qmlPutNadvigaChanged();
+
+    //    ????????
+
+    emit qmRegimChanged();
+
 }
 
-void ViewOtcepsModel::setGlobalCurentIndex(int index)
+
+StructPutNadviga ViewOtcepsModel::getPutNadviga()const
+{
+
+//  qmlPutNadviga.m_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
+    return qmlPutNadviga;
+}
+
+//Управляет кнопкой стоп
+int ViewOtcepsModel::getRegim()const
+{
+    return qmlRegim;
+}
+void ViewOtcepsModel::setRegim(const int &regim)
+{
+    if (regim==ModelGroupGorka::regimStop){
+        if (MVP_Import::instance()->gorka->STATE_REGIM()!=ModelGroupGorka::regimStop)
+        {
+            // проверяем отцепы в ходу
+            int otcvhod=0;
+            foreach (auto otcep, MVP_Import::instance()->otceps->l_otceps) {
+                if ((otcep->STATE_ENABLED()) && (otcep->STATE_SP()!=otcep->STATE_SP())&&
+                        (otcep->STATE_V()!=_undefV_)&&(otcep->STATE_V()>0)) otcvhod++;
+            }
+            if (otcvhod>0){
+                qDebug() << "Отцепы в ходу!";
+            }
+            MVP_Import::instance()->setRegim(ModelGroupGorka::regimStop);
+        }
+
+    } else {
+        MVP_Import::instance()->setRegim(regim);
+    }
+    qmlRegim = qmlRegim=MVP_Import::instance()->gorka->STATE_REGIM();
+
+    //Временно(забыть удалить)
+    qmlRegim = regim;
+    emit qmRegimChanged();
+}
+
+//Управляет курсором листвью
+int ViewOtcepsModel::getCurrentItem()const
+{
+    return qmlCurentIndex;
+}
+void ViewOtcepsModel::setCurrentItem(const int &index)
 {
     qmlCurentIndex = index;
+    emit qmlCurrentItemChanged();
 }
 
-
+//Управляет визиблами для редактирования
+int ViewOtcepsModel::getEditSortir()const
+{
+    return qmlVisibleObject;
+}
+void ViewOtcepsModel::setEditSortir(const int &visible)
+{
+    qmlVisibleObject = visible;
+    emit qmlVisibleObjectChanged();
+}
+//-------------------------------------------------

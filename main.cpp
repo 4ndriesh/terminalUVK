@@ -54,11 +54,8 @@ int main(int argc, char *argv[])
     }
     QQuickView viewer;
     ViewOtcepsModel *model = ViewOtcepsModel::instance();
-//    ViewOtcepsModel model;
-    EditOtcepsModel model1;
-//    viewer.setTitle(QStringLiteral("QML Weather"));
     viewer.rootContext()->setContextProperty("otcepsModel", model);
-    viewer.rootContext()->setContextProperty("otcepsModelRedact", &model1);
+    qRegisterMetaType<StructPutNadviga>("StructPutNadviga");
     viewer.setSource(QUrl("qrc:/qml/main.qml"));
 //   viewer.setResizeMode(QQuickView::SizeRootObjectToView);
 //    viewer.show();

@@ -243,7 +243,6 @@ void MVP_Import::setRegim(int p)
     }
     MVP_Import::instance()->cmd->send_cmd(m);
     qDebug()<< "setRegim to uvk" << p;
-
 }
 
 void MVP_Import::setPutNadvig(int p)

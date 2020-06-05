@@ -23,7 +23,7 @@ KBdllhooks::KBdllhooks(QObject *parent) : QObject(parent)
 LRESULT CALLBACK KBdllhooks::mouseProc(int Code, WPARAM wParam, LPARAM lParam)
 {
     Q_UNUSED(Code)
-    ViewOtcepsModel *keyboardtouch = ViewOtcepsModel::instance();
+    ViewOtcepsModel *kbtouch = ViewOtcepsModel::instance();
     if (wParam == WM_KEYDOWN)
     {
         KBDLLHOOKSTRUCT * pMouseStruct = (KBDLLHOOKSTRUCT *)lParam;
@@ -32,29 +32,49 @@ LRESULT CALLBACK KBdllhooks::mouseProc(int Code, WPARAM wParam, LPARAM lParam)
             switch (pMouseStruct->vkCode) {
             qDebug()<<pMouseStruct->vkCode;
             case 13:
-                keyboardtouch->editSortir(instance().VisibleEditButton);
-                instance().VisibleEditButton=(instance().VisibleEditButton+1)%2;
-                qDebug()<<instance().VisibleEditButton;
+                kbtouch->qmlVisibleObject=(kbtouch->qmlVisibleObject+1)%2;
+                emit kbtouch->qmlVisibleObjectChanged();
                 break;
             case 162:
-                keyboardtouch->setPutNadviga(1);
+                kbtouch->qmlPutNadviga.m_set_putnadviga=1;
+                kbtouch->qmlPutNadviga.m_select_putnadviga=0;
+                kbtouch->setPutNadviga( kbtouch->qmlPutNadviga);
+
                 break;
+
             case 163:
-                keyboardtouch->setPutNadviga(2);
+                kbtouch->qmlPutNadviga.m_set_putnadviga=2;
+                kbtouch->qmlPutNadviga.m_select_putnadviga=1;
+                kbtouch->setPutNadviga( kbtouch->qmlPutNadviga);
                 break;
             case 80:
-                keyboardtouch->setStopPause(2);
+                kbtouch->qmlRegim=2;
+                emit kbtouch->qmRegimChanged();
                 break;
             case 83:
-                keyboardtouch->setStopPause(0);
+                //
+                kbtouch->qmlRegim=0;
+                emit kbtouch->qmRegimChanged();
                 break;
-            case 38:
+            case   81:
+                //            case 38:
                 //UP
-                keyboardtouch->setCurrentItem(-1);
+                if(kbtouch->qmlVisibleObject)
+                {
+                    if (kbtouch->qmlCurentIndex<0)
+                        kbtouch->qmlCurentIndex=0;
+                    kbtouch->qmlCurentIndex--;
+                    emit kbtouch->qmlCurrentItemChanged();
+                }
                 break;
-            case 40:
+            case  65:
+                //            case 40:
                 //DOWN
-                keyboardtouch->setCurrentItem(1);
+                if(kbtouch->qmlVisibleObject)
+                {
+                    kbtouch->qmlCurentIndex++;
+                    emit kbtouch->qmlCurrentItemChanged();
+                }
                 break;
             default:
                 break;
