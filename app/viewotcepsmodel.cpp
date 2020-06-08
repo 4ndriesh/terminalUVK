@@ -75,6 +75,8 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
 
 
     }
+    connect(MVP_Import::instance()->cmd,&GtCommandInterface::recv_accept,this,&ViewOtcepsModel::uvk_cmd_accept);
+
 
     //    timer->setInterval(1000);
     //    connect(timer, &QTimer::timeout , this, &ViewOtcepsModel::slotOtcepChanged);
@@ -178,6 +180,12 @@ void ViewOtcepsModel::sortirArrived(const tSl2Odo2 *srt)
     if (!loadSortirToUvk(srt)) {
         MVP_Import::instance()->_Id=0;
     }
+}
+
+void ViewOtcepsModel::uvk_cmd_accept(QMap<QString, QString> m)
+{
+    if (m["ACCEPT_SRC"]!="UVK") return;
+    addMsg(m["ACCEPT_TXT"],1);
 }
 
 bool ViewOtcepsModel::loadSortirToUvk(const tSl2Odo2 *srt)
@@ -295,7 +303,7 @@ void ViewOtcepsModel::setRegim(const int &regim)
     } else {
         MVP_Import::instance()->setRegim(regim);
     }
-    qmlRegim = qmlRegim=MVP_Import::instance()->gorka->STATE_REGIM();
+    qmlRegim = MVP_Import::instance()->gorka->STATE_REGIM();
 
     //Временно(забыть удалить)
     qmlRegim = regim;
