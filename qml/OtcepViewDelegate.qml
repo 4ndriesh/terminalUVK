@@ -4,15 +4,17 @@ import QtQuick.Layouts 1.3
 
 Rectangle {
     id: delegate
+    objectName: "delegate"
     //цвет в зависимости от STATE_LOCATION
     property variant items_color: ["red", "yellow","green","dimgrey","white","LightGray"]
     width: parent.width;
     height: 65
     visible: STATE_ENABLED
-
-    //    state: "dimgrey"
+    //        state: "dimgrey"
     states:
         [
+
+
         //        State {
         //            name: "black1"
         ////            when: model.index<delegate.ListView.view.currentIndex // bind to isCurrentItem to set the state
@@ -25,16 +27,21 @@ Rectangle {
         //        },
 
 
-//        State {
-//            name: "opacity_grey"
-//            //            when: model.index<delegate.ListView.view.currentIndex // bind to isCurrentItem to set the state
-//            //            when: model.index<delegate.ListView.view.currentIndex
-//            PropertyChanges {
-//                target: delegate
-//                color: "#b7b7b7"
-//                opacity: 0.2
-//            }
-//        },
+        //        State {
+        //            name: "opacity_grey"
+        //            //            when: model.index<delegate.ListView.view.currentIndex // bind to isCurrentItem to set the state
+        //            //            when: model.index<delegate.ListView.view.currentIndex
+        //            PropertyChanges {
+        //                target: delegate
+        //                color: "#b7b7b7"
+        //                opacity: 0.2
+        //            }
+        //        },
+        //        State {
+        //                        name: "Current"
+        //                        when: delegate.ListView.isCurrentItem
+        //                        PropertyChanges { target: delegate; x: 20 }
+        //                    },
         State {
             name: "red"
             when: STATE_ERROR==1// bind to isCurrentItem to set the state
@@ -91,52 +98,27 @@ Rectangle {
                 color: "dimgrey"
             }
         }
-    ]    
+
+
+    ]
     MouseAreaQml {id: mouseArea}
-//    function selectCurentIndex()
-//    {
-//        if (delegate.ListView.isCurrentItem)
-//            delegate.ListView.view.currentIndex = -1;
-//        else
-//            delegate.ListView.view.currentIndex = model.index;
-//    }
-//    Connections{
-//        target: mouseArea
-//        onClicked: {
-//            if (mouse.button === Qt.RightButton)
-//            {
-//                selectCurentIndex();
-//                subMenu.popup();
-
-//            }
-
-//            if (mouse.button === Qt.LeftButton)
-//            {
-//                selectCurentIndex();
-//            }
-//        }
-//        onPressAndHold: {
-//            if (mouse.source === Qt.MouseEventNotSynthesized)
-//                subMenu.popup()
-//        }
-
-//    }
     RowLayout   {
         id: layout
+        objectName: "RowLayout"
         anchors.fill: parent
         spacing: 1
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
 
-        Number { txt: STATE_NUM; name: 'STATE_NUM'}
-        DualNumber { txt1: STATE_SP; name1: 'STATE_SP'; txt2: STATE_SP_F; name2: 'STATE_SP_F'  }
-        DualNumber { txt1: STATE_SL_VAGON_CNT; name1: 'STATE_SL_VAGON_CNT'; txt2: STATE_ZKR_VAGON_CNT; name2: 'STATE_ZKR_VAGON_CNT'  }
-        DualNumber { txt1: STATE_SL_VES.toFixed(2); name1: 'STATE_SL_VES'; txt2: STATE_ZKR_VES.toFixed(2); name2: 'STATE_ZKR_VES';  }
-        Number { txt: STATE_ZKR_BAZA; name: 'STATE_ZKR_BAZA' }
-        Number { txt: STATE_NAGON; name: 'STATE_NAGON' }
-        Number { txt: STATE_SL_UR; name: 'STATE_SL_UR' }
-        Number { txt: STATE_V; name: 'STATE_V' }
-        Number { txt: STATE_V; name: 'STATE_V' }
+        Number {txt: STATE_NUM; objectName: 'STATE_NUM'}
+        DualNumber { objN1:'STATE_SP'; txt1: STATE_SP; objN2:'STATE_SP_F';txt2: STATE_SP_F;}
+        DualNumber { txt1: STATE_SL_VAGON_CNT; objN1: 'STATE_SL_VAGON_CNT'; txt2: STATE_ZKR_VAGON_CNT; objN2: 'STATE_ZKR_VAGON_CNT'  }
+        DualNumber { txt1: STATE_SL_VES.toFixed(2); objN1: 'STATE_SL_VES'; txt2: STATE_ZKR_VES.toFixed(2); objN2: 'STATE_ZKR_VES';  }
+        Number { txt: STATE_ZKR_BAZA; objectName: 'STATE_ZKR_BAZA' }
+        Number { txt: STATE_NAGON; objectName: 'STATE_NAGON' }
+        Number { txt: STATE_SL_UR; objectName: 'STATE_SL_UR' }
+        Number { txt: STATE_V; objectName: 'STATE_V' }
+        Number { txt: STATE_V; objectName: 'STATE_V' }
         Icons {
             id:iconDel
             src: "content/list-delete.png"
@@ -150,6 +132,7 @@ Rectangle {
             MouseArea {anchors.fill:parent; onClicked: otcepsModelRedact.addToList()}
         }
     }
+
 }
 
 

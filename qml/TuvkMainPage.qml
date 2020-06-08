@@ -13,8 +13,9 @@ Page {
     }
 
     OtcepsView {
-     anchors.fill: parent
+        anchors.fill: parent
     }
+
 
     //    GridLayoutOtcepsView {anchors.fill: parent}
 

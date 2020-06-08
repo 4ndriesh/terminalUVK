@@ -8,18 +8,40 @@ Rectangle {
     Layout.maximumWidth: 300
     Layout.minimumHeight: 60
     color: delegate.color
+    //    color: otcepsModel.qmlVisibleObject ? delegate.color:"grey"
     border.width: 1
     //    radius: height/4
     smooth: true
     property alias txt: text.text
+    property alias foc: text.focus
     property int echoMode: TextInput.Normal
     property color col
     property var name
+    function getVisible()
+    {
+        var Visible=true;
+        if(textField.objectName==='STATE_SP_F' )
+            return false
+        return true
+    }
+    states:
+        [
+        State {
+            name: "join"
+            when: STATE_SP===STATE_SP_F
+            PropertyChanges {
+                target: textField
+                visible: getVisible()
+            }
+        }
+
+    ]
+
     TextInput {
         id: text
         enabled: otcepsModel.qmlVisibleObject
         onEditingFinished: {
-            switch(name) {
+            switch(textField.objectName) {
             case "STATE_NUM": STATE_NUM=text.text;
                 break;
             case "STATE_SP": STATE_SP=text.text;
@@ -63,23 +85,47 @@ Rectangle {
         onFocusChanged: {
             otcepsModel.qmlCurentIndex=index;
             if(focus && otcepsModel.qmlVisibleObject===1){
-                textField.border.color = "red"
+                textField.border.color = "green"
                 textField.border.width = 5
                 num2.visible = true
             }else{
-                textField.border.color = "grey"
+                textField.border.color = "black"
                 textField.border.width = 1
             }
         }
 
     }
-//    Connections {
-//        target: otcepsModel
-//        onSetEnabledEdit: {
-//            visibleIcon=qmlVisible
-//            textField.border.color = "grey"
-//            textField.border.width = 1
-//            text.enabled = visibleIcon
-//        }
-//    }
+    Connections{
+        target: otcepsModel
+        onQmlCurrentItemChanged:{
+            if(delegate.ListView.view.currentIndex === index &&
+                    textField.objectName==='STATE_SP'
+                    && otcepsModel.qmlVisibleObject===1){
+                text.forceActiveFocus();
+                //                text.cursorPosition= text.text.length
+            }
+        }
+    }
+    //    Connections{
+    //        target: otcepsModel
+    //        onTextEdit:{
+    //            if(delegate.ListView.view.currentIndex === index &&
+    //                    textField.objectName==='STATE_SP'){
+    //                textField.foc=true
+    //                text.focus=true;
+    //                text.cursorVisible = true;
+    ////                text.cursorPosition= text.text.length
+    //            }
+    //        }
+    //    }
+
+    //    Connections {
+    //        target: otcepsModel
+    //        onSetEnabledEdit: {
+    //            visibleIcon=qmlVisible
+    //            textField.border.color = "grey"
+    //            textField.border.width = 1
+    //            text.enabled = visibleIcon
+    //        }
+    //    }
 }

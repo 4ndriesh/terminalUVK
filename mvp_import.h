@@ -7,7 +7,7 @@
 #include "modelgroupgorka.h"
 #include "m_otceps.h"
 #include "gtcommandinterface.h"
-
+#include "app/viewotcepsmodel.h"
 
 struct tSl2OdoRec2{
     int   NO=0;           //  Номер  Отцепа  НО
@@ -40,6 +40,7 @@ public:
            return &one;
 
     }
+    ViewOtcepsModel* pB=nullptr;
     GtBuffers_UDP_D2 udp;
     bool load(QString fn);
     ModelGroupGorka *gorka=nullptr;
@@ -52,8 +53,8 @@ public:
 
 signals:
     void sortirArrived(const tSl2Odo2 *srt);
-    void sendStartProgressBar();
-    void sendStopProgressBar();
+//    void sendStartProgressBar();
+//    void sendStopProgressBar();
 public slots:
     void slotTimer();
     void buffer14Changed(GtBuffer *B);

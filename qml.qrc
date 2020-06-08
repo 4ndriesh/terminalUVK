@@ -25,5 +25,6 @@
         <file>qml/terminalUVK.js</file>
         <file>qml/ChartSpeed.qml</file>
         <file>qml/SubMenuOtcepView.qml</file>
+        <file>qml/MsgDelegate.qml</file>
     </qresource>
 </RCC>

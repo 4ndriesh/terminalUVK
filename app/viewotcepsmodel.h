@@ -8,13 +8,30 @@
 
 struct tSl2Odo2;
 
+struct StructProgressBar{
+    Q_GADGET
+    Q_PROPERTY(float set_value MEMBER m_set_value)
+    Q_PROPERTY(int set_maximumValue MEMBER m_set_maximumValue)
+    Q_PROPERTY(bool set_visible MEMBER m_set_visible)
+
+public:
+    float m_set_value;
+    int m_set_maximumValue;
+    bool m_set_visible;
+
+};
+Q_DECLARE_METATYPE(StructProgressBar)
 struct StructPutNadviga {
     Q_GADGET
     Q_PROPERTY(int set_putnadviga MEMBER m_set_putnadviga)
     Q_PROPERTY(int select_putnadviga MEMBER m_select_putnadviga)
+    Q_PROPERTY(bool chg_putnadviga MEMBER m_chg_putnadviga)
+
 public:
+    bool m_chg_putnadviga;
     int m_set_putnadviga;
     int m_select_putnadviga;
+
 
 };
 Q_DECLARE_METATYPE(StructPutNadviga)
@@ -30,38 +47,46 @@ class ViewOtcepsModel : public QAbstractListModel
 
     Q_PROPERTY(StructPutNadviga qmlPutNadviga READ getPutNadviga WRITE setPutNadviga NOTIFY qmlPutNadvigaChanged)
 
+    Q_PROPERTY(QStringList listMsg READ getListMsg NOTIFY listMsgChanged)
+
+    Q_PROPERTY(bool timerDelMsg READ getTimerDelMsg NOTIFY timerDelMsgChanged)
+
+    Q_PROPERTY(StructProgressBar qmlStatusPB READ getStatusPB WRITE setStatusPB NOTIFY statusPBChanged)
+
     QTimer * timer;
 public slots:
+    void addMsg(const QString &, int);
     void deleteFromList();
-    //    void setPutNadviga(int);
-    //    int getPutNadviga();
-    //    void setStopPause(int);
-    //    int getStopPause();
-    //    void editSortir(bool qmlVisivle);
+    void deleteMsg();
     void getRndChart();
     void addOtcepUP(int);
     void addOtcepDown(int);
     void addOtcepClearAll();
-    void slotStartProgressBar(){emit sendStartProgressBar();}
-    void slotStopProgressBar(){emit sendStopProgressBar();}
+    //    void slotStartProgressBar(){emit sendStartProgressBar();}
+    //    void slotStopProgressBar(){emit sendStopProgressBar();}
 
 signals:
+    void maximumValuePBChanged();
     void showMessage(QString colorMessage, QString textMessage);
     void qmlVisibleObjectChanged();
     void qmlCurrentItemChanged();
     void qmRegimChanged();
     void qmlPutNadvigaChanged();
-
-    void setColorPutNadviga(int qmlPUT_NADVIG);
-    void setColorStop(int qmlRegim);
-    void setColorPause(int qmlRegim);
-    //    void setEnabledEdit(bool qmlVisible);
+    void statusPBChanged();
+    void listMsgChanged();
+    void timerDelMsgChanged();
     void setRndChart(int qmlX, int qmlY);
-    void sendStartProgressBar();
-    void sendStopProgressBar();
+    //    void sendStartProgressBar();
+    //    void sendStopProgressBar();
 
 
 public:
+    bool timerDelMsg;
+    bool getTimerDelMsg()const;
+
+    QStringList m_listMsg;
+    QStringList getListMsg()const;
+
     int qmlCurentIndex;
     int getCurrentItem()const;
     void setCurrentItem(const int &);
@@ -75,9 +100,12 @@ public:
     void setRegim(const int &);
 
     StructPutNadviga qmlPutNadviga;
-//    int qmlPUT_NADVIG;
     StructPutNadviga getPutNadviga()const;
     void setPutNadviga(const StructPutNadviga &);
+
+    StructProgressBar qmlStatusPB;
+    StructProgressBar getStatusPB()const;
+    void setStatusPB(const StructProgressBar &);
 
     enum dataRoles {
         nRole = Qt::UserRole ,

@@ -6,25 +6,23 @@ Item {
     Layout.minimumWidth: 120
     Layout.maximumWidth: 600
     Layout.minimumHeight: 60
-
+    property alias objN1:num1.objectName
+    property alias objN2:num2.objectName
     property alias  txt1: num1.txt
     property alias  txt2: num2.txt
-    property var name1
-    property var name2
-
-    function getVisible()
-    {
-        var Visible=true;
-        if(txt1 == txt2)
-        {
-            Visible=false;
-        }
-        else
-        {
-            Visible=true;
-        }
-        return Visible
-    }
+//    function getVisible()
+//    {
+//        var Visible=true;
+//        if(txt1 == txt2)
+//        {
+//            Visible=false;
+//        }
+//        else
+//        {
+//            Visible=true;
+//        }
+//        return Visible
+//    }
 
     Rectangle {
         id: rectangle
@@ -40,8 +38,9 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             spacing: 1
 
-            Number { id: num1; name: name1}
-            Number { id: num2; name: name2;visible: getVisible(); }
+            Number { id: num1; }
+            Number { id: num2; }
+//            Number { id: num2; name: name2;visible: visuslJoin }
 
         }
     }

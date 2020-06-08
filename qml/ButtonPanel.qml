@@ -14,19 +14,24 @@ RowLayout {
     MultiButton {
         id: edirSortList
         text: "ВВОД СЛ"
-        onSelectionLeftMouse: otcepsModel.qmlVisibleObject=(otcepsModel.qmlVisibleObject+1)%2;
+        onSelectionLeftMouse: {otcepsModel.qmlVisibleObject=(otcepsModel.qmlVisibleObject+1)%2;
+            otcepsModel.addMsg("qwreqwerw",1)
+        }
         colorRect: otcepsModel.qmlVisibleObject ? "orange":"lightsteelblue"
     }
 
     MultiButton {
         id: putnadviga
         buttonText: otcepsModel.qmlPutNadviga.select_putnadviga ? "РОСПУСК: 2":"РОСПУСК: 1"
-        onSelectionLeftMouse:
+        onSelectionLeftMouse:{
+            otcepsModel.qmlPutNadviga.chg_putnadviga=false
             otcepsModel.qmlPutNadviga.set_putnadviga=otcepsModel.qmlPutNadviga.select_putnadviga+1
-
-        onSelectionRightMouse:
+        }
+        onSelectionRightMouse:{
+            otcepsModel.qmlPutNadviga.chg_putnadviga=true
             otcepsModel.qmlPutNadviga.select_putnadviga=(otcepsModel.qmlPutNadviga.select_putnadviga+1)%2
 
+        }
         colorRect: MyScript.getColore(otcepsModel.qmlRegim, otcepsModel.qmlPutNadviga.set_putnadviga)
     }
 

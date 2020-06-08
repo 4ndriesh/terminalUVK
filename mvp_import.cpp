@@ -6,8 +6,7 @@
 
 
 MVP_Import::MVP_Import():QObject(nullptr)
-{
-
+{    
     MVP.setGetGtBufferInterface(&udp);
     cmd=new GtCommandInterface(this,&udp);
 }
@@ -31,8 +30,8 @@ bool MVP_Import::load(QString fn)
 
     // прием сортира от дспг
 
-//    GtBuffer * buffer12=udp.getGtBuffer(12,"Sl2Odo");
-//    connect(buffer12,&GtBuffer::bufferChanged,this,&MVP_Import::buffer12Changed);
+    //    GtBuffer * buffer12=udp.getGtBuffer(12,"Sl2Odo");
+    //    connect(buffer12,&GtBuffer::bufferChanged,this,&MVP_Import::buffer12Changed);
     for (int i=0;i<MaxVagon;i++){
         udp.getGtBuffer(14,QString("vag%1").arg(i+1));
     }
@@ -129,6 +128,10 @@ void MVP_Import::buffer14Changed(GtBuffer *)
 }
 bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
 {
+    pB = ViewOtcepsModel::instance();
+    pB->qmlStatusPB.m_set_value=0;
+    pB->qmlStatusPB.m_set_visible=true;
+    pB->statusPBChanged();
 
     m_Otceps *otceps=MVP_Import::instance()->gorka->findChildren<m_Otceps *>().first();
 
@@ -137,7 +140,6 @@ bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
     m["CMD"]="OTCEPS";
     m["CLEAR_ALL"]="1";
     MVP_Import::instance()->cmd->send_cmd(m);
-//    emit sendStartProgressBar();
     qDebug()<< "sortir send clear " ;
     QElapsedTimer t;
     t.start();
@@ -151,7 +153,13 @@ bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
         return false;
     }
     bool errorLoad=false;
+
     foreach (const tSl2OdoRec2 &o, srt->vOtceps) {
+
+        pB->qmlStatusPB.m_set_maximumValue=srt->vOtceps.count();
+        emit pB->statusPBChanged();
+
+
         m.clear();
         m["DEST"]="UVK";
         m["CMD"]="SET_OTCEP_STATE";
@@ -169,6 +177,10 @@ bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
         m["SL_OSO"]=QString::number(o.OSO);
         MVP_Import::instance()->cmd->send_cmd(m);
         qDebug()<< "sortir send otcep " << o.NO;
+
+        pB->qmlStatusPB.m_set_value+=1.0;
+        emit pB->statusPBChanged();
+
         t.start();
         m_Otcep *otcep=otceps->otcepByNum(o.NO);
         if (otcep==nullptr){
@@ -187,7 +199,6 @@ bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
         }
 
         foreach (const tSlVagon &v, o.vVag) {
-
             m.clear();
             m["DEST"]="UVK";
             m["CMD"]="ADD_OTCEP_VAG";
@@ -199,6 +210,7 @@ bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
 
             MVP_Import::instance()->cmd->send_cmd(m);
             qDebug()<< "sortir send otcep vagon" << o.NO << v.IV;
+
             t.start();
             while (((otcep->vVag.isEmpty())||(otcep->vVag.last().IV!=v.IV))&&(t.elapsed()<1000)){
                 QCoreApplication::processEvents();
@@ -209,9 +221,13 @@ bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
                 qDebug()<< "error sortir send otcep vagon" << o.NO << v.IV;
                 break;
             }
+
         }
         if (errorLoad) break;
     }
+    pB->qmlStatusPB.m_set_visible=false;
+    emit pB->statusPBChanged();
+
     if (errorLoad){
         // чистим все
         m.clear();
@@ -220,7 +236,6 @@ bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
         m["CLEAR_ALL"]="1";
         MVP_Import::instance()->cmd->send_cmd(m);
     }
-//    emit sendStopProgressBar();
     return errorLoad;
 }
 

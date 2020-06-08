@@ -47,12 +47,15 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
     ,timer(new QTimer(this))
 
 {
+    for(int msg=0; msg<10;msg++)
+        addMsg("Hello Word",msg);
+
     qmlPutNadviga.m_set_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();;
     qmlPutNadviga.m_select_putnadviga=0;
     qmlRegim=MVP_Import::instance()->gorka->STATE_REGIM();
     qmlX=1;
     qmlVisibleObject=false;
-    qmlCurentIndex=-1;
+    qmlCurentIndex=0;
     int irole=Qt::UserRole+1;
     for (int idx = 0; idx < m_Otcep::staticMetaObject.propertyCount(); idx++) {
         QMetaProperty metaProperty = m_Otcep::staticMetaObject.property(idx);
@@ -78,8 +81,8 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
     //timer->start();
 
     connect(MVP_Import::instance(),&MVP_Import::sortirArrived,this,&ViewOtcepsModel::sortirArrived);
-    connect(MVP_Import::instance(),&MVP_Import::sendStartProgressBar,this,&ViewOtcepsModel::slotStartProgressBar);
-    connect(MVP_Import::instance(),&MVP_Import::sendStopProgressBar,this,&ViewOtcepsModel::slotStopProgressBar);
+//    connect(MVP_Import::instance(),&MVP_Import::sendStartProgressBar,this,&ViewOtcepsModel::slotStartProgressBar);
+//    connect(MVP_Import::instance(),&MVP_Import::sendStopProgressBar,this,&ViewOtcepsModel::slotStopProgressBar);
 }
 ViewOtcepsModel *ViewOtcepsModel::instance()
 {
@@ -90,9 +93,6 @@ ViewOtcepsModel *ViewOtcepsModel::instance()
 
 void ViewOtcepsModel::slotOtcepChanged()
 {        
-    emit setColorStop(MVP_Import::instance()->gorka->STATE_REGIM());
-    emit setColorPause(MVP_Import::instance()->gorka->STATE_REGIM());
-    emit setColorPutNadviga(MVP_Import::instance()->gorka->PUT_NADVIG());
     beginResetModel();
     endResetModel();
 }
@@ -224,19 +224,37 @@ void ViewOtcepsModel::addOtcepClearAll()
     MVP_Import::instance()->cmd->send_cmd(m);
 }
 
+void ViewOtcepsModel::setStatusPB(const StructProgressBar &set_statusPB)
+{
+
+    //  qmlPutNadviga.m_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
+    qmlStatusPB=set_statusPB;
+    emit statusPBChanged();
+
+}
+StructProgressBar ViewOtcepsModel::getStatusPB() const
+{
+
+    //  qmlPutNadviga.m_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
+    return qmlStatusPB;
+}
+
+
 void ViewOtcepsModel::setPutNadviga(const StructPutNadviga &set_putnadviga)
 {
     qmlPutNadviga = set_putnadviga;
-    //    здесь установить путь надвига
-    MVP_Import::instance()->setPutNadvig(qmlPutNadviga.m_set_putnadviga);
-    MVP_Import::instance()->setRegim(ModelGroupGorka::regimRospusk);
+    if(qmlPutNadviga.m_chg_putnadviga==false)    {
 
-    //Хотелось бы получить ответ об установке режима
-    qmlRegim=MVP_Import::instance()->gorka->STATE_REGIM();
+        //    здесь установить путь надвига
+        MVP_Import::instance()->setPutNadvig(qmlPutNadviga.m_set_putnadviga);
+        MVP_Import::instance()->setRegim(ModelGroupGorka::regimRospusk);
 
-    //Временно(забыть удалить)
-    qmlRegim=1;
+        //Хотелось бы получить ответ об установке режима
+        qmlRegim=MVP_Import::instance()->gorka->STATE_REGIM();
 
+        //Временно(забыть удалить)
+        qmlRegim=1;
+    }
     emit qmlPutNadvigaChanged();
 
     //    ????????
@@ -245,11 +263,10 @@ void ViewOtcepsModel::setPutNadviga(const StructPutNadviga &set_putnadviga)
 
 }
 
-
 StructPutNadviga ViewOtcepsModel::getPutNadviga()const
 {
 
-//  qmlPutNadviga.m_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
+    //  qmlPutNadviga.m_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
     return qmlPutNadviga;
 }
 
@@ -293,7 +310,7 @@ int ViewOtcepsModel::getCurrentItem()const
 void ViewOtcepsModel::setCurrentItem(const int &index)
 {
     qmlCurentIndex = index;
-    emit qmlCurrentItemChanged();
+//    emit qmlCurrentItemChanged();
 }
 
 //Управляет визиблами для редактирования
@@ -307,3 +324,37 @@ void ViewOtcepsModel::setEditSortir(const int &visible)
     emit qmlVisibleObjectChanged();
 }
 //-------------------------------------------------
+//Управляет сообщениями
+QStringList ViewOtcepsModel::getListMsg()const
+{
+    return m_listMsg;
+}
+//Удаляем сообщения об ошибках по таймеру
+void ViewOtcepsModel::addMsg(const QString &valMsg, int msg)
+{
+    if(m_listMsg.isEmpty()){
+        qDebug()<<"Start Timer";
+        timerDelMsg=true;
+        emit timerDelMsgChanged();
+    }
+    m_listMsg.append(valMsg+QString::number(msg));
+    emit listMsgChanged();
+}
+
+void ViewOtcepsModel::deleteMsg()
+{
+    if(!m_listMsg.isEmpty())
+        m_listMsg.removeFirst();
+    else {
+        timerDelMsg=false;
+        qDebug()<<"Stop Timer";
+        emit timerDelMsgChanged();
+    }
+    emit listMsgChanged();
+}
+
+bool ViewOtcepsModel::getTimerDelMsg() const
+{
+    return timerDelMsg;
+}
+

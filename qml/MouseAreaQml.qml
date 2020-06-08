@@ -6,12 +6,12 @@ MouseArea {
     anchors.fill: parent
     enabled: otcepsModel.qmlVisibleObject
     acceptedButtons: Qt.LeftButton | Qt.RightButton
+    property var indexMouse: 0
     onClicked: {
         if (mouse.button === Qt.RightButton)
         {
             otcepsModel.qmlCurentIndex=index;
             subMenu.popup();
-
         }
 
         if (mouse.button === Qt.LeftButton)

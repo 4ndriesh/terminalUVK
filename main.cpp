@@ -56,6 +56,7 @@ int main(int argc, char *argv[])
     ViewOtcepsModel *model = ViewOtcepsModel::instance();
     viewer.rootContext()->setContextProperty("otcepsModel", model);
     qRegisterMetaType<StructPutNadviga>("StructPutNadviga");
+    qRegisterMetaType<StructProgressBar>("StructProgressBar");
     viewer.setSource(QUrl("qrc:/qml/main.qml"));
 //   viewer.setResizeMode(QQuickView::SizeRootObjectToView);
 //    viewer.show();

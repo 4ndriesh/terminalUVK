@@ -30,11 +30,13 @@ ColumnLayout {
             id: listView
             anchors.fill: parent
             model: otcepsModel
-            currentIndex: otcepsModel.qmlCurentIndex
-//            currentIndex: otcepsModel.qmlVisibleObject ? 0:-1
+            currentIndex: otcepsModel.qmlVisibleObject ? otcepsModel.qmlCurentIndex:-1
             delegate: OtcepViewDelegate{}
             clip: true
+
+            highlightFollowsCurrentItem: true
             highlight: HighlightBar{}
+
             highlightRangeMode: ListView.StrictlyEnforceRange
             preferredHighlightBegin: height/3
             preferredHighlightEnd: height/3
@@ -42,43 +44,19 @@ ColumnLayout {
             header: HeaderOtcepsView {
                 z: 10
             }
-            highlightFollowsCurrentItem: false
             focus: true
-       }
-
+            Keys.onPressed: { if (event.key === Qt.Key_Up || event.key === Qt.Key_Down)
+                    event.accepted = true; }
+        }
     }
 
     ProgressBar {
         id: pb1
         Layout.fillWidth: true
         minimumValue: 0
-        maximumValue: 100
-        value: 0
-        visible: false
+        maximumValue: otcepsModel.qmlStatusPB.set_maximumValue
+        value: otcepsModel.qmlStatusPB.set_value
+        visible: otcepsModel.qmlStatusPB.set_visible
     }
-
-    Timer {
-        id: simpletimer
-        interval: 100
-        repeat: true
-        running: false
-        onTriggered: pb1.value < pb1.maximumValue ? pb1.value += 1.0 : pb1.value = pb1.minimumValue
-    }
-    Connections {
-        target: otcepsModel
-        onSendStopProgressBar: {
-            simpletimer.running=false;
-            pb1.visible=false;
-        }
-    }
-    Connections {
-        target: otcepsModel
-        onSendStartProgressBar: {
-            visiblePB=true
-            simpletimer.running=true;
-        }
-    }
-
-
 }
 

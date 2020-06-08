@@ -47,7 +47,7 @@ ApplicationWindow {
                 id: layout
                 Layout.fillHeight: true
                 Layout.fillWidth: true
-                currentIndex: bar.currentIndex
+//                currentIndex: bar.currentIndex
                 TuvkMainPage{
                 }
 
@@ -74,25 +74,33 @@ ApplicationWindow {
             Layout.fillWidth: true
             Layout.minimumHeight: 50
             Layout.maximumHeight:100
-            Text {
-                id:textMsg
-                text: "<....................>!?"
-                anchors.centerIn: parent
+            ListView{
+                id:listMsgView
+                anchors.fill: parent
+                model:otcepsModel.listMsg
+                delegate: MsgDelegate{}
             }
+        }
+        Timer {
+            id: msgTimer
+            interval: 1000
+            repeat: true
+            running: otcepsModel.timerDelMsg
+            onTriggered: otcepsModel.deleteMsg();
         }
     }
 
-    footer:TabBar {
-        id: bar
-        width: parent.width
-        TabButton {
-            id:tab1
-            text: qsTr("Роспуск")
-        }
-        TabButton {
-            id:tab2
-            text: qsTr("Редактировать")
-        }
-    }
+//    footer:TabBar {
+//        id: bar
+//        width: parent.width
+//        TabButton {
+//            id:tab1
+//            text: qsTr("Роспуск")
+//        }
+//        TabButton {
+//            id:tab2
+//            text: qsTr("Редактировать")
+//        }
+//    }
 }
 
