@@ -24,6 +24,7 @@ RowLayout {
         id: putnadviga
         buttonText: otcepsModel.qmlPutNadviga.select_putnadviga ? "РОСПУСК: 2":"РОСПУСК: 1"
         onSelectionLeftMouse:{
+            otcepsModel.qmlRegim=1;
             otcepsModel.qmlPutNadviga.chg_putnadviga=false
             otcepsModel.qmlPutNadviga.set_putnadviga=otcepsModel.qmlPutNadviga.select_putnadviga+1
         }

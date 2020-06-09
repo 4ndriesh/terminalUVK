@@ -50,7 +50,8 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
     for(int msg=0; msg<10;msg++)
         addMsg("Hello Word",msg);
 
-    qmlPutNadviga.m_set_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();;
+    qmlPutNadviga.m_set_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
+
     qmlPutNadviga.m_select_putnadviga=0;
     qmlRegim=MVP_Import::instance()->gorka->STATE_REGIM();
     qmlX=1;
@@ -95,6 +96,12 @@ ViewOtcepsModel *ViewOtcepsModel::instance()
 
 void ViewOtcepsModel::slotOtcepChanged()
 {        
+    qDebug()<<"STATE_REGIM"<<MVP_Import::instance()->gorka->STATE_REGIM();
+    qmlPutNadviga.m_set_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
+    qDebug()<<"PUT_NADVIG"<<MVP_Import::instance()->gorka->PUT_NADVIG();
+    qmlRegim=MVP_Import::instance()->gorka->STATE_REGIM();
+    emit qmlPutNadvigaChanged();
+    emit qmRegimChanged();
     beginResetModel();
     endResetModel();
 }
@@ -108,7 +115,6 @@ QVariantMap ViewOtcepsModel::get(int row) const
 
 void ViewOtcepsModel::addDataObject(const DataObject &dataSourceObject)
 {
-
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     ViewOtcepList << dataSourceObject;
     endInsertRows();
@@ -251,30 +257,16 @@ StructProgressBar ViewOtcepsModel::getStatusPB() const
 void ViewOtcepsModel::setPutNadviga(const StructPutNadviga &set_putnadviga)
 {
     qmlPutNadviga = set_putnadviga;
-    if(qmlPutNadviga.m_chg_putnadviga==false)    {
-
-        //    здесь установить путь надвига
+    if(qmlPutNadviga.m_chg_putnadviga==false)
         MVP_Import::instance()->setPutNadvig(qmlPutNadviga.m_set_putnadviga);
-        MVP_Import::instance()->setRegim(ModelGroupGorka::regimRospusk);
 
-        //Хотелось бы получить ответ об установке режима
-        qmlRegim=MVP_Import::instance()->gorka->STATE_REGIM();
-
-        //Временно(забыть удалить)
-        qmlRegim=1;
-    }
+    qmlPutNadviga.m_set_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
     emit qmlPutNadvigaChanged();
-
-    //    ????????
-
-    emit qmRegimChanged();
 
 }
 
 StructPutNadviga ViewOtcepsModel::getPutNadviga()const
 {
-
-    //  qmlPutNadviga.m_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
     return qmlPutNadviga;
 }
 
@@ -285,6 +277,7 @@ int ViewOtcepsModel::getRegim()const
 }
 void ViewOtcepsModel::setRegim(const int &regim)
 {
+qDebug()<<regim;
     if (regim==ModelGroupGorka::regimStop){
         if (MVP_Import::instance()->gorka->STATE_REGIM()!=ModelGroupGorka::regimStop)
         {
@@ -299,14 +292,10 @@ void ViewOtcepsModel::setRegim(const int &regim)
             }
             MVP_Import::instance()->setRegim(ModelGroupGorka::regimStop);
         }
-
     } else {
         MVP_Import::instance()->setRegim(regim);
     }
     qmlRegim = MVP_Import::instance()->gorka->STATE_REGIM();
-
-    //Временно(забыть удалить)
-    qmlRegim = regim;
     emit qmRegimChanged();
 }
 

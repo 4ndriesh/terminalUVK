@@ -1,6 +1,7 @@
 #include "kbdllhooks.h"
 #include <QDebug>
 #include "app/viewotcepsmodel.h"
+#include "mvp_import.h"
 
 KBdllhooks &KBdllhooks::instance()
 {
@@ -36,21 +37,25 @@ LRESULT CALLBACK KBdllhooks::mouseProc(int Code, WPARAM wParam, LPARAM lParam)
                 emit kbtouch->qmlVisibleObjectChanged();
                 break;
             case 162:
+                kbtouch->setRegim(1);
                 kbtouch->qmlPutNadviga.m_set_putnadviga=1;
                 kbtouch->qmlPutNadviga.m_select_putnadviga=0;
                 kbtouch->setPutNadviga( kbtouch->qmlPutNadviga);
+//                emit kbtouch->qmlPutNadvigaChanged();
 
                 break;
 
             case 163:
+                kbtouch->setRegim(1);
                 kbtouch->qmlPutNadviga.m_set_putnadviga=2;
                 kbtouch->qmlPutNadviga.m_select_putnadviga=1;
                 kbtouch->setPutNadviga( kbtouch->qmlPutNadviga);
+//                emit kbtouch->qmlPutNadvigaChanged();
                 break;
             case 160:
                 //            case 80:
                 //Пауза
-                kbtouch->setRegim(2);;
+                kbtouch->setRegim(2);
                 break;
                 //            case 83:
             case 161:
@@ -76,6 +81,15 @@ LRESULT CALLBACK KBdllhooks::mouseProc(int Code, WPARAM wParam, LPARAM lParam)
                     kbtouch->qmlCurentIndex++;
                     emit kbtouch->qmlCurrentItemChanged();
                 }
+                break;
+
+            case 45:
+                //insert
+                qDebug()<<"inser";
+                break;
+            case 46:
+                //del
+                qDebug()<<"del";
                 break;
             default:
                 break;
