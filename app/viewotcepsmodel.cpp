@@ -52,7 +52,6 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
 
     qmlPutNadviga.m_set_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
 
-    qmlPutNadviga.m_select_putnadviga=0;
     qmlRegim=MVP_Import::instance()->gorka->STATE_REGIM();
     qmlX=1;
     qmlVisibleObject=false;
@@ -256,9 +255,11 @@ StructProgressBar ViewOtcepsModel::getStatusPB() const
 
 void ViewOtcepsModel::setPutNadviga(const StructPutNadviga &set_putnadviga)
 {
+
     qmlPutNadviga = set_putnadviga;
-    if(qmlPutNadviga.m_chg_putnadviga==false)
-        MVP_Import::instance()->setPutNadvig(qmlPutNadviga.m_set_putnadviga);
+    qDebug()<<"qmlPutNadviga.m_set_putnadviga"<<qmlPutNadviga.m_set_putnadviga;
+//    if(qmlPutNadviga.m_chg_putnadviga==false)
+    MVP_Import::instance()->setPutNadvig(qmlPutNadviga.m_set_putnadviga);
 
     qmlPutNadviga.m_set_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
     emit qmlPutNadvigaChanged();

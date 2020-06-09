@@ -37,19 +37,21 @@ LRESULT CALLBACK KBdllhooks::mouseProc(int Code, WPARAM wParam, LPARAM lParam)
                 emit kbtouch->qmlVisibleObjectChanged();
                 break;
             case 162:
-                kbtouch->setRegim(1);
+
                 kbtouch->qmlPutNadviga.m_set_putnadviga=1;
                 kbtouch->qmlPutNadviga.m_select_putnadviga=0;
                 kbtouch->setPutNadviga( kbtouch->qmlPutNadviga);
+                kbtouch->setRegim(1);
 //                emit kbtouch->qmlPutNadvigaChanged();
 
                 break;
 
             case 163:
-                kbtouch->setRegim(1);
+
                 kbtouch->qmlPutNadviga.m_set_putnadviga=2;
                 kbtouch->qmlPutNadviga.m_select_putnadviga=1;
                 kbtouch->setPutNadviga( kbtouch->qmlPutNadviga);
+                kbtouch->setRegim(1);
 //                emit kbtouch->qmlPutNadvigaChanged();
                 break;
             case 160:

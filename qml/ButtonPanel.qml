@@ -22,15 +22,17 @@ RowLayout {
 
     MultiButton {
         id: putnadviga
-        buttonText: otcepsModel.qmlPutNadviga.select_putnadviga ? "РОСПУСК: 2":"РОСПУСК: 1"
+        buttonText: otcepsModel.qmlPutNadviga.set_putnadviga%2 ? "РОСПУСК: 1":"РОСПУСК: 2"
         onSelectionLeftMouse:{
             otcepsModel.qmlRegim=1;
-            otcepsModel.qmlPutNadviga.chg_putnadviga=false
-            otcepsModel.qmlPutNadviga.set_putnadviga=otcepsModel.qmlPutNadviga.select_putnadviga+1
+//            otcepsModel.qmlPutNadviga.chg_putnadviga=false
+
         }
         onSelectionRightMouse:{
-            otcepsModel.qmlPutNadviga.chg_putnadviga=true
-            otcepsModel.qmlPutNadviga.select_putnadviga=(otcepsModel.qmlPutNadviga.select_putnadviga+1)%2
+//            otcepsModel.qmlPutNadviga.chg_putnadviga=true
+//            otcepsModel.qmlPutNadviga.select_putnadviga=otcepsModel.qmlPutNadviga.select_putnadviga%2+1
+            otcepsModel.qmlPutNadviga.set_putnadviga=otcepsModel.qmlPutNadviga.set_putnadviga%2+1
+
 
         }
         colorRect: MyScript.getColore(otcepsModel.qmlRegim, otcepsModel.qmlPutNadviga.set_putnadviga)
