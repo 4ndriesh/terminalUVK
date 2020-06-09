@@ -278,3 +278,23 @@ void MVP_Import::setPutNadvig(int p)
     MVP_Import::instance()->cmd->send_cmd(m);
     qDebug()<< "setPutNadvig to uvk" << p;
 }
+
+void MVP_Import::incOtcep(int N)
+{
+    QMap<QString,QString> m;
+    m["DEST"]="UVK";
+    m["CMD"]="OTCEPS";
+    m["INC_OTCEP"]=QString::number(N);
+    MVP_Import::instance()->cmd->send_cmd(m);
+    qDebug()<< "incOtcep to uvk" << N;
+}
+
+void MVP_Import::delOtcep(int N)
+{
+    QMap<QString,QString> m;
+    m["DEST"]="UVK";
+    m["CMD"]="OTCEPS";
+    m["DEL_OTCEP"]=QString::number(N);
+    MVP_Import::instance()->cmd->send_cmd(m);
+    qDebug()<< "delOtcep to uvk" << N;
+}

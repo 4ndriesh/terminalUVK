@@ -50,7 +50,7 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
     for(int msg=0; msg<10;msg++)
         addMsg("Hello Word",msg);
 
-    qmlPutNadviga.m_set_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
+    qmlPutNadviga.m_set_putnadviga=MVP_Import::instance()->gorka->STATE_PUT_NADVIG();
 
     qmlRegim=MVP_Import::instance()->gorka->STATE_REGIM();
     qmlX=1;
@@ -96,8 +96,8 @@ ViewOtcepsModel *ViewOtcepsModel::instance()
 void ViewOtcepsModel::slotOtcepChanged()
 {        
     qDebug()<<"STATE_REGIM"<<MVP_Import::instance()->gorka->STATE_REGIM();
-    qmlPutNadviga.m_set_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
-    qDebug()<<"PUT_NADVIG"<<MVP_Import::instance()->gorka->PUT_NADVIG();
+    qmlPutNadviga.m_set_putnadviga=MVP_Import::instance()->gorka->STATE_PUT_NADVIG();
+    qDebug()<<"PUT_NADVIG"<<MVP_Import::instance()->gorka->STATE_PUT_NADVIG();
     qmlRegim=MVP_Import::instance()->gorka->STATE_REGIM();
     emit qmlPutNadvigaChanged();
     emit qmRegimChanged();
@@ -261,7 +261,7 @@ void ViewOtcepsModel::setPutNadviga(const StructPutNadviga &set_putnadviga)
 //    if(qmlPutNadviga.m_chg_putnadviga==false)
     MVP_Import::instance()->setPutNadvig(qmlPutNadviga.m_set_putnadviga);
 
-    qmlPutNadviga.m_set_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
+    qmlPutNadviga.m_set_putnadviga=MVP_Import::instance()->gorka->STATE_PUT_NADVIG();
     emit qmlPutNadvigaChanged();
 
 }

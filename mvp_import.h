@@ -50,6 +50,8 @@ public:
     bool loadSortirToUvk(const tSl2Odo2 *srt);
     void setRegim(int p);
     void setPutNadvig(int p);
+    void incOtcep(int N);
+    void delOtcep(int N);
 
 signals:
     void sortirArrived(const tSl2Odo2 *srt);
