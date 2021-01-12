@@ -54,11 +54,10 @@ int main(int argc, char *argv[])
         exit(-1);
     }
 
-
-    qRegisterMetaType<StructPutNadviga>("StructPutNadviga");
+    qRegisterMetaType<QML_ManagerButton>("QML_ManagerButton");
     qRegisterMetaType<StructProgressBar>("StructProgressBar");
     ViewOtcepsModel &model = ViewOtcepsModel::instance();
-    Management &manage = Management::instance();
+    ManageModel &manage = ManageModel::instance();
     QQmlApplicationEngine engine;
     engine.addImportPath(":/qml");
 

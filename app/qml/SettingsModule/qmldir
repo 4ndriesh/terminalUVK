@@ -1,0 +1,2 @@
+module SettingsModule
+singleton Settings 1.0 Settings.qml

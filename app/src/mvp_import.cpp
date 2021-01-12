@@ -128,7 +128,7 @@ void MVP_Import::buffer14Changed(GtBuffer *)
 }
 bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
 {
-    Management &pB = Management::instance();
+    ManageModel &pB = ManageModel::instance();
     pB.qmlStatusPB.m_set_value=0;
     pB.qmlStatusPB.m_set_visible=true;
     pB.statusPBChanged();

@@ -4,6 +4,27 @@
 #include <QQmlExtensionPlugin>
 #include <QtQml>
 
+
+struct QML_ManagerButton
+{
+    Q_GADGET
+    Q_PROPERTY(int putNadviga MEMBER m_putNadviga)
+    Q_PROPERTY(int editing MEMBER m_editing)
+    Q_PROPERTY(int regim MEMBER m_regim)
+    Q_PROPERTY(bool wink_Stop MEMBER m_wStop)
+    Q_PROPERTY(bool wink_Pause MEMBER m_wPause)
+    Q_PROPERTY(bool wink_Nadvig MEMBER m_wNadvig)
+
+public:
+    int m_putNadviga;
+    int m_editing=0;
+    int m_regim;
+    bool m_wStop=false;
+    bool m_wPause=false;
+    bool m_wNadvig=false;
+};
+Q_DECLARE_METATYPE(QML_ManagerButton)
+
 struct StructProgressBar{
     Q_GADGET
     Q_PROPERTY(float set_value MEMBER m_set_value)
@@ -16,32 +37,16 @@ public:
     bool m_set_visible;
 
 };
-Q_DECLARE_METATYPE(StructProgressBar)
-struct StructPutNadviga {
-    Q_GADGET
-    Q_PROPERTY(int set_putnadviga MEMBER m_set_putnadviga)
-    Q_PROPERTY(int select_putnadviga MEMBER m_select_putnadviga)
-    Q_PROPERTY(bool chg_putnadviga MEMBER m_chg_putnadviga)
 
-public:
-    bool m_chg_putnadviga;
-    int m_set_putnadviga;
-    int m_select_putnadviga;
-
-
-};
-Q_DECLARE_METATYPE(StructPutNadviga)
-
-class Management: public QObject
+class ManageModel: public QObject
 {
     Q_OBJECT
+
+    Q_PROPERTY(QML_ManagerButton stateBt READ stateBt WRITE setStateBt NOTIFY stateBtChanged)
+
     Q_PROPERTY(int qmlCurentIndex READ getCurrentItem WRITE setCurrentItem NOTIFY qmlCurrentItemChanged)
 
-    Q_PROPERTY(int qmlVisibleObject READ getEditSortir WRITE setEditSortir NOTIFY qmlVisibleObjectChanged)
-
-    Q_PROPERTY(int qmlRegim READ getRegim WRITE setRegim NOTIFY qmRegimChanged)
-
-    Q_PROPERTY(StructPutNadviga qmlPutNadviga READ getPutNadviga WRITE setPutNadviga NOTIFY qmlPutNadvigaChanged)
+    Q_PROPERTY(int textInput READ textInput WRITE setTextInput NOTIFY textInputChanged)
 
     Q_PROPERTY(QStringList listMsg READ getListMsg NOTIFY listMsgChanged)
 
@@ -49,13 +54,13 @@ class Management: public QObject
 
     Q_PROPERTY(StructProgressBar qmlStatusPB READ getStatusPB WRITE setStatusPB NOTIFY statusPBChanged)
 public:
-    explicit Management(QObject *parent = nullptr);
-    virtual ~Management(){}
+    explicit ManageModel(QObject *parent = nullptr);
+    virtual ~ManageModel(){}
 public:
-    static Management &instance(){
-        static Management *_instance=0;
+    static ManageModel &instance(){
+        static ManageModel *_instance=0;
         if(_instance ==0){
-            _instance=new Management();
+            _instance=new ManageModel();
         }
         return *_instance;
     }
@@ -68,46 +73,55 @@ public slots:
     void addOtcepUP(int);
     void addOtcepDown(int);
     void addOtcepClearAll();
-    //    void slotStartProgressBar(){emit sendStartProgressBar();}
-    //    void slotStopProgressBar(){emit sendStopProgressBar();}
-
 signals:
+    void stateBtChanged();
     void maximumValuePBChanged();
     void showMessage(QString colorMessage, QString textMessage);
-    void qmlVisibleObjectChanged();
+    void textInputChanged();
     void qmlCurrentItemChanged();
-    void qmRegimChanged();
-    void qmlPutNadvigaChanged();
     void statusPBChanged();
     void listMsgChanged();
     void timerDelMsgChanged();
     void setRndChart(int qmlX, int qmlY);
-    //    void sendStartProgressBar();
-    //    void sendStopProgressBar();
-
 
 public:
+    QML_ManagerButton m_stateBt;
+    QML_ManagerButton stateBt()const {return m_stateBt;}
+    void setStateBt(const QML_ManagerButton &stateBt)
+    {
+        m_stateBt = stateBt;
+        emit stateBtChanged();
+    }
+
+    int m_textInput;
+    int textInput()const {return m_textInput;}
+    void setTextInput(const int &Put)
+    {
+        m_textInput = Put;
+        emit textInputChanged();
+    }
+
+    int acceptRegim;
+    void accept();
+
     bool timerDelMsg;
     bool getTimerDelMsg()const;
 
+    //Управляет сообщениями
     QStringList m_listMsg;
-    QStringList getListMsg()const;
+    QStringList getListMsg()const{return m_listMsg;}
 
+    //Управляет курсором листвью
     int qmlCurentIndex;
-    int getCurrentItem()const;
-    void setCurrentItem(const int &);
+    int getCurrentItem()const{return qmlCurentIndex;}
+    void setCurrentItem(const int &index){
+        qmlCurentIndex = index;
+        //    emit qmlCurrentItemChanged();
+    }
 
-    int qmlVisibleObject;
-    int getEditSortir()const;
-    void setEditSortir(const int &);
 
-    int qmlRegim;
-    int getRegim()const;
     void setRegim(const int &);
-
-    StructPutNadviga qmlPutNadviga;
-    StructPutNadviga getPutNadviga()const;
-    void setPutNadviga(const StructPutNadviga &);
+    void setPutNadviga(const int &);
 
     StructProgressBar qmlStatusPB;
     StructProgressBar getStatusPB()const;

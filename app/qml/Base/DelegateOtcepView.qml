@@ -1,12 +1,12 @@
 import QtQuick 2.14
 import QtQuick.Layouts 1.4
-import StyleModule 1.0
+import SettingsModule 1.0
 import QtQml.Models 2.1
 
 Rectangle {
     id: delegate
     objectName: "delegate"
-    color: Style.backgroundColor
+    color: Settings.backgroundListView
     //цвет в зависимости от STATE_LOCATION
     property variant items_color: ["red", "yellow","green","dimgrey","white","LightGray"]
     width: parent.width;

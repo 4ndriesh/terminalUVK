@@ -8,6 +8,7 @@
 
 
 struct tSl2Odo2;
+
 class ViewOtcepsModel : public QAbstractListModel
 {
 

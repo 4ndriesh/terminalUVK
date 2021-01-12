@@ -1,35 +1,48 @@
 import QtQuick 2.14
 import "terminalUVK.js" as MyScript
 import Base 1.0
-import StyleModule 1.0
+import SettingsModule 1.0
 
-Rectangle{
-    property variant name1
+Item{
+    property int regim: manageModel.stateBt.regim
+    property int putNadviga: manageModel.stateBt.putNadviga
+    property int wink_pause: manageModel.stateBt.wink_Pause
+    property int wink_stop: manageModel.stateBt.wink_Stop
+    property int wink_nadvig: manageModel.stateBt.wink_Nadvig
+    property int editing: manageModel.stateBt.editing
+
     Row {
 
         spacing: 5
         MultiButton {
             id: edirSortList
             buttonText: "ВВОД СЛ"
-            color: manageModel.qmlVisibleObject ? Style.themeRegimColor:Style.themeHeaderColor
+            color: editing ? Settings.themeRegimColor:Settings.themeHeaderColor
+            wink: false
         }
 
         MultiButton {
             id: putnadviga
-            buttonText: manageModel.qmlPutNadviga.set_putnadviga%2 ? "РОСПУСК: 1":"РОСПУСК: 2"
-            color: MyScript.getColore(otcepsModel.qmlRegim, manageModel.qmlPutNadviga.set_putnadviga)
+            buttonText: putNadviga%2 ? "РОСПУСК: 1":"РОСПУСК: 2"
+            color: MyScript.getColore(regim, putNadviga)
+            wink: wink_nadvig
+            onSetWink: manageModel.stateBt.wink_Nadvig=false
         }
 
         MultiButton {
             id: stop
             buttonText: "СТОП"
-            color: name1 ? Style.themeHeaderColor:Style.themeRegimColor
+            color: regim ? Settings.themeHeaderColor:Settings.themeRegimColor
+            wink: regim ? wink_stop:false
+            onSetWink: manageModel.stateBt.wink_Stop=false
 
         }
         MultiButton {
             id: pause
             buttonText: "ПАУЗА"
-            color: name1<2 ? Style.themeHeaderColor:Style.themeRegimColor
+            color: regim<2 ? Settings.themeHeaderColor:Settings.themeRegimColor
+            wink: regim<2 ? wink_pause:false
+            onSetWink: manageModel.stateBt.wink_Pause=false
         }
     }
 }

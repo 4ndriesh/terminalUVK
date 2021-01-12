@@ -9,8 +9,8 @@
         <file>qml/Impl/qmldir</file>
         <file>qml/Impl/terminalUVK.js</file>
         <file>qml/Message/qmldir</file>
-        <file>qml/StyleModule/qmldir</file>
-        <file>qml/StyleModule/Style.qml</file>
+        <file>qml/SettingsModule/qmldir</file>
+        <file>qml/SettingsModule/Settings.qml</file>
         <file>qml/Base/ListModelHeader.qml</file>
         <file>qml/Base/qmldir</file>
         <file>qml/Base/Number.qml</file>

@@ -2,13 +2,13 @@ import QtQuick 2.14
 import Message 1.0
 
 Rectangle {
-
+    id: showmessage
     color: "#FFFFE0"
     height: 50
     ListView{
         id:listMsgView
         anchors.fill: parent
-        model:otcepsModel.listMsg
+        model:manageModel.listMsg
         delegate: MsgDelegate{}
     }
     Timer {

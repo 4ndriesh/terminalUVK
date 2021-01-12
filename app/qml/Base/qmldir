@@ -8,4 +8,3 @@ MultiButton 1.0 MultiButton.qml
 DelegateOtcepView 1.0 DelegateOtcepView.qml
 HighlightBar 1.0 HighlightBar.qml
 HeaderOtcepsView 1.0 HeaderOtcepsView.qml
-plugin mbutton

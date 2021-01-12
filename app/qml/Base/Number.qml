@@ -1,18 +1,16 @@
 import QtQuick 2.14
 import QtQuick.Layouts 1.14
-import StyleModule 1.0
+import SettingsModule 1.0
 
 Rectangle {
     id: textField
-    Layout.fillWidth: true
-    Layout.preferredWidth: parent.width/12
-
-    height: Style.baseHeight
-    color: delegate.color
-    border.width: Style.borderWidth
-
     property alias txt: text.text
 
+    Layout.fillWidth: true
+    Layout.preferredWidth: parent.width/12
+    height: Settings.baseHeight
+    color: delegate.color
+    border.width: Settings.borderWidth
     states:
         [
         State {
@@ -34,8 +32,7 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
         font.pointSize: parent.height/3
-        enabled: manageModel.qmlVisibleObject
-
+        enabled: false
         onEditingFinished: {
             switch(textField) {
             case state_sp: STATE_SP=text.text;
@@ -77,22 +74,39 @@ Rectangle {
         //        }
     }
 
-//    Connections{
-//        target: manageModel
-//        onQmlCurrentItemChanged:{
+    Connections{
+        target: manageModel
+        onQmlCurrentItemChanged:{
 
-//            if(manageModel.qmlCurentIndex === index &&
-//                    textField.objectName==='STATE_SP'
-//                    && manageModel.qmlVisibleObject===1){
-//                text.forceActiveFocus();
-//                text.cursorPosition= text.text.length
-//                textField.border.color = "green"
-//                textField.border.width = 5
-//                //                num2.visible = true
-//            }else{
-//                textField.border.color = "black"
-//                textField.border.width = 1
-//            }
-//        }
-//    }
+            if(manageModel.qmlCurentIndex === index &&
+                    textField.objectName==='STATE_SP'
+                    && manageModel.stateBt.editing===1){
+                text.forceActiveFocus();
+                text.enabled=true;
+                text.cursorVisible=true;
+                text.cursorPosition= text.text.length;
+                textField.border.color = "green";
+                textField.border.width = 5;
+                //                num2.visible = true
+            }else{
+                text.enabled=false;
+                text.cursorVisible=false;
+                textField.border.color = "black"
+                textField.border.width = 1
+            }
+        }
+    }
+
+    Connections{
+        target: manageModel
+        onTextInputChanged:{
+
+            if(manageModel.qmlCurentIndex === index &&
+                    textField.objectName==='STATE_SP'
+                    && manageModel.stateBt.editing===1){
+                text.text=manageModel.textInput;
+            }
+        }
+    }
+
 }

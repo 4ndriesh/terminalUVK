@@ -25,7 +25,7 @@ KBdllhooks::KBdllhooks(QObject *parent) : QObject(parent)
 LRESULT CALLBACK KBdllhooks::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
     Q_UNUSED(nCode)
-    Management &kbtouch = Management::instance();
+    ManageModel &kbtouch = ManageModel::instance();
     if (wParam == WM_KEYDOWN)
     {
 
@@ -34,47 +34,69 @@ LRESULT CALLBACK KBdllhooks::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPAR
         if(pKBStruct != nullptr) {
             switch (pKBStruct->vkCode) {
             qDebug()<<pKBStruct->vkCode;
+            case VK_TAB:
+
+//                kbtouch.qmlVisibleObject=(kbtouch.qmlVisibleObject+1)%2;
+//                emit kbtouch.qmlVisibleObjectChanged();
+                if(kbtouch.m_stateBt.m_regim==1){
+                    kbtouch.addMsg("Роспуск",1);
+                }
+                else{
+                    kbtouch.m_stateBt.m_editing=(kbtouch.m_stateBt.m_editing+1)%2;
+                    emit kbtouch.qmlCurrentItemChanged();
+                    kbtouch.stateBtChanged();
+                }
+
+                break;
             case VK_RETURN:
-                kbtouch.qmlVisibleObject=(kbtouch.qmlVisibleObject+1)%2;
-                emit kbtouch.qmlVisibleObjectChanged();
-                emit kbtouch.qmlCurrentItemChanged();
+                kbtouch.accept();
                 break;
             case VK_LCONTROL:
-
-                kbtouch.qmlPutNadviga.m_set_putnadviga=1;
-                kbtouch.qmlPutNadviga.m_select_putnadviga=0;
-                kbtouch.setPutNadviga( kbtouch.qmlPutNadviga);
-                kbtouch.setRegim(1);
-                //                emit kbtouch.qmlPutNadvigaChanged();
-
+                //Роспуск 1
+                kbtouch.acceptRegim=1;
+                kbtouch.m_stateBt.m_putNadviga=1;
+                kbtouch.m_stateBt.m_wPause=false;
+                kbtouch.m_stateBt.m_wStop=false;
+                kbtouch.m_stateBt.m_wNadvig=true;
+                kbtouch.stateBtChanged();
                 break;
 
             case VK_RCONTROL:
-
-                kbtouch.qmlPutNadviga.m_set_putnadviga=2;
-                kbtouch.qmlPutNadviga.m_select_putnadviga=1;
-                kbtouch.setPutNadviga( kbtouch.qmlPutNadviga);
-                kbtouch.setRegim(1);
-                //                emit kbtouch.qmlPutNadvigaChanged();
+                //Роспуск 2
+                kbtouch.acceptRegim=3;
+                kbtouch.m_stateBt.m_putNadviga=2;
+                kbtouch.m_stateBt.m_wPause=false;
+                kbtouch.m_stateBt.m_wStop=false;
+                kbtouch.m_stateBt.m_wNadvig=true;
+                kbtouch.stateBtChanged();
                 break;
             case VK_LSHIFT:
                 //            case 80:
                 //Пауза
-                kbtouch.setRegim(2);
+                kbtouch.acceptRegim=2;
+                kbtouch.m_stateBt.m_wPause=true;
+                kbtouch.m_stateBt.m_wStop=false;
+                kbtouch.m_stateBt.m_wNadvig=false;
+                kbtouch.stateBtChanged();
                 break;
                 //            case 83:
             case VK_RSHIFT:
                 //Стоп
-                kbtouch.setRegim(0);
+                kbtouch.acceptRegim=0;
+                kbtouch.m_stateBt.m_wStop=true;
+                kbtouch.m_stateBt.m_wPause=false;
+                kbtouch.m_stateBt.m_wNadvig=false;
+                kbtouch.stateBtChanged();
+
                 break;
                 //            case   81:
             case VK_UP:
                 //UP
 
-                if(kbtouch.qmlVisibleObject)
+                if(kbtouch.m_stateBt.m_editing && kbtouch.qmlCurentIndex>-1)
                 {
-                    if (kbtouch.qmlCurentIndex<0)
-                        kbtouch.qmlCurentIndex=0;
+//                    if (kbtouch.qmlCurentIndex>-1)
+//                        kbtouch.qmlCurentIndex=0;
                     kbtouch.qmlCurentIndex--;
                     emit kbtouch.qmlCurrentItemChanged();
                 }
@@ -82,7 +104,7 @@ LRESULT CALLBACK KBdllhooks::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPAR
                 //            case  65:
             case VK_DOWN:
                 //DOWN
-                if(kbtouch.qmlVisibleObject)
+                if(kbtouch.m_stateBt.m_editing)
                 {
                     kbtouch.qmlCurentIndex++;
                     emit kbtouch.qmlCurrentItemChanged();
@@ -96,6 +118,12 @@ LRESULT CALLBACK KBdllhooks::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPAR
             case VK_DELETE:
                 //del
                 qDebug()<<"del";
+                break;
+
+            case VK_F1:
+                //del
+                kbtouch.m_textInput=25;
+                emit kbtouch.textInputChanged();
                 break;
             default:
                 break;

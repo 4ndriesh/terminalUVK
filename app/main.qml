@@ -3,13 +3,13 @@ import QtQuick.Layouts 1.14
 import QtQuick.Window 2.14
 import Impl 1.0
 import Base 1.0
-import StyleModule 1.0
+import SettingsModule 1.0
 
 Window {
     visible: true
     minimumWidth: 1200
     minimumHeight: 600
-    color: Style.backgroundColor
+    color: Settings.backgroundColor
     //    title: qsTr("Терминал УВК")
 
     GridLayout{
@@ -23,13 +23,9 @@ Window {
             Layout.columnSpan:3
             Layout.row: 1
         }
-        MButton {
-            id: manage
-        }
 
         ButtonPanel {
             id: controlPanel
-            name1: manage.qmlManagerButton.regim
             Layout.fillWidth: true
             Layout.preferredHeight: 50
             Layout.columnSpan:3
@@ -48,12 +44,10 @@ Window {
             Layout.preferredHeight: 20
             Layout.columnSpan:3
             Layout.row: 4
-
         }
 
         AlarmMessage {
             Layout.fillWidth: true
-            Layout.preferredHeight: 50
             Layout.columnSpan:3
             Layout.row: 5
         }

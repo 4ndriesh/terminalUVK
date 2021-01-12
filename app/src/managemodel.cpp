@@ -5,26 +5,28 @@
 #include <QMetaProperty>
 
 
-Management::Management(QObject *parent) : QObject(parent)
+
+ManageModel::ManageModel(QObject *parent) : QObject(parent)
 {
-//    VisibleEditButton=1;
+    //     qmlManagerButton->m_regim=0;
+    for(int msg=0; msg<2;msg++)
+        addMsg("Hello Word",msg);
+}
+
+void ManageModel::deleteFromList()
+{
 
 }
 
-void Management::deleteFromList()
-{
-
-}
-
-void Management::getRndChart()
+void ManageModel::getRndChart()
 {
     //    qmlStopPause=MVP_Import::instance()->gorka->STATE_REGIM();
-//    qmlX+=1;
-//    qmlY=qrand() % 10;
-//    emit setRndChart(qmlX,qmlY);
+    //    qmlX+=1;
+    //    qmlY=qrand() % 10;
+    //    emit setRndChart(qmlX,qmlY);
 }
 
-void Management::addOtcepUP(int index)
+void ManageModel::addOtcepUP(int index)
 {
     if(index!=-1)
     {
@@ -32,13 +34,13 @@ void Management::addOtcepUP(int index)
     }
 }
 
-void Management::addOtcepDown(int index)
+void ManageModel::addOtcepDown(int index)
 {
     if(index!=-1)
         qDebug()<<"addDown"<<index;
 }
 
-void Management::addOtcepClearAll()
+void ManageModel::addOtcepClearAll()
 {
     qDebug()<<"addupClearAll";
     QMap<QString,QString> m;
@@ -49,48 +51,52 @@ void Management::addOtcepClearAll()
     MVP_Import::instance()->cmd->send_cmd(m);
 }
 
-void Management::setStatusPB(const StructProgressBar &set_statusPB)
+void ManageModel::setStatusPB(const StructProgressBar &set_statusPB)
 {
-
     //  qmlPutNadviga.m_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
     qmlStatusPB=set_statusPB;
     emit statusPBChanged();
 
 }
-StructProgressBar Management::getStatusPB() const
+
+StructProgressBar ManageModel::getStatusPB() const
 {
 
     //  qmlPutNadviga.m_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
     return qmlStatusPB;
 }
 
-
-void Management::setPutNadviga(const StructPutNadviga &set_putnadviga)
+void ManageModel::accept()
 {
+    switch (acceptRegim) {
 
-    qmlPutNadviga = set_putnadviga;
-    qDebug()<<"qmlPutNadviga.m_set_putnadviga"<<qmlPutNadviga.m_set_putnadviga;
-//    if(qmlPutNadviga.m_chg_putnadviga==false)
-    MVP_Import::instance()->setPutNadvig(qmlPutNadviga.m_set_putnadviga);
-
-    qmlPutNadviga.m_set_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
-    emit qmlPutNadvigaChanged();
-
+    case 0:
+        setRegim(0);
+        break;
+    case 1:
+        setRegim(1);
+        setPutNadviga(1);
+        break;
+    case 2:
+        setRegim(2);
+        break;
+    case 3:
+        setRegim(1);
+        setPutNadviga(2);
+        break;
+    default:
+        break;
+    }
 }
 
-StructPutNadviga Management::getPutNadviga()const
+void ManageModel::setPutNadviga(const int &putNadviga)
 {
-    return qmlPutNadviga;
+    MVP_Import::instance()->setPutNadvig(putNadviga);
 }
 
-//Управляет кнопкой стоп
-int Management::getRegim()const
+void ManageModel::setRegim(const int &regim)
 {
-    return qmlRegim;
-}
-void Management::setRegim(const int &regim)
-{
-qDebug()<<regim;
+    qDebug()<<regim;
     if (regim==ModelGroupGorka::regimStop){
         if (MVP_Import::instance()->gorka->STATE_REGIM()!=ModelGroupGorka::regimStop)
         {
@@ -108,39 +114,13 @@ qDebug()<<regim;
     } else {
         MVP_Import::instance()->setRegim(regim);
     }
-    qmlRegim = MVP_Import::instance()->gorka->STATE_REGIM();
-    emit qmRegimChanged();
 }
 
-//Управляет курсором листвью
-int Management::getCurrentItem()const
-{
-    return qmlCurentIndex;
-}
-void Management::setCurrentItem(const int &index)
-{
-    qmlCurentIndex = index;
-//    emit qmlCurrentItemChanged();
-}
-
-//Управляет визиблами для редактирования
-int Management::getEditSortir()const
-{
-    return qmlVisibleObject;
-}
-void Management::setEditSortir(const int &visible)
-{
-    qmlVisibleObject = visible;
-    emit qmlVisibleObjectChanged();
-}
 //-------------------------------------------------
-//Управляет сообщениями
-QStringList Management::getListMsg()const
-{
-    return m_listMsg;
-}
+
+
 //Удаляем сообщения об ошибках по таймеру
-void Management::addMsg(const QString &valMsg, int msg)
+void ManageModel::addMsg(const QString &valMsg, int msg)
 {
     if(m_listMsg.isEmpty()){
         qDebug()<<"Start Timer";
@@ -151,7 +131,7 @@ void Management::addMsg(const QString &valMsg, int msg)
     emit listMsgChanged();
 }
 
-void Management::deleteMsg()
+void ManageModel::deleteMsg()
 {
     if(!m_listMsg.isEmpty())
         m_listMsg.removeFirst();
@@ -163,7 +143,7 @@ void Management::deleteMsg()
     emit listMsgChanged();
 }
 
-bool Management::getTimerDelMsg() const
+bool ManageModel::getTimerDelMsg() const
 {
     return timerDelMsg;
 }

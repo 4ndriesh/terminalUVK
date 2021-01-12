@@ -40,20 +40,19 @@
 
 
 static ViewOtcepsModel *_instance=nullptr;
-Management &Mn = Management::instance();
+ManageModel &Mn = ManageModel::instance();
 ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
     : QAbstractListModel(parent)
     ,timer(new QTimer(this))
 
 {
-    for(int msg=0; msg<10;msg++)
-        Mn.addMsg("Hello Word",msg);
 
-    Mn.qmlPutNadviga.m_set_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
 
-    Mn.qmlRegim=MVP_Import::instance()->gorka->STATE_REGIM();
+//    Mn.qmlPutNadviga.m_set_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
+
+//    Mn.qmlRegim=MVP_Import::instance()->gorka->STATE_REGIM();
     qmlX=1;
-    Mn.qmlVisibleObject=false;
+//    Mn.qmlVisibleObject=false;
     Mn.qmlCurentIndex=0;
     int irole=Qt::UserRole+1;
     for (int idx = 0; idx < m_Otcep::staticMetaObject.propertyCount(); idx++) {
@@ -95,11 +94,12 @@ ViewOtcepsModel &ViewOtcepsModel::instance()
 void ViewOtcepsModel::slotOtcepChanged()
 {
     qDebug()<<"STATE_REGIM"<<MVP_Import::instance()->gorka->STATE_REGIM();
-    Mn.qmlPutNadviga.m_set_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
+    Mn.m_stateBt.m_regim=MVP_Import::instance()->gorka->STATE_REGIM();
+
     qDebug()<<"PUT_NADVIG"<<MVP_Import::instance()->gorka->PUT_NADVIG();
-    Mn.qmlRegim=MVP_Import::instance()->gorka->STATE_REGIM();
-    emit Mn.qmlPutNadvigaChanged();
-    emit Mn.qmRegimChanged();
+    Mn.m_stateBt.m_putNadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
+    emit Mn.stateBtChanged();
+
     beginResetModel();
     endResetModel();
 }

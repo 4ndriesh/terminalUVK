@@ -1,8 +1,10 @@
 import QtQuick 2.14
 import Base 1.0
+import SettingsModule 1.0
 
-Item {
+Rectangle {
     id: _otcepView
+    color: Settings.backgroundListView
     ListView {
         id: listView
         anchors.fill: parent
@@ -12,15 +14,15 @@ Item {
         preferredHighlightBegin: height/3
         preferredHighlightEnd: height/3
         focus: true
-        currentIndex: manageModel.qmlVisibleObject ? manageModel.qmlCurentIndex:-1
+        currentIndex: manageModel.stateBt.editing ? manageModel.qmlCurentIndex:-1
         model: otcepsModel
+
+        keyNavigationEnabled: false
+        keyNavigationWraps: true
 
         header: HeaderOtcepsView {z:10}
         headerPositioning: ListView.OverlayHeader
         delegate: DelegateOtcepView{}
-
-        Keys.onPressed: { if (event.key === Qt.Key_Up || event.key === Qt.Key_Down)
-                event.accepted = true; }
     }
 }
 
