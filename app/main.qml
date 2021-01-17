@@ -10,7 +10,7 @@ import QtQuick.VirtualKeyboard 2.1
 Window {
     id:mainwindow
     visible: true
-    visibility: "Maximized"
+//    visibility: "Maximized"
     minimumWidth: 1200
     minimumHeight: 600
     color: Settings.backgroundColor
