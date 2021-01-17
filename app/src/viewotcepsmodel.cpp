@@ -98,6 +98,7 @@ void ViewOtcepsModel::slotOtcepChanged()
 
     qDebug()<<"PUT_NADVIG"<<MVP_Import::instance()->gorka->PUT_NADVIG();
     Mn.m_stateBt.m_putNadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
+    Mn.m_stateBt.m_bef_putNadviga=Mn.m_stateBt.m_putNadviga;
     emit Mn.stateBtChanged();
 
     beginResetModel();

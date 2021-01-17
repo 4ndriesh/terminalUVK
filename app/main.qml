@@ -4,9 +4,13 @@ import QtQuick.Window 2.14
 import Impl 1.0
 import Base 1.0
 import SettingsModule 1.0
+import QtQuick.Controls 2.3
+import QtQuick.VirtualKeyboard 2.1
 
 Window {
+    id:mainwindow
     visible: true
+    visibility: "Maximized"
     minimumWidth: 1200
     minimumHeight: 600
     color: Settings.backgroundColor
@@ -52,4 +56,19 @@ Window {
             Layout.row: 5
         }
     }
+    InputPanel {
+        id: inputPanel
+        visible: false
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        property bool textEntered: Qt.inputMethod.visible
+        onTextEnteredChanged: {
+            if (inputPanel.textEntered)
+                inputPanel.visible = true
+            else
+                inputPanel.visible = false
+        }
+    }
+
 }

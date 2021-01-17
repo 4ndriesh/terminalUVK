@@ -9,16 +9,20 @@ struct QML_ManagerButton
 {
     Q_GADGET
     Q_PROPERTY(int putNadviga MEMBER m_putNadviga)
+    Q_PROPERTY(int bef_putNadviga MEMBER m_bef_putNadviga)
     Q_PROPERTY(int editing MEMBER m_editing)
     Q_PROPERTY(int regim MEMBER m_regim)
+    Q_PROPERTY(int bef_regim MEMBER m_bef_regim)
     Q_PROPERTY(bool wink_Stop MEMBER m_wStop)
     Q_PROPERTY(bool wink_Pause MEMBER m_wPause)
     Q_PROPERTY(bool wink_Nadvig MEMBER m_wNadvig)
 
 public:
     int m_putNadviga;
-    int m_editing=0;
+    int m_bef_putNadviga;
+    int m_bef_regim;
     int m_regim;
+    int m_editing=0;
     bool m_wStop=false;
     bool m_wPause=false;
     bool m_wNadvig=false;
@@ -53,6 +57,7 @@ class ManageModel: public QObject
     Q_PROPERTY(bool timerDelMsg READ getTimerDelMsg NOTIFY timerDelMsgChanged)
 
     Q_PROPERTY(StructProgressBar qmlStatusPB READ getStatusPB WRITE setStatusPB NOTIFY statusPBChanged)
+
 public:
     explicit ManageModel(QObject *parent = nullptr);
     virtual ~ManageModel(){}
@@ -85,6 +90,8 @@ signals:
     void setRndChart(int qmlX, int qmlY);
 
 public:
+    Q_INVOKABLE
+    void qmlRegim(const int&);
     QML_ManagerButton m_stateBt;
     QML_ManagerButton stateBt()const {return m_stateBt;}
     void setStateBt(const QML_ManagerButton &stateBt)
@@ -101,7 +108,6 @@ public:
         emit textInputChanged();
     }
 
-    int acceptRegim;
     void accept();
 
     bool timerDelMsg;

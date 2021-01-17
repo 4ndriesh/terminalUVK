@@ -53,41 +53,24 @@ LRESULT CALLBACK KBdllhooks::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPAR
                 break;
             case VK_LCONTROL:
                 //Роспуск 1
-                kbtouch.acceptRegim=1;
-                kbtouch.m_stateBt.m_putNadviga=1;
-                kbtouch.m_stateBt.m_wPause=false;
-                kbtouch.m_stateBt.m_wStop=false;
-                kbtouch.m_stateBt.m_wNadvig=true;
-                kbtouch.stateBtChanged();
+                kbtouch.qmlRegim(1);
+                kbtouch.m_stateBt.m_bef_putNadviga=1;
                 break;
 
             case VK_RCONTROL:
                 //Роспуск 2
-                kbtouch.acceptRegim=3;
-                kbtouch.m_stateBt.m_putNadviga=2;
-                kbtouch.m_stateBt.m_wPause=false;
-                kbtouch.m_stateBt.m_wStop=false;
-                kbtouch.m_stateBt.m_wNadvig=true;
-                kbtouch.stateBtChanged();
+                kbtouch.qmlRegim(1);
+                kbtouch.m_stateBt.m_bef_putNadviga=2;
                 break;
             case VK_LSHIFT:
                 //            case 80:
                 //Пауза
-                kbtouch.acceptRegim=2;
-                kbtouch.m_stateBt.m_wPause=true;
-                kbtouch.m_stateBt.m_wStop=false;
-                kbtouch.m_stateBt.m_wNadvig=false;
-                kbtouch.stateBtChanged();
+                kbtouch.qmlRegim(2);
                 break;
                 //            case 83:
             case VK_RSHIFT:
                 //Стоп
-                kbtouch.acceptRegim=0;
-                kbtouch.m_stateBt.m_wStop=true;
-                kbtouch.m_stateBt.m_wPause=false;
-                kbtouch.m_stateBt.m_wNadvig=false;
-                kbtouch.stateBtChanged();
-
+                kbtouch.qmlRegim(0);
                 break;
                 //            case   81:
             case VK_UP:

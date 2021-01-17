@@ -65,25 +65,51 @@ StructProgressBar ManageModel::getStatusPB() const
     //  qmlPutNadviga.m_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
     return qmlStatusPB;
 }
+void ManageModel::qmlRegim(const int & regim)
+{
+    switch (regim) {
+    case 0:
+        m_stateBt.m_bef_regim=0;
+        m_stateBt.m_wPause=false;
+        m_stateBt.m_wStop=true;
+        m_stateBt.m_wNadvig=false;
+        stateBtChanged();
+        break;
+    case 1:
+        m_stateBt.m_bef_regim=1;        
+        m_stateBt.m_wPause=false;
+        m_stateBt.m_wStop=false;
+        m_stateBt.m_wNadvig=true;
+        stateBtChanged();
+        break;
+    case 2:
+        m_stateBt.m_bef_regim=2;
+        m_stateBt.m_wPause=true;
+        m_stateBt.m_wStop=false;
+        m_stateBt.m_wNadvig=false;
+        stateBtChanged();
+        break;
 
+    default:
+        break;
+    }
+}
 void ManageModel::accept()
 {
-    switch (acceptRegim) {
+    switch (m_stateBt.m_bef_regim) {
 
     case 0:
         setRegim(0);
         break;
     case 1:
         setRegim(1);
-        setPutNadviga(1);
+        if(m_stateBt.m_bef_putNadviga==1)setPutNadviga(1);
+        else if (m_stateBt.m_bef_putNadviga==2) setPutNadviga(2);
         break;
     case 2:
         setRegim(2);
         break;
-    case 3:
-        setRegim(1);
-        setPutNadviga(2);
-        break;
+
     default:
         break;
     }

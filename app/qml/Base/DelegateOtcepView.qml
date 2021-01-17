@@ -1,5 +1,5 @@
 import QtQuick 2.14
-import QtQuick.Layouts 1.4
+import QtQuick.Layouts 1.15
 import SettingsModule 1.0
 import QtQml.Models 2.1
 
@@ -9,7 +9,7 @@ Rectangle {
     color: Settings.backgroundListView
     //цвет в зависимости от STATE_LOCATION
     property variant items_color: ["red", "yellow","green","dimgrey","white","LightGray"]
-    width: parent.width;
+    width: _otcepView.width;
     height: 65
     visible: STATE_ENABLED
     states:

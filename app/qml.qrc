@@ -20,5 +20,8 @@
         <file>qml/Base/AlarmMessage.qml</file>
         <file>qml/Base/DelegateOtcepView.qml</file>
         <file>qml/Base/HeaderOtcepsView.qml</file>
+        <file>qml/Base/EventMouseArea.qml</file>
+        <file>vkeyboard/DarkKey.qml</file>
+        <file>vkeyboard/layouts/en_GB/main.qml</file>
     </qresource>
 </RCC>

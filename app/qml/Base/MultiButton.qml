@@ -11,11 +11,13 @@ Rectangle {
     radius: 8
     border.width: 1
     border.color: "black"
+
     Text {
         id: _buttonText
         font.pointSize: 10
         anchors.centerIn: parent
     }
+
     OpacityAnimator on opacity{
         target: rectangleButton
         id: _opacitywink
@@ -26,6 +28,7 @@ Rectangle {
         running: wink
         onStopped: rectangleButton.opacity=1
     }
+
     Timer {
         id: _timerwink
         interval: Settings.timeWink

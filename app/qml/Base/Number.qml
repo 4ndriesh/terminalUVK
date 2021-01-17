@@ -11,6 +11,7 @@ Rectangle {
     height: Settings.baseHeight
     color: delegate.color
     border.width: Settings.borderWidth
+
     states:
         [
         State {
@@ -33,6 +34,17 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         font.pointSize: parent.height/3
         enabled: false
+        inputMethodHints:Qt.ImhFormattedNumbersOnly
+
+
+//        EnterKeyAction.enabled: text.text.length > 0 || text.inputMethodComposing
+//        EnterKeyAction.label: "Next"
+//        Keys.onReleased: {
+//            if (event.key === Qt.Key_Return) {
+//                // execute action
+//            }
+//        }
+
         onEditingFinished: {
             switch(textField) {
             case state_sp: STATE_SP=text.text;
@@ -76,15 +88,16 @@ Rectangle {
 
     Connections{
         target: manageModel
-        onQmlCurrentItemChanged:{
+        function onQmlCurrentItemChanged(){
 
             if(manageModel.qmlCurentIndex === index &&
                     textField.objectName==='STATE_SP'
                     && manageModel.stateBt.editing===1){
                 text.forceActiveFocus();
+                text.selectAll();
                 text.enabled=true;
-                text.cursorVisible=true;
-                text.cursorPosition= text.text.length;
+//                text.cursorVisible=true;
+//                text.cursorPosition= text.text.length;
                 textField.border.color = "green";
                 textField.border.width = 5;
                 //                num2.visible = true
@@ -99,7 +112,7 @@ Rectangle {
 
     Connections{
         target: manageModel
-        onTextInputChanged:{
+        function onTextInputChanged(){
 
             if(manageModel.qmlCurentIndex === index &&
                     textField.objectName==='STATE_SP'
