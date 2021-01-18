@@ -122,7 +122,7 @@ public:
     int getCurrentItem()const{return qmlCurentIndex;}
     void setCurrentItem(const int &index){
         qmlCurentIndex = index;
-        //    emit qmlCurrentItemChanged();
+        emit qmlCurrentItemChanged();
     }
 
 

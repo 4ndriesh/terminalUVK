@@ -9,5 +9,6 @@ Item {
         readonly property string defaultDelIcon: "qrc:/qml/resources/minus-sign.png"
         readonly property string defaultAddUpIcon: "qrc:/qml/resources/arrow-up.png"
         readonly property string defaultAddDownIcon: "qrc:/qml/resources/arrow-down.png"
+        readonly property string vkAddUpIcon: "qrc:/qml/resources/home.svg"
     }
 }

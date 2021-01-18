@@ -23,5 +23,22 @@
         <file>qml/Base/EventMouseArea.qml</file>
         <file>vkeyboard/DarkKey.qml</file>
         <file>vkeyboard/layouts/en_GB/main.qml</file>
+        <file>vkeyboard/QtQuick/VirtualKeyboard/Styles/test/images/backspace-868482.svg</file>
+        <file>vkeyboard/QtQuick/VirtualKeyboard/Styles/test/images/check-868482.svg</file>
+        <file>vkeyboard/QtQuick/VirtualKeyboard/Styles/test/images/enter-868482.svg</file>
+        <file>vkeyboard/QtQuick/VirtualKeyboard/Styles/test/images/globe-868482.svg</file>
+        <file>vkeyboard/QtQuick/VirtualKeyboard/Styles/test/images/handwriting-868482.svg</file>
+        <file>vkeyboard/QtQuick/VirtualKeyboard/Styles/test/images/hidekeyboard-868482.svg</file>
+        <file>vkeyboard/QtQuick/VirtualKeyboard/Styles/test/images/search-868482.svg</file>
+        <file>vkeyboard/QtQuick/VirtualKeyboard/Styles/test/images/selectionhandle-bottom.svg</file>
+        <file>vkeyboard/QtQuick/VirtualKeyboard/Styles/test/images/shift-80c342.svg</file>
+        <file>vkeyboard/QtQuick/VirtualKeyboard/Styles/test/images/shift-868482.svg</file>
+        <file>vkeyboard/QtQuick/VirtualKeyboard/Styles/test/images/shift-c5d6b6.svg</file>
+        <file>vkeyboard/QtQuick/VirtualKeyboard/Styles/test/images/textmode-868482.svg</file>
+        <file>vkeyboard/QtQuick/VirtualKeyboard/Styles/test/style.qml</file>
+        <file>vkeyboard/QtQuick/VirtualKeyboard/Styles/test/images/home.svg</file>
+        <file>vkeyboard/Components/qmldir</file>
+        <file>vkeyboard/Components/AddUpKey.qml</file>
+        <file>vkeyboard/Components/DownUpKey.qml</file>
     </qresource>
 </RCC>

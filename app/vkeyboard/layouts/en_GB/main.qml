@@ -33,6 +33,8 @@ import QtQuick.VirtualKeyboard 2.1
 import QtQuick.VirtualKeyboard.Plugins 2.3
 import QtQuick.VirtualKeyboard.Styles 2.2
 import QtQuick.VirtualKeyboard.Settings 2.2
+import ResourceProvider 1.0
+import Components 1.0
 import "qrc:/vkeyboard" as VKEYB
 
 KeyboardLayout {
@@ -43,8 +45,8 @@ KeyboardLayout {
         Layout.fillWidth: false
         Layout.fillHeight: true
         Layout.alignment: Qt.AlignHCenter
-        Layout.preferredWidth: height*5/4
-        // Row3
+        Layout.preferredWidth: height*5/4            
+        // Row1
         KeyboardRow {
             Key {
                 key: Qt.Key_1
@@ -58,15 +60,12 @@ KeyboardLayout {
                 key: Qt.Key_3
                 text: "30"
             }
-            VKEYB.DarkKey {
-                showPreview: false
-                key: Qt.Key_End
-                text: "End"
+            EnterKey {
             }
             BackspaceKey {
             }
         }
-        // Row1
+        // Row2
         KeyboardRow {
             Key {
                 key: Qt.Key_7
@@ -80,14 +79,19 @@ KeyboardLayout {
                 key: Qt.Key_9
                 text: "9"
             }
+
             VKEYB.DarkKey {
-                key: Qt.Key_Escape
-                displayText: "Esc"
-                weight: 2
+                displayText: "\u2191"
+                key: Qt.Key_Up
+                onClicked: manageModel.qmlCurentIndex--
                 showPreview: false
+                repeat: true
+            }
+
+            AddUpKey {
             }
         }
-        // Row2
+        // Row3
         KeyboardRow {
             Key {
                 key: Qt.Key_4
@@ -101,39 +105,18 @@ KeyboardLayout {
                 key: Qt.Key_6
                 text: "6"
             }
-            EnterKey {
-                weight: 2
-            }
-        }
 
-        // Row4
-        KeyboardRow {
-            Key {
-                key: Qt.Key_Minus
-                text: "-"
-            }
-            Key {
-                key: Qt.Key_0
-                text: "0"
-            }
-//            Key {
-//                // The decimal key, if it is not "," then we fallback to
-//                // "." in case it is an unhandled different result
-//                key: Qt.locale(VirtualKeyboardSettings.locale).decimalPoint === "," ? Qt.Key_Comma : Qt.Key_Period
-//                text: Qt.locale(VirtualKeyboardSettings.locale).decimalPoint === "," ? "," : "."
-//            }
-            VKEYB.DarkKey {
-                displayText: "\u2191"
-                key: Qt.Key_Left
-                showPreview: false
-                repeat: true
-            }
             VKEYB.DarkKey {
                 text: "\u2193"
-                key: Qt.Key_Right
+                key: Qt.Key_Down
+                onClicked: manageModel.qmlCurentIndex++
                 showPreview: false
                 repeat: true
             }
+            DownUpKey {
+            }
+
+
         }
     }
 }

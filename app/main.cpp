@@ -42,7 +42,6 @@ int main(int argc, char *argv[])
     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
     qputenv("QT_VIRTUALKEYBOARD_LAYOUT_PATH", QByteArray("qrc:/vkeyboard/layouts"));
 
-    //    qputenv("QT_INSTALL_QML", ":/qml/Style");
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
     KBdllhooks::instance();
@@ -62,8 +61,8 @@ int main(int argc, char *argv[])
     ManageModel &manage = ManageModel::instance();
     QQmlApplicationEngine engine;
     engine.addImportPath(":/qml");
-    //    qputenv("QT_VIRTUALKEYBOARD_STYLE", "kb");
-
+    engine.addImportPath("qrc:/vkeyboard/");
+    qputenv("QT_VIRTUALKEYBOARD_STYLE", "test");
     QQmlContext* context = engine.rootContext();
     //    qmlRegisterType<QML_ManagerButton>("MModel", 1, 0, "QML_ManagerButton");
     context->setContextProperty("otcepsModel", &model);

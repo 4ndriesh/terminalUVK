@@ -6,13 +6,14 @@ import Base 1.0
 import SettingsModule 1.0
 import QtQuick.Controls 2.3
 import QtQuick.VirtualKeyboard 2.1
+import QtQuick.VirtualKeyboard.Settings 2.2
 
 Window {
     id:mainwindow
     visible: true
 //    visibility: "Maximized"
     minimumWidth: 1200
-    minimumHeight: 600
+    minimumHeight: 1000
     color: Settings.backgroundColor
     //    title: qsTr("Терминал УВК")
 
@@ -56,19 +57,12 @@ Window {
             Layout.row: 5
         }
     }
+
     InputPanel {
-        id: inputPanel
-        visible: false
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        property bool textEntered: Qt.inputMethod.visible
-        onTextEnteredChanged: {
-            if (inputPanel.textEntered)
-                inputPanel.visible = true
-            else
-                inputPanel.visible = false
+            id: inputPanel
+            y: Qt.inputMethod.visible ? parent.height - inputPanel.height : parent.height
+            anchors.left: parent.left
+            anchors.right: parent.right
         }
-    }
 
 }

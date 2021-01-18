@@ -20,7 +20,7 @@ Rectangle {
         model: otcepsModel
 
         keyNavigationEnabled: false
-        keyNavigationWraps: true
+//        keyNavigationWraps: true
 
         header: HeaderOtcepsView {z:10}
         headerPositioning: ListView.OverlayHeader
