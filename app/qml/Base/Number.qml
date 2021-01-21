@@ -1,7 +1,7 @@
 import QtQuick 2.14
 import QtQuick.Layouts 1.14
 import SettingsModule 1.0
-import QtQuick.VirtualKeyboard 2.15
+//import QtQuick.VirtualKeyboard 2.15
 
 Rectangle {
     id: textField
@@ -60,7 +60,7 @@ Rectangle {
                 inputMethodHints:Qt.ImhFormattedNumbersOnly
 
                 //        EnterKeyAction.enabled: true
-                EnterKeyAction.enabled: text.text.length > 0 || text.inputMethodComposing
+//                EnterKeyAction.enabled: text.text.length > 0 || text.inputMethodComposing
 
                 //        Keys.onReleased: {
                 //            if (event.key === Qt.Key_Up) {

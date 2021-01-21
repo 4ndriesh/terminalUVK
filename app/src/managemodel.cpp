@@ -9,8 +9,6 @@
 ManageModel::ManageModel(QObject *parent) : QObject(parent)
 {
     //     qmlManagerButton->m_regim=0;
-    for(int msg=0; msg<2;msg++)
-        addMsg("Hello Word",msg);
 }
 
 void ManageModel::deleteFromList()

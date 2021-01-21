@@ -5,8 +5,8 @@ import Impl 1.0
 import Base 1.0
 import SettingsModule 1.0
 import QtQuick.Controls 2.3
-import QtQuick.VirtualKeyboard 2.1
-import QtQuick.VirtualKeyboard.Settings 2.2
+//import QtQuick.VirtualKeyboard 2.1
+//import QtQuick.VirtualKeyboard.Settings 2.2
 
 Window {
     id:mainwindow
@@ -58,11 +58,11 @@ Window {
         }
     }
 
-    InputPanel {
-            id: inputPanel
-            y: Qt.inputMethod.visible ? parent.height - inputPanel.height : parent.height
-            anchors.left: parent.left
-            anchors.right: parent.right
-        }
+//    InputPanel {
+//            id: inputPanel
+//            y: Qt.inputMethod.visible ? parent.height - inputPanel.height : parent.height
+//            anchors.left: parent.left
+//            anchors.right: parent.right
+//        }
 
 }
