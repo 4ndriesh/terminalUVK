@@ -1,7 +1,7 @@
 import QtQuick 2.14
 import QtQuick.Layouts 1.14
 import SettingsModule 1.0
-import QtQuick.VirtualKeyboard 2.0
+//import QtQuick.VirtualKeyboard 2.14
 
 Rectangle {
     id: textField

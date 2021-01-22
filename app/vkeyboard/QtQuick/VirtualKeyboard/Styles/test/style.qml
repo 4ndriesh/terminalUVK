@@ -27,10 +27,10 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.15
-import QtQuick.VirtualKeyboard 2.1
+import QtQuick 2.14
+import QtQuick.VirtualKeyboard 2.14
 import QtQuick.VirtualKeyboard.Styles 2.2
-import QtGraphicalEffects 1.15
+import QtGraphicalEffects 1.0
 
 KeyboardStyle {
     id: currentStyle

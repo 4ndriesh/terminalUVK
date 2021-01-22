@@ -2,7 +2,7 @@ import QtQuick 2.14
 import Base 1.0
 import SettingsModule 1.0
 import QtQuick.Controls 2.3
-import QtQml.Models 2.15
+import QtQml.Models 2.14
 
 Rectangle {
     id: _otcepView
