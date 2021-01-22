@@ -1,4 +1,5 @@
 import QtQuick 2.14
+import QtQuick.Layouts 1.1
 import "terminalUVK.js" as MyScript
 import Base 1.0
 import SettingsModule 1.0
@@ -12,29 +13,31 @@ Item{
     property int wink_stop: manageModel.stateBt.wink_Stop
     property int wink_nadvig: manageModel.stateBt.wink_Nadvig
     property int editing: manageModel.stateBt.editing
-    property variant n_rospusk: ["РОСПУСК: 2","РОСПУСК: 1"]
-    property int currentSelection: 0
-
-    Row {
-
+    RowLayout {
         spacing: 5
         MultiButton {
             id: edirSortList
             buttonText: "ВВОД СЛ"
             color: editing ? Settings.themeRegimColor:Settings.themeHeaderColor
             wink: false
+            EventMouseArea {
+                onClicked: manageModel.stateBt.editing=!manageModel.stateBt.editing
+            }
         }
 
         MultiButton {
             id: putnadviga
-            buttonText: n_rospusk[bef_putNadviga%2]
+            Layout.leftMargin:100
+            buttonText: "РОСПУСК: 1"
             color: MyScript.getColore(regim, putNadviga)
             wink: wink_nadvig
             onSetWink: manageModel.stateBt.wink_Nadvig=false
             EventMouseArea {
-                onClicked: {manageModel.qmlRegim(1)
-                    currentSelection=currentSelection % n_rospusk.length+1
-                    manageModel.stateBt.bef_putNadviga=currentSelection
+                onClicked: {
+                    if(editing===0){
+                        manageModel.qmlRegim(1)
+                        manageModel.stateBt.bef_putNadviga=1
+                    }
                 }
             }
         }
@@ -46,7 +49,7 @@ Item{
             wink: regim ? wink_stop:false
             onSetWink: manageModel.stateBt.wink_Stop=false
             EventMouseArea {
-                onClicked: manageModel.qmlRegim(0)
+                onClicked: if(editing===0)manageModel.qmlRegim(0)
             }
         }
 
@@ -58,7 +61,7 @@ Item{
             wink: regim<2 ? wink_pause:false
             onSetWink: manageModel.stateBt.wink_Pause=false
             EventMouseArea {
-                onClicked: manageModel.qmlRegim(2)
+                onClicked: if(regim===1 && editing===0)manageModel.qmlRegim(2)
             }
         }
     }

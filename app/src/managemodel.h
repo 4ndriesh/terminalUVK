@@ -50,13 +50,17 @@ class ManageModel: public QObject
 
     Q_PROPERTY(int qmlCurentIndex READ getCurrentItem WRITE setCurrentItem NOTIFY qmlCurrentItemChanged)
 
-    Q_PROPERTY(int textInput READ textInput WRITE setTextInput NOTIFY textInputChanged)
+    Q_PROPERTY(int textInput READ textInput NOTIFY textInputChanged)
+
+    Q_PROPERTY(int uvkLive READ uvkLive NOTIFY uvkLiveChanged)
+
+    Q_PROPERTY(int newList READ newList NOTIFY newListChanged)
 
     Q_PROPERTY(QStringList listMsg READ getListMsg NOTIFY listMsgChanged)
 
     Q_PROPERTY(bool timerDelMsg READ getTimerDelMsg NOTIFY timerDelMsgChanged)
 
-    Q_PROPERTY(StructProgressBar qmlStatusPB READ getStatusPB WRITE setStatusPB NOTIFY statusPBChanged)
+    Q_PROPERTY(StructProgressBar qmlStatusPB READ qmlStatusPB NOTIFY statusPBChanged)
 
 public:
     explicit ManageModel(QObject *parent = nullptr);
@@ -72,17 +76,15 @@ public:
 
 public slots:
     void addMsg(const QString &, int);
-    void deleteFromList();
     void deleteMsg();
     void getRndChart();
-    void addOtcepUP(int);
-    void addOtcepDown(int);
-    void addOtcepClearAll();
 signals:
     void stateBtChanged();
     void maximumValuePBChanged();
     void showMessage(QString colorMessage, QString textMessage);
     void textInputChanged();
+    void uvkLiveChanged();
+    void newListChanged();
     void qmlCurrentItemChanged();
     void statusPBChanged();
     void listMsgChanged();
@@ -90,8 +92,10 @@ signals:
     void setRndChart(int qmlX, int qmlY);
 
 public:
-    Q_INVOKABLE
-    void qmlRegim(const int&);
+    Q_INVOKABLE void qmlRegim(const int&);
+    Q_INVOKABLE void addOtcep(const int&);
+    Q_INVOKABLE void delOtcep(const int&);
+
     QML_ManagerButton m_stateBt;
     QML_ManagerButton stateBt()const {return m_stateBt;}
     void setStateBt(const QML_ManagerButton &stateBt)
@@ -100,16 +104,22 @@ public:
         emit stateBtChanged();
     }
 
+    //Общая переменная для ввода с клавиатуры номера пути
     int m_textInput;
     int textInput()const {return m_textInput;}
-    void setTextInput(const int &Put)
-    {
-        m_textInput = Put;
-        emit textInputChanged();
-    }
 
+    //Живой увк
+    int m_uvkLive;
+    int uvkLive()const {return m_uvkLive;}
+
+    //Новый сортирововчный листок
+    int m_newList;
+    int newList()const {return m_newList;}
+
+    //Подтверждает команду кнопкой ENTER
     void accept();
 
+    //Удаляем сообщения с формы об ошибках
     bool timerDelMsg;
     bool getTimerDelMsg()const;
 
@@ -125,13 +135,11 @@ public:
         emit qmlCurrentItemChanged();
     }
 
-
     void setRegim(const int &);
     void setPutNadviga(const int &);
 
-    StructProgressBar qmlStatusPB;
-    StructProgressBar getStatusPB()const;
-    void setStatusPB(const StructProgressBar &);
+    StructProgressBar m_qmlStatusPB;
+    StructProgressBar qmlStatusPB()const {return m_qmlStatusPB;}
 
 };
 

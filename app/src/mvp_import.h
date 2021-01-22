@@ -52,6 +52,7 @@ public:
     void setPutNadvig(int p);
     void incOtcep(int N);
     void delOtcep(int N);
+    void ClearAllOtcep();
 
 signals:
     void sortirArrived(const tSl2Odo2 *srt);

@@ -16,7 +16,7 @@
         <file>qml/Base/Number.qml</file>
         <file>qml/Message/MsgDelegate.qml</file>
         <file>qml/Impl/Title.qml</file>
-        <file>qml/Base/ProgressBar.qml</file>
+        <file>qml/Base/ProgressBarPanel.qml</file>
         <file>qml/Base/AlarmMessage.qml</file>
         <file>qml/Base/DelegateOtcepView.qml</file>
         <file>qml/Base/HeaderOtcepsView.qml</file>
@@ -40,5 +40,12 @@
         <file>vkeyboard/Components/qmldir</file>
         <file>vkeyboard/Components/AddUpKey.qml</file>
         <file>vkeyboard/Components/DownUpKey.qml</file>
+        <file>qml/Impl/SignalPanel.qml</file>
+        <file>qml/Base/MouseAreaOtcepList.qml</file>
+        <file>qml/resources/list.svg</file>
+        <file>qml/resources/monitor.svg</file>
+        <file>qml/resources/transfer.svg</file>
+        <file>qml/resources/transfer2.svg</file>
+        <file>qml/Base/ImageSVG.qml</file>
     </qresource>
 </RCC>

@@ -3,8 +3,6 @@ import QtQuick.Layouts 1.4
 import Base 1.0
 import SettingsModule 1.0
 
-
-
 GridLayout {
     id: _header
     width: parent.width

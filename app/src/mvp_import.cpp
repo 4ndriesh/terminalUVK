@@ -129,9 +129,9 @@ void MVP_Import::buffer14Changed(GtBuffer *)
 bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
 {
     ManageModel &pB = ManageModel::instance();
-    pB.qmlStatusPB.m_set_value=0;
-    pB.qmlStatusPB.m_set_visible=true;
-    pB.statusPBChanged();
+    pB.m_qmlStatusPB.m_set_value=0;
+    pB.m_qmlStatusPB.m_set_visible=true;
+    emit pB.statusPBChanged();
 
     m_Otceps *otceps=MVP_Import::instance()->gorka->findChildren<m_Otceps *>().first();
 
@@ -156,7 +156,7 @@ bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
 
     foreach (const tSl2OdoRec2 &o, srt->vOtceps) {
 
-        pB.qmlStatusPB.m_set_maximumValue=srt->vOtceps.count();
+        pB.m_qmlStatusPB.m_set_maximumValue=srt->vOtceps.count();
         emit pB.statusPBChanged();
 
 
@@ -178,7 +178,7 @@ bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
         MVP_Import::instance()->cmd->send_cmd(m);
         qDebug()<< "sortir send otcep " << o.NO;
 
-        pB.qmlStatusPB.m_set_value+=1.0;
+        pB.m_qmlStatusPB.m_set_value+=1.0;
         emit pB.statusPBChanged();
 
         t.start();
@@ -225,7 +225,7 @@ bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
         }
         if (errorLoad) break;
     }
-    pB.qmlStatusPB.m_set_visible=false;
+    pB.m_qmlStatusPB.m_set_visible=false;
     emit pB.statusPBChanged();
 
     if (errorLoad){
@@ -297,4 +297,15 @@ void MVP_Import::delOtcep(int N)
     m["DEL_OTCEP"]=QString::number(N);
     MVP_Import::instance()->cmd->send_cmd(m);
     qDebug()<< "delOtcep to uvk" << N;
+}
+
+void MVP_Import::ClearAllOtcep()
+{
+    qDebug()<<"addupClearAll";
+    QMap<QString,QString> m;
+    m.clear();
+    m["DEST"]="UVK";
+    m["CMD"]="OTCEPS";
+    m["CLEAR_ALL"]="1";
+    MVP_Import::instance()->cmd->send_cmd(m);
 }

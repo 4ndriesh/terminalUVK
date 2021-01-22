@@ -11,32 +11,32 @@ struct tSl2Odo2;
 
 class ViewOtcepsModel : public QAbstractListModel
 {
-
+    Q_OBJECT
     QTimer * timer;
 
-//    enum dataRoles {
-//        nRole = Qt::UserRole ,
-//        marRole,
-//        mar_fRole,
-//        lenRole,
-//        len_fRole,
-//        katRole,
-//        kat_fRole,
-//        bazRole,
-//        nagRole,
-//        urRole,
-//        VRole,
-//        kzpRole
+    //    enum dataRoles {
+    //        nRole = Qt::UserRole ,
+    //        marRole,
+    //        mar_fRole,
+    //        lenRole,
+    //        len_fRole,
+    //        katRole,
+    //        kat_fRole,
+    //        bazRole,
+    //        nagRole,
+    //        urRole,
+    //        VRole,
+    //        kzpRole
 
 
-//    };
+    //    };
 public:
     static ViewOtcepsModel &instance();
     explicit ViewOtcepsModel(QObject *parent=nullptr);
 
     void slotOtcepChanged();
 
-    QVariantMap get(int row) const;
+    Q_INVOKABLE QVariantMap get(int row) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     bool setData(const QModelIndex &index, const QVariant &value,

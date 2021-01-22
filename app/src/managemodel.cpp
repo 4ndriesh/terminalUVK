@@ -4,16 +4,15 @@
 #include "mvp_import.h"
 #include <QMetaProperty>
 
-
-
 ManageModel::ManageModel(QObject *parent) : QObject(parent)
 {
-    //     qmlManagerButton->m_regim=0;
+    m_uvkLive=1;
+    m_newList=0;
 }
 
-void ManageModel::deleteFromList()
+void ManageModel::delOtcep(const int &index)
 {
-
+    MVP_Import::instance()->delOtcep(index);
 }
 
 void ManageModel::getRndChart()
@@ -24,45 +23,11 @@ void ManageModel::getRndChart()
     //    emit setRndChart(qmlX,qmlY);
 }
 
-void ManageModel::addOtcepUP(int index)
+void ManageModel::addOtcep(const int & index)
 {
-    if(index!=-1)
-    {
-        qDebug()<<"addup"<<index;
-    }
+    MVP_Import::instance()->incOtcep(index);
 }
 
-void ManageModel::addOtcepDown(int index)
-{
-    if(index!=-1)
-        qDebug()<<"addDown"<<index;
-}
-
-void ManageModel::addOtcepClearAll()
-{
-    qDebug()<<"addupClearAll";
-    QMap<QString,QString> m;
-    m.clear();
-    m["DEST"]="UVK";
-    m["CMD"]="OTCEPS";
-    m["CLEAR_ALL"]="1";
-    MVP_Import::instance()->cmd->send_cmd(m);
-}
-
-void ManageModel::setStatusPB(const StructProgressBar &set_statusPB)
-{
-    //  qmlPutNadviga.m_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
-    qmlStatusPB=set_statusPB;
-    emit statusPBChanged();
-
-}
-
-StructProgressBar ManageModel::getStatusPB() const
-{
-
-    //  qmlPutNadviga.m_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
-    return qmlStatusPB;
-}
 void ManageModel::qmlRegim(const int & regim)
 {
     switch (regim) {
@@ -71,21 +36,21 @@ void ManageModel::qmlRegim(const int & regim)
         m_stateBt.m_wPause=false;
         m_stateBt.m_wStop=true;
         m_stateBt.m_wNadvig=false;
-        stateBtChanged();
+        emit stateBtChanged();
         break;
     case 1:
-        m_stateBt.m_bef_regim=1;        
+        m_stateBt.m_bef_regim=1;
         m_stateBt.m_wPause=false;
         m_stateBt.m_wStop=false;
         m_stateBt.m_wNadvig=true;
-        stateBtChanged();
+        emit  stateBtChanged();
         break;
     case 2:
         m_stateBt.m_bef_regim=2;
         m_stateBt.m_wPause=true;
         m_stateBt.m_wStop=false;
         m_stateBt.m_wNadvig=false;
-        stateBtChanged();
+        emit stateBtChanged();
         break;
 
     default:
@@ -140,10 +105,7 @@ void ManageModel::setRegim(const int &regim)
     }
 }
 
-//-------------------------------------------------
-
-
-//Удаляем сообщения об ошибках по таймеру
+//Добавляем сообщения об ошибках итд
 void ManageModel::addMsg(const QString &valMsg, int msg)
 {
     if(m_listMsg.isEmpty()){
@@ -155,6 +117,7 @@ void ManageModel::addMsg(const QString &valMsg, int msg)
     emit listMsgChanged();
 }
 
+//Удаляем сообщения об ошибках по таймеру
 void ManageModel::deleteMsg()
 {
     if(!m_listMsg.isEmpty())

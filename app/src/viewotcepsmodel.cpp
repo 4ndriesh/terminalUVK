@@ -108,9 +108,9 @@ void ViewOtcepsModel::slotOtcepChanged()
 
 QVariantMap ViewOtcepsModel::get(int row) const
 {
+//    qDebug()<<ViewOtcepList[row].toMap()["STATE_ENABLED"];
     return ViewOtcepList[row].toMap();
 }
-
 
 void ViewOtcepsModel::addDataObject(const DataObject &dataSourceObject)
 {
@@ -145,6 +145,8 @@ QVariant ViewOtcepsModel::data(const QModelIndex &index, int role) const
 
 bool ViewOtcepsModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
+    qDebug()<<"asdasdasdasd",value;
+
     DataObject &dataSourceObject = ViewOtcepList[index.row()];
     if (data(index, role) != value) {
         if (otcepRoles.contains(role)){

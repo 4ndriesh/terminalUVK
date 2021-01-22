@@ -78,8 +78,6 @@ LRESULT CALLBACK KBdllhooks::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPAR
 
                 if(kbtouch.m_stateBt.m_editing && kbtouch.qmlCurentIndex>-1)
                 {
-//                    if (kbtouch.qmlCurentIndex>-1)
-//                        kbtouch.qmlCurentIndex=0;
                     kbtouch.qmlCurentIndex--;
                     emit kbtouch.qmlCurrentItemChanged();
                 }
@@ -94,24 +92,28 @@ LRESULT CALLBACK KBdllhooks::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPAR
                 }
                 break;
 
-            case VK_INSERT:
-                //insert
-                qDebug()<<"inser";
+            case VK_HOME:
+                //Вставить до
+                if(kbtouch.m_stateBt.m_editing && kbtouch.qmlCurentIndex>-1)
+                kbtouch.addOtcep(kbtouch.qmlCurentIndex-1);
+                break;
+            case VK_END:
+                //Вставить после
+                if(kbtouch.m_stateBt.m_editing && kbtouch.qmlCurentIndex>-1)
+                kbtouch.addOtcep(kbtouch.qmlCurentIndex+1);
                 break;
             case VK_DELETE:
-                //del
-                qDebug()<<"del";
+                //Удалить
+                kbtouch.delOtcep(kbtouch.qmlCurentIndex);
                 break;
 
             case VK_F1:
-                //del
                 kbtouch.m_textInput=25;
                 emit kbtouch.textInputChanged();
                 break;
             default:
                 break;
             }
-//            emit instance().mouseEvent();
         }
     }
     return CallNextHookEx(NULL, nCode, wParam, lParam);
