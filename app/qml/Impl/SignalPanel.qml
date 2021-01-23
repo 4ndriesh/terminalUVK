@@ -20,7 +20,8 @@ Item {
             wink: false
             ImageSVG {
                     source: Resources.contacts.defaulticonList
-                    size: newSortList.height/1.5
+                    widthsvg: newSortList.height/1.5
+                    heightsvg:  newSortList.height/1.5
 //                    color: "#228b22"
                 }
         }
@@ -34,7 +35,8 @@ Item {
             wink: false
             ImageSVG {
                     source: Resources.contacts.defaulticonConnect
-                    size: _uvkLive.height/1.5
+                    widthsvg: newSortList.height/1.5
+                    heightsvg:  newSortList.height/1.5
 //                    color: "#dc143c"
                 }
         }

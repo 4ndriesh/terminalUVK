@@ -50,5 +50,9 @@
         <file>qml/Base/Binding.js</file>
         <file>vkeyboard/Components/DelOtcep.qml</file>
         <file>qml/Impl/InputPanelKB.qml</file>
+        <file>qml/resources/download-button.svg</file>
+        <file>qml/resources/fast-forward.svg</file>
+        <file>vkeyboard/QtQuick/VirtualKeyboard/Styles/test/images/fast-forward.svg</file>
+        <file>vkeyboard/QtQuick/VirtualKeyboard/Styles/test/images/download-button.svg</file>
     </qresource>
 </RCC>

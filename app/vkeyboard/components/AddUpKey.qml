@@ -33,6 +33,6 @@ import QtQuick.VirtualKeyboard 2.14
 BaseKey {
     readonly property int actionId: 1
     functionKey: true
-    onClicked: manageModel.addOtcep(manageModel.qmlCurentIndex+1)
+    onClicked: manageModel.addOtcep(manageModel.qmlCurentIndex-1)
     keyPanelDelegate: keyboard.style ? keyboard.style.backspaceKeyPanel : undefined
 }

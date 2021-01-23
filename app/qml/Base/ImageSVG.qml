@@ -6,9 +6,10 @@ Image {
     smooth: true
     anchors.centerIn: parent
     property alias color: colorOverlay.color
-    property int size: 24  // default
-    sourceSize.width: size
-    sourceSize.height: size
+    property int widthsvg: 24  // default
+    property int heightsvg: 24  // default
+    sourceSize.width: widthsvg
+    sourceSize.height: heightsvg
 
     ColorOverlay {
             id: colorOverlay

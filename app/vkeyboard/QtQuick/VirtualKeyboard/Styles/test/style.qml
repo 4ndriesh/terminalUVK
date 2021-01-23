@@ -31,6 +31,7 @@ import QtQuick 2.14
 import QtQuick.VirtualKeyboard 2.14
 import QtQuick.VirtualKeyboard.Styles 2.2
 import QtGraphicalEffects 1.0
+import Base 1.0
 
 KeyboardStyle {
     id: currentStyle
@@ -141,31 +142,60 @@ KeyboardStyle {
             color: "#23211E"
             anchors.fill: backspaceKeyPanel
             anchors.margins: keyBackgroundMargin
-            Image {
+
+            ImageSVG{
                 id: backspaceKeyIcon
-                anchors.centerIn: parent
-                sourceSize.width: 159 * keyIconScale
-                sourceSize.height: 88 * keyIconScale
-                smooth: false
+                widthsvg: 150 * keyIconScale
+                heightsvg: 100 * keyIconScale
+                color: "white"
                 source: {
                     switch (control.actionId) {
                     case 1:
-                        return resourcePrefix + "images/shift-80c342.svg"
+                        return resourcePrefix + "images/download-button.svg"
                     case 2:
-                        return resourcePrefix + "images/shift-80c342.svg"
+                        return resourcePrefix + "images/download-button.svg"
                     default:
                         return resourcePrefix + "images/backspace-868482.svg"
                     }
                 }
                 rotation: {
                     switch (control.actionId) {
-                    case 2:
-                        return 180
+                    case 1:
+                        return 180;
+//                    case 2:
+//                        return 90;
                     default:
                         return 0
                     }
                 }
+
             }
+
+            //            Image {
+            //                id: backspaceKeyIcon
+            //                anchors.centerIn: parent
+            //                sourceSize.width: 159 * keyIconScale
+            //                sourceSize.height: 88 * keyIconScale
+            //                smooth: false
+            //                source: {
+            //                    switch (control.actionId) {
+            //                    case 1:
+            //                        return resourcePrefix + "images/shift-80c342.svg"
+            //                    case 2:
+            //                        return resourcePrefix + "images/shift-80c342.svg"
+            //                    default:
+            //                        return resourcePrefix + "images/backspace-868482.svg"
+            //                    }
+            //                }
+            //                rotation: {
+            //                    switch (control.actionId) {
+            //                    case 2:
+            //                        return 180
+            //                    default:
+            //                        return 0
+            //                    }
+            //                }
+            //            }
         }
         states: [
             State {
