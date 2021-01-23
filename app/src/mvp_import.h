@@ -7,7 +7,7 @@
 #include "modelgroupgorka.h"
 #include "m_otceps.h"
 #include "gtcommandinterface.h"
-#include "viewotcepsmodel.h"
+#include "managemodel.h"
 
 struct tSl2OdoRec2{
     int   NO=0;           //  Номер  Отцепа  НО
@@ -40,7 +40,7 @@ public:
            return &one;
 
     }
-    ViewOtcepsModel* pB=nullptr;
+    ManageModel &pB = ManageModel::instance();
     GtBuffers_UDP_D2 udp;
     bool load(QString fn);
     ModelGroupGorka *gorka=nullptr;

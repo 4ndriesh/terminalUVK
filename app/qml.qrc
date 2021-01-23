@@ -47,5 +47,8 @@
         <file>qml/resources/transfer.svg</file>
         <file>qml/resources/transfer2.svg</file>
         <file>qml/Base/ImageSVG.qml</file>
+        <file>qml/Base/Binding.js</file>
+        <file>vkeyboard/Components/DelOtcep.qml</file>
+        <file>qml/Impl/InputPanelKB.qml</file>
     </qresource>
 </RCC>

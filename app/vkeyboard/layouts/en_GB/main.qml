@@ -50,19 +50,22 @@ KeyboardLayout {
         KeyboardRow {
             Key {
                 key: Qt.Key_1
-                text: "10"
+                onClicked: manageModel.textInput=16;
+                text: "16"
             }
             Key {
                 key: Qt.Key_2
-                text: "20"
+                onClicked: manageModel.textInput=18;
+                text: "18"
             }
             Key {
                 key: Qt.Key_3
-                text: "30"
+                onClicked: manageModel.textInput=25;
+                text: "25"
             }
             EnterKey {
             }
-            BackspaceKey {
+            DelOtcep {
             }
         }
         // Row2

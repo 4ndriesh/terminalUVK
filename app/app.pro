@@ -2,7 +2,7 @@ QT += qml quick core
 
 CONFIG += c++11
 #TEMPLATE = lib
-TARGET = uvk
+TARGET = terminal_uvk
 DESTDIR = uvk
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -55,3 +55,6 @@ include($$MVP_ROOT/mvp_classes/mvp_model_gorka.pri)
 #https://github.com/yx500/common_src.git
 include($$MVP_ROOT/common_src/signalmanager/signalmanager.pri)
 include($$MVP_ROOT/common_src/gtcommandinterface/gtcommandinterface.pri)
+
+DISTFILES += \
+    qmldir

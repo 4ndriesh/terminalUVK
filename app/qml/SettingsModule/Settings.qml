@@ -3,6 +3,7 @@ import QtQuick 2.14
 
 QtObject {
     property bool isDarkTheme: false
+    property bool visibleInputPanel: false
     readonly property color backgroundColor: "white"
     readonly property color backgroundListView: "grey"
     readonly property color themeHeaderColor: isDarkTheme ? "#607D8B" : "#b0c4de"
@@ -20,6 +21,7 @@ QtObject {
     readonly property int borderWidth: 1
 
     readonly property real defaultOpacity: 1
+
 
 
 

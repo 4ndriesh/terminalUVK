@@ -16,20 +16,23 @@ Rectangle {
         preferredHighlightBegin: height/3
         preferredHighlightEnd: height/3
         focus: true
+
+        //        currentIndex: manageModel.qmlCurentIndex
         currentIndex: manageModel.stateBt.editing ? manageModel.qmlCurentIndex:-1
-        model: displayDelegateModel
-        //        model: otcepsModel
+        //        model: displayDelegateModel
+        model: otcepsModel
         keyNavigationEnabled: false
         keyNavigationWraps: false
         header: HeaderOtcepsView {z:10}
         headerPositioning: ListView.OverlayHeader
-        //        delegate: DelegateOtcepView{}
+        delegate: DelegateOtcepView{id: delegate}
+
     }
 
     DelegateModel {
         id: displayDelegateModel
 
-        delegate: DelegateOtcepView{id: delegate}
+        delegate: DelegateOtcepView{}
         model: otcepsModel
         groups: [
             DelegateModelGroup {
@@ -40,9 +43,11 @@ Rectangle {
 
         filterOnGroup: "displayField"
     }
+
     Connections{
         target: manageModel
         function onTextInputChanged(){
+
             var rowCount = otcepsModel.rowCount();
             displayDelegateModel.items.removeGroups(0,displayDelegateModel.items.count,"displayField")
             for( var i = 0;i < rowCount;i++ ) {

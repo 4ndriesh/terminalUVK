@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <windows.h>
-
+#include "managemodel.h"
 
 class KBdllhooks : public QObject
 {
@@ -15,13 +15,7 @@ public:
     virtual ~KBdllhooks(){}
     static LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam);
 
-//signals:
-//    void mouseEvent();
-
-//public slots:
-
 private:
-//    int VisibleEditButton;
     HHOOK   kbHook;
 };
 

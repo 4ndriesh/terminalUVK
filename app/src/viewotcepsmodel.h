@@ -12,24 +12,11 @@ struct tSl2Odo2;
 class ViewOtcepsModel : public QAbstractListModel
 {
     Q_OBJECT
+
+    Q_DISABLE_COPY(ViewOtcepsModel)
+
     QTimer * timer;
 
-    //    enum dataRoles {
-    //        nRole = Qt::UserRole ,
-    //        marRole,
-    //        mar_fRole,
-    //        lenRole,
-    //        len_fRole,
-    //        katRole,
-    //        kat_fRole,
-    //        bazRole,
-    //        nagRole,
-    //        urRole,
-    //        VRole,
-    //        kzpRole
-
-
-    //    };
 public:
     static ViewOtcepsModel &instance();
     explicit ViewOtcepsModel(QObject *parent=nullptr);

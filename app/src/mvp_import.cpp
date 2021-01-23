@@ -1,9 +1,5 @@
 #include "mvp_import.h"
 #include <QFileInfo>
-#include "managemodel.h"
-
-
-
 
 MVP_Import::MVP_Import():QObject(nullptr)
 {    
@@ -128,7 +124,7 @@ void MVP_Import::buffer14Changed(GtBuffer *)
 }
 bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
 {
-    ManageModel &pB = ManageModel::instance();
+
     pB.m_qmlStatusPB.m_set_value=0;
     pB.m_qmlStatusPB.m_set_visible=true;
     emit pB.statusPBChanged();

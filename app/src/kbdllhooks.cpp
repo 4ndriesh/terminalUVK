@@ -12,7 +12,7 @@ KBdllhooks &KBdllhooks::instance()
 
 KBdllhooks::KBdllhooks(QObject *parent) : QObject(parent)
 {
-//    VisibleEditButton=1;
+    //    VisibleEditButton=1;
     HINSTANCE hInstance = GetModuleHandle(NULL);
 
     kbHook = SetWindowsHookEx(WH_KEYBOARD_LL, LowLevelKeyboardProc, hInstance, 0);
@@ -25,10 +25,9 @@ KBdllhooks::KBdllhooks(QObject *parent) : QObject(parent)
 LRESULT CALLBACK KBdllhooks::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
     Q_UNUSED(nCode)
-    ManageModel &kbtouch = ManageModel::instance();
     if (wParam == WM_KEYDOWN)
     {
-
+        ManageModel &kbtouch = ManageModel::instance();
         KBDLLHOOKSTRUCT * pKBStruct = (KBDLLHOOKSTRUCT *)lParam;
         qDebug()<<pKBStruct->vkCode;
         if(pKBStruct != nullptr) {
@@ -36,8 +35,8 @@ LRESULT CALLBACK KBdllhooks::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPAR
             qDebug()<<pKBStruct->vkCode;
             case VK_TAB:
 
-//                kbtouch.qmlVisibleObject=(kbtouch.qmlVisibleObject+1)%2;
-//                emit kbtouch.qmlVisibleObjectChanged();
+                //                kbtouch.qmlVisibleObject=(kbtouch.qmlVisibleObject+1)%2;
+                //                emit kbtouch.qmlVisibleObjectChanged();
                 if(kbtouch.m_stateBt.m_regim==1){
                     kbtouch.addMsg("Роспуск",1);
                 }
@@ -95,12 +94,12 @@ LRESULT CALLBACK KBdllhooks::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPAR
             case VK_HOME:
                 //Вставить до
                 if(kbtouch.m_stateBt.m_editing && kbtouch.qmlCurentIndex>-1)
-                kbtouch.addOtcep(kbtouch.qmlCurentIndex-1);
+                    kbtouch.addOtcep(kbtouch.qmlCurentIndex-1);
                 break;
             case VK_END:
                 //Вставить после
                 if(kbtouch.m_stateBt.m_editing && kbtouch.qmlCurentIndex>-1)
-                kbtouch.addOtcep(kbtouch.qmlCurentIndex+1);
+                    kbtouch.addOtcep(kbtouch.qmlCurentIndex+1);
                 break;
             case VK_DELETE:
                 //Удалить

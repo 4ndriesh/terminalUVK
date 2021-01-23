@@ -130,6 +130,8 @@ int ViewOtcepsModel::rowCount(const QModelIndex &parent) const
 QVariant ViewOtcepsModel::data(const QModelIndex &index, int role) const
 {
 
+
+
     if(index.row() < 0 || index.row() >= ViewOtcepList.count() || !index.isValid())
         return  QVariant();
 
@@ -145,7 +147,6 @@ QVariant ViewOtcepsModel::data(const QModelIndex &index, int role) const
 
 bool ViewOtcepsModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    qDebug()<<"asdasdasdasd",value;
 
     DataObject &dataSourceObject = ViewOtcepList[index.row()];
     if (data(index, role) != value) {

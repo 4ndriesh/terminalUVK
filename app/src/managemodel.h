@@ -46,11 +46,13 @@ class ManageModel: public QObject
 {
     Q_OBJECT
 
+    Q_DISABLE_COPY(ManageModel)
+
     Q_PROPERTY(QML_ManagerButton stateBt READ stateBt WRITE setStateBt NOTIFY stateBtChanged)
 
     Q_PROPERTY(int qmlCurentIndex READ getCurrentItem WRITE setCurrentItem NOTIFY qmlCurrentItemChanged)
 
-    Q_PROPERTY(int textInput READ textInput NOTIFY textInputChanged)
+    Q_PROPERTY(int textInput READ textInput WRITE setTextInput NOTIFY textInputChanged)
 
     Q_PROPERTY(int uvkLive READ uvkLive NOTIFY uvkLiveChanged)
 
@@ -98,6 +100,7 @@ public:
 
     QML_ManagerButton m_stateBt;
     QML_ManagerButton stateBt()const {return m_stateBt;}
+
     void setStateBt(const QML_ManagerButton &stateBt)
     {
         m_stateBt = stateBt;
@@ -107,12 +110,16 @@ public:
     //Общая переменная для ввода с клавиатуры номера пути
     int m_textInput;
     int textInput()const {return m_textInput;}
+    void setTextInput(const int &index){
+        m_textInput = index;
+        emit textInputChanged();
+    }
 
-    //Живой увк
+    //Наличие увк
     int m_uvkLive;
     int uvkLive()const {return m_uvkLive;}
 
-    //Новый сортирововчный листок
+    //Оповещение о новом сортирововчном листке
     int m_newList;
     int newList()const {return m_newList;}
 

@@ -5,13 +5,13 @@ import Impl 1.0
 import Base 1.0
 import SettingsModule 1.0
 import QtQuick.Controls 2.3
-import QtQuick.VirtualKeyboard 2.14
+
 //import QtQuick.VirtualKeyboard.Settings 2.14
 
 Window {
-    id:mainwindow
+    id:mainwindow    
     visible: true
-    //    visibility: "Maximized"
+        visibility: "Maximized"
     minimumWidth: 1200
     minimumHeight: 1000
     color: Settings.backgroundColor
@@ -63,12 +63,6 @@ Window {
             Layout.row: 6
         }
     }
-
-    InputPanel {
-        id: inputPanel
-        y: Qt.inputMethod.visible ? parent.height - inputPanel.height : parent.height
-        anchors.left: parent.left
-        anchors.right: parent.right
-    }
+    InputPanelKB{}
 
 }
