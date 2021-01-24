@@ -7,6 +7,8 @@ import "Binding.js" as MyScript
 Rectangle {
     id: textField
     property alias txt: _textPut.text
+    property alias textPutfocus: _textPut.focus
+    property alias visibleCursor: _textPut.cursorVisible
     Layout.fillWidth: true
     Layout.preferredWidth: delegate.width/12
     height: Settings.baseHeight
@@ -17,27 +19,19 @@ Rectangle {
     states:
         [
         State {
-            name: "focus"
-            when: delegate.ListView.isCurrentItem
-                  && manageModel.stateBt.editing===1
-                  && textField===state_sp
+            name: "join"
+            when: STATE_SP===STATE_SP_F
             PropertyChanges {
-                target: _textPut
-                enabled:true
-                focus: MyScript.borderGreen()
+                target: state_sp_f
+                visible: MyScript.state_spWidth()
             }
-
         },
         State {
-            name: "focusoff"
-            when: (!delegate.ListView.isCurrentItem
-                   || manageModel.stateBt.editing===0)
-                  && textField===state_sp
+            name: "joinoff"
+            when: STATE_SP!==STATE_SP_F
             PropertyChanges {
-                target: _textPut;
-                focus: MyScript.borderBlack();
-                cursorVisible:false;
-                enabled:false
+                target: state_sp_f
+                visible: MyScript.state_spWidthmin()
             }
         }
     ]
@@ -47,9 +41,8 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
         font.pointSize: parent.height/3
-        enabled: true
+//        enabled: true
         inputMethodHints:Qt.ImhFormattedNumbersOnly
-
 
         onEditingFinished: {
             switch(textField) {

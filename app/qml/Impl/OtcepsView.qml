@@ -16,9 +16,8 @@ Rectangle {
         preferredHighlightBegin: height/3
         preferredHighlightEnd: height/3
         focus: true
-
-        //        currentIndex: manageModel.qmlCurentIndex
-        currentIndex: manageModel.stateBt.editing ? manageModel.qmlCurentIndex:-1
+        currentIndex: manageModel.qmlCurentIndex
+//        currentIndex: manageModel.stateBt.editing ? manageModel.qmlCurentIndex:-1
         //        model: displayDelegateModel
         model: otcepsModel
         keyNavigationEnabled: false

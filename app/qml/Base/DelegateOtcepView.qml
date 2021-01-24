@@ -17,6 +17,23 @@ Rectangle {
     states:
         [
         State {
+            name: "lightsteelblue"
+            //                        when: manageModel.qmlCurentIndex === index // bind to isCurrentItem to set the state
+            when: delegate.ListView.isCurrentItem // bind to isCurrentItem to set the state
+            PropertyChanges {
+                target: delegate
+                color: MyScript.borderGreen(0,0)
+            }
+            PropertyChanges {
+                target: state_sp
+                enabled:false;
+                border.color: "black";
+                border.width: 1;
+                textPutfocus:false;
+                visibleCursor:false;
+            }
+        },
+        State {
             name: "red"
             when: STATE_ERROR===1// bind to isCurrentItem to set the state
             PropertyChanges {
@@ -49,74 +66,74 @@ Rectangle {
             }
         },
         State {
-            name: "lightsteelblue"
-            //                        when: manageModel.qmlCurentIndex === index // bind to isCurrentItem to set the state
-            when: delegate.ListView.isCurrentItem // bind to isCurrentItem to set the state
-            PropertyChanges {
-                target: delegate
-                color: "lightsteelblue"
-            }
-        },
-        State {
             name: "white"
             when: STATE_LOCATION === 1// bind to isCurrentItem to set the state
             PropertyChanges {
                 target: delegate
-                color: delegate.items_color[4]
-            }
-        },
-        State {
-            name: "join"
-            when: STATE_SP===STATE_SP_F
-            PropertyChanges {
-                target: state_sp_f
-                visible: MyScript.state_spWidth()
+                color: MyScript.borderGreen(STATE_NUM,STATE_LOCATION);
+                //                color: delegate.items_color[4]
             }
         }
-            //        },
-            //        State {
-            //            name: "dimgrey"
-            //            when: !delegate.ListView.isCurrentItem
-            //            PropertyChanges {
-            //                target: delegate
-            //                color: "dimgrey"
-            //            }
-            //        }
 
 
+        //        State {
+        //            name: "white"
+        //            when: STATE_LOCATION === 1 || delegate.ListView.isCurrentItem// bind to isCurrentItem to set the state
+        //            PropertyChanges {
+        //                target: delegate
+        //                color: MyScript.borderGreen()
+        ////                color: MyScript.cursor(STATE_NUM-1);
+        //                color: delegate.items_color[4]
+        //            }
+
+        //            PropertyChanges {
+        //                target: state_sp
+        //                enabled:false;
+        //                border.color: "black";
+        //                border.width: 1;
+        //            }
+        //        }
     ]
-            MouseAreaOtcepList {id: mouseArea}
-            RowLayout   {
-                id: layout
-                anchors.fill: parent
-                spacing: 0
-                //        Number {txt: STATE_NUM; objectName: 'STATE_NUM'}
-                //        Number {id: state_sp; txt: STATE_SP; objectName: 'STATE_SP'}
-                //        Number {id: state_sp_f; txt: STATE_SP_F; objectName: 'STATE_SP_F'}
-                //        Number {id: state_sl; txt: STATE_SL_VAGON_CNT; objectName: 'STATE_SL_VAGON_CNT'}
-                //        Number {txt: STATE_ZKR_VAGON_CNT; objectName: 'STATE_ZKR_VAGON_CNT'}
-                //        Number { txt: STATE_SL_VES.toFixed(2); objectName: 'STATE_SL_VES'}
-                //        Number {txt: STATE_ZKR_VES.toFixed(2); objectName: 'STATE_ZKR_VES'}
-                //        Number { txt: STATE_ZKR_BAZA; objectName: 'STATE_ZKR_BAZA' }
-                //        Number { txt: STATE_NAGON; objectName: 'STATE_NAGON' }
-                //        Number { txt: STATE_SL_UR; objectName: 'STATE_SL_UR' }
-                //        Number { txt: STATE_V; objectName: 'STATE_V' }
-                //        Number { txt: STATE_V; objectName: 'STATE_V' }
-                Number {txt: STATE_NUM;}
-                Number {id: state_sp; txt: STATE_SP; }
-                Number {id: state_sp_f; txt: STATE_SP_F;}
-                Number {id: state_sl; txt: STATE_SL_VAGON_CNT;}
-                Number {txt: STATE_ZKR_VAGON_CNT;}
-                Number { txt: STATE_SL_VES.toFixed(2);}
-                Number {txt: STATE_ZKR_VES.toFixed(2); }
-                Number { txt: STATE_ZKR_BAZA;}
-                Number { txt: STATE_NAGON;}
-                Number { txt: STATE_SL_UR;}
-                Number { txt: STATE_V;}
-                Number { txt: STATE_ENABLED;}
 
-            }
-        }
+
+
+    MouseAreaOtcepList {id: mouseArea}
+    RowLayout   {
+        id: layout
+        anchors.fill: parent
+        spacing: 0
+        //        Number {txt: STATE_NUM; objectName: 'STATE_NUM'}
+        //        Number {id: state_sp; txt: STATE_SP; objectName: 'STATE_SP'}
+        //        Number {id: state_sp_f; txt: STATE_SP_F; objectName: 'STATE_SP_F'}
+        //        Number {id: state_sl; txt: STATE_SL_VAGON_CNT; objectName: 'STATE_SL_VAGON_CNT'}
+        //        Number {txt: STATE_ZKR_VAGON_CNT; objectName: 'STATE_ZKR_VAGON_CNT'}
+        //        Number { txt: STATE_SL_VES.toFixed(2); objectName: 'STATE_SL_VES'}
+        //        Number {txt: STATE_ZKR_VES.toFixed(2); objectName: 'STATE_ZKR_VES'}
+        //        Number { txt: STATE_ZKR_BAZA; objectName: 'STATE_ZKR_BAZA' }
+        //        Number { txt: STATE_NAGON; objectName: 'STATE_NAGON' }
+        //        Number { txt: STATE_SL_UR; objectName: 'STATE_SL_UR' }
+        //        Number { txt: STATE_V; objectName: 'STATE_V' }
+        //        Number { txt: STATE_V; objectName: 'STATE_V' }
+        Number {txt: STATE_NUM;}
+        Number {id: state_sp; txt: STATE_SP; }
+        Number {id: state_sp_f; txt: STATE_SP_F;}
+        Number {id: state_sl; txt: STATE_SL_VAGON_CNT;}
+        Number {txt: STATE_ZKR_VAGON_CNT;}
+        Number { txt: STATE_SL_VES.toFixed(2);}
+        Number {txt: STATE_ZKR_VES.toFixed(2); }
+        Number { txt: STATE_ZKR_BAZA;}
+        Number { txt: STATE_NAGON;}
+        Number { txt: STATE_SL_UR;}
+        Number { txt: STATE_V;}
+        Number { txt: STATE_ENABLED;}
+
+    }
+    Component.onCompleted: {
+        if(manageModel.stateBt.editing===0)
+        manageModel.qmlCurrentItemChanged();
+    }
+}
+
 
 
 

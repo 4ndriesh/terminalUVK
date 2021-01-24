@@ -4,6 +4,7 @@
 #include "mvp_import.h"
 #include <QMetaProperty>
 
+
 ManageModel::ManageModel(QObject *parent) : QObject(parent)
 {
     m_uvkLive=1;
@@ -13,6 +14,11 @@ ManageModel::ManageModel(QObject *parent) : QObject(parent)
 void ManageModel::delOtcep(const int &index)
 {
     MVP_Import::instance()->delOtcep(index);
+}
+
+void ManageModel::clearAllOtcep()
+{
+    MVP_Import::instance()->ClearAllOtcep();
 }
 
 void ManageModel::getRndChart()
@@ -133,4 +139,10 @@ void ManageModel::deleteMsg()
 bool ManageModel::getTimerDelMsg() const
 {
     return timerDelMsg;
+}
+
+void ManageModel::setIndex(const int &index)
+{
+    qmlCurentIndex=index;
+    emit qmlCurrentItemChanged();
 }

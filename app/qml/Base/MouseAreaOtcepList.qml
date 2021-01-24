@@ -6,13 +6,14 @@ import Impl 1.0
 MouseArea {
     id: mouseArea
 
-    anchors.fill: delegate
+    anchors.fill: layout
     enabled: manageModel.stateBt.editing
 //    propagateComposedEvents: true
     acceptedButtons: Qt.LeftButton | Qt.Wheel
     onClicked: {
         if (mouse.button === Qt.LeftButton)
         {
+            console.log(index);
             manageModel.qmlCurentIndex=index;
         }
     }

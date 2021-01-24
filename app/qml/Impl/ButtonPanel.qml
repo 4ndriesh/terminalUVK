@@ -21,7 +21,10 @@ Item{
             color: editing ? Settings.themeRegimColor:Settings.themeHeaderColor
             wink: false
             EventMouseArea {
-                onClicked: manageModel.stateBt.editing=!manageModel.stateBt.editing
+                onClicked: {
+                    manageModel.qmlCurentIndex=0;
+                    manageModel.stateBt.editing=!manageModel.stateBt.editing
+                }
             }
         }
 

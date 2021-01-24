@@ -4,7 +4,6 @@
 #include <QQmlExtensionPlugin>
 #include <QtQml>
 
-
 struct QML_ManagerButton
 {
     Q_GADGET
@@ -44,6 +43,7 @@ public:
 
 class ManageModel: public QObject
 {
+
     Q_OBJECT
 
     Q_DISABLE_COPY(ManageModel)
@@ -80,6 +80,8 @@ public slots:
     void addMsg(const QString &, int);
     void deleteMsg();
     void getRndChart();
+
+
 signals:
     void stateBtChanged();
     void maximumValuePBChanged();
@@ -97,6 +99,8 @@ public:
     Q_INVOKABLE void qmlRegim(const int&);
     Q_INVOKABLE void addOtcep(const int&);
     Q_INVOKABLE void delOtcep(const int&);
+    Q_INVOKABLE void clearAllOtcep();
+    Q_INVOKABLE void setIndex(const int&);
 
     QML_ManagerButton m_stateBt;
     QML_ManagerButton stateBt()const {return m_stateBt;}

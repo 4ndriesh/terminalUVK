@@ -12,7 +12,6 @@ KBdllhooks &KBdllhooks::instance()
 
 KBdllhooks::KBdllhooks(QObject *parent) : QObject(parent)
 {
-    //    VisibleEditButton=1;
     HINSTANCE hInstance = GetModuleHandle(NULL);
 
     kbHook = SetWindowsHookEx(WH_KEYBOARD_LL, LowLevelKeyboardProc, hInstance, 0);
@@ -35,13 +34,13 @@ LRESULT CALLBACK KBdllhooks::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPAR
             qDebug()<<pKBStruct->vkCode;
             case VK_TAB:
 
-                //                kbtouch.qmlVisibleObject=(kbtouch.qmlVisibleObject+1)%2;
-                //                emit kbtouch.qmlVisibleObjectChanged();
                 if(kbtouch.m_stateBt.m_regim==1){
                     kbtouch.addMsg("Роспуск",1);
                 }
                 else{
-                    kbtouch.m_stateBt.m_editing=(kbtouch.m_stateBt.m_editing+1)%2;
+                    kbtouch.m_stateBt.m_editing=!kbtouch.m_stateBt.m_editing;
+                    if(kbtouch.m_stateBt.m_editing==1)
+                        kbtouch.qmlCurentIndex=0;
                     emit kbtouch.qmlCurrentItemChanged();
                     kbtouch.stateBtChanged();
                 }
@@ -91,17 +90,21 @@ LRESULT CALLBACK KBdllhooks::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPAR
                 }
                 break;
 
-            case VK_HOME:
+            case VK_NEXT:
                 //Вставить до
                 if(kbtouch.m_stateBt.m_editing && kbtouch.qmlCurentIndex>-1)
                     kbtouch.addOtcep(kbtouch.qmlCurentIndex-1);
                 break;
-            case VK_END:
+            case VK_PRIOR:
                 //Вставить после
                 if(kbtouch.m_stateBt.m_editing && kbtouch.qmlCurentIndex>-1)
                     kbtouch.addOtcep(kbtouch.qmlCurentIndex+1);
                 break;
             case VK_DELETE:
+                //Удалить все
+                kbtouch.clearAllOtcep();
+                break;
+            case VK_BACK:
                 //Удалить
                 kbtouch.delOtcep(kbtouch.qmlCurentIndex);
                 break;
@@ -110,8 +113,17 @@ LRESULT CALLBACK KBdllhooks::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPAR
                 kbtouch.m_textInput=25;
                 emit kbtouch.textInputChanged();
                 break;
+            case VK_LEFT:
+                kbtouch.qmlCurentIndex--;
+                emit kbtouch.qmlCurrentItemChanged();
+                break;
+            case VK_RIGHT:
+                kbtouch.qmlCurentIndex++;
+                emit kbtouch.qmlCurrentItemChanged();
+                break;
             default:
                 break;
+
             }
         }
     }
