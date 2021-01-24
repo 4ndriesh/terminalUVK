@@ -1,5 +1,5 @@
 function borderGreen(index,state) {
-//    var color=Settings.backgroundListView;
+    var color=Settings.backgroundListView;
     borderBlack();
     switch(manageModel.stateBt.editing){
     case 0:
