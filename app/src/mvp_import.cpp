@@ -306,3 +306,35 @@ void MVP_Import::ClearAllOtcep()
     m["CLEAR_ALL"]="1";
     MVP_Import::instance()->cmd->send_cmd(m);
 }
+
+QMap<QString, QString> MVP_Import::getDSOBusyRc()
+{
+    QMap<QString, QString> mName2Id;
+    if (gorka!=nullptr){
+        auto l=gorka->findChildren<m_RC*>();
+        foreach (auto rc, l) {
+            if (rc->STATE_BUSY_DSO()==1) mName2Id[rc->objectName()]=rc->idstr();
+        }
+        if (mName2Id.count()>0) mName2Id["ВСЕ"]="*";
+    }
+    return mName2Id;
+
+
+//     QMap<QString, QString> m=MVP_Import::instance()->getDSOBusyRc();
+//    foreach (auto rc_name, m.keys()) {
+//        ...add(rc_name);
+//    }
+
+//    MVP_Import::instance()->resetDSOBusyRc(m[rc_name]);
+}
+
+void MVP_Import::resetDSOBusyRc(QString idtsr)
+{
+    qDebug()<<"resetDSOBusyRc";
+    QMap<QString,QString> m;
+    m.clear();
+    m["DEST"]="UVK";
+    m["CMD"]="RESET_DSO_BUSY";
+    m["RC"]=idtsr;
+    MVP_Import::instance()->cmd->send_cmd(m);
+}

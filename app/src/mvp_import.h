@@ -53,6 +53,8 @@ public:
     void incOtcep(int N);
     void delOtcep(int N);
     void ClearAllOtcep();
+    QMap<QString,QString> getDSOBusyRc();
+    void resetDSOBusyRc(QString idtsr);
 
 signals:
     void sortirArrived(const tSl2Odo2 *srt);
