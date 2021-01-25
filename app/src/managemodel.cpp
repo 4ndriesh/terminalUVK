@@ -9,6 +9,7 @@ ManageModel::ManageModel(QObject *parent) : QObject(parent)
 {
     m_uvkLive=1;
     m_newList=0;
+    qmlCurentIndex=1;
 }
 
 void ManageModel::delOtcep(const int &index)
@@ -71,9 +72,8 @@ void ManageModel::accept()
         setRegim(0);
         break;
     case 1:
+        setPutNadviga(1);
         setRegim(1);
-        if(m_stateBt.m_bef_putNadviga==1)setPutNadviga(1);
-        else if (m_stateBt.m_bef_putNadviga==2) setPutNadviga(2);
         break;
     case 2:
         setRegim(2);
@@ -85,7 +85,7 @@ void ManageModel::accept()
 }
 
 void ManageModel::setPutNadviga(const int &putNadviga)
-{
+{    
     MVP_Import::instance()->setPutNadvig(putNadviga);
 }
 

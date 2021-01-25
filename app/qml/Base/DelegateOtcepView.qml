@@ -70,8 +70,8 @@ Rectangle {
             when: STATE_LOCATION === 1// bind to isCurrentItem to set the state
             PropertyChanges {
                 target: delegate
-                color: MyScript.borderGreen(STATE_NUM,STATE_LOCATION);
-                //                color: delegate.items_color[4]
+                //                color: MyScript.borderGreen(STATE_NUM,STATE_LOCATION);
+                color: delegate.items_color[4]
             }
         }
 
@@ -130,7 +130,7 @@ Rectangle {
     }
     Component.onCompleted: {
         if(manageModel.stateBt.editing===0)
-        manageModel.qmlCurrentItemChanged();
+            manageModel.qmlCurrentItemChanged();
     }
 }
 

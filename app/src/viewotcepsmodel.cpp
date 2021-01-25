@@ -22,8 +22,7 @@
     в остальный случаях темно серый
 
     КНОПКИ: ВВОД СЛ
-            РОСПУСК1 ПАУЗА СТОП MVP_Import::instance()->gorka->STATE_REGIM
-            РОСПУСК1/РОСПУСК2 - сделаю доп свойство gorka->PUT_NADVIG = 1..2
+            РОСПУСК1 ПАУЗА СТОП MVP_Import::instance()->gorka->STATE_REGIM                  РОСПУСК1/РОСПУСК2 - сделаю доп свойство gorka->PUT_NADVIG = 1..2
 
     РЕЖИМ ВВОД СЛ - появляется курсор
     так же вход в режим при щелкани мышью по отцепу
@@ -76,9 +75,9 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
     connect(MVP_Import::instance()->cmd,&GtCommandInterface::recv_accept,this,&ViewOtcepsModel::uvk_cmd_accept);
 
 
-    //    timer->setInterval(1000);
-    //    connect(timer, &QTimer::timeout , this, &ViewOtcepsModel::slotOtcepChanged);
-    //timer->start();
+        timer->setInterval(1000);
+        connect(timer, &QTimer::timeout , this, &ViewOtcepsModel::slotOtcepChanged);
+    timer->start();
 
     connect(MVP_Import::instance(),&MVP_Import::sortirArrived,this, &ViewOtcepsModel::sortirArrived);
 //    connect(MVP_Import::instance(),&MVP_Import::sendStartProgressBar,this,&ViewOtcepsModel::slotStartProgressBar);
@@ -97,7 +96,7 @@ void ViewOtcepsModel::slotOtcepChanged()
     Mn.m_stateBt.m_regim=MVP_Import::instance()->gorka->STATE_REGIM();
 
 //    qDebug()<<"PUT_NADVIG"<<MVP_Import::instance()->gorka->PUT_NADVIG();
-//    Mn.m_stateBt.m_putNadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
+    Mn.m_stateBt.m_putNadviga=MVP_Import::instance()->gorka->STATE_PUT_NADVIG();
     Mn.m_stateBt.m_bef_putNadviga=Mn.m_stateBt.m_putNadviga;
     emit Mn.stateBtChanged();
 

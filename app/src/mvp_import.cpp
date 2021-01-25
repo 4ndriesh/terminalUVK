@@ -161,6 +161,7 @@ bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
         m["CMD"]="SET_OTCEP_STATE";
         m["N"]=QString::number(o.NO);
 
+        m["LOCATION"]=QString::number(1);
         m["ENABLED"]=QString::number(1);
         m["ID_ROSP"]=QString::number(srt->Id);
         m["SP"]=QString::number(o.SP);

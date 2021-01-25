@@ -24,7 +24,7 @@ Rectangle {
         keyNavigationWraps: false
         header: HeaderOtcepsView {z:10}
         headerPositioning: ListView.OverlayHeader
-        delegate: DelegateOtcepView{id: delegate}
+        delegate: DelegateOtcepView{}
 
     }
 

@@ -104,13 +104,18 @@ LRESULT CALLBACK KBdllhooks::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPAR
                 //Удалить все
                 kbtouch.clearAllOtcep();
                 break;
-            case VK_BACK:
+            case VK_F12:
                 //Удалить
                 kbtouch.delOtcep(kbtouch.qmlCurentIndex);
+
                 break;
 
             case VK_F1:
                 kbtouch.m_textInput=25;
+                emit kbtouch.textInputChanged();
+                break;
+            case VK_F2:
+                kbtouch.m_textInput=3;
                 emit kbtouch.textInputChanged();
                 break;
             case VK_LEFT:
