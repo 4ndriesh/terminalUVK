@@ -313,7 +313,7 @@ QMap<QString, QString> MVP_Import::getDSOBusyRc()
     if (gorka!=nullptr){
         auto l=gorka->findChildren<m_RC*>();
         foreach (auto rc, l) {
-            if (rc->STATE_BUSY_DSO()==1) mName2Id[rc->objectName()]=rc->idstr();
+            if (rc->STATE_BUSY_DSO()!=0) mName2Id[rc->objectName()]=rc->idstr();
         }
         if (mName2Id.count()>0) mName2Id["ВСЕ"]="*";
     }
