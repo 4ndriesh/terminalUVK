@@ -18,7 +18,7 @@ Rectangle {
         focus: true
         currentIndex: manageModel.qmlCurentIndex
 //        currentIndex: manageModel.stateBt.editing ? manageModel.qmlCurentIndex:-1
-        //        model: displayDelegateModel
+//                model: displayDelegateModel
         model: otcepsModel
         keyNavigationEnabled: false
         keyNavigationWraps: false
@@ -42,24 +42,29 @@ Rectangle {
 
         filterOnGroup: "displayField"
     }
+    Connections {
+           target: listView.model    // EDIT: I drew the wrong conclusions here, see text below!
+           onDataChanged: {
+               console.log("DataChanged received")
+           }
+       }
+//    Connections{
+//        target: manageModel
+//        function onTextInputChanged(){
 
-    Connections{
-        target: manageModel
-        function onTextInputChanged(){
+//            var rowCount = otcepsModel.rowCount();
+//            displayDelegateModel.items.removeGroups(0,displayDelegateModel.items.count,"displayField")
+//            for( var i = 0;i < rowCount;i++ ) {
+//                var entry = otcepsModel.get(i);
 
-            var rowCount = otcepsModel.rowCount();
-            displayDelegateModel.items.removeGroups(0,displayDelegateModel.items.count,"displayField")
-            for( var i = 0;i < rowCount;i++ ) {
-                var entry = otcepsModel.get(i);
+//                if(entry.STATE_ENABLED ===true) {
+//                    console.log(entry.STATE_SP)
+//                    displayDelegateModel.items.insert(entry, "displayField");
+//                }
+//            }
 
-                if(entry.STATE_ENABLED ===true) {
-                    console.log(entry.STATE_SP)
-                    displayDelegateModel.items.insert(entry, "displayField");
-                }
-            }
-
-        }
-    }
+//        }
+//    }
 
 
 }

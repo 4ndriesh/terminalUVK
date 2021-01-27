@@ -35,9 +35,13 @@ public:
     bool loadSortirToUvk(const tSl2Odo2 *srt);
     void deleteDataSourceObject();
 
+    int updateOtcep;
+
+
 
 private:
     static ViewOtcepsModel* model;
+    int countEnabled();
 
 
     bool qmlVisible;

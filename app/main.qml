@@ -63,6 +63,7 @@ Window {
             Layout.row: 6
         }
     }
+    RChain{id:_rchaindialog}
     InputPanelKB{}
 
 }

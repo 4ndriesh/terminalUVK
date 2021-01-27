@@ -41,6 +41,9 @@ LRESULT CALLBACK KBdllhooks::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPAR
                     kbtouch.m_stateBt.m_editing=!kbtouch.m_stateBt.m_editing;
                     if(kbtouch.m_stateBt.m_editing==1)
                         kbtouch.qmlCurentIndex=0;
+                    else
+                        kbtouch.qmlCurentIndex=-1;
+
                     emit kbtouch.qmlCurrentItemChanged();
                     kbtouch.stateBtChanged();
                 }

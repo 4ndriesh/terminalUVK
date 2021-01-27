@@ -47,7 +47,7 @@ HEADERS += \
 # SYB
 #DEFINES += NO_LIBRARY
 #MVP_ROOT=$$PWD/
-MVP_ROOT=$$_PRO_FILE_PWD_/../libs
+MVP_ROOT=$$_PRO_FILE_PWD_/../../libs
 
 #https://github.com/yx500/mvp_classes.git
 

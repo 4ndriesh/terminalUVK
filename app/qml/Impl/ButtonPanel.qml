@@ -22,7 +22,10 @@ Item{
             wink: false
             EventMouseArea {
                 onClicked: {
-                    manageModel.qmlCurentIndex=0;
+                    if(manageModel.m_stateBt.m_editing===1)
+                        manageModel.qmlCurentIndex=0;
+                    else
+                        manageModel.qmlCurentIndex=-1;
                     manageModel.stateBt.editing=!manageModel.stateBt.editing
                 }
             }
@@ -65,6 +68,19 @@ Item{
             onSetWink: manageModel.stateBt.wink_Pause=false
             EventMouseArea {
                 onClicked: if(regim===1 && editing===0)manageModel.qmlRegim(2)
+            }
+        }
+        MultiButton {
+            id: rchain
+            buttonText: "РЦ"
+            Layout.alignment: Qt.AlignRight
+            color: Settings.themeHeaderColor
+            wink: false
+            EventMouseArea {
+                onClicked: {
+                    _rchaindialog.open();
+                    manageModel.addRChain();
+                }
             }
         }
     }

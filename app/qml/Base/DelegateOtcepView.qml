@@ -2,18 +2,19 @@ import QtQuick 2.14
 import QtQuick.Layouts 1.14
 import SettingsModule 1.0
 import QtQml.Models 2.1
+ import QtQml 2.15
 import "Binding.js" as MyScript
 
 Rectangle {
     id: delegate
     objectName: "delegate"
-    color: Settings.backgroundListView
+//    color: Settings.backgroundListView
     //цвет в зависимости от STATE_LOCATION
     property variant items_color: ["red", "yellow","green","dimgrey","white","LightGray"]
     width: _otcepView.width;
     height: 65
     //    property int index: DelegateModel.itemsIndex
-    visible: STATE_ENABLED
+    visible: STATE_ENABLED ? true:false
     states:
         [
         State {
@@ -73,7 +74,16 @@ Rectangle {
                 //                color: MyScript.borderGreen(STATE_NUM,STATE_LOCATION);
                 color: delegate.items_color[4]
             }
+        },
+        State {
+            name: "green"
+            when: STATE_ZKR_PROGRESS == 1// bind to isCurrentItem to set the state
+            PropertyChanges {
+                target: delegate
+                color:"green"
+            }
         }
+
 
 
         //        State {
@@ -94,8 +104,7 @@ Rectangle {
         //            }
         //        }
     ]
-
-
+//    Binding
 
     MouseAreaOtcepList {id: mouseArea}
     RowLayout   {

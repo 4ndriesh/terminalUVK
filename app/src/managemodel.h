@@ -111,6 +111,7 @@ public:
         emit stateBtChanged();
     }
 
+
     //Общая переменная для ввода с клавиатуры номера пути
     int m_textInput;
     int textInput()const {return m_textInput;}

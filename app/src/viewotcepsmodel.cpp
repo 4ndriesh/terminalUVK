@@ -47,19 +47,19 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
 {
 
 
-//    Mn.qmlPutNadviga.m_set_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
+    //    Mn.qmlPutNadviga.m_set_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
 
-//    Mn.qmlRegim=MVP_Import::instance()->gorka->STATE_REGIM();
+    //    Mn.qmlRegim=MVP_Import::instance()->gorka->STATE_REGIM();
     qmlX=1;
-//    Mn.qmlVisibleObject=false;
-    Mn.qmlCurentIndex=0;
+    updateOtcep=0;
+    //    Mn.qmlVisibleObject=false;
+    Mn.qmlCurentIndex=-1;
     int irole=Qt::UserRole+1;
     for (int idx = 0; idx < m_Otcep::staticMetaObject.propertyCount(); idx++) {
         QMetaProperty metaProperty = m_Otcep::staticMetaObject.property(idx);
         QString proprtyName=metaProperty.name();
         otcepRoles[irole++] = qPrintable(proprtyName);
     }
-
     //    qmlCurentIndex=0;
     if (MVP_Import::instance()->gorka!=nullptr){
 
@@ -75,13 +75,13 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
     connect(MVP_Import::instance()->cmd,&GtCommandInterface::recv_accept,this,&ViewOtcepsModel::uvk_cmd_accept);
 
 
-        timer->setInterval(1000);
-        connect(timer, &QTimer::timeout , this, &ViewOtcepsModel::slotOtcepChanged);
-    timer->start();
+    //    timer->setInterval(1000);
+    //    connect(timer, &QTimer::timeout , this, &ViewOtcepsModel::slotOtcepChanged);
+    //    timer->start();
 
     connect(MVP_Import::instance(),&MVP_Import::sortirArrived,this, &ViewOtcepsModel::sortirArrived);
-//    connect(MVP_Import::instance(),&MVP_Import::sendStartProgressBar,this,&ViewOtcepsModel::slotStartProgressBar);
-//    connect(MVP_Import::instance(),&MVP_Import::sendStopProgressBar,this,&ViewOtcepsModel::slotStopProgressBar);
+    //    connect(MVP_Import::instance(),&MVP_Import::sendStartProgressBar,this,&ViewOtcepsModel::slotStartProgressBar);
+    //    connect(MVP_Import::instance(),&MVP_Import::sendStopProgressBar,this,&ViewOtcepsModel::slotStopProgressBar);
 }
 ViewOtcepsModel &ViewOtcepsModel::instance()
 {
@@ -95,19 +95,35 @@ void ViewOtcepsModel::slotOtcepChanged()
     qDebug()<<"STATE_REGIM"<<MVP_Import::instance()->gorka->STATE_REGIM();
     Mn.m_stateBt.m_regim=MVP_Import::instance()->gorka->STATE_REGIM();
 
-//    qDebug()<<"PUT_NADVIG"<<MVP_Import::instance()->gorka->PUT_NADVIG();
-    Mn.m_stateBt.m_putNadviga=MVP_Import::instance()->gorka->STATE_PUT_NADVIG();
+    //    qDebug()<<"PUT_NADVIG"<<MVP_Import::instance()->gorka->PUT_NADVIG();
+    //    Mn.m_stateBt.m_putNadviga=MVP_Import::instance()->gorka->STATE_PUT_NADVIG();
     Mn.m_stateBt.m_bef_putNadviga=Mn.m_stateBt.m_putNadviga;
     emit Mn.stateBtChanged();
-
-    beginResetModel();
-    endResetModel();
+    int rowCount=countEnabled();
+    if(updateOtcep==rowCount && rowCount>0)
+        emit dataChanged(createIndex(0,0), createIndex(rowCount, otcepRoles.count()));
+    else if(updateOtcep!=rowCount ){
+        qDebug()<<"qDeleteAll";
+        beginResetModel();
+        endResetModel();
+        updateOtcep=rowCount;
+    }
+    //            beginResetModel();
+    //            endResetModel();
 }
 
+int ViewOtcepsModel::countEnabled()
+{
+    int countRow=0;
+    while (get(countRow)["STATE_ENABLED"]!=false) {
+        ++countRow;
+    }
+    return countRow;
+}
 
 QVariantMap ViewOtcepsModel::get(int row) const
 {
-//    qDebug()<<ViewOtcepList[row].toMap()["STATE_ENABLED"];
+    //    qDebug()<<ViewOtcepList[row].toMap()["STATE_ENABLED"];
     return ViewOtcepList[row].toMap();
 }
 
@@ -124,12 +140,8 @@ int ViewOtcepsModel::rowCount(const QModelIndex &parent) const
     return ViewOtcepList.count();
 }
 
-
-
 QVariant ViewOtcepsModel::data(const QModelIndex &index, int role) const
 {
-
-
 
     if(index.row() < 0 || index.row() >= ViewOtcepList.count() || !index.isValid())
         return  QVariant();

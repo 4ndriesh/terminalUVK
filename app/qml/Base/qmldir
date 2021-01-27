@@ -12,3 +12,4 @@ AnimationButton 1.0 AnimationButton.qml
 EventMouseArea 1.0 EventMouseArea.qml
 MouseAreaOtcepList 1.0 MouseAreaOtcepList.qml
 ImageSVG 1.0 ImageSVG.qml
+RChain 1.0 RChain.qml

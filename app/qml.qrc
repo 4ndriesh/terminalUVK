@@ -54,5 +54,7 @@
         <file>qml/resources/fast-forward.svg</file>
         <file>vkeyboard/QtQuick/VirtualKeyboard/Styles/test/images/fast-forward.svg</file>
         <file>vkeyboard/QtQuick/VirtualKeyboard/Styles/test/images/download-button.svg</file>
+        <file>qml/Base/DelegateRChain.qml</file>
+        <file>qml/Base/RChain.qml</file>
     </qresource>
 </RCC>
