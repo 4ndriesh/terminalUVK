@@ -96,7 +96,7 @@ LRESULT CALLBACK KBdllhooks::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPAR
             case VK_NEXT:
                 //Вставить до
                 if(kbtouch.m_stateBt.m_editing && kbtouch.qmlCurentIndex>-1)
-                    kbtouch.addOtcep(kbtouch.qmlCurentIndex-1);
+                    kbtouch.addOtcep(kbtouch.qmlCurentIndex);
                 break;
             case VK_PRIOR:
                 //Вставить после
@@ -109,7 +109,7 @@ LRESULT CALLBACK KBdllhooks::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPAR
                 break;
             case VK_F12:
                 //Удалить
-                kbtouch.delOtcep(kbtouch.qmlCurentIndex);
+                kbtouch.delOtcep(kbtouch.qmlCurentIndex+1);
 
                 break;
 

@@ -58,6 +58,8 @@ class ManageModel: public QObject
 
     Q_PROPERTY(int newList READ newList NOTIFY newListChanged)
 
+    Q_PROPERTY(QStringList qmlRChain READ qmlRChain NOTIFY qmlRChainChanged)
+
     Q_PROPERTY(QStringList listMsg READ getListMsg NOTIFY listMsgChanged)
 
     Q_PROPERTY(bool timerDelMsg READ getTimerDelMsg NOTIFY timerDelMsgChanged)
@@ -80,9 +82,11 @@ public slots:
     void addMsg(const QString &, int);
     void deleteMsg();
     void getRndChart();
+    void addRChain();
 
 
 signals:
+    void qmlRChainChanged();
     void stateBtChanged();
     void maximumValuePBChanged();
     void showMessage(QString colorMessage, QString textMessage);
@@ -101,6 +105,9 @@ public:
     Q_INVOKABLE void delOtcep(const int&);
     Q_INVOKABLE void clearAllOtcep();
     Q_INVOKABLE void setIndex(const int&);
+    Q_INVOKABLE void resetRChain(const QString&);
+
+    QMap<QString, QString> m;
 
     QML_ManagerButton m_stateBt;
     QML_ManagerButton stateBt()const {return m_stateBt;}
@@ -119,6 +126,10 @@ public:
         m_textInput = index;
         emit textInputChanged();
     }
+
+    //Рельсовые цепи
+    QStringList m_qmlRChain;
+    QStringList qmlRChain()const{return m_qmlRChain;}
 
     //Наличие увк
     int m_uvkLive;

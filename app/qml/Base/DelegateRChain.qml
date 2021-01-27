@@ -30,24 +30,28 @@ Rectangle {
                 font.pointSize: parent.height/3
                 color: "black"
             }
-        }
-
-
-        Item{
-            id: _resetRChain
-            //            Layout.fillWidth: true
-            Layout.preferredWidth: parent.width/8
-            Layout.fillHeight: true
-            Image {
-                id: _rcreset
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                source: Resources.contacts.defaultDelIcon
-                MouseArea{
-                    anchors.fill: parent;
-                    onClicked: manageModel.resetRChain(_textRChain.text)
-                }
+            MouseArea{
+                anchors.fill: parent;
+                onClicked: manageModel.resetRChain(_textRChain.text)
             }
         }
+
+
+        //        Item{
+        //            id: _resetRChain
+        //            //            Layout.fillWidth: true
+        //            Layout.preferredWidth: parent.width/8
+        //            Layout.fillHeight: true
+        //            Image {
+        //                id: _rcreset
+        //                anchors.horizontalCenter: parent.horizontalCenter
+        //                anchors.verticalCenter: parent.verticalCenter
+        //                source: Resources.contacts.defaultDelIcon
+        //                MouseArea{
+        //                    anchors.fill: parent;
+        //                    onClicked: manageModel.resetRChain(_textRChain.text)
+        //                }
+        //            }
+        //        }
     }
 }

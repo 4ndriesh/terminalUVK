@@ -78,8 +78,9 @@ Item{
             wink: false
             EventMouseArea {
                 onClicked: {
+                     manageModel.addRChain();
                     _rchaindialog.open();
-                    manageModel.addRChain();
+
                 }
             }
         }

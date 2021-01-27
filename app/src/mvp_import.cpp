@@ -34,6 +34,8 @@ bool MVP_Import::load(QString fn)
     GtBuffer * buffer14=udp.getGtBuffer(14,"vag1");
     connect(buffer14,&GtBuffer::bufferChanged,this,&MVP_Import::buffer14Changed);
 
+    gorka->SIGNAL_ROSPUSK().getBuffer()->msecPeriodLive=2000;
+
     timer->start(250);
     return true;
 }

@@ -5,7 +5,7 @@ QtObject {
     property bool isDarkTheme: false
     property bool visibleInputPanel: false
     readonly property color backgroundColor: "white"
-    readonly property color backgroundListView: "grey"
+    readonly property color backgroundListView: "gainsboro"
     readonly property color themeHeaderColor: isDarkTheme ? "#607D8B" : "#b0c4de"
     readonly property color themeBtSignalColorDAct: isDarkTheme ? "#607D8B" : "#b0c4de"
     readonly property color themeBtSignalColorAct: isDarkTheme ? "#607D8B" : "orange"

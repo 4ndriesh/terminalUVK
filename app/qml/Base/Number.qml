@@ -60,7 +60,9 @@ Rectangle {
         function onTextInputChanged(){
             if(manageModel.qmlCurentIndex === index
                     && textField===state_sp
-                    && manageModel.stateBt.editing===1){
+                    && manageModel.stateBt.editing===1
+                    && textField.enabled===true)
+            {
                 _textPut.cursorVisible=true;
                 _textPut.cursorPosition= _textPut.text.length;
                 _textPut.text=manageModel.textInput;

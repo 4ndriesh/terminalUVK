@@ -13,7 +13,7 @@ Rectangle {
     }
     Timer {
         id: msgTimer
-        interval: 1000
+        interval: 2000
         repeat: true
         running: manageModel.timerDelMsg
         onTriggered: manageModel.deleteMsg();

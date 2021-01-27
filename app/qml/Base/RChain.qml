@@ -21,7 +21,7 @@ Dialog {
     }
     Component.onCompleted: {visible=false;
 //        _rchaindialog.close();
-//        manageModel.addRChain();
+        manageModel.addRChain();
     }
 }
 

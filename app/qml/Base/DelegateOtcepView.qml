@@ -2,13 +2,12 @@ import QtQuick 2.14
 import QtQuick.Layouts 1.14
 import SettingsModule 1.0
 import QtQml.Models 2.1
- import QtQml 2.15
 import "Binding.js" as MyScript
 
 Rectangle {
     id: delegate
     objectName: "delegate"
-//    color: Settings.backgroundListView
+    color: Settings.backgroundListView
     //цвет в зависимости от STATE_LOCATION
     property variant items_color: ["red", "yellow","green","dimgrey","white","LightGray"]
     width: _otcepView.width;
@@ -18,12 +17,20 @@ Rectangle {
     states:
         [
         State {
+            name: "yellow"
+            when: STATE_LOCATION === 2 &&   STATE_ZKR_PROGRESS===1// bind to isCurrentItem to set the state
+            PropertyChanges {
+                target: delegate
+                color:delegate.items_color[1]
+            }
+        },
+        State {
             name: "lightsteelblue"
             //                        when: manageModel.qmlCurentIndex === index // bind to isCurrentItem to set the state
             when: delegate.ListView.isCurrentItem // bind to isCurrentItem to set the state
             PropertyChanges {
                 target: delegate
-                color: MyScript.borderGreen(0,0)
+                color: MyScript.borderGreen(0,STATE_LOCATION)
             }
             PropertyChanges {
                 target: state_sp
@@ -40,11 +47,13 @@ Rectangle {
             PropertyChanges {
                 target: delegate
                 color:delegate.items_color[0]
+//                color:delegate.items_color[0]
             }
         },
         State {
-            name: "grey"
-            when: STATE_LOCATION===2 && STATE_SP===STATE_SP_F || STATE_LOCATION == 3// bind to isCurrentItem to set the state
+            name: "dimgrey"
+//            when: STATE_LOCATION===2 && STATE_SP===STATE_SP_F || STATE_LOCATION == 3// bind to isCurrentItem to set the state
+            when: STATE_LOCATION===2 && ((STATE_SP===STATE_SP_F)&& STATE_SP!==0) || STATE_LOCATION == 3// bind to isCurrentItem to set the state
             PropertyChanges {
                 target: delegate
                 color:delegate.items_color[3]
@@ -58,14 +67,7 @@ Rectangle {
                 color:delegate.items_color[5]
             }
         },
-        State {
-            name: "yellow"
-            when: STATE_LOCATION === 2 &&   STATE_ZKR_PROGRESS===1// bind to isCurrentItem to set the state
-            PropertyChanges {
-                target: delegate
-                color:delegate.items_color[1]
-            }
-        },
+
         State {
             name: "white"
             when: STATE_LOCATION === 1// bind to isCurrentItem to set the state
@@ -76,11 +78,20 @@ Rectangle {
             }
         },
         State {
+            name: "grey"
+            when: STATE_LOCATION === 0// bind to isCurrentItem to set the state
+            PropertyChanges {
+                target: delegate
+                //                color: MyScript.borderGreen(STATE_NUM,STATE_LOCATION);
+                color: delegate.items_color[3]
+            }
+        },
+        State {
             name: "green"
             when: STATE_ZKR_PROGRESS == 1// bind to isCurrentItem to set the state
             PropertyChanges {
                 target: delegate
-                color:"green"
+                color:MyScript.borderGreen(0,0)
             }
         }
 
@@ -132,9 +143,11 @@ Rectangle {
         Number {txt: STATE_ZKR_VES.toFixed(2); }
         Number { txt: STATE_ZKR_BAZA;}
         Number { txt: STATE_NAGON;}
-        Number { txt: STATE_SL_UR;}
-        Number { txt: STATE_V;}
+//        Number { txt: STATE_SL_UR;}
+//        Number { txt: STATE_V;}
         Number { txt: STATE_ENABLED;}
+        Number { txt: STATE_LOCATION;}
+        Number { txt: STATE_ZKR_PROGRESS;}
 
     }
     Component.onCompleted: {

@@ -1,18 +1,18 @@
 function borderGreen(index,state) {
-    var color=delegate.color;
-//    var color=Settings.backgroundListView;
+//    var color=delegate.color;
+    var color=Settings.backgroundListView;
     borderBlack();
     switch(manageModel.stateBt.editing){
     case 0:
 
         if(state===1){
             manageModel.qmlCurentIndex=index;
-            color=delegate.items_color[4];
+            color=delegate.items_color[5];
         }
         break;
 
     case 1:
-        if(delegate.ListView.isCurrentItem){
+        if(delegate.ListView.isCurrentItem && state===1){
             state_sp.enabled=true;
             state_sp.border.color= "green";
             state_sp.border.width= 5;
@@ -20,6 +20,7 @@ function borderGreen(index,state) {
             state_sp.visibleCursor=true;
             color="lightsteelblue"
         }
+        else color="lightsteelblue"
         break;
     default:
         break;

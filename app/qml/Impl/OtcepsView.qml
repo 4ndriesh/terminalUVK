@@ -12,7 +12,8 @@ Rectangle {
         anchors.fill: parent
         clip: true
         highlightFollowsCurrentItem: true
-        highlightRangeMode: ListView.ApplyRange
+//        highlightRangeMode: ListView.ApplyRange
+        highlightRangeMode: ListView.StrictlyEnforceRange
         preferredHighlightBegin: height/3
         preferredHighlightEnd: height/3
         focus: true

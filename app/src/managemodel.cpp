@@ -7,7 +7,7 @@
 
 ManageModel::ManageModel(QObject *parent) : QObject(parent)
 {
-    m_uvkLive=1;
+    m_uvkLive=0;
     m_newList=0;
     qmlCurentIndex=1;
 }
@@ -145,4 +145,22 @@ void ManageModel::setIndex(const int &index)
 {
     qmlCurentIndex=index;
     emit qmlCurrentItemChanged();
+}
+//Ресет рельсовой цепи
+void ManageModel::resetRChain(const QString &valRChain)
+{
+   qDebug()<<"Delete";
+    MVP_Import::instance()->resetDSOBusyRc(m[valRChain]);
+}
+//Добавляем рельсовые цепи в список
+void ManageModel::addRChain()
+{
+
+    m_qmlRChain.clear();
+    m=MVP_Import::instance()->getDSOBusyRc();
+    qDebug()<<m.count();
+        foreach (auto rc_name, m.keys()) {
+            m_qmlRChain.append(rc_name);
+        }
+        emit qmlRChainChanged();
 }
