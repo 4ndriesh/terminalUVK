@@ -10,6 +10,8 @@ ManageModel::ManageModel(QObject *parent) : QObject(parent)
     m_uvkLive=0;
     m_newList=0;
     qmlCurentIndex=1;
+//    for(int i=0;i<10;i++)
+//    m_qmlRChain.append("123123");
 }
 
 void ManageModel::delOtcep(const int &index)

@@ -80,6 +80,7 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
         timer->start();
 
     connect(MVP_Import::instance(),&MVP_Import::sortirArrived,this, &ViewOtcepsModel::sortirArrived);
+    MVP_Import::instance()->updateOtceps();
     //    connect(MVP_Import::instance(),&MVP_Import::sendStartProgressBar,this,&ViewOtcepsModel::slotStartProgressBar);
     //    connect(MVP_Import::instance(),&MVP_Import::sendStopProgressBar,this,&ViewOtcepsModel::slotStopProgressBar);
 }
@@ -103,14 +104,14 @@ void ViewOtcepsModel::slotOtcepChanged()
     Mn.m_stateBt.m_bef_putNadviga=Mn.m_stateBt.m_putNadviga;
     emit Mn.stateBtChanged();
 
-    int rowCount=countEnabled();
+//    int rowCount=countEnabled();
 //    if(updateOtcep==rowCount && rowCount>0)
-        emit dataChanged(createIndex(0,0), createIndex(120, otcepRoles.count()));
+        emit dataChanged(createIndex(0,0), createIndex(119, 7));
 //    else if(updateOtcep!=rowCount ){
 //        qDebug()<<"qDeleteAll";
 //        emit dataChanged(createIndex(0,0), createIndex(updateOtcep, otcepRoles.count()));
-////        beginResetModel();
-////        endResetModel();
+//        beginResetModel();
+//        endResetModel();
 //        updateOtcep=rowCount;
 //    }
     //            beginResetModel();

@@ -6,7 +6,7 @@ import ResourceProvider 1.0
 
 Rectangle {
     id: delegateRChain
-    color: "grey"
+    color: Settings.backgroundColor
     //        anchors.fill: parent
     width: parent.width; height: 30
     clip: true
@@ -18,8 +18,7 @@ Rectangle {
             id: textField
             Layout.fillWidth: true
             Layout.fillHeight: true
-            //            Layout.preferredWidth: parent.width/2
-            color: "grey"
+            color: Settings.backgroundListViewRChain
             enabled: true
             border.width: Settings.borderWidth
             Text {
@@ -30,28 +29,36 @@ Rectangle {
                 font.pointSize: parent.height/3
                 color: "black"
             }
+
+            states: [
+                State {
+                    name: "NORMAL"
+                    PropertyChanges { target: textField; border.width: Settings.borderWidth }
+                },
+                State {
+                    name: "HOVER"
+                    PropertyChanges { target: textField; border.width: 4 }
+                }
+            ]
+
             MouseArea{
                 anchors.fill: parent;
-                onClicked: manageModel.resetRChain(_textRChain.text)
+
+                hoverEnabled: true
+
+                onEntered: {
+                    parent.state = "HOVER";
+                }
+                onExited: {
+                    parent.state = "NORMAL";
+                }
+                onClicked: {
+                    listRChainView.currentIndex=index;
+                    manageModel.resetRChain(_textRChain.text);
+                    manageModel.addRChain();
+                }
             }
         }
-
-
-        //        Item{
-        //            id: _resetRChain
-        //            //            Layout.fillWidth: true
-        //            Layout.preferredWidth: parent.width/8
-        //            Layout.fillHeight: true
-        //            Image {
-        //                id: _rcreset
-        //                anchors.horizontalCenter: parent.horizontalCenter
-        //                anchors.verticalCenter: parent.verticalCenter
-        //                source: Resources.contacts.defaultDelIcon
-        //                MouseArea{
-        //                    anchors.fill: parent;
-        //                    onClicked: manageModel.resetRChain(_textRChain.text)
-        //                }
-        //            }
-        //        }
     }
 }
+

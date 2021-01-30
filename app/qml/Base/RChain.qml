@@ -11,17 +11,30 @@ Dialog {
     //    visible: true
     title: "Рельсовые цепи"
     modality: Qt.WindowModal
+    standardButtons: StandardButton.Close
     ListView{
-        id:listMsgView
+        id:listRChainView
         anchors.fill: parent
-//        model:displayDelegateModel
-//                model:manageModel.listMsg
-                    model:manageModel.qmlRChain
-                delegate: DelegateRChain{}
+//        highlightFollowsCurrentItem: true
+//        highlight:
+//            Rectangle {
+//            id:highlight;
+//            z:10;
+//            width:listRChainView.width;
+//            color: "transparent"
+//            border.color: "black";
+//            border.width: 4;
+//            radius: 5;
+//        }
+        focus: true
+        //        model:displayDelegateModel
+        //                        model:manageModel.listMsg
+        model:manageModel.qmlRChain
+        delegate: DelegateRChain{}
     }
     Component.onCompleted: {visible=false;
-//        _rchaindialog.close();
-        manageModel.addRChain();
+        //        _rchaindialog.close();
+        //        manageModel.addRChain();
     }
 }
 

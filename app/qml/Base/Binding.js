@@ -1,13 +1,13 @@
-function borderGreen(index,state) {
-//    var color=delegate.color;
-    var color=Settings.backgroundListView;
+function borderGreen(index,state,zkr) {
+    var color=delegate.color;
+//    var color=Settings.backgroundListView;
     borderBlack();
     switch(manageModel.stateBt.editing){
     case 0:
 
-        if(state===1){
+        if(zkr===1){
             manageModel.qmlCurentIndex=index;
-            color=delegate.items_color[5];
+            color=delegate.items_color[1];
         }
         break;
 

@@ -53,6 +53,7 @@ public:
     void incOtcep(int N);
     void delOtcep(int N);
     void ClearAllOtcep();
+    void updateOtceps();
     QMap<QString,QString> getDSOBusyRc();
     void resetDSOBusyRc(QString idtsr);
 

@@ -1,5 +1,9 @@
-QT += qml quick core
+QT += qml \
+      quick \
+      core \
+      svg
 
+QTPLUGIN += qsvg qsvgicon
 CONFIG += c++11
 #TEMPLATE = lib
 TARGET = terminal_uvk

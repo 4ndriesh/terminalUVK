@@ -285,6 +285,15 @@ void MVP_Import::incOtcep(int N)
     m["CMD"]="OTCEPS";
     m["INC_OTCEP"]=QString::number(N);
     MVP_Import::instance()->cmd->send_cmd(m);
+
+    m.clear();
+    m["DEST"]="UVK";
+    m["CMD"]="ADD_OTCEP_VAG";
+    m["N"]=QString::number(N);
+//    QVariantHash vm=tSlVagon2Map(v);
+//    foreach (QString key, vm.keys()) {
+//        m[key]=vm[key].toString();
+    MVP_Import::instance()->cmd->send_cmd(m);
     qDebug()<< "incOtcep to uvk" << N;
 }
 
@@ -306,6 +315,17 @@ void MVP_Import::ClearAllOtcep()
     m["DEST"]="UVK";
     m["CMD"]="OTCEPS";
     m["CLEAR_ALL"]="1";
+    MVP_Import::instance()->cmd->send_cmd(m);
+}
+
+void MVP_Import::updateOtceps()
+{
+    qDebug()<<"updateAllOtceps";
+    QMap<QString,QString> m;
+    m.clear();
+    m["DEST"]="UVK";
+    m["CMD"]="OTCEPS";
+    m["UPDATE_ALL"]="1";
     MVP_Import::instance()->cmd->send_cmd(m);
 }
 

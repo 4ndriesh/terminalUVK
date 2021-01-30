@@ -1,5 +1,5 @@
-import QtQuick 2.0
-import QtGraphicalEffects 1.0
+import QtQuick 2.14
+import QtGraphicalEffects 1.14
 
 Image {
     id: _icon

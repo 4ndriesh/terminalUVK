@@ -34,7 +34,7 @@
 #include "mvp_import.h"
 #include "kbdllhooks.h"
 #include "managemodel.h"
-
+#include <QtSvg>
 #include <QQmlContext>
 
 int main(int argc, char *argv[])

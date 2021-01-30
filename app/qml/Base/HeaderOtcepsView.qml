@@ -5,7 +5,7 @@ import SettingsModule 1.0
 
 GridLayout {
     id: _header
-    width: parent.width
+    width: listView.width
 //    property int heightHeader: listView.height/6
     height: Settings.baseHeight+20
     rows: 2
@@ -24,10 +24,12 @@ GridLayout {
             Layout.row: row
             Layout.fillWidth: true
             Layout.fillHeight: true
+            height: minimumHeight
             color:  Settings.themeHeaderColor
             Text { text: name;
                 anchors.centerIn: parent;
-                font.pointSize: parent.height/3
+//                font.pointSize: _header.height/3
+                font.pointSize: _number.height/3
             }
         }
     }

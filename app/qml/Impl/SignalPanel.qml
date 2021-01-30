@@ -5,7 +5,7 @@ import SettingsModule 1.0
 import ResourceProvider 1.0
 import QtGraphicalEffects 1.0
 
-Item {
+Rectangle {
     property int qmlnewList: manageModel.newList
     property int qmluvkLive: manageModel.uvkLive
     RowLayout {

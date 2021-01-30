@@ -9,57 +9,57 @@ import QtQuick.Controls 2.3
 //import QtQuick.VirtualKeyboard.Settings 2.14
 
 Window {
-    id:mainwindow    
+    id:mainwindow
     visible: true
-        visibility: "Maximized"
-    minimumWidth: 1200
-    minimumHeight: 1000
+    visibility: "Maximized"
+    minimumWidth: 800
+    minimumHeight: 600
     color: Settings.backgroundColor
-    //    title: qsTr("Терминал УВК")
+    title: qsTr("Терминал УВК")
 
     GridLayout{
         anchors.fill: parent
         rows: 6
-        columns: 3
+//        columns: 3
 
-        Title {
-            Layout.fillWidth: true
-            Layout.preferredHeight: 50
-            Layout.columnSpan:3
-            Layout.row: 1
-        }
-        SignalPanel {
-            id: signalPanel
-            Layout.fillWidth: true
-            Layout.preferredHeight: 50
-            Layout.columnSpan:3
-            Layout.row: 2
-        }
+        //        Title {
+        //            Layout.fillWidth: true
+        //            Layout.preferredHeight: 50
+        //            Layout.columnSpan:3
+        //            Layout.row: 1
+        //        }
+        //        SignalPanel {
+        //            id: signalPanel
+        //            Layout.fillWidth: true
+        //            Layout.preferredHeight: 50
+        //            Layout.columnSpan:3
+        //            Layout.row: 2
+        //        }
         ButtonPanel {
             id: controlPanel
             Layout.fillWidth: true
             Layout.preferredHeight: 50
-            Layout.columnSpan:3
+//            Layout.columnSpan:3
             Layout.row: 3
         }
 
         OtcepsView{
             Layout.fillWidth: true
             Layout.fillHeight: true
-            Layout.columnSpan:3
+//            Layout.columnSpan:3
             Layout.row: 4
         }
 
         ProgressBarPanel {
             Layout.fillWidth: true
             Layout.preferredHeight: 20
-            Layout.columnSpan:3
+//            Layout.columnSpan:3
             Layout.row: 5
         }
 
         AlarmMessage {
             Layout.fillWidth: true
-            Layout.columnSpan:3
+//            Layout.columnSpan:3
             Layout.row: 6
         }
     }
