@@ -42,21 +42,29 @@ void ManageModel::qmlRegim(const int & regim)
     switch (regim) {
     case 0:
         m_stateBt.m_bef_regim=0;
-        m_stateBt.m_wPause=false;
+//        m_stateBt.m_wPause=false;
         m_stateBt.m_wStop=true;
-        m_stateBt.m_wNadvig=false;
+//        m_stateBt.m_wNadvig=false;
         emit stateBtChanged();
         break;
     case 1:
         m_stateBt.m_bef_regim=1;
-        m_stateBt.m_wPause=false;
-        m_stateBt.m_wStop=false;
+//        m_stateBt.m_wPause=false;
+//        m_stateBt.m_wStop=false;
         m_stateBt.m_wNadvig=true;
         emit  stateBtChanged();
         break;
     case 2:
         m_stateBt.m_bef_regim=2;
         m_stateBt.m_wPause=true;
+//        m_stateBt.m_wStop=false;
+//        m_stateBt.m_wNadvig=false;
+        emit stateBtChanged();
+        break;
+    case 10:
+        qDebug()<<"Команда не задана";
+        m_stateBt.m_bef_regim=10;
+        m_stateBt.m_wPause=false;
         m_stateBt.m_wStop=false;
         m_stateBt.m_wNadvig=false;
         emit stateBtChanged();
@@ -82,6 +90,7 @@ void ManageModel::accept()
         break;
 
     default:
+        qDebug()<<"Команда не задана";
         break;
     }
 }

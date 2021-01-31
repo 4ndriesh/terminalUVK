@@ -116,6 +116,13 @@ void ViewOtcepsModel::slotOtcepChanged()
 //    }
     //            beginResetModel();
     //            endResetModel();
+    struct TUVK_status{
+        time_t time;
+    };
+    static TUVK_status c;
+    c.time=QDateTime().currentDateTime().toTime_t();
+
+    MVP_Import::instance()->udp.sendData(3,"Term_UVK",QByteArray((const char*)&c,sizeof(c)));
 }
 
 int ViewOtcepsModel::countEnabled()

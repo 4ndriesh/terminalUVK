@@ -19,7 +19,7 @@ struct QML_ManagerButton
 public:
     int m_putNadviga;
     int m_bef_putNadviga;
-    int m_bef_regim;
+    int m_bef_regim=10;
     int m_regim;
     int m_editing=0;
     bool m_wStop=false;

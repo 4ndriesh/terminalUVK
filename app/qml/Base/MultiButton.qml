@@ -26,14 +26,19 @@ Rectangle {
         to: 1;
         duration: 500
         running: wink
-        onStopped: rectangleButton.opacity=1
+        onStopped: {
+            rectangleButton.opacity=1;
+        }
     }
 
     Timer {
         id: _timerwink
         interval: Settings.timeWink
         running: wink
-        onTriggered: setWink();
+        onTriggered: {
+            setWink();
+            manageModel.qmlRegim(10);
+        }
     }
 
 }
