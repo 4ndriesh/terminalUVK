@@ -25,7 +25,23 @@ Rectangle {
 //                color:delegate.items_color[1]
             }
         },
-
+//        State {
+//            name: "lightsteelblue"
+//            //                        when: manageModel.qmlCurentIndex === index // bind to isCurrentItem to set the state
+//            when: delegate.ListView.isCurrentItem // bind to isCurrentItem to set the state
+//            PropertyChanges {
+//                target: delegate
+//                color: MyScript.borderGreen(0,STATE_LOCATION,0)
+//            }
+//            PropertyChanges {
+//                target: state_sp
+//                enabled:false;
+//                border.color: "black";
+//                border.width: 1;
+//                textPutfocus:false;
+//                visibleCursor:false;
+//            }
+//        },
         State {
             name: "red"
             when: STATE_ERROR===1// bind to isCurrentItem to set the state
@@ -70,24 +86,8 @@ Rectangle {
                 //                color: MyScript.borderGreen(STATE_NUM,STATE_LOCATION);
                 color: delegate.items_color[3]
             }
-        },
-        State {
-            name: "lightsteelblue"
-            //                        when: manageModel.qmlCurentIndex === index // bind to isCurrentItem to set the state
-            when: delegate.ListView.isCurrentItem // bind to isCurrentItem to set the state
-            PropertyChanges {
-                target: delegate
-                color: MyScript.borderGreen(0,STATE_LOCATION,0)
-            }
-            PropertyChanges {
-                target: state_sp
-                enabled:false;
-                border.color: "black";
-                border.width: 1;
-                textPutfocus:false;
-                visibleCursor:false;
-            }
         }
+
     ]
 
     MouseAreaOtcepList {id: mouseArea}

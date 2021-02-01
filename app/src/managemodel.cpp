@@ -9,7 +9,7 @@ ManageModel::ManageModel(QObject *parent) : QObject(parent)
 {
     m_uvkLive=0;
     m_newList=0;
-    qmlCurentIndex=1;
+    qmlCurentIndex=0;
     //    for(int i=0;i<10;i++)
     //    m_qmlRChain.append("123123");
 }
@@ -244,11 +244,11 @@ void ManageModel::keyDown(const int &key)
 
     case VK_NEXT:
         //Вставить до
-        addOtcep(qmlCurentIndex+1);
+        addOtcep(qmlCurentIndex);
         break;
     case VK_PRIOR:
         //Вставить после
-        addOtcep(qmlCurentIndex+2);
+        addOtcep(qmlCurentIndex+1);
         break;
     case VK_DELETE:
         //Удалить все

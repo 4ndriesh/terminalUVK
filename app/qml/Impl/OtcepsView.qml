@@ -13,11 +13,12 @@ Rectangle {
 
         Rectangle {
             z:3
+            visible: true;
             width: listView.width;
             height: 55
             color: "transparent"
             border.width: 5
-            border.color: "green"
+            border.color: manageModel.stateBt.editing ? "orange":"green"
             //              color: "red"; radius: 5
             y: listView.currentItem.y
 //            y: listView.height/3

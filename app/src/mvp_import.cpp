@@ -286,13 +286,15 @@ void MVP_Import::incOtcep(int N)
     m["INC_OTCEP"]=QString::number(N);
     MVP_Import::instance()->cmd->send_cmd(m);
 
+    QThread::sleep(1);
     m.clear();
     m["DEST"]="UVK";
     m["CMD"]="ADD_OTCEP_VAG";
+    m["NO"]=QString::number(N);
     m["N"]=QString::number(N);
-//    QVariantHash vm=tSlVagon2Map(v);
-//    foreach (QString key, vm.keys()) {
-//        m[key]=vm[key].toString();
+    //    QVariantHash vm=tSlVagon2Map(v);
+    //    foreach (QString key, vm.keys()) {
+    //        m[key]=vm[key].toString();
     MVP_Import::instance()->cmd->send_cmd(m);
     qDebug()<< "incOtcep to uvk" << N;
 }
@@ -342,12 +344,12 @@ QMap<QString, QString> MVP_Import::getDSOBusyRc()
     return mName2Id;
 
 
-//     QMap<QString, QString> m=MVP_Import::instance()->getDSOBusyRc();
-//    foreach (auto rc_name, m.keys()) {
-//        ...add(rc_name);
-//    }
+    //     QMap<QString, QString> m=MVP_Import::instance()->getDSOBusyRc();
+    //    foreach (auto rc_name, m.keys()) {
+    //        ...add(rc_name);
+    //    }
 
-//    MVP_Import::instance()->resetDSOBusyRc(m[rc_name]);
+    //    MVP_Import::instance()->resetDSOBusyRc(m[rc_name]);
 }
 
 void MVP_Import::resetDSOBusyRc(QString idtsr)
