@@ -51,7 +51,7 @@ KeyboardLayout {
             Key {
                 key: Qt.Key_1
                 onClicked: manageModel.textInput=16;
-                text: "16"
+                text: "1"
             }
             Key {
                 key: Qt.Key_2

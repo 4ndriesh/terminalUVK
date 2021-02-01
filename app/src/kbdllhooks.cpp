@@ -4,6 +4,8 @@
 #include "mvp_import.h"
 #include "managemodel.h"
 
+
+
 KBdllhooks &KBdllhooks::instance()
 {
     static KBdllhooks _instance;
@@ -28,9 +30,11 @@ LRESULT CALLBACK KBdllhooks::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPAR
     {
         ManageModel &kbtouch = ManageModel::instance();
         KBDLLHOOKSTRUCT * pKBStruct = (KBDLLHOOKSTRUCT *)lParam;
-        qDebug()<<pKBStruct->vkCode;
         if(pKBStruct != nullptr) {
-            switch (pKBStruct->vkCode) {
+
+            kbtouch.keyDown(pKBStruct->vkCode);
+
+            /*switch (pKBStruct->vkCode) {
             qDebug()<<pKBStruct->vkCode;
             case VK_TAB:
 
@@ -132,7 +136,7 @@ LRESULT CALLBACK KBdllhooks::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPAR
             default:
                 break;
 
-            }
+            }*/
         }
     }
     return CallNextHookEx(NULL, nCode, wParam, lParam);

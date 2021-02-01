@@ -10,8 +10,8 @@ ManageModel::ManageModel(QObject *parent) : QObject(parent)
     m_uvkLive=0;
     m_newList=0;
     qmlCurentIndex=1;
-//    for(int i=0;i<10;i++)
-//    m_qmlRChain.append("123123");
+    //    for(int i=0;i<10;i++)
+    //    m_qmlRChain.append("123123");
 }
 
 void ManageModel::delOtcep(const int &index)
@@ -34,7 +34,8 @@ void ManageModel::getRndChart()
 
 void ManageModel::addOtcep(const int & index)
 {
-    MVP_Import::instance()->incOtcep(index);
+    if(m_stateBt.m_editing && qmlCurentIndex>=0)
+        MVP_Import::instance()->incOtcep(index);
 }
 
 void ManageModel::qmlRegim(const int & regim)
@@ -42,23 +43,23 @@ void ManageModel::qmlRegim(const int & regim)
     switch (regim) {
     case 0:
         m_stateBt.m_bef_regim=0;
-//        m_stateBt.m_wPause=false;
+        //        m_stateBt.m_wPause=false;
         m_stateBt.m_wStop=true;
-//        m_stateBt.m_wNadvig=false;
+        //        m_stateBt.m_wNadvig=false;
         emit stateBtChanged();
         break;
     case 1:
         m_stateBt.m_bef_regim=1;
-//        m_stateBt.m_wPause=false;
-//        m_stateBt.m_wStop=false;
+        //        m_stateBt.m_wPause=false;
+        //        m_stateBt.m_wStop=false;
         m_stateBt.m_wNadvig=true;
         emit  stateBtChanged();
         break;
     case 2:
         m_stateBt.m_bef_regim=2;
         m_stateBt.m_wPause=true;
-//        m_stateBt.m_wStop=false;
-//        m_stateBt.m_wNadvig=false;
+        //        m_stateBt.m_wStop=false;
+        //        m_stateBt.m_wNadvig=false;
         emit stateBtChanged();
         break;
     case 10:
@@ -89,7 +90,7 @@ void ManageModel::accept()
         setRegim(2);
         break;
 
-    default:
+    case 10:
         qDebug()<<"Команда не задана";
         break;
     }
@@ -160,7 +161,7 @@ void ManageModel::setIndex(const int &index)
 //Ресет рельсовой цепи
 void ManageModel::resetRChain(const QString &valRChain)
 {
-   qDebug()<<"Delete";
+    qDebug()<<"Delete";
     MVP_Import::instance()->resetDSOBusyRc(m[valRChain]);
 }
 //Добавляем рельсовые цепи в список
@@ -170,8 +171,110 @@ void ManageModel::addRChain()
     m_qmlRChain.clear();
     m=MVP_Import::instance()->getDSOBusyRc();
     qDebug()<<m.count();
-        foreach (auto rc_name, m.keys()) {
-            m_qmlRChain.append(rc_name);
+    foreach (auto rc_name, m.keys()) {
+        m_qmlRChain.append(rc_name);
+    }
+    emit qmlRChainChanged();
+}
+//Установить путь
+void ManageModel::inputPut(const int &numberPut)
+{
+m_textInput=numberPut;
+emit textInputChanged();
+}
+//Обработка клавы
+void ManageModel::keyDown(const int &key)
+{
+    qDebug()<<"vkCode"<<key ;
+    if(bWinKey == false)
+        return;
+
+    switch (key) {
+    case VK_TAB:
+        if(m_stateBt.m_regim==1){
+            addMsg("Роспуск",1);
         }
-        emit qmlRChainChanged();
+        else{
+            m_stateBt.m_editing=!m_stateBt.m_editing;
+            qmlCurentIndex=0;
+            //            if(m_stateBt.m_editing==1)
+            //                qmlCurentIndex=0;
+            //            else
+            //                qmlCurentIndex=0;
+
+            emit qmlCurrentItemChanged();
+            stateBtChanged();
+        }
+
+        break;
+    case VK_RETURN:
+        accept();
+        break;
+    case VK_LCONTROL:
+        //Роспуск 1
+        qmlRegim(1);
+        //        m_stateBt.m_bef_putNadviga=1;
+        break;
+
+    case VK_LSHIFT:
+        //Пауза
+        qmlRegim(2);
+        break;
+    case VK_RSHIFT:
+        //Стоп
+        qmlRegim(0);
+        break;
+    case VK_UP:
+        //UP
+        if(m_stateBt.m_editing && qmlCurentIndex>0)
+        {
+            qmlCurentIndex--;
+            emit qmlCurrentItemChanged();
+        }
+        break;
+        //            case  65:
+    case VK_DOWN:
+        //DOWN
+        if(m_stateBt.m_editing)
+        {
+            qmlCurentIndex++;
+            emit qmlCurrentItemChanged();
+        }
+        break;
+
+    case VK_NEXT:
+        //Вставить до
+        addOtcep(qmlCurentIndex+1);
+        break;
+    case VK_PRIOR:
+        //Вставить после
+        addOtcep(qmlCurentIndex+2);
+        break;
+    case VK_DELETE:
+        //Удалить все
+        clearAllOtcep();
+        break;
+    case VK_F12:
+        //Удалить
+        delOtcep(qmlCurentIndex+1);
+        break;
+    case VK_F1:
+        inputPut(1);
+        break;
+    case VK_F2:
+        m_textInput=3;
+        emit textInputChanged();
+        break;
+    case VK_LEFT:
+        qmlCurentIndex--;
+        emit qmlCurrentItemChanged();
+        break;
+    case VK_RIGHT:
+        qmlCurentIndex++;
+        emit qmlCurrentItemChanged();
+        break;
+    default:
+        break;
+
+    }
 }

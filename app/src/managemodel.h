@@ -3,6 +3,10 @@
 #include "otcepsobject.h"
 #include <QQmlExtensionPlugin>
 #include <QtQml>
+#include <qt_windows.h>
+#include <QQuickItem>
+#include <QKeyEvent>
+
 
 struct QML_ManagerButton
 {
@@ -105,12 +109,18 @@ public:
     Q_INVOKABLE void delOtcep(const int&);
     Q_INVOKABLE void clearAllOtcep();
     Q_INVOKABLE void setIndex(const int&);
+    Q_INVOKABLE void inputPut(const int&);
     Q_INVOKABLE void resetRChain(const QString&);
+    Q_INVOKABLE void keyDown(const int &);
 
     QMap<QString, QString> m;
 
     QML_ManagerButton m_stateBt;
     QML_ManagerButton stateBt()const {return m_stateBt;}
+
+    bool bWinKey=true;
+
+    void controlWindow(DWORD vkKeyCode);
 
     void setStateBt(const QML_ManagerButton &stateBt)
     {

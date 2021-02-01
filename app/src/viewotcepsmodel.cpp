@@ -42,10 +42,10 @@ static ViewOtcepsModel *_instance=nullptr;
 ManageModel &Mn = ManageModel::instance();
 ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
     : QAbstractListModel(parent)
-    ,timer(new QTimer(this))
+//    ,timer(new QTimer(this))
 
 {
-
+QTimer *timer=new QTimer(this);
 
     //    Mn.qmlPutNadviga.m_set_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
 
@@ -101,6 +101,7 @@ void ViewOtcepsModel::slotOtcepChanged()
     emit Mn.uvkLiveChanged();
     //    bool uvkisalive=!MVP_Import::instance()->gorka->SIGNAL_ROSPUSK().is33();
     Mn.m_stateBt.m_putNadviga=MVP_Import::instance()->gorka->STATE_PUT_NADVIG();
+    qDebug()<<"Hjcgecr----"<<MVP_Import::instance()->gorka->STATE_PUT_NADVIG();
     Mn.m_stateBt.m_bef_putNadviga=Mn.m_stateBt.m_putNadviga;
     emit Mn.stateBtChanged();
 

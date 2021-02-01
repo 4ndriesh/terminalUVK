@@ -62,12 +62,12 @@ Rectangle {
 
         filterOnGroup: "displayField"
     }
-    Connections {
-        target: listView.model    // EDIT: I drew the wrong conclusions here, see text below!
-        onDataChanged: {
-            console.log("DataChanged received")
-        }
-    }
+//    Connections {
+//        target: listView.model    // EDIT: I drew the wrong conclusions here, see text below!
+//        onDataChanged: {
+//            console.log("DataChanged received")
+//        }
+//    }
     //    Connections{
     //        target: manageModel
     //        function onTextInputChanged(){

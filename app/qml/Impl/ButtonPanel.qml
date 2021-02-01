@@ -48,7 +48,7 @@ Item{
                 onClicked: {
                     if(editing===0){
                         manageModel.qmlRegim(1)
-                        manageModel.stateBt.bef_putNadviga=1
+//                        manageModel.stateBt.bef_putNadviga=1
                     }
                 }
             }

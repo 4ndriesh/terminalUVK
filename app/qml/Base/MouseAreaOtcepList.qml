@@ -18,6 +18,8 @@ MouseArea {
         }
     }
     onDoubleClicked: {
+//        Qt.inputMethod.show ()
+
         Settings.visibleInputPanel=!Settings.visibleInputPanel;
     }
 

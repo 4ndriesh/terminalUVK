@@ -36,9 +36,13 @@
 #include "managemodel.h"
 #include <QtSvg>
 #include <QQmlContext>
+#include <QHostInfo>
 
 int main(int argc, char *argv[])
 {
+
+    qDebug() << QHostInfo::localHostName();
+
     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
     qputenv("QT_VIRTUALKEYBOARD_LAYOUT_PATH", QByteArray("qrc:/vkeyboard/layouts"));
 

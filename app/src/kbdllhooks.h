@@ -17,6 +17,7 @@ public:
 
 private:
     HHOOK   kbHook;
+
 };
 
 #endif // MOUSELOGGER_H
