@@ -1,8 +1,7 @@
 QT += qml \
       quick \
       core \
-      svg \
-      gui
+      svg
 
 QTPLUGIN += qsvg qsvgicon
 CONFIG += c++11

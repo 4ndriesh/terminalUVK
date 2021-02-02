@@ -12,7 +12,7 @@ Rectangle {
         id: highlight
 
         Rectangle {
-            z:3
+            z:2
             visible: true;
             width: listView.width;
             height: 55
@@ -20,8 +20,8 @@ Rectangle {
             border.width: 5
             border.color: manageModel.stateBt.editing ? "orange":"green"
             //              color: "red"; radius: 5
-            y: listView.currentItem.y
-//            y: listView.height/3
+            //            y: listView.currentItem.y
+            y: listView.height/3
         }
     }
 
@@ -37,13 +37,16 @@ Rectangle {
         preferredHighlightBegin: height/3
         preferredHighlightEnd: height/3
         focus: true
+        highlightMoveDuration: -1
+        highlightMoveVelocity: -1
         currentIndex: manageModel.qmlCurentIndex
+//        currentIndex: manageModel.qmlCurentIndex
         //        currentIndex: manageModel.stateBt.editing ? manageModel.qmlCurentIndex:-1
         //                model: displayDelegateModel
         model: otcepsModel
         keyNavigationEnabled: false
         keyNavigationWraps: false
-        header: HeaderOtcepsView {z:2}
+        header: HeaderOtcepsView {z:3}
         headerPositioning: ListView.OverlayHeader
         delegate: DelegateOtcepView{z:1}
 
@@ -63,12 +66,12 @@ Rectangle {
 
         filterOnGroup: "displayField"
     }
-//    Connections {
-//        target: listView.model    // EDIT: I drew the wrong conclusions here, see text below!
-//        onDataChanged: {
-//            console.log("DataChanged received")
-//        }
-//    }
+    //    Connections {
+    //        target: listView.model    // EDIT: I drew the wrong conclusions here, see text below!
+    //        onDataChanged: {
+    //            console.log("DataChanged received")
+    //        }
+    //    }
     //    Connections{
     //        target: manageModel
     //        function onTextInputChanged(){

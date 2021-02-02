@@ -10,9 +10,9 @@ Dialog {
     width: 600
     //    visible: true
     title: "Рельсовые цепи"
-    modality: Qt.WindowModal
+//    modality: Qt.WindowModal
     standardButtons: StandardButton.Close
-    ListView{
+     contentItem: ListView{
         id:listRChainView
         anchors.fill: parent
 //        highlightFollowsCurrentItem: true
@@ -32,9 +32,9 @@ Dialog {
         model:manageModel.qmlRChain
         delegate: DelegateRChain{}
     }
-    Component.onCompleted: {visible=false;
-        //        _rchaindialog.close();
-        //        manageModel.addRChain();
-    }
+//    Component.onCompleted: {
+////                _rchaindialog.close();
+//        //        manageModel.addRChain();
+//    }
 }
 

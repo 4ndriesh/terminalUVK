@@ -13,6 +13,7 @@ function borderGreen(index,state,zkr) {
 
     case 1:
         if(delegate.ListView.isCurrentItem && state===1){
+
             state_sp.enabled=true;
             state_sp.border.color= "green";
             state_sp.border.width= 5;

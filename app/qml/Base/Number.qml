@@ -11,9 +11,10 @@ Rectangle {
     property alias visibleCursor: _textPut.cursorVisible
     Layout.fillWidth: true
     Layout.preferredWidth: delegate.width/12
+//    Layout.preferredHeight: delegate.height/1.1
     height: Settings.baseHeight
     color: delegate.color
-    enabled: true
+    enabled: false
     border.width: Settings.borderWidth
 
     states:
@@ -23,7 +24,13 @@ Rectangle {
             when: STATE_SP===STATE_SP_F
             PropertyChanges {
                 target: state_sp_f
-                visible: MyScript.state_spWidth()
+                visible: false
+//                visible: MyScript.state_spWidth()
+            }
+            PropertyChanges {
+                target: state_sp
+                Layout.preferredWidth: (mainwindow.width/12)*2;
+//                visible: MyScript.state_spWidth()
             }
         },
         State {
@@ -31,7 +38,13 @@ Rectangle {
             when: STATE_SP!==STATE_SP_F
             PropertyChanges {
                 target: state_sp_f
-                visible: MyScript.state_spWidthmin()
+                visible: true
+//                visible: MyScript.state_spWidthmin()
+            }
+            PropertyChanges {
+                target: state_sp
+                Layout.preferredWidth:(mainwindow.width/12);
+//                visible: MyScript.state_spWidthmin()
             }
         }
     ]
@@ -41,7 +54,7 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
         font.pointSize: parent.height/3
-//        enabled: true
+//        enabled: false
         inputMethodHints:Qt.ImhFormattedNumbersOnly
 
         onEditingFinished: {

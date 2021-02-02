@@ -18,7 +18,6 @@ Item{
     property int qmlnewList: manageModel.newList
     property int qmluvkLive: manageModel.uvkLive
 
-
     RowLayout {
         spacing: 5
         MultiButton {
@@ -83,12 +82,14 @@ Item{
             wink: false
             EventMouseArea {
                 onClicked: {
+                    Settings.visibleInputPanel=false;
                     manageModel.addRChain();
                     _rchaindialog.open();
 
                 }
             }
         }
+
     }
     RowLayout {
         spacing: 5

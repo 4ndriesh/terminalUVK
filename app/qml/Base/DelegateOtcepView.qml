@@ -7,53 +7,83 @@ import "Binding.js" as MyScript
 Rectangle {
     id: delegate
     objectName: "delegate"
-    color: Settings.backgroundListView
+    //    color: listView.isCurrentItem ? "black" : "red"
+    //    color: Settings.backgroundListView
     //цвет в зависимости от STATE_LOCATION
     property variant items_color: ["red", "yellow","green","dimgrey","white","LightGray"]
     width: _otcepView.width;
     height: 65
     //    property int index: DelegateModel.itemsIndex
     visible: STATE_ENABLED ? true:false
+
     states:
         [
+        State {
+            name: "lightsteelblue"
+            //                        when: manageModel.qmlCurentIndex === index // bind to isCurrentItem to set the state
+            when: delegate.ListView.isCurrentItem
+                  && STATE_LOCATION===1
+                  && manageModel.stateBt.editing===1// bind to isCurrentItem to set the state
+            PropertyChanges {
+                target: delegate
+                color: "lightsteelblue"
+                //                height:90
+            }
+            PropertyChanges {
+                target: state_sp
+                enabled:true;
+                border.color: "green";
+                border.width: 5;
+                textPutfocus:true;
+                visibleCursor:true;
+            }
+        },
         State {
             name: "yellow"
             when: STATE_LOCATION === 2 &&   STATE_ZKR_PROGRESS===1// bind to isCurrentItem to set the state
             PropertyChanges {
+                target: manageModel
+                qmlCurentIndex:index
+                //                color:delegate.items_color[1]
+            }
+            PropertyChanges {
                 target: delegate
-                color:MyScript.borderGreen(index,0,1)
-//                color:delegate.items_color[1]
+                //                color:MyScript.borderGreen(index,0,1)
+                color:delegate.items_color[1]
+
             }
         },
-//        State {
-//            name: "lightsteelblue"
-//            //                        when: manageModel.qmlCurentIndex === index // bind to isCurrentItem to set the state
-//            when: delegate.ListView.isCurrentItem // bind to isCurrentItem to set the state
-//            PropertyChanges {
-//                target: delegate
-//                color: MyScript.borderGreen(0,STATE_LOCATION,0)
-//            }
-//            PropertyChanges {
-//                target: state_sp
-//                enabled:false;
-//                border.color: "black";
-//                border.width: 1;
-//                textPutfocus:false;
-//                visibleCursor:false;
-//            }
-//        },
+        //        State {
+        //            name: "lightsteelblue"
+        //            //                        when: manageModel.qmlCurentIndex === index // bind to isCurrentItem to set the state
+        //            when: delegate.ListView.isCurrentItem // bind to isCurrentItem to set the state
+        //            PropertyChanges {
+        //                target: delegate
+        //                color: MyScript.borderGreen(0,STATE_LOCATION,0)
+        //                height:90
+        //            }
+        //            PropertyChanges {
+        //                target: state_sp
+        //                enabled:false;
+        //                border.color: "black";
+        //                border.width: 1;
+        //                textPutfocus:false;
+        //                visibleCursor:false;
+        //            }
+        //        },
+
         State {
             name: "red"
             when: STATE_ERROR===1// bind to isCurrentItem to set the state
             PropertyChanges {
                 target: delegate
                 color:delegate.items_color[0]
-//                color:delegate.items_color[0]
+                //                color:delegate.items_color[0]
             }
         },
         State {
             name: "dimgrey"
-//            when: STATE_LOCATION===2 && STATE_SP===STATE_SP_F || STATE_LOCATION == 3// bind to isCurrentItem to set the state
+            //            when: STATE_LOCATION===2 && STATE_SP===STATE_SP_F || STATE_LOCATION == 3// bind to isCurrentItem to set the state
             when: STATE_LOCATION===2 && ((STATE_SP===STATE_SP_F)&& STATE_SP!==0) || STATE_LOCATION == 3// bind to isCurrentItem to set the state
             PropertyChanges {
                 target: delegate
@@ -87,7 +117,6 @@ Rectangle {
                 color: delegate.items_color[3]
             }
         }
-
     ]
 
     MouseAreaOtcepList {id: mouseArea}
@@ -101,12 +130,12 @@ Rectangle {
         Number {id: state_sl; txt: STATE_SL_VAGON_CNT;}
         Number {txt: STATE_ZKR_VAGON_CNT;}
         Number { txt: STATE_SL_VES.toFixed(2);}
-//        Number {txt: STATE_ZKR_VES.toFixed(2); }
-//        Number { txt: STATE_ZKR_BAZA;}
-//        Number { txt: STATE_NAGON;}
-//        Number { txt: STATE_SL_UR;}
-//        Number { txt: STATE_V;}
-//        Number { txt: STATE_ENABLED;}
+        //        Number {txt: STATE_ZKR_VES.toFixed(2); }
+        //        Number { txt: STATE_ZKR_BAZA;}
+        //        Number { txt: STATE_NAGON;}
+        //        Number { txt: STATE_SL_UR;}
+        //        Number { txt: STATE_V;}
+        //        Number { txt: STATE_ENABLED;}
         Number { txt: STATE_LOCATION;}
         Number { txt: STATE_ZKR_PROGRESS;}
 
