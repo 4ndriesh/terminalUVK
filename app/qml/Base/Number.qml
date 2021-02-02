@@ -11,8 +11,8 @@ Rectangle {
     property alias visibleCursor: _textPut.cursorVisible
     Layout.fillWidth: true
     Layout.preferredWidth: delegate.width/12
-//    Layout.preferredHeight: delegate.height/1.1
-    height: Settings.baseHeight
+    Layout.preferredHeight: delegate.height/1.1
+//    height: Settings.baseHeight
     color: delegate.color
     enabled: false
     border.width: Settings.borderWidth
@@ -73,7 +73,7 @@ Rectangle {
         function onTextInputChanged(){
             if(manageModel.qmlCurentIndex === index
                     && textField===state_sp
-                    && manageModel.stateBt.editing===1
+//                    && manageModel.stateBt.editing===1
                     && textField.enabled===true)
             {
                 _textPut.cursorVisible=true;

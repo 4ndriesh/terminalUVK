@@ -179,11 +179,24 @@ void ManageModel::addRChain()
 //Установить путь
 void ManageModel::inputPut(const int &numberPut)
 {
-m_textInput=numberPut;
-emit textInputChanged();
+    m_textInput=numberPut;
+    emit textInputChanged();
+}
+//Установить путь
+void ManageModel::setRegimEdit()
+{
+    if(m_stateBt.m_regim==1){
+        addMsg("Роспуск",1);
+    }
+    else{
+        m_stateBt.m_editing=!m_stateBt.m_editing;
+        qmlCurentIndex=0;
+        emit qmlCurrentItemChanged();
+        emit stateBtChanged();
+    }
 }
 //Обработка клавы
-void ManageModel::keyDown(const int &key)
+void ManageModel::keyDown(const DWORD &key)
 {
     qDebug()<<"vkCode"<<key ;
     if(bWinKey == false)
@@ -191,21 +204,7 @@ void ManageModel::keyDown(const int &key)
 
     switch (key) {
     case VK_TAB:
-        if(m_stateBt.m_regim==1){
-            addMsg("Роспуск",1);
-        }
-        else{
-            m_stateBt.m_editing=!m_stateBt.m_editing;
-            qmlCurentIndex=0;
-            //            if(m_stateBt.m_editing==1)
-            //                qmlCurentIndex=0;
-            //            else
-            //                qmlCurentIndex=0;
-
-            emit qmlCurrentItemChanged();
-            stateBtChanged();
-        }
-
+        setRegimEdit();
         break;
     case VK_RETURN:
         accept();

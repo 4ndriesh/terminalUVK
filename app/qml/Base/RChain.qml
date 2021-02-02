@@ -12,7 +12,7 @@ Dialog {
     title: "Рельсовые цепи"
 //    modality: Qt.WindowModal
     standardButtons: StandardButton.Close
-     contentItem: ListView{
+     ListView{
         id:listRChainView
         anchors.fill: parent
 //        highlightFollowsCurrentItem: true

@@ -286,7 +286,15 @@ void MVP_Import::incOtcep(int N)
     m["INC_OTCEP"]=QString::number(N);
     MVP_Import::instance()->cmd->send_cmd(m);
 
-    QThread::sleep(1);
+//    QThread::sleep(1);
+
+    QElapsedTimer t;
+    t.start();
+
+    while (t.elapsed()<50){
+        QCoreApplication::processEvents();
+    }
+
     m.clear();
     m["DEST"]="UVK";
     m["CMD"]="ADD_OTCEP_VAG";

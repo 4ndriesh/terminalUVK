@@ -17,7 +17,7 @@ Item{
 
     property int qmlnewList: manageModel.newList
     property int qmluvkLive: manageModel.uvkLive
-
+    PopupRChain{id:_rchaindialog}
     RowLayout {
         spacing: 5
         MultiButton {
@@ -25,15 +25,7 @@ Item{
             buttonText: "ВВОД СЛ"
             color: editing ? Settings.themeRegimColor:Settings.themeHeaderColor
             wink: false
-            EventMouseArea {
-                onClicked: {
-                    if(manageModel.m_stateBt.m_editing===1)
-                        manageModel.qmlCurentIndex=0;
-                    else
-                        manageModel.qmlCurentIndex=-1;
-                    manageModel.stateBt.editing=!manageModel.stateBt.editing
-                }
-            }
+            EventMouseArea{ onClicked: manageModel.setRegimEdit()}
         }
 
         MultiButton {
@@ -47,7 +39,7 @@ Item{
                 onClicked: {
                     if(editing===0){
                         manageModel.qmlRegim(1)
-//                        manageModel.stateBt.bef_putNadviga=1
+                        //                        manageModel.stateBt.bef_putNadviga=1
                     }
                 }
             }
@@ -82,7 +74,7 @@ Item{
             wink: false
             EventMouseArea {
                 onClicked: {
-                    Settings.visibleInputPanel=false;
+                    //                    Settings.visibleInputPanel=false;
                     manageModel.addRChain();
                     _rchaindialog.open();
 
@@ -102,11 +94,11 @@ Item{
             color: qmlnewList ? Settings.themeBtSignalColorAct:Settings.themeBtSignalColorDAct
             wink: false
             ImageSVG {
-                    source: Resources.contacts.defaulticonList
-                    widthsvg: newSortList.height/1.5
-                    heightsvg:  newSortList.height/1.5
-//                    color: "#228b22"
-                }
+                source: Resources.contacts.defaulticonList
+                widthsvg: newSortList.height/1.5
+                heightsvg:  newSortList.height/1.5
+                //                    color: "#228b22"
+            }
         }
 
         MultiButton {
@@ -117,11 +109,11 @@ Item{
             color: qmluvkLive ?  Settings.themeBtSignalColorAct:Settings.themeBtSignalColorDAct
             wink: false
             ImageSVG {
-                    source: Resources.contacts.defaulticonConnect
-                    widthsvg: newSortList.height/1.5
-                    heightsvg:  newSortList.height/1.5
-//                    color: "#dc143c"
-                }
+                source: Resources.contacts.defaulticonConnect
+                widthsvg: newSortList.height/1.5
+                heightsvg:  newSortList.height/1.5
+                //                    color: "#dc143c"
+            }
         }
     }
 }

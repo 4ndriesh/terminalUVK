@@ -111,7 +111,8 @@ public:
     Q_INVOKABLE void setIndex(const int&);
     Q_INVOKABLE void inputPut(const int&);
     Q_INVOKABLE void resetRChain(const QString&);
-    Q_INVOKABLE void keyDown(const int &);
+    Q_INVOKABLE void keyDown(const DWORD &);
+    Q_INVOKABLE void setRegimEdit();
 
     QMap<QString, QString> m;
 

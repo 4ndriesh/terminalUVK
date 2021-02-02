@@ -7,19 +7,30 @@
 #include "mvp_import.h"
 #include <QMetaProperty>
 
+
+
+
+
 //Всегда возвращает 1
 //qmlStopPause=MVP_Import::instance()->gorka->STATE_REGIM();
 
 /*
-    Видимость -  STATE_ENABLED
-    цвет
-    серый   STATE_LOCATION = 2(locationOnSpusk) && STATE_SP==STATE_SP_F
-            или STATE_LOCATION = 3(locationOnPark)
-    светло серый   STATE_LOCATION = 2(locationOnSpusk) && STATE_SP!=STATE_SP_F
-    желтый         STATE_LOCATION = 2 &&   STATE_ZKR_PROGRESS==1
-    красный STATE_ERROR==1
-    белый STATE_LOCATION = 1(locationOnPrib)
-    в остальный случаях темно серый
+Видимость -  STATE_ENABLED
+
+    ЖИР и фокус при роспуске ((STATE_LOCATION == 1) && (STATE_GAC_ACTIVE==1)) ||
+                             ((STATE_LOCATION == 2) && (STATE_GAC_ACTIVE==1)&&(STATE_ZKR_S_IN==1))
+
+    цвет фона строки
+    Белый STATE_LOCATION = 2
+    желтый   STATE_ZKR_S_IN==1
+    светло серый (STATE_LOCATION == 1) && (STATE_GAC_ACTIVE==1)
+    ост - серый
+
+    цвет фона ячейки маршрута
+    Красный -STATE_ERROR
+    остальн - обычн фон
+
+    EDIT когда ЖИР всегда или (STATE_LOCATION == 2)
 
     КНОПКИ: ВВОД СЛ
             РОСПУСК1 ПАУЗА СТОП MVP_Import::instance()->gorka->STATE_REGIM                  РОСПУСК1/РОСПУСК2 - сделаю доп свойство gorka->PUT_NADVIG = 1..2
@@ -101,7 +112,7 @@ void ViewOtcepsModel::slotOtcepChanged()
     emit Mn.uvkLiveChanged();
     //    bool uvkisalive=!MVP_Import::instance()->gorka->SIGNAL_ROSPUSK().is33();
     Mn.m_stateBt.m_putNadviga=MVP_Import::instance()->gorka->STATE_PUT_NADVIG();
-    qDebug()<<"Hjcgecr----"<<MVP_Import::instance()->gorka->STATE_PUT_NADVIG();
+    qDebug()<<"PUT_NADVIG----"<< Mn.m_stateBt.m_putNadviga;
     Mn.m_stateBt.m_bef_putNadviga=Mn.m_stateBt.m_putNadviga;
     emit Mn.stateBtChanged();
 

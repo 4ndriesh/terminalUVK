@@ -50,7 +50,16 @@ Rectangle {
                 target: delegate
                 //                color:MyScript.borderGreen(index,0,1)
                 color:delegate.items_color[1]
+                height:height*1.4
+            }
 
+            PropertyChanges {
+                target: state_sp
+                enabled:true;
+                border.color: "green";
+                border.width: 5;
+                textPutfocus:true;
+                visibleCursor:true;
             }
         },
         //        State {
@@ -138,6 +147,7 @@ Rectangle {
         //        Number { txt: STATE_ENABLED;}
         Number { txt: STATE_LOCATION;}
         Number { txt: STATE_ZKR_PROGRESS;}
+        Number { txt: STATE_GAC_W_STRA;}
 
     }
     Component.onCompleted: {

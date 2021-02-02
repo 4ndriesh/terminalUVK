@@ -56,5 +56,6 @@
         <file>vkeyboard/QtQuick/VirtualKeyboard/Styles/test/images/download-button.svg</file>
         <file>qml/Base/DelegateRChain.qml</file>
         <file>qml/Base/RChain.qml</file>
+        <file>qml/Base/PopupRChain.qml</file>
     </qresource>
 </RCC>
