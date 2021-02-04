@@ -7,15 +7,10 @@ import QtQml.Models 2.14
 Rectangle {
     id: _otcepView
     color: Settings.backgroundListView
-
-
-
-
     ListView {
         id: listView
         anchors.fill: parent
-        clip: true
-        highlight: highlight
+        clip: true        
         highlightFollowsCurrentItem: false
         //                highlightFollowsCurrentItem: true
         //                        highlightRangeMode: ListView.ApplyRange
@@ -33,25 +28,8 @@ Rectangle {
         keyNavigationWraps: false
         header: HeaderOtcepsView {z:3}
         headerPositioning: ListView.OverlayHeader
-        delegate: DelegateOtcepView{id: delegate}
-     }
-    Component {
-        id: highlight
-
-        Rectangle {
-            id: _highlight
-            z:2
-            visible: true;
-            width: listView.width;
-            height: 60
-            focus: true
-            color: "transparent"
-            border.width: 5
-            border.color: manageModel.stateBt.editing ? "orange":"green"
-            //              color: "red"; radius: 5
-            y: listView.currentItem.y;
-            Behavior on y { SpringAnimation { spring: 2; damping: 0.4} }
-        }
+        highlight: Highlight{id:highliteBar;z:2}
+        delegate: DelegateOtcepView{id:delegate}
     }
     //    Connections{
     //        target: manageModel

@@ -120,7 +120,7 @@ void ViewOtcepsModel::slotOtcepChanged()
 
     //    int rowCount=countEnabled();
     //    if(updateOtcep==rowCount && rowCount>0)
-    emit dataChanged(createIndex(0,0), createIndex(119, 7));
+    emit dataChanged(createIndex(0,0), createIndex(98, 7));
     //    else if(updateOtcep!=rowCount ){
     //        qDebug()<<"qDeleteAll";
     //        emit dataChanged(createIndex(0,0), createIndex(updateOtcep, otcepRoles.count()));
@@ -142,9 +142,9 @@ void ViewOtcepsModel::slotOtcepChanged()
 int ViewOtcepsModel::countEnabled()
 {
     int countRow=0;
-    while (get(countRow)["STATE_ENABLED"]!=false) {
+    do{
         ++countRow;
-    }
+    }while (get(countRow)["STATE_ENABLED"]!=false && countRow<98);
     return countRow;
 }
 
@@ -235,7 +235,7 @@ void ViewOtcepsModel::sortirArrived(const tSl2Odo2 *srt)
 void ViewOtcepsModel::uvk_cmd_accept(QMap<QString, QString> m)
 {
     if (m["ACCEPT_SRC"]!="UVK") return;
-    Mn.addMsg(m["ACCEPT_TXT"],1);
+    Mn.addMsg(m["ACCEPT_TXT"]);
 }
 
 bool ViewOtcepsModel::loadSortirToUvk(const tSl2Odo2 *srt)

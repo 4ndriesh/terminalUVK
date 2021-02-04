@@ -84,7 +84,7 @@ public:
     }
 
 public slots:
-    void addMsg(const QString &, int);
+    void addMsg(const QString &);
     void deleteMsg();
     void getRndChart();
     void addRChain();
@@ -94,7 +94,7 @@ signals:
     void qmlRChainChanged();
     void stateBtChanged();
     void maximumValuePBChanged();
-    void showMessage(QString colorMessage, QString textMessage);
+//    void showMessage(const QString &colorMessage, const QString &textMessage);
     void textInputChanged();
     void uvkLiveChanged();
     void newListChanged();
@@ -113,7 +113,7 @@ public:
     Q_INVOKABLE void resetRChain(const QString&);
     Q_INVOKABLE void keyDown(const DWORD &);
     Q_INVOKABLE void setRegimEdit();
-    Q_INVOKABLE void keyUpDown(const DWORD&);
+    Q_INVOKABLE void keyUpDown(const int&);
 
     QMap<QString, QString> m;
 

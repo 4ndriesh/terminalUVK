@@ -57,5 +57,6 @@
         <file>qml/Base/DelegateRChain.qml</file>
         <file>qml/Base/RChain.qml</file>
         <file>qml/Base/PopupRChain.qml</file>
+        <file>qml/Base/Highlight.qml</file>
     </qresource>
 </RCC>

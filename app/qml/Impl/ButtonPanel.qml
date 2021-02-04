@@ -50,7 +50,10 @@ Item{
             EventMouseArea {
                 onEntered: { putnadviga.state='Hovering';}
                 onExited: { putnadviga.state='Exited';}
-                onClicked: { manageModel.qmlRegim(1);}
+                onClicked: {
+                    manageModel.qmlRegim(11);
+                    manageModel.qmlRegim(1);
+                }
             }
 
         }
@@ -65,7 +68,10 @@ Item{
             EventMouseArea {
                 onEntered: { stop.state='Hovering'}
                 onExited: { stop.state='Exited'}
-                onClicked: manageModel.qmlRegim(0)
+                onClicked: {
+                    manageModel.qmlRegim(11);
+                    manageModel.qmlRegim(0);
+                }
             }
         }
 
@@ -80,7 +86,10 @@ Item{
             EventMouseArea {
                 onEntered: { pause.state='Hovering'}
                 onExited: { pause.state='Exited'}
-                onClicked: manageModel.qmlRegim(2)
+                onClicked: {
+                    manageModel.qmlRegim(11);
+                    manageModel.qmlRegim(2);
+                }
             }
         }
         MultiButton {

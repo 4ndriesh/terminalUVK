@@ -16,7 +16,7 @@ ManageModel::ManageModel(QObject *parent) : QObject(parent)
     //        m_qmlRChain.append("123123");
 }
 //Удалить один отцеп
-void ManageModel::keyUpDown(const DWORD &updown)
+void ManageModel::keyUpDown(const int &updown)
 {
     switch (updown) {
     case VK_UP:
@@ -38,7 +38,7 @@ void ManageModel::keyUpDown(const DWORD &updown)
 //Удалить один отцеп
 void ManageModel::delOtcep(const int &index)
 {
-    MVP_Import::instance()->delOtcep(index);
+    MVP_Import::instance()->delOtcep(m_qmlCurentIndex+index);
 }
 //Удалить все отцепы
 void ManageModel::clearAllOtcep()
@@ -58,46 +58,46 @@ void ManageModel::getRndChart()
 void ManageModel::addOtcep(const int & index)
 {
     if(m_stateBt.m_editing && m_qmlCurentIndex>=0)
-        MVP_Import::instance()->incOtcep(index);
+        MVP_Import::instance()->incOtcep(m_qmlCurentIndex+index);
 }
 
 void ManageModel::qmlRegim(const int & regim)
 {
-    if(m_stateBt.m_editing==1)return;
+//    if(m_stateBt.m_editing==1)return;
     switch (regim) {
     case 0:
         m_stateBt.m_bef_regim=0;
-        //        m_stateBt.m_wPause=false;
+//        m_stateBt.m_wPause=false;
         m_stateBt.m_wStop=true;
-        //        m_stateBt.m_wNadvig=false;
+//        m_stateBt.m_wNadvig=false;
         emit stateBtChanged();
         break;
     case 1:
         m_stateBt.m_bef_regim=1;
-        //        m_stateBt.m_wPause=false;
-        //        m_stateBt.m_wStop=false;
+//        m_stateBt.m_wPause=false;
+//        m_stateBt.m_wStop=false;
         m_stateBt.m_wNadvig=true;
         emit  stateBtChanged();
         break;
     case 2:
-        if(m_stateBt.m_regim==1){
+//        if(m_stateBt.m_regim==1){
             m_stateBt.m_bef_regim=2;
             m_stateBt.m_wPause=true;
-            //        m_stateBt.m_wStop=false;
-            //        m_stateBt.m_wNadvig=false;
+//            m_stateBt.m_wStop=false;
+//            m_stateBt.m_wNadvig=false;
             emit stateBtChanged();
-        }
+//        }
         break;
     case 10:
         qDebug()<<"Команда не задана";
         m_stateBt.m_bef_regim=10;
-        m_stateBt.m_wPause=false;
-        m_stateBt.m_wStop=false;
-        m_stateBt.m_wNadvig=false;
         emit stateBtChanged();
         break;
 
     default:
+        m_stateBt.m_wPause=false;
+        m_stateBt.m_wStop=false;
+        m_stateBt.m_wNadvig=false;
         break;
     }
 }
@@ -150,14 +150,14 @@ void ManageModel::setRegim(const int &regim)
 }
 
 //Добавляем сообщения об ошибках итд
-void ManageModel::addMsg(const QString &valMsg, int msg)
+void ManageModel::addMsg(const QString &valMsg)
 {
     if(m_listMsg.isEmpty()){
         qDebug()<<"Start Timer";
         timerDelMsg=true;
         emit timerDelMsgChanged();
     }
-    m_listMsg.append(valMsg+QString::number(msg));
+    m_listMsg.append(valMsg);
     emit listMsgChanged();
 }
 
@@ -207,12 +207,12 @@ void ManageModel::inputPut(const int &numberPut)
 void ManageModel::setRegimEdit()
 {
     if(m_stateBt.m_regim==1){
-        addMsg("Роспуск",1);
+        addMsg("Роспуск");
     }
     else{
         m_stateBt.m_editing=!m_stateBt.m_editing;
         if(m_newList)
-        ViewOtcepsModel::instance().sortirArrived(ViewOtcepsModel::instance().tmpSrt);
+            ViewOtcepsModel::instance().sortirArrived(ViewOtcepsModel::instance().tmpSrt);
         m_qmlCurentIndex=0;
         emit qmlCurrentItemChanged();
         emit stateBtChanged();
@@ -258,11 +258,11 @@ void ManageModel::keyDown(const DWORD &key)
 
     case VK_NEXT:
         //Вставить до
-        addOtcep(m_qmlCurentIndex);
+        addOtcep(0);
         break;
     case VK_PRIOR:
         //Вставить после
-        addOtcep(m_qmlCurentIndex+1);
+        addOtcep(1);
         break;
     case VK_DELETE:
         //Удалить все
@@ -270,7 +270,7 @@ void ManageModel::keyDown(const DWORD &key)
         break;
     case VK_F12:
         //Удалить
-        delOtcep(m_qmlCurentIndex+1);
+        delOtcep(1);
         break;
     case VK_F1:
         inputPut(1);

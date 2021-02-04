@@ -89,7 +89,7 @@ KeyboardLayout {
             VKEYB.DarkKey {
                 displayText: "\u2191"
                 key: Qt.Key_Up
-                onClicked: manageModel.qmlCurentIndex--
+                onClicked: manageModel.keyUpDown(38);
                 showPreview: false
                 repeat: true
             }
@@ -118,7 +118,7 @@ KeyboardLayout {
             VKEYB.DarkKey {
                 text: "\u2193"
                 key: Qt.Key_Down
-                onClicked: manageModel.qmlCurentIndex++
+                onClicked: manageModel.keyUpDown(40);
                 showPreview: false
                 repeat: true
             }

@@ -63,6 +63,7 @@ Rectangle {
         running: wink
         onTriggered: {
             setWink();
+            manageModel.qmlRegim(11);
             manageModel.qmlRegim(10);
         }
     }
