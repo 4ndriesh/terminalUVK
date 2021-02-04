@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Controls 2.14
 import QtQuick.VirtualKeyboard 2.14
 import SettingsModule 1.0
 
@@ -8,6 +9,9 @@ InputPanel {
     visible: Settings.visibleInputPanel
     anchors.left: parent.left
     anchors.right: parent.right
+    z: 5
+    parent: Overlay.overlay
+    focus: true
 }
 
 //InputPanel {

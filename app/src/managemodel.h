@@ -6,7 +6,7 @@
 #include <qt_windows.h>
 #include <QQuickItem>
 #include <QKeyEvent>
-
+#include "viewotcepsmodel.h"
 
 struct QML_ManagerButton
 {
@@ -54,7 +54,7 @@ class ManageModel: public QObject
 
     Q_PROPERTY(QML_ManagerButton stateBt READ stateBt WRITE setStateBt NOTIFY stateBtChanged)
 
-    Q_PROPERTY(int qmlCurentIndex READ getCurrentItem WRITE setCurrentItem NOTIFY qmlCurrentItemChanged)
+    Q_PROPERTY(int qmlCurentIndex READ qmlCurrentItem WRITE setQmlCurrentItem NOTIFY qmlCurrentItemChanged)
 
     Q_PROPERTY(int textInput READ textInput WRITE setTextInput NOTIFY textInputChanged)
 
@@ -70,10 +70,11 @@ class ManageModel: public QObject
 
     Q_PROPERTY(StructProgressBar qmlStatusPB READ qmlStatusPB NOTIFY statusPBChanged)
 
+private:
+
 public:
     explicit ManageModel(QObject *parent = nullptr);
     virtual ~ManageModel(){}
-public:
     static ManageModel &instance(){
         static ManageModel *_instance=0;
         if(_instance ==0){
@@ -108,16 +109,17 @@ public:
     Q_INVOKABLE void addOtcep(const int&);
     Q_INVOKABLE void delOtcep(const int&);
     Q_INVOKABLE void clearAllOtcep();
-    Q_INVOKABLE void setIndex(const int&);
     Q_INVOKABLE void inputPut(const int&);
     Q_INVOKABLE void resetRChain(const QString&);
     Q_INVOKABLE void keyDown(const DWORD &);
     Q_INVOKABLE void setRegimEdit();
+    Q_INVOKABLE void keyUpDown(const DWORD&);
 
     QMap<QString, QString> m;
 
     QML_ManagerButton m_stateBt;
     QML_ManagerButton stateBt()const {return m_stateBt;}
+
 
     bool bWinKey=true;
 
@@ -162,11 +164,16 @@ public:
     QStringList getListMsg()const{return m_listMsg;}
 
     //Управляет курсором листвью
-    int qmlCurentIndex;
-    int getCurrentItem()const{return qmlCurentIndex;}
-    void setCurrentItem(const int &index){
-        qmlCurentIndex = index;
+    int m_qmlCurentIndex=0;
+    int qmlCurrentItem()const{
+        qDebug()<<"getCurrent"<<m_qmlCurentIndex;
+        return m_qmlCurentIndex;}
+
+    void setQmlCurrentItem(const int &index){
+        m_qmlCurentIndex = index;
+        qDebug()<<"setCurrent"<<m_qmlCurentIndex;
         emit qmlCurrentItemChanged();
+
     }
 
     void setRegim(const int &);

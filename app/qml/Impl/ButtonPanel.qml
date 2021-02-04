@@ -4,6 +4,7 @@ import "terminalUVK.js" as MyScript
 import Base 1.0
 import SettingsModule 1.0
 import ResourceProvider 1.0
+import QtQuick.Controls 1.4
 
 Item{
     id:bt
@@ -17,62 +18,80 @@ Item{
 
     property int qmlnewList: manageModel.newList
     property int qmluvkLive: manageModel.uvkLive
+
     PopupRChain{id:_rchaindialog}
+
     RowLayout {
         spacing: 5
+
+
         MultiButton {
             id: edirSortList
             buttonText: "ВВОД СЛ"
             color: editing ? Settings.themeRegimColor:Settings.themeHeaderColor
             wink: false
-            EventMouseArea{ onClicked: manageModel.setRegimEdit()}
+            EventMouseArea{
+                onEntered: { edirSortList.state='Hovering'}
+                onExited: { edirSortList.state='Exited'}
+                onClicked: manageModel.setRegimEdit()
+            }
         }
 
         MultiButton {
             id: putnadviga
+            opacity: 1.0
             Layout.leftMargin:100
             buttonText: "РОСПУСК: 1"
+            //            color: Settings.themeHeaderColor
             color: MyScript.getColore(regim, putNadviga)
             wink: wink_nadvig
             onSetWink: manageModel.stateBt.wink_Nadvig=false
+
             EventMouseArea {
-                onClicked: {
-                    if(editing===0){
-                        manageModel.qmlRegim(1)
-                        //                        manageModel.stateBt.bef_putNadviga=1
-                    }
-                }
+                onEntered: { putnadviga.state='Hovering';}
+                onExited: { putnadviga.state='Exited';}
+                onClicked: { manageModel.qmlRegim(1);}
             }
+
         }
 
         MultiButton {
             id: stop
             buttonText: "СТОП"
+            //            color: Settings.themeHeaderColor
             color: regim ? Settings.themeHeaderColor:Settings.themeRegimColor
             wink: regim ? wink_stop:false
             onSetWink: manageModel.stateBt.wink_Stop=false
             EventMouseArea {
-                onClicked: if(editing===0)manageModel.qmlRegim(0)
+                onEntered: { stop.state='Hovering'}
+                onExited: { stop.state='Exited'}
+                onClicked: manageModel.qmlRegim(0)
             }
         }
 
         MultiButton {
             id: pause
             buttonText: "ПАУЗА"
-            color: regim<2 ? Settings.themeHeaderColor:Settings.themeRegimColor
+            //            color: Settings.themeHeaderColor
+            //            color: regim<2 ? Settings.themeHeaderColor:Settings.themeRegimColor
             wink: regim<2 ? wink_pause:false
             onSetWink: manageModel.stateBt.wink_Pause=false
+
             EventMouseArea {
-                onClicked: if(regim===1 && editing===0)manageModel.qmlRegim(2)
+                onEntered: { pause.state='Hovering'}
+                onExited: { pause.state='Exited'}
+                onClicked: manageModel.qmlRegim(2)
             }
         }
         MultiButton {
             id: rchain
             buttonText: "РЦ"
             Layout.alignment: Qt.AlignRight
-            color: Settings.themeHeaderColor
+            //            color: Settings.themeHeaderColor
             wink: false
             EventMouseArea {
+                onEntered: { rchain.state='Hovering'}
+                onExited: { rchain.state='Exited'}
                 onClicked: {
                     //                    Settings.visibleInputPanel=false;
                     manageModel.addRChain();

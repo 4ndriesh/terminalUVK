@@ -64,7 +64,7 @@ QTimer *timer=new QTimer(this);
     qmlX=1;
     updateOtcep=0;
     //    Mn.qmlVisibleObject=false;
-    Mn.qmlCurentIndex=-1;
+//    Mn.qmlCurentIndex=-1;
     int irole=Qt::UserRole+1;
     for (int idx = 0; idx < m_Otcep::staticMetaObject.propertyCount(); idx++) {
         QMetaProperty metaProperty = m_Otcep::staticMetaObject.property(idx);
@@ -104,15 +104,17 @@ ViewOtcepsModel &ViewOtcepsModel::instance()
 
 void ViewOtcepsModel::slotOtcepChanged()
 {
-    qDebug()<<"STATE_REGIM"<<MVP_Import::instance()->gorka->STATE_REGIM();
+//    qDebug()<<"STATE_REGIM"<<MVP_Import::instance()->gorka->STATE_REGIM();
     Mn.m_stateBt.m_regim=MVP_Import::instance()->gorka->STATE_REGIM();
+    if(Mn.m_stateBt.m_regim==0)
+        Mn.setQmlCurrentItem(0);
 
     //    qDebug()<<"PUT_NADVIG"<<MVP_Import::instance()->gorka->PUT_NADVIG();
     Mn.m_uvkLive=!MVP_Import::instance()->gorka->SIGNAL_ROSPUSK().is33();
     emit Mn.uvkLiveChanged();
     //    bool uvkisalive=!MVP_Import::instance()->gorka->SIGNAL_ROSPUSK().is33();
     Mn.m_stateBt.m_putNadviga=MVP_Import::instance()->gorka->STATE_PUT_NADVIG();
-    qDebug()<<"PUT_NADVIG----"<< Mn.m_stateBt.m_putNadviga;
+//    qDebug()<<"PUT_NADVIG----"<< Mn.m_stateBt.m_putNadviga;
     Mn.m_stateBt.m_bef_putNadviga=Mn.m_stateBt.m_putNadviga;
     emit Mn.stateBtChanged();
 
@@ -167,7 +169,6 @@ int ViewOtcepsModel::rowCount(const QModelIndex &parent) const
 
 QVariant ViewOtcepsModel::data(const QModelIndex &index, int role) const
 {
-
     if(index.row() < 0 || index.row() >= ViewOtcepList.count() || !index.isValid())
         return  QVariant();
 

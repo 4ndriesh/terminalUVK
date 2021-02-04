@@ -3,7 +3,7 @@ import QtQuick 2.14
 
 QtObject {
     property bool isDarkTheme: false
-    property bool visibleInputPanel: false
+    property bool visibleInputPanel: true
     readonly property color backgroundColor: "white"
     readonly property color backgroundListViewRChain: "#ff4500"
     readonly property color backgroundListView: "gainsboro"

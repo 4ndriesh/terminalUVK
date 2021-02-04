@@ -50,18 +50,18 @@ KeyboardLayout {
         KeyboardRow {
             Key {
                 key: Qt.Key_1
-                onClicked: manageModel.textInput=16;
+                onClicked: manageModel.textInput=1;
                 text: "1"
             }
             Key {
                 key: Qt.Key_2
-                onClicked: manageModel.textInput=18;
-                text: "18"
+                onClicked: manageModel.textInput=2;
+                text: "2"
             }
             Key {
                 key: Qt.Key_3
-                onClicked: manageModel.textInput=25;
-                text: "25"
+                onClicked: manageModel.textInput=3;
+                text: "3"
             }
             EnterKey {
             }
@@ -72,14 +72,17 @@ KeyboardLayout {
         KeyboardRow {
             Key {
                 key: Qt.Key_7
+                onClicked: manageModel.textInput=7;
                 text: "7"
             }
             Key {
                 key: Qt.Key_8
+                onClicked: manageModel.textInput=8;
                 text: "8"
             }
             Key {
                 key: Qt.Key_9
+                onClicked: manageModel.textInput=9;
                 text: "9"
             }
 
@@ -98,14 +101,17 @@ KeyboardLayout {
         KeyboardRow {
             Key {
                 key: Qt.Key_4
+                onClicked: manageModel.textInput=4;
                 text: "4"
             }
             Key {
                 key: Qt.Key_5
+                onClicked: manageModel.textInput=5;
                 text: "5"
             }
             Key {
                 key: Qt.Key_6
+                onClicked: manageModel.textInput=6;
                 text: "6"
             }
 

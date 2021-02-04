@@ -12,16 +12,18 @@ Rectangle {
         id: highlight
 
         Rectangle {
+            id: _highlight
             z:2
             visible: true;
             width: listView.width;
-            height: 55
+            height: 60
+            focus: true
             color: "transparent"
             border.width: 5
             border.color: manageModel.stateBt.editing ? "orange":"green"
             //              color: "red"; radius: 5
-            //            y: listView.currentItem.y
-            y: listView.height/3
+            y: listView.currentItem.y;
+            Behavior on y { SpringAnimation { spring: 2; damping: 0.4} }
         }
     }
 
@@ -31,66 +33,34 @@ Rectangle {
         anchors.fill: parent
         clip: true
         highlight: highlight
-        highlightFollowsCurrentItem: true
-        //        highlightRangeMode: ListView.ApplyRange
+        highlightFollowsCurrentItem: false
+        //                highlightFollowsCurrentItem: true
+        //                        highlightRangeMode: ListView.ApplyRange
         highlightRangeMode: ListView.StrictlyEnforceRange
         preferredHighlightBegin: height/3
         preferredHighlightEnd: height/3
-        focus: true
+        //        focus: true
         highlightMoveDuration: -1
         highlightMoveVelocity: -1
+
         currentIndex: manageModel.qmlCurentIndex
-//        currentIndex: manageModel.qmlCurentIndex
-        //        currentIndex: manageModel.stateBt.editing ? manageModel.qmlCurentIndex:-1
-        //                model: displayDelegateModel
+        //        currentIndex: manageModel.stateBt.editing ? manageModel.qmlCurentIndex:0
         model: otcepsModel
         keyNavigationEnabled: false
         keyNavigationWraps: false
         header: HeaderOtcepsView {z:3}
         headerPositioning: ListView.OverlayHeader
-        delegate: DelegateOtcepView{z:1}
+        delegate: DelegateOtcepView{id: delegate}
+     }
 
-    }
-
-    DelegateModel {
-        id: displayDelegateModel
-
-        delegate: DelegateOtcepView{}
-        model: otcepsModel
-        groups: [
-            DelegateModelGroup {
-                includeByDefault: true
-                name: "displayField"
-            }
-        ]
-
-        filterOnGroup: "displayField"
-    }
-    //    Connections {
-    //        target: listView.model    // EDIT: I drew the wrong conclusions here, see text below!
-    //        onDataChanged: {
-    //            console.log("DataChanged received")
-    //        }
-    //    }
     //    Connections{
     //        target: manageModel
-    //        function onTextInputChanged(){
+    //        function onQmlCurrentItemChanged(){
 
-    //            var rowCount = otcepsModel.rowCount();
-    //            displayDelegateModel.items.removeGroups(0,displayDelegateModel.items.count,"displayField")
-    //            for( var i = 0;i < rowCount;i++ ) {
-    //                var entry = otcepsModel.get(i);
-
-    //                if(entry.STATE_ENABLED ===true) {
-    //                    console.log(entry.STATE_SP)
-    //                    displayDelegateModel.items.insert(entry, "displayField");
-    //                }
-    //            }
-
+    //            listView.currentIndex=manageModel.qmlCurentIndex;
+    //            console.log("currentIndex->",listView.currentIndex)
     //        }
     //    }
-
-
 }
 
 

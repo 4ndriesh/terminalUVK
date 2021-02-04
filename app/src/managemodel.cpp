@@ -3,24 +3,47 @@
 #include <QDebug>
 #include "mvp_import.h"
 #include <QMetaProperty>
+#include "viewotcepsmodel.h"
+
 
 
 ManageModel::ManageModel(QObject *parent) : QObject(parent)
 {
     m_uvkLive=0;
     m_newList=0;
-    qmlCurentIndex=0;
-//        for(int i=0;i<10;i++)
-//        m_qmlRChain.append("123123");
+    //    m_qmlCurentIndex=0;
+    //        for(int i=0;i<10;i++)
+    //        m_qmlRChain.append("123123");
 }
-
+//Удалить один отцеп
+void ManageModel::keyUpDown(const DWORD &updown)
+{
+    switch (updown) {
+    case VK_UP:
+        if(m_stateBt.m_editing && m_qmlCurentIndex>0)
+        {
+            m_qmlCurentIndex--;
+            setQmlCurrentItem(m_qmlCurentIndex);
+        }
+        break;
+    case VK_DOWN:
+        if(m_stateBt.m_editing && m_qmlCurentIndex<ViewOtcepsModel::instance().countEnabled()-1)
+        {
+            m_qmlCurentIndex++;
+            setQmlCurrentItem(m_qmlCurentIndex);
+        }
+        break;
+    }
+}
+//Удалить один отцеп
 void ManageModel::delOtcep(const int &index)
 {
     MVP_Import::instance()->delOtcep(index);
 }
-
+//Удалить все отцепы
 void ManageModel::clearAllOtcep()
 {
+    setQmlCurrentItem(0);
     MVP_Import::instance()->ClearAllOtcep();
 }
 
@@ -34,12 +57,13 @@ void ManageModel::getRndChart()
 
 void ManageModel::addOtcep(const int & index)
 {
-    if(m_stateBt.m_editing && qmlCurentIndex>=0)
+    if(m_stateBt.m_editing && m_qmlCurentIndex>=0)
         MVP_Import::instance()->incOtcep(index);
 }
 
 void ManageModel::qmlRegim(const int & regim)
 {
+    if(m_stateBt.m_editing==1)return;
     switch (regim) {
     case 0:
         m_stateBt.m_bef_regim=0;
@@ -56,11 +80,13 @@ void ManageModel::qmlRegim(const int & regim)
         emit  stateBtChanged();
         break;
     case 2:
-        m_stateBt.m_bef_regim=2;
-        m_stateBt.m_wPause=true;
-        //        m_stateBt.m_wStop=false;
-        //        m_stateBt.m_wNadvig=false;
-        emit stateBtChanged();
+        if(m_stateBt.m_regim==1){
+            m_stateBt.m_bef_regim=2;
+            m_stateBt.m_wPause=true;
+            //        m_stateBt.m_wStop=false;
+            //        m_stateBt.m_wNadvig=false;
+            emit stateBtChanged();
+        }
         break;
     case 10:
         qDebug()<<"Команда не задана";
@@ -153,11 +179,6 @@ bool ManageModel::getTimerDelMsg() const
     return timerDelMsg;
 }
 
-void ManageModel::setIndex(const int &index)
-{
-    qmlCurentIndex=index;
-    emit qmlCurrentItemChanged();
-}
 //Ресет рельсовой цепи
 void ManageModel::resetRChain(const QString &valRChain)
 {
@@ -182,7 +203,7 @@ void ManageModel::inputPut(const int &numberPut)
     m_textInput=numberPut;
     emit textInputChanged();
 }
-//Установить путь
+//Режим редактирования
 void ManageModel::setRegimEdit()
 {
     if(m_stateBt.m_regim==1){
@@ -190,7 +211,7 @@ void ManageModel::setRegimEdit()
     }
     else{
         m_stateBt.m_editing=!m_stateBt.m_editing;
-        qmlCurentIndex=0;
+        m_qmlCurentIndex=0;
         emit qmlCurrentItemChanged();
         emit stateBtChanged();
     }
@@ -225,29 +246,21 @@ void ManageModel::keyDown(const DWORD &key)
         break;
     case VK_UP:
         //UP
-        if(m_stateBt.m_editing && qmlCurentIndex>0)
-        {
-            qmlCurentIndex--;
-            emit qmlCurrentItemChanged();
-        }
+        keyUpDown(VK_UP);
         break;
         //            case  65:
     case VK_DOWN:
         //DOWN
-        if(m_stateBt.m_editing)
-        {
-            qmlCurentIndex++;
-            emit qmlCurrentItemChanged();
-        }
+        keyUpDown(VK_DOWN);
         break;
 
     case VK_NEXT:
         //Вставить до
-        addOtcep(qmlCurentIndex);
+        addOtcep(m_qmlCurentIndex);
         break;
     case VK_PRIOR:
         //Вставить после
-        addOtcep(qmlCurentIndex+1);
+        addOtcep(m_qmlCurentIndex+1);
         break;
     case VK_DELETE:
         //Удалить все
@@ -255,7 +268,7 @@ void ManageModel::keyDown(const DWORD &key)
         break;
     case VK_F12:
         //Удалить
-        delOtcep(qmlCurentIndex+1);
+        delOtcep(m_qmlCurentIndex+1);
         break;
     case VK_F1:
         inputPut(1);
@@ -265,11 +278,11 @@ void ManageModel::keyDown(const DWORD &key)
         emit textInputChanged();
         break;
     case VK_LEFT:
-        qmlCurentIndex--;
+        m_qmlCurentIndex--;
         emit qmlCurrentItemChanged();
         break;
     case VK_RIGHT:
-        qmlCurentIndex++;
+        m_qmlCurentIndex++;
         emit qmlCurrentItemChanged();
         break;
     default:

@@ -11,55 +11,47 @@ Rectangle {
     //    color: Settings.backgroundListView
     //цвет в зависимости от STATE_LOCATION
     property variant items_color: ["red", "yellow","green","dimgrey","white","LightGray"]
-    width: _otcepView.width;
-    height: 65
-    //    property int index: DelegateModel.itemsIndex
+    width: listView.width;
+    height: 60;
     visible: STATE_ENABLED ? true:false
-
     states:
         [
         State {
+            name: "yellow"
+            when: STATE_LOCATION === 2 && STATE_ZKR_PROGRESS===1// bind to isCurrentItem to set the state
+
+
+            PropertyChanges {
+                target: delegate
+                color:delegate.items_color[1]
+                //                height:65*1.4
+            }
+
+            StateChangeScript {
+                name: "insertIndex"
+                script: manageModel.qmlCurentIndex=index
+            }
+        },
+        State {
             name: "lightsteelblue"
-            //                        when: manageModel.qmlCurentIndex === index // bind to isCurrentItem to set the state
+            //            when: manageModel.qmlCurentIndex === index // bind to isCurrentItem to set the state
             when: delegate.ListView.isCurrentItem
                   && STATE_LOCATION===1
                   && manageModel.stateBt.editing===1// bind to isCurrentItem to set the state
             PropertyChanges {
                 target: delegate
                 color: "lightsteelblue"
-                //                height:90
-            }
-            PropertyChanges {
-                target: state_sp
-                enabled:true;
-                border.color: "green";
-                border.width: 5;
-                textPutfocus:true;
-                visibleCursor:true;
-            }
-        },
-        State {
-            name: "yellow"
-            when: STATE_LOCATION === 2 &&   STATE_ZKR_PROGRESS===1// bind to isCurrentItem to set the state
-            PropertyChanges {
-                target: manageModel
-                qmlCurentIndex:index
-                //                color:delegate.items_color[1]
-            }
-            PropertyChanges {
-                target: delegate
-                //                color:MyScript.borderGreen(index,0,1)
-                color:delegate.items_color[1]
-                height:height*1.4
-            }
 
+            }
             PropertyChanges {
                 target: state_sp
                 enabled:true;
                 border.color: "green";
                 border.width: 5;
-                textPutfocus:true;
+                textEnabled:true;
+                textPutfocus: true;
                 visibleCursor:true;
+
             }
         },
         //        State {
@@ -126,6 +118,7 @@ Rectangle {
                 color: delegate.items_color[3]
             }
         }
+
     ]
 
     MouseAreaOtcepList {id: mouseArea}
@@ -147,12 +140,8 @@ Rectangle {
         //        Number { txt: STATE_ENABLED;}
         Number { txt: STATE_LOCATION;}
         Number { txt: STATE_ZKR_PROGRESS;}
-        Number { txt: STATE_GAC_W_STRA;}
+        Number { txt: STATE_GAC_ACTIVE;}
 
-    }
-    Component.onCompleted: {
-        if(manageModel.stateBt.editing===0)
-            manageModel.qmlCurrentItemChanged();
     }
 }
 

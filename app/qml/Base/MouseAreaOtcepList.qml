@@ -6,7 +6,7 @@ import Impl 1.0
 MouseArea {
     id: mouseArea
 
-    anchors.fill: layout
+    anchors.fill: delegate
     enabled: manageModel.stateBt.editing
 //    propagateComposedEvents: true
     acceptedButtons: Qt.LeftButton | Qt.Wheel
@@ -23,7 +23,7 @@ MouseArea {
         Settings.visibleInputPanel=!Settings.visibleInputPanel;
     }
 
-    onWheel: {
-//        manageModel.qmlCurentIndex=index;
-        }
+//    onWheel: {
+////        manageModel.qmlCurentIndex=index;
+//        }
 }

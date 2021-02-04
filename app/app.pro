@@ -2,7 +2,6 @@ QT += qml \
       quick \
       core \
       svg
-
 QTPLUGIN += qsvg qsvgicon
 CONFIG += c++11
 #TEMPLATE = lib

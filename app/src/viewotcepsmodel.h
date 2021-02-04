@@ -41,7 +41,7 @@ public:
 
 private:
     static ViewOtcepsModel* model;
-    int countEnabled();
+
 
 
     bool qmlVisible;
@@ -51,7 +51,7 @@ private:
     QList<DataObject> ViewOtcepList;
     QHash<int, QByteArray> otcepRoles;
 public slots:
-
+    int countEnabled();
     void sortirArrived(const tSl2Odo2 *srt);
     void uvk_cmd_accept(QMap<QString,QString> m);
 
