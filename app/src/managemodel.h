@@ -60,7 +60,7 @@ class ManageModel: public QObject
 
     Q_PROPERTY(int uvkLive READ uvkLive NOTIFY uvkLiveChanged)
 
-    Q_PROPERTY(int newList READ newList NOTIFY newListChanged)
+    Q_PROPERTY(int newList READ newList WRITE setNewList NOTIFY newListChanged)
 
     Q_PROPERTY(QStringList qmlRChain READ qmlRChain NOTIFY qmlRChainChanged)
 
@@ -151,6 +151,11 @@ public:
     //Оповещение о новом сортирововчном листке
     int m_newList;
     int newList()const {return m_newList;}
+    void setNewList(const int &index){
+        m_newList = index;
+        emit newListChanged();
+
+    }
 
     //Подтверждает команду кнопкой ENTER
     void accept();
@@ -166,12 +171,12 @@ public:
     //Управляет курсором листвью
     int m_qmlCurentIndex=0;
     int qmlCurrentItem()const{
-        qDebug()<<"getCurrent"<<m_qmlCurentIndex;
+//        qDebug()<<"getCurrent"<<m_qmlCurentIndex;
         return m_qmlCurentIndex;}
 
     void setQmlCurrentItem(const int &index){
         m_qmlCurentIndex = index;
-        qDebug()<<"setCurrent"<<m_qmlCurentIndex;
+//        qDebug()<<"setCurrent"<<m_qmlCurentIndex;
         emit qmlCurrentItemChanged();
 
     }

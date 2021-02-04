@@ -12,8 +12,8 @@ Rectangle {
     property alias visibleCursor: _textPut.cursorVisible
     Layout.fillWidth: true
     Layout.preferredWidth: delegate.width/12
-    //    Layout.preferredHeight: delegate.height*0.9
-    height: delegate.height*0.9
+//    Layout.preferredHeight: delegate.height*0.9
+    height: delegate.height*0.95
     color: delegate.color
     enabled: false
     border.width: Settings.borderWidth

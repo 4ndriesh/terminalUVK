@@ -8,24 +8,7 @@ Rectangle {
     id: _otcepView
     color: Settings.backgroundListView
 
-    Component {
-        id: highlight
 
-        Rectangle {
-            id: _highlight
-            z:2
-            visible: true;
-            width: listView.width;
-            height: 60
-            focus: true
-            color: "transparent"
-            border.width: 5
-            border.color: manageModel.stateBt.editing ? "orange":"green"
-            //              color: "red"; radius: 5
-            y: listView.currentItem.y;
-            Behavior on y { SpringAnimation { spring: 2; damping: 0.4} }
-        }
-    }
 
 
     ListView {
@@ -52,7 +35,24 @@ Rectangle {
         headerPositioning: ListView.OverlayHeader
         delegate: DelegateOtcepView{id: delegate}
      }
+    Component {
+        id: highlight
 
+        Rectangle {
+            id: _highlight
+            z:2
+            visible: true;
+            width: listView.width;
+            height: 60
+            focus: true
+            color: "transparent"
+            border.width: 5
+            border.color: manageModel.stateBt.editing ? "orange":"green"
+            //              color: "red"; radius: 5
+            y: listView.currentItem.y;
+            Behavior on y { SpringAnimation { spring: 2; damping: 0.4} }
+        }
+    }
     //    Connections{
     //        target: manageModel
     //        function onQmlCurrentItemChanged(){

@@ -36,6 +36,10 @@ bool MVP_Import::load(QString fn)
 
     gorka->SIGNAL_ROSPUSK().getBuffer()->msecPeriodLive=2000;
 
+    foreach (auto otcep, otceps->otceps()) {
+        connect(otcep->SIGNAL_DATA().getBuffer(),&GtBuffer::bufferChanged,this,&MVP_Import::quickSlotUpdate);
+    }
+
     timer->start(250);
     return true;
 }
@@ -369,4 +373,12 @@ void MVP_Import::resetDSOBusyRc(QString idtsr)
     m["CMD"]="RESET_DSO_BUSY";
     m["RC"]=idtsr;
     MVP_Import::instance()->cmd->send_cmd(m);
+}
+QDateTime _ttt;
+void MVP_Import::quickSlotUpdate()
+{
+    if (_ttt.msecsTo(QDateTime::currentDateTime())>30){
+        _ttt=QDateTime::currentDateTime();
+        slotTimer();
+    }
 }

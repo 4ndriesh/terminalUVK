@@ -1,4 +1,4 @@
-function outconsole(){
+function getColor(){
     console.log("insertindex->>>",index)
     textPutfocus=true;
     visibleCursor=true;

@@ -53,10 +53,10 @@ static ViewOtcepsModel *_instance=nullptr;
 ManageModel &Mn = ManageModel::instance();
 ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
     : QAbstractListModel(parent)
-//    ,timer(new QTimer(this))
+    //    ,timer(new QTimer(this))
 
 {
-QTimer *timer=new QTimer(this);
+    QTimer *timer=new QTimer(this);
 
     //    Mn.qmlPutNadviga.m_set_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
 
@@ -64,7 +64,7 @@ QTimer *timer=new QTimer(this);
     qmlX=1;
     updateOtcep=0;
     //    Mn.qmlVisibleObject=false;
-//    Mn.qmlCurentIndex=-1;
+    //    Mn.qmlCurentIndex=-1;
     int irole=Qt::UserRole+1;
     for (int idx = 0; idx < m_Otcep::staticMetaObject.propertyCount(); idx++) {
         QMetaProperty metaProperty = m_Otcep::staticMetaObject.property(idx);
@@ -86,9 +86,9 @@ QTimer *timer=new QTimer(this);
     connect(MVP_Import::instance()->cmd,&GtCommandInterface::recv_accept,this,&ViewOtcepsModel::uvk_cmd_accept);
 
 
-        timer->setInterval(1000);
-        connect(timer, &QTimer::timeout , this, &ViewOtcepsModel::slotOtcepChanged);
-        timer->start();
+    timer->setInterval(500);
+    connect(timer, &QTimer::timeout , this, &ViewOtcepsModel::slotOtcepChanged);
+    timer->start();
 
     connect(MVP_Import::instance(),&MVP_Import::sortirArrived,this, &ViewOtcepsModel::sortirArrived);
     MVP_Import::instance()->updateOtceps();
@@ -104,9 +104,9 @@ ViewOtcepsModel &ViewOtcepsModel::instance()
 
 void ViewOtcepsModel::slotOtcepChanged()
 {
-//    qDebug()<<"STATE_REGIM"<<MVP_Import::instance()->gorka->STATE_REGIM();
+    //    qDebug()<<"STATE_REGIM"<<MVP_Import::instance()->gorka->STATE_REGIM();
     Mn.m_stateBt.m_regim=MVP_Import::instance()->gorka->STATE_REGIM();
-    if(Mn.m_stateBt.m_regim==0)
+    if(Mn.m_stateBt.m_regim==0 && Mn.m_stateBt.m_editing==0)
         Mn.setQmlCurrentItem(0);
 
     //    qDebug()<<"PUT_NADVIG"<<MVP_Import::instance()->gorka->PUT_NADVIG();
@@ -114,20 +114,20 @@ void ViewOtcepsModel::slotOtcepChanged()
     emit Mn.uvkLiveChanged();
     //    bool uvkisalive=!MVP_Import::instance()->gorka->SIGNAL_ROSPUSK().is33();
     Mn.m_stateBt.m_putNadviga=MVP_Import::instance()->gorka->STATE_PUT_NADVIG();
-//    qDebug()<<"PUT_NADVIG----"<< Mn.m_stateBt.m_putNadviga;
+    //    qDebug()<<"PUT_NADVIG----"<< Mn.m_stateBt.m_putNadviga;
     Mn.m_stateBt.m_bef_putNadviga=Mn.m_stateBt.m_putNadviga;
     emit Mn.stateBtChanged();
 
-//    int rowCount=countEnabled();
-//    if(updateOtcep==rowCount && rowCount>0)
-        emit dataChanged(createIndex(0,0), createIndex(119, 7));
-//    else if(updateOtcep!=rowCount ){
-//        qDebug()<<"qDeleteAll";
-//        emit dataChanged(createIndex(0,0), createIndex(updateOtcep, otcepRoles.count()));
-//        beginResetModel();
-//        endResetModel();
-//        updateOtcep=rowCount;
-//    }
+    //    int rowCount=countEnabled();
+    //    if(updateOtcep==rowCount && rowCount>0)
+    emit dataChanged(createIndex(0,0), createIndex(119, 7));
+    //    else if(updateOtcep!=rowCount ){
+    //        qDebug()<<"qDeleteAll";
+    //        emit dataChanged(createIndex(0,0), createIndex(updateOtcep, otcepRoles.count()));
+    //        beginResetModel();
+    //        endResetModel();
+    //        updateOtcep=rowCount;
+    //    }
     //            beginResetModel();
     //            endResetModel();
     struct TUVK_status{
@@ -220,11 +220,16 @@ QHash<int, QByteArray> ViewOtcepsModel::roleNames() const
 
 void ViewOtcepsModel::sortirArrived(const tSl2Odo2 *srt)
 {
+    Mn.setNewList(1);
+
     // прверить что режим ввода установлен
     // если нет то запомнить и мигать кнопкой
-    if (!loadSortirToUvk(srt)) {
-        MVP_Import::instance()->_Id=0;
-    }
+    if(Mn.m_stateBt.m_editing==1){
+        if (!loadSortirToUvk(srt)) {
+            MVP_Import::instance()->_Id=0;
+            Mn.setNewList(0);
+        }
+    }else tmpSrt=srt;
 }
 
 void ViewOtcepsModel::uvk_cmd_accept(QMap<QString, QString> m)

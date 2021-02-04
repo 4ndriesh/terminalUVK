@@ -211,6 +211,8 @@ void ManageModel::setRegimEdit()
     }
     else{
         m_stateBt.m_editing=!m_stateBt.m_editing;
+        if(m_newList)
+        ViewOtcepsModel::instance().sortirArrived(ViewOtcepsModel::instance().tmpSrt);
         m_qmlCurentIndex=0;
         emit qmlCurrentItemChanged();
         emit stateBtChanged();

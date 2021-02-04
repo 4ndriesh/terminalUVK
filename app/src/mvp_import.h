@@ -62,6 +62,7 @@ signals:
 //    void sendStartProgressBar();
 //    void sendStopProgressBar();
 public slots:
+    void quickSlotUpdate();
     void slotTimer();
     void buffer14Changed(GtBuffer *B);
     void makeSortir();
