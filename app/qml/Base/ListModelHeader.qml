@@ -143,6 +143,16 @@ ListModel {
         minimumHeight: 60
         maximumHeight: 100
     }
+    ListElement {
+        name: "ERR"
+        rowSpan: 2
+        columnSpan: 1
+        row: 0
+        column: 11
+        minimumWidth: 60
+        minimumHeight: 60
+        maximumHeight: 100
+    }
 //    ListElement {
 //        name: "3ТП"
 //        rowSpan: 2

@@ -16,6 +16,7 @@ QtObject {
     readonly property color themeColorPB: "#17a81a"
     readonly property color backgroundColorPB: "#e6e6e6"
 
+    readonly property int baseHeightHighlight: 60
     readonly property int baseHeight: 50
     readonly property int timeWink: 5000
 

@@ -10,10 +10,11 @@ Rectangle {
     property alias textEnabled: _textPut.enabled
     property alias textPutfocus: _textPut.focus
     property alias visibleCursor: _textPut.cursorVisible
+
     Layout.fillWidth: true
-    Layout.preferredWidth: delegate.width/12
-//    Layout.preferredHeight: delegate.height*0.9
-    height: delegate.height*0.95
+    Layout.fillHeight: true
+    Layout.preferredWidth: listView.width/10
+    height: 60
     color: delegate.color
     enabled: false
     border.width: Settings.borderWidth
@@ -29,7 +30,7 @@ Rectangle {
             }
             PropertyChanges {
                 target: state_sp
-                Layout.preferredWidth: (mainwindow.width/12)*2;
+                Layout.preferredWidth: (listView.width/10)*2;
                 //                visible: MyScript.state_spWidth()
             }
         },
@@ -43,7 +44,7 @@ Rectangle {
             }
             PropertyChanges {
                 target: state_sp
-                Layout.preferredWidth:(mainwindow.width/12);
+                Layout.preferredWidth:(listView.width/10);
                 //                visible: MyScript.state_spWidthmin()
             }
         }

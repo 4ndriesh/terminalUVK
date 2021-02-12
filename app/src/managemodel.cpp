@@ -12,8 +12,8 @@ ManageModel::ManageModel(QObject *parent) : QObject(parent)
     m_uvkLive=0;
     m_newList=0;
     //    m_qmlCurentIndex=0;
-    //        for(int i=0;i<10;i++)
-    //        m_qmlRChain.append("123123");
+//            for(int i=0;i<10;i++)
+//            m_qmlRChain.append("123123");
 }
 //Удалить один отцеп
 void ManageModel::keyUpDown(const int &updown)
@@ -98,6 +98,7 @@ void ManageModel::qmlRegim(const int & regim)
         m_stateBt.m_wPause=false;
         m_stateBt.m_wStop=false;
         m_stateBt.m_wNadvig=false;
+//        emit stateBtChanged();
         break;
     }
 }

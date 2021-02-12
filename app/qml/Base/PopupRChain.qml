@@ -11,9 +11,17 @@ Popup {
      ListView{
         id:listRChainView
         anchors.fill: parent
+        currentIndex: manageModel.qmlCurentIndex
+//        highlightFollowsCurrentItem: true
         model:manageModel.qmlRChain
         delegate: DelegateRChain{}
+        highlight: Highlight{
+            id:highliteBarChain;
+            z:2
+            height: listRChainView.currentItem.height
+            y: listRChainView.currentItem.y;}
     }
+     onClosed: console.log("close")
 //    Component.onCompleted: {
 ////                _rchaindialog.close();
 //        //        manageModel.addRChain();

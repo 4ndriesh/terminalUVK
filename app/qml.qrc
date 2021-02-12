@@ -58,5 +58,6 @@
         <file>qml/Base/RChain.qml</file>
         <file>qml/Base/PopupRChain.qml</file>
         <file>qml/Base/Highlight.qml</file>
+        <file>qml/Base/MButton.qml</file>
     </qresource>
 </RCC>

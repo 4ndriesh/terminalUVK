@@ -10,9 +10,9 @@ Rectangle {
     ListView {
         id: listView
         anchors.fill: parent
-        clip: true        
+        clip: true
         highlightFollowsCurrentItem: false
-        //                highlightFollowsCurrentItem: true
+        //                        highlightFollowsCurrentItem: true
         //                        highlightRangeMode: ListView.ApplyRange
         highlightRangeMode: ListView.StrictlyEnforceRange
         preferredHighlightBegin: height/3
@@ -28,7 +28,11 @@ Rectangle {
         keyNavigationWraps: false
         header: HeaderOtcepsView {z:3}
         headerPositioning: ListView.OverlayHeader
-        highlight: Highlight{id:highliteBar;z:2}
+        highlight: Highlight{id:highliteBar;
+            z:2
+            height: listView.currentItem.height
+            y: listView.currentItem.y;
+        }
         delegate: DelegateOtcepView{id:delegate}
     }
     //    Connections{

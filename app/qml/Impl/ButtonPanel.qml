@@ -43,9 +43,11 @@ Item{
             Layout.leftMargin:100
             buttonText: "РОСПУСК: 1"
             //            color: Settings.themeHeaderColor
-            color: MyScript.getColore(regim, putNadviga)
-            wink: wink_nadvig
-            onSetWink: manageModel.stateBt.wink_Nadvig=false
+            color: (regim===1 && putNadviga===1) ? Settings.themeRegimColor:Settings.themeHeaderColor
+//            color: MyScript.getColore(regim, putNadviga)
+            wink: (regim===1 && putNadviga===1) ?false:wink_nadvig
+//            onSetWink: manageModel.qmlRegim(11);
+//            onSetWink: manageModel.stateBt.wink_Nadvig=false
 
             EventMouseArea {
                 onEntered: { putnadviga.state='Hovering';}
@@ -62,9 +64,10 @@ Item{
             id: stop
             buttonText: "СТОП"
             //            color: Settings.themeHeaderColor
-            color: regim ? Settings.themeHeaderColor:Settings.themeRegimColor
-            wink: regim ? wink_stop:false
-            onSetWink: manageModel.stateBt.wink_Stop=false
+            color: regim===0 ? Settings.themeRegimColor:Settings.themeHeaderColor
+            wink: regim===0 ? false:wink_stop
+//            onSetWink: manageModel.qmlRegim(11);
+//            onSetWink: manageModel.stateBt.wink_Stop=false
             EventMouseArea {
                 onEntered: { stop.state='Hovering'}
                 onExited: { stop.state='Exited'}
@@ -79,9 +82,10 @@ Item{
             id: pause
             buttonText: "ПАУЗА"
             //            color: Settings.themeHeaderColor
-            //            color: regim<2 ? Settings.themeHeaderColor:Settings.themeRegimColor
-            wink: regim<2 ? wink_pause:false
-            onSetWink: manageModel.stateBt.wink_Pause=false
+            color: regim===2 ? Settings.themeRegimColor:Settings.themeHeaderColor
+            wink: regim===2 ? false:wink_pause
+//            onSetWink: manageModel.qmlRegim(11);
+//            onSetWink: manageModel.stateBt.wink_Pause=false
 
             EventMouseArea {
                 onEntered: { pause.state='Hovering'}
