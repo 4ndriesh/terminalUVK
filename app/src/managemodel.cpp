@@ -151,6 +151,7 @@ void ManageModel::addMsg(const QString &valMsg)
         emit timerDelMsgChanged();
     }
     m_listMsg.append(valMsg);
+    std::reverse(m_listMsg.begin(), m_listMsg.end());
     emit listMsgChanged();
 }
 
@@ -158,7 +159,7 @@ void ManageModel::addMsg(const QString &valMsg)
 void ManageModel::deleteMsg()
 {
     if(!m_listMsg.isEmpty())
-        m_listMsg.removeFirst();
+        m_listMsg.removeLast();
     else {
         timerDelMsg=false;
         qDebug()<<"Stop Timer";

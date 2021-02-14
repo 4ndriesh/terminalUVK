@@ -30,8 +30,9 @@ Rectangle {
         headerPositioning: ListView.OverlayHeader
         highlight: Highlight{id:highliteBar;
             z:2
-            height: listView.currentItem.height
-            y: listView.currentItem.y;
+            heightHighlite: listView.currentItem.height
+            yHighlite:listView.currentItem.y;
+            widthHighlite:parent.width
         }
         delegate: DelegateOtcepView{id:delegate}
     }

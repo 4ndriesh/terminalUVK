@@ -2,7 +2,6 @@ import QtQuick 2.14
 import QtQuick.Layouts 1.14
 import SettingsModule 1.0
 import QtQml.Models 2.1
-import "Binding.js" as MyScript
 
 Rectangle {
     id: delegate

@@ -5,6 +5,7 @@ Rectangle {
     id: showmessage
     color: "#FFFFE0"
     height: 50
+    visible: listMsgView.count>0 ? true:false
     ListView{
         id:listMsgView
         anchors.fill: parent
@@ -13,7 +14,7 @@ Rectangle {
     }
     Timer {
         id: msgTimer
-        interval: 2000
+        interval: listMsgView.count===1 ? 5000:10
         repeat: true
         running: manageModel.timerDelMsg
         onTriggered: manageModel.deleteMsg();

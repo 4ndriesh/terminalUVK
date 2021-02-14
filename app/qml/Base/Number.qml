@@ -1,8 +1,6 @@
 import QtQuick 2.14
 import QtQuick.Layouts 1.14
 import SettingsModule 1.0
-import "Binding.js" as MyScript
-//import QtQuick.VirtualKeyboard 2.14
 
 Rectangle {
     id: textField
@@ -55,6 +53,7 @@ Rectangle {
         anchors.fill: parent
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
+        font.family: Settings.fontFamily;
         font.pointSize: parent.height/3
         enabled: false
         inputMethodHints:Qt.ImhFormattedNumbersOnly

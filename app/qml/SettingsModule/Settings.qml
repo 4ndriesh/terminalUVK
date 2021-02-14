@@ -13,6 +13,9 @@ QtObject {
     readonly property color themeButtonColor: isDarkTheme ? "#607D8B" : "#b0c4de"
     readonly property color themeRegimColor: "orange"
 
+//    readonly property string fontFamily: "Cyrillic"
+    readonly property color fontColor: "black"
+    readonly property string fontFamily: "Cursive"
     readonly property color editColorHighlight: "#ffa500"
     readonly property color baseColorHighlight: "#00bfff"
     readonly property int baseHeightHighlight: 60

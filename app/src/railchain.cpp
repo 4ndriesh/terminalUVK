@@ -15,11 +15,13 @@ void RailChain::resetRChain(const QString &valRChain)
 //Добавляем рельсовые цепи в список
 void RailChain::addRChain()
 {
+    qDebug()<<"addChain";
     m_qmlRChain.clear();
     rch=MVP_Import::instance()->getDSOBusyRc();
     foreach (auto rc_name, rch.keys()) {
         m_qmlRChain.append(rc_name);
     }
+    std::reverse(m_qmlRChain.begin(), m_qmlRChain.end());
     emit qmlRChainChanged();
 }
 

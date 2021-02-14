@@ -7,14 +7,14 @@ Rectangle {
     property int maximumValue: manageModel.qmlStatusPB.set_maximumValue
     property int set_value: manageModel.qmlStatusPB.set_value
     property int set_visible: manageModel.qmlStatusPB.set_visible
-
+    visible: set_visible
     ProgressBar {
         id: pb1
         anchors.fill: parent
         from: 0
         to: maximumValue
         value: set_value
-        visible: set_visible
+
 
         background: Rectangle {
             implicitWidth: 200

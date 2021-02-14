@@ -7,7 +7,6 @@
         <file>qml/Base/MultiButton.qml</file>
         <file>qml/Impl/OtcepsView.qml</file>
         <file>qml/Impl/qmldir</file>
-        <file>qml/Impl/terminalUVK.js</file>
         <file>qml/Message/qmldir</file>
         <file>qml/SettingsModule/qmldir</file>
         <file>qml/SettingsModule/Settings.qml</file>
@@ -47,7 +46,6 @@
         <file>qml/resources/transfer.svg</file>
         <file>qml/resources/transfer2.svg</file>
         <file>qml/Base/ImageSVG.qml</file>
-        <file>qml/Base/Binding.js</file>
         <file>vkeyboard/Components/DelOtcep.qml</file>
         <file>qml/Impl/InputPanelKB.qml</file>
         <file>qml/resources/download-button.svg</file>
@@ -55,10 +53,8 @@
         <file>vkeyboard/QtQuick/VirtualKeyboard/Styles/test/images/fast-forward.svg</file>
         <file>vkeyboard/QtQuick/VirtualKeyboard/Styles/test/images/download-button.svg</file>
         <file>qml/Base/DelegateRChain.qml</file>
-        <file>qml/Base/RChain.qml</file>
         <file>qml/Base/PopupRChain.qml</file>
         <file>qml/Base/Highlight.qml</file>
-        <file>qml/Base/MButton.qml</file>
         <file>settings.json</file>
     </qresource>
 </RCC>

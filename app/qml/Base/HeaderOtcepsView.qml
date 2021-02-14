@@ -28,8 +28,11 @@ GridLayout {
             color:  Settings.themeHeaderColor
             Text { text: name;
                 anchors.centerIn: parent;
-//                font.pointSize: _header.height/3
-                font.pointSize: _number.height/3
+                font.family: Settings.fontFamily;
+                color: Settings.fontColor;
+                font.letterSpacing : 3
+                font.pointSize: _number.height/2;
+//                font.bold: true;
             }
         }
     }

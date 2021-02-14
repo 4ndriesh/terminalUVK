@@ -1,6 +1,5 @@
 import QtQuick 2.14
 import QtQuick.Layouts 1.1
-import "terminalUVK.js" as MyScript
 import Base 1.0
 import SettingsModule 1.0
 import ResourceProvider 1.0

@@ -28,7 +28,7 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
                 text: modelData
-                font.pointSize: parent.height/3
+                font.pointSize: delegateRChain.height/3
                 color: "black"
             }
 

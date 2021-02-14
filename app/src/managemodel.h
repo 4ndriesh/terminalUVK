@@ -41,7 +41,7 @@ struct StructProgressBar{
 public:
     float m_set_value;
     int m_set_maximumValue;
-    bool m_set_visible;
+    bool m_set_visible=false;
 
 };
 

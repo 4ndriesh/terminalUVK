@@ -21,6 +21,7 @@ Rectangle {
     }
     Text {
         id: _buttonText
+        font.family: Settings.fontFamily;
         font.pointSize: 10
         anchors.centerIn: parent
     }
