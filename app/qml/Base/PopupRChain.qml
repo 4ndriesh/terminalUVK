@@ -8,12 +8,13 @@ Popup {
     y: Math.round((parent.height-height)/2)
     height: 400
     width: 600
+    focus: true
      ListView{
         id:listRChainView
         anchors.fill: parent
-        currentIndex: manageModel.qmlCurentIndex
-//        highlightFollowsCurrentItem: true
-        model:manageModel.qmlRChain
+        highlightFollowsCurrentItem: false
+        currentIndex: rChain.qmlChainItem
+        model:rChain.qmlRChain
         delegate: DelegateRChain{}
         highlight: Highlight{
             id:highliteBarChain;
@@ -21,9 +22,21 @@ Popup {
             height: listRChainView.currentItem.height
             y: listRChainView.currentItem.y;}
     }
-     onClosed: console.log("close")
-//    Component.onCompleted: {
-////                _rchaindialog.close();
-//        //        manageModel.addRChain();
-//    }
+     onClosed: {
+         rChain.qmlChainItem=0;
+         manageModel.selectHook=0;
+     }
+     onOpened: {
+         rChain.addRChain();
+         manageModel.selectHook=1;
+     }
+     Connections{
+         target: rChain
+         function onQmlChainItemChanged(){listRChainView.currentIndex=rChain.qmlChainItem}
+         function onCloseRChainChanged(){_rchaindialog.close();}
+     }
+     Connections{
+         target: manageModel
+         function onOpenRChainChanged(){_rchaindialog.open();}
+     }
 }

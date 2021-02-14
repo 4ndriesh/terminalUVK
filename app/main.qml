@@ -66,5 +66,4 @@ Window {
 
 //    RChain{id:_rchaindialog}
     InputPanelKB{}
-
 }

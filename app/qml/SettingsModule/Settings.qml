@@ -13,10 +13,14 @@ QtObject {
     readonly property color themeButtonColor: isDarkTheme ? "#607D8B" : "#b0c4de"
     readonly property color themeRegimColor: "orange"
 
+    readonly property color editColorHighlight: "#ffa500"
+    readonly property color baseColorHighlight: "#00bfff"
+    readonly property int baseHeightHighlight: 60
+
     readonly property color themeColorPB: "#17a81a"
     readonly property color backgroundColorPB: "#e6e6e6"
 
-    readonly property int baseHeightHighlight: 60
+
     readonly property int baseHeight: 50
     readonly property int timeWink: 5000
 

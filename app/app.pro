@@ -6,7 +6,7 @@ QTPLUGIN += qsvg qsvgicon
 CONFIG += c++11
 #TEMPLATE = lib
 TARGET = terminal_uvk
-DESTDIR = uvk
+DESTDIR = ../../terminal_uvk
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
 # depend on your compiler). Refer to the documentation for the
@@ -18,9 +18,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    src/json.cpp \
     src/kbdllhooks.cpp \
     src/managemodel.cpp \
     src/otcepsobject.cpp \
+    src/railchain.cpp \
     src/viewotcepsmodel.cpp \
     src/mvp_import.cpp \
     main.cpp
@@ -28,8 +30,9 @@ SOURCES += \
 RESOURCES += qml.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH += $$PWD/qml
-QML2_IMPORT_PATH += $$PWD/qml/vkeyboard
+#QML_IMPORT_PATH += $$PWD/qml
+#QML2_IMPORT_PATH += $$PWD/qml/vkeyboard
+#QML3_IMPORT_PATH += $$PWD/../test
 # Additional import path used to resolve QML modules just for Qt Quick Designer
 QML_DESIGNER_IMPORT_PATH =
 
@@ -41,10 +44,12 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    src/json.h \
     src/kbdllhooks.h \
     src/managemodel.h \
     src/otcepsobject.h \
     src/mvp_import.h \
+    src/railchain.h \
     src/viewotcepsmodel.h
 
 # SYB
@@ -60,4 +65,5 @@ include($$MVP_ROOT/common_src/signalmanager/signalmanager.pri)
 include($$MVP_ROOT/common_src/gtcommandinterface/gtcommandinterface.pri)
 
 DISTFILES += \
-    qmldir
+    qmldir \
+    settings.json

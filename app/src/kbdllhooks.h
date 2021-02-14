@@ -10,14 +10,19 @@ class KBdllhooks : public QObject
     Q_OBJECT
     Q_DISABLE_COPY(KBdllhooks)
 public:
-    static KBdllhooks &instance();
     explicit KBdllhooks(QObject *parent = nullptr);
     virtual ~KBdllhooks(){}
+    static KBdllhooks &instance(){
+        static KBdllhooks *_instance=0;
+        if(_instance ==0){
+            _instance=new KBdllhooks();
+        }
+        return *_instance;
+    }
     static LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam);
-
+    bool bWinKey=true;
 private:
     HHOOK   kbHook;
-
 };
 
 #endif // MOUSELOGGER_H

@@ -105,7 +105,7 @@ stat
                 visibleCursor:true;
 
             }
-        },
+         },
 
         State {
             name: "lightgrey"
@@ -136,11 +136,6 @@ stat
         }
     ]
 
-
-
-    //    transform: Scale { origin.x: 25; origin.y: 25; yScale: 1.2}
-
-
     MouseAreaOtcepList {id: mouseArea}
     RowLayout   {
         id: layout
@@ -163,21 +158,6 @@ stat
         Number { txt: STATE_ZKR_S_IN;}
         Number { txt: STATE_GAC_W_STRA;}
     }
-    //    Component.onCompleted: {
-    //        if(STATE_ZKR_S_IN==1)
-    //            delegate.state="yellow"
-    //        if(((STATE_LOCATION === 1) && (STATE_GAC_ACTIVE===1)) ||
-    //                ((STATE_LOCATION === 2) && (STATE_GAC_ACTIVE===1)&&(STATE_ZKR_S_IN===1)))
-    //            delegate.state="focus"
-    //    }
-    //    Component.onCompleted: {
-    //        if(STATE_LOCATION===0)
-    ////        if(STATE_ZKR_PROGRESS==1)
-    //            delegate.state="yellow"
-    //        if(((STATE_LOCATION === 1) && (STATE_GAC_ACTIVE===1)) ||
-    //                ((STATE_LOCATION === 2) && (STATE_GAC_ACTIVE===1)&&(STATE_ZKR_S_IN===1)))
-    //            delegate.state="focus"
-    //    }
 }
 
 

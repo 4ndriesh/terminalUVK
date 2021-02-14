@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.14
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.1
 import SettingsModule 1.0
@@ -6,6 +6,8 @@ import ResourceProvider 1.0
 
 Rectangle {
     id: delegateRChain
+    property int counter: 0
+    property bool wink: rChain.wink_reset
     color: Settings.backgroundColor
     //        anchors.fill: parent
     width: parent.width; height: 30
@@ -33,14 +35,36 @@ Rectangle {
             states: [
                 State {
                     name: "NORMAL"
-                    PropertyChanges { target: textField; border.width: Settings.borderWidth }
+                    StateChangeScript {
+                        name: "insertIndex"
+                        script: rChain.qmlChainItem=index
+                    }
+//                    PropertyChanges { target: _opacitywink; running:false}
+//                    PropertyChanges { target: listRChainView; currentIndex:index }
                 },
                 State {
                     name: "HOVER"
-                    PropertyChanges { target: textField; border.width: 4 }
+                    StateChangeScript {
+                        name: "insertIndex2"
+                        script: rChain.qmlChainItem=index
+                    }
+//                    PropertyChanges { target: _opacitywink; running:false}
+//                    PropertyChanges { target: listRChainView; currentIndex:index }
                 }
             ]
-
+            OpacityAnimator on opacity{
+                id: _opacitywink
+                target: delegateRChain
+                loops: Animation.Infinite;
+                from: 0.4;
+                to: 1;
+                duration: 500
+                running: listRChainView.currentIndex===index ? wink:false
+                onStopped: {
+                    delegateRChain.opacity=1;
+                    counter=0;
+                }
+            }
             MouseArea{
                 anchors.fill: parent;
 
@@ -53,9 +77,17 @@ Rectangle {
                     parent.state = "NORMAL";
                 }
                 onClicked: {
-                    listRChainView.currentIndex=index;
-                    manageModel.resetRChain(_textRChain.text);
-                    manageModel.addRChain();
+                    if(counter===0){
+                        rChain.wink_reset=true;
+                        counter=1;
+                    }
+                    else if(counter===1){
+                        //                    listRChainView.currentIndex=index;
+                        rChain.resetRChain(_textRChain.text);
+                        rChain.addRChain();
+                        rChain.wink_reset=false;
+                        counter=0;
+                    }
                 }
             }
         }

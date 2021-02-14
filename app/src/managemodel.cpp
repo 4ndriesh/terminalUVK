@@ -15,7 +15,7 @@ ManageModel::ManageModel(QObject *parent) : QObject(parent)
 //            for(int i=0;i<10;i++)
 //            m_qmlRChain.append("123123");
 }
-//Удалить один отцеп
+//Навигация по списку отцепов
 void ManageModel::keyUpDown(const int &updown)
 {
     switch (updown) {
@@ -45,14 +45,6 @@ void ManageModel::clearAllOtcep()
 {
     setQmlCurrentItem(0);
     MVP_Import::instance()->ClearAllOtcep();
-}
-
-void ManageModel::getRndChart()
-{
-    //    qmlStopPause=MVP_Import::instance()->gorka->STATE_REGIM();
-    //    qmlX+=1;
-    //    qmlY=qrand() % 10;
-    //    emit setRndChart(qmlX,qmlY);
 }
 
 void ManageModel::addOtcep(const int & index)
@@ -180,24 +172,6 @@ bool ManageModel::getTimerDelMsg() const
     return timerDelMsg;
 }
 
-//Ресет рельсовой цепи
-void ManageModel::resetRChain(const QString &valRChain)
-{
-    qDebug()<<"Delete";
-    MVP_Import::instance()->resetDSOBusyRc(m[valRChain]);
-}
-//Добавляем рельсовые цепи в список
-void ManageModel::addRChain()
-{
-
-    m_qmlRChain.clear();
-    m=MVP_Import::instance()->getDSOBusyRc();
-    qDebug()<<m.count();
-    foreach (auto rc_name, m.keys()) {
-        m_qmlRChain.append(rc_name);
-    }
-    emit qmlRChainChanged();
-}
 //Установить путь
 void ManageModel::inputPut(const int &numberPut)
 {
@@ -222,11 +196,12 @@ void ManageModel::setRegimEdit()
 //Обработка клавы
 void ManageModel::keyDown(const DWORD &key)
 {
-    qDebug()<<"vkCode"<<key ;
-    if(bWinKey == false)
-        return;
 
+    qDebug()<<"vkCode"<<key ;
     switch (key) {
+    case VK_F5:
+        emit openRChainChanged();
+        break;
     case VK_TAB:
         setRegimEdit();
         break;

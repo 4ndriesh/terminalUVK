@@ -29,7 +29,7 @@ Dialog {
         focus: true
         //        model:displayDelegateModel
         //                        model:manageModel.listMsg
-        model:manageModel.qmlRChain
+        model: rChain.qmlRChain
         delegate: DelegateRChain{}
     }
 //    Component.onCompleted: {

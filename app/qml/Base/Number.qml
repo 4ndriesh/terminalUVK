@@ -55,8 +55,6 @@ Rectangle {
         anchors.fill: parent
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
-        //        anchors.horizontalCenter: parent.horizontalCenter
-        //        anchors.verticalCenter: parent.verticalCenter
         font.pointSize: parent.height/3
         enabled: false
         inputMethodHints:Qt.ImhFormattedNumbersOnly
@@ -64,15 +62,7 @@ Rectangle {
 
         onEditingFinished: {
             STATE_SP=_textPut.text;
-            //            switch(textField) {
-            //            case state_sp:
-            //                STATE_SP=_textPut.text;
-            //                break;
-            //            case state_sp_f: STATE_SP_F=_textPut.text;
-            //                break;
-            //            }
         }
-
     }
     Connections{
         target: manageModel
@@ -86,10 +76,7 @@ Rectangle {
                 _textPut.cursorPosition= _textPut.text.length;
                 _textPut.text=manageModel.textInput;
                 _textPut.forceActiveFocus()
-                //                _textPut.focus=true;
-
             }
         }
     }
-
 }

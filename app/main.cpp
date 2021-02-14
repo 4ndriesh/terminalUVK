@@ -33,37 +33,37 @@
 #include "viewotcepsmodel.h"
 #include "mvp_import.h"
 #include "kbdllhooks.h"
+#include "railchain.h"
 #include "managemodel.h"
 #include <QtSvg>
 #include <QQmlContext>
 #include <QHostInfo>
+#include "json.h"
 
 int main(int argc, char *argv[])
 {
-
-    qDebug() << QHostInfo::localHostName();
 
     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
     qputenv("QT_VIRTUALKEYBOARD_LAYOUT_PATH", QByteArray("qrc:/vkeyboard/layouts"));
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
-    KBdllhooks::instance();
+    Json &sett = Json::instance();
+    if(QHostInfo::localHostName() == sett.getMXml("localHostName"))
+        KBdllhooks::instance();
 
-    //    QObject::connect(&KBdllhooks::instance(), &KBdllhooks::mouseEvent,
-    //                     [](){
-    //        qDebug() << "KeyBoard Event";
-    //    });
-
-    if (!MVP_Import::instance()->load("./M.xml"))
+    if (!MVP_Import::instance()->load(sett.getMXml("xml")))
     {
         exit(-1);
     }
-//    qmlRegisterType<ViewOtcepsModel>("ViewOtcepsModel", 1, 0, "ViewOtcepsModel");
+
     qRegisterMetaType<QML_ManagerButton>("QML_ManagerButton");
     qRegisterMetaType<StructProgressBar>("StructProgressBar");
     ViewOtcepsModel &model = ViewOtcepsModel::instance();
     ManageModel &manage = ManageModel::instance();
+    RailChain &rch = RailChain::instance();
+
+
     QQmlApplicationEngine engine;
     engine.addImportPath(":/qml");
     engine.addImportPath("qrc:/vkeyboard/");
@@ -72,6 +72,7 @@ int main(int argc, char *argv[])
     //    qmlRegisterType<QML_ManagerButton>("MModel", 1, 0, "QML_ManagerButton");
     context->setContextProperty("otcepsModel", &model);
     context->setContextProperty("manageModel", &manage);
+    context->setContextProperty("rChain", &rch);
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

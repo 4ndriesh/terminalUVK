@@ -1,7 +1,7 @@
 #ifndef MANAGEMENT_H
 #define MANAGEMENT_H
 #include "otcepsobject.h"
-#include <QQmlExtensionPlugin>
+//#include <QQmlExtensionPlugin>
 #include <QtQml>
 #include <qt_windows.h>
 #include <QQuickItem>
@@ -58,11 +58,11 @@ class ManageModel: public QObject
 
     Q_PROPERTY(int textInput READ textInput WRITE setTextInput NOTIFY textInputChanged)
 
+    Q_PROPERTY(int selectHook WRITE setSelectHook)
+
     Q_PROPERTY(int uvkLive READ uvkLive NOTIFY uvkLiveChanged)
 
     Q_PROPERTY(int newList READ newList WRITE setNewList NOTIFY newListChanged)
-
-    Q_PROPERTY(QStringList qmlRChain READ qmlRChain NOTIFY qmlRChainChanged)
 
     Q_PROPERTY(QStringList listMsg READ getListMsg NOTIFY listMsgChanged)
 
@@ -83,18 +83,11 @@ public:
         return *_instance;
     }
 
-public slots:
-    void addMsg(const QString &);
-    void deleteMsg();
-    void getRndChart();
-    void addRChain();
-
-
 signals:
-    void qmlRChainChanged();
+
+    void openRChainChanged();
     void stateBtChanged();
-    void maximumValuePBChanged();
-//    void showMessage(const QString &colorMessage, const QString &textMessage);
+//    void maximumValuePBChanged();
     void textInputChanged();
     void uvkLiveChanged();
     void newListChanged();
@@ -102,7 +95,6 @@ signals:
     void statusPBChanged();
     void listMsgChanged();
     void timerDelMsgChanged();
-    void setRndChart(int qmlX, int qmlY);
 
 public:
     Q_INVOKABLE void qmlRegim(const int&);
@@ -110,18 +102,17 @@ public:
     Q_INVOKABLE void delOtcep(const int&);
     Q_INVOKABLE void clearAllOtcep();
     Q_INVOKABLE void inputPut(const int&);
-    Q_INVOKABLE void resetRChain(const QString&);
     Q_INVOKABLE void keyDown(const DWORD &);
     Q_INVOKABLE void setRegimEdit();
     Q_INVOKABLE void keyUpDown(const int&);
+    Q_INVOKABLE void deleteMsg();
+    Q_INVOKABLE int selectHook=0;
+    //Подтверждает команду кнопкой ENTER
+    Q_INVOKABLE void accept();
 
-    QMap<QString, QString> m;
-
+    void addMsg(const QString &);
     QML_ManagerButton m_stateBt;
     QML_ManagerButton stateBt()const {return m_stateBt;}
-
-
-    bool bWinKey=true;
 
     void controlWindow(DWORD vkKeyCode);
 
@@ -132,6 +123,10 @@ public:
     }
 
 
+    int m_selectHook;
+    void setSelectHook(const int &codWin){
+        m_selectHook = codWin;
+    }
     //Общая переменная для ввода с клавиатуры номера пути
     int m_textInput;
     int textInput()const {return m_textInput;}
@@ -139,10 +134,6 @@ public:
         m_textInput = index;
         emit textInputChanged();
     }
-
-    //Рельсовые цепи
-    QStringList m_qmlRChain;
-    QStringList qmlRChain()const{return m_qmlRChain;}
 
     //Наличие увк
     int m_uvkLive;
@@ -157,8 +148,7 @@ public:
 
     }
 
-    //Подтверждает команду кнопкой ENTER
-    void accept();
+
 
     //Удаляем сообщения с формы об ошибках
     bool timerDelMsg;
@@ -171,12 +161,12 @@ public:
     //Управляет курсором листвью
     int m_qmlCurentIndex=0;
     int qmlCurrentItem()const{
-//        qDebug()<<"getCurrent"<<m_qmlCurentIndex;
+        //        qDebug()<<"getCurrent"<<m_qmlCurentIndex;
         return m_qmlCurentIndex;}
 
     void setQmlCurrentItem(const int &index){
         m_qmlCurentIndex = index;
-//        qDebug()<<"setCurrent"<<m_qmlCurentIndex;
+        //        qDebug()<<"setCurrent"<<m_qmlCurentIndex;
         emit qmlCurrentItemChanged();
 
     }
