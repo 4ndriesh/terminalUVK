@@ -26,7 +26,7 @@ public:
 
     int hour() const { return time.hour(); }
     int minute() const { return time.minute(); }
-    int second() const { return time.second(); }
+//    int second() const { return time.second(); }
 
 signals:
     void timeChanged();
@@ -44,7 +44,7 @@ class TimeModel : public QObject
     Q_OBJECT
     Q_PROPERTY(int hour READ hour NOTIFY timeChanged)
     Q_PROPERTY(int minute READ minute NOTIFY timeChanged)
-    Q_PROPERTY(int second READ second NOTIFY timeChanged)
+//    Q_PROPERTY(int second READ second NOTIFY timeChanged)
 
 public:
     explicit TimeModel(QObject *parent = nullptr);
@@ -77,7 +77,7 @@ public:
 
     int minute() const { return timer->minute(); }
     int hour() const { return timer->hour(); }
-    int second() const { return timer->second(); }
+//    int second() const { return timer->second(); }
 
 signals:
     void timeChanged();

@@ -25,7 +25,6 @@ LRESULT CALLBACK KBdllhooks::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPAR
     {
         KBDLLHOOKSTRUCT * pKBStruct = (KBDLLHOOKSTRUCT *)lParam;
         if(pKBStruct != nullptr) {
-            qDebug()<<"ManageModel::instance().selectHoook->>"<<ManageModel::instance().m_selectHook;
             if(ManageModel::instance().m_selectHook==1){
                 RailChain::instance().keyDown(pKBStruct->vkCode);
             }

@@ -15,14 +15,19 @@ Window {
     minimumWidth: 800
     minimumHeight: 600
     color: Settings.backgroundColor
-    title: qsTr("Терминал УВК")
+
     MButton {
         id: manage
     }
-    //    name: manage.qmlManagerButton.regim
     property int hour:manage.hour
     property int minute:manage.minute
-    property int second:manage.second
+    title: qsTr(hour+":"+minute);
+//    title: qsTr("Терминал УВК")
+
+    //    name: manage.qmlManagerButton.regim
+//    property int hour:manage.hour
+//    property int minute:manage.minute
+//    property int second:manage.second
     GridLayout{
         anchors.fill: parent
         rows: 6
@@ -41,19 +46,19 @@ Window {
         //            Layout.columnSpan:3
         //            Layout.row: 2
         //        }
-        Rectangle{
-            Layout.fillWidth: true
-            Layout.preferredHeight: 50
-            Layout.row: 2
-            Label {
-                anchors.fill: parent
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                text: hour+":"+minute+":"+second
-                font.pixelSize: 22
-                font.italic: true
-            }
-        }
+//        Rectangle{
+//            Layout.fillWidth: true
+//            Layout.preferredHeight: 50
+//            Layout.row: 2
+//            Label {
+//                anchors.fill: parent
+//                verticalAlignment: Text.AlignVCenter
+//                horizontalAlignment: Text.AlignHCenter
+//                text: hour+":"+minute+":"+second
+//                font.pixelSize: 22
+//                font.italic: true
+//            }
+//        }
         ButtonPanel {
             id: controlPanel
             Layout.fillWidth: true

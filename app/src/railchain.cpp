@@ -15,7 +15,7 @@ void RailChain::resetRChain(const QString &valRChain)
 //Добавляем рельсовые цепи в список
 void RailChain::addRChain()
 {
-    qDebug()<<"addChain";
+//    qDebug()<<"addChain";
     m_qmlRChain.clear();
     rch=MVP_Import::instance()->getDSOBusyRc();
     foreach (auto rc_name, rch.keys()) {

@@ -55,7 +55,7 @@ void ManageModel::addOtcep(const int & index)
 
 void ManageModel::qmlRegim(const int & regim)
 {
-//    if(m_stateBt.m_editing==1)return;
+    if(m_stateBt.m_editing==1)return;
     switch (regim) {
     case 0:
         m_stateBt.m_bef_regim=0;

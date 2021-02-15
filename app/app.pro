@@ -3,7 +3,7 @@ QT += qml \
       core \
       svg
 QTPLUGIN += qsvg qsvgicon
-CONFIG += c++11
+CONFIG += c++17
 #TEMPLATE = lib
 TARGET = terminal_uvk
 DESTDIR = ../../terminal_uvk

@@ -19,8 +19,7 @@ void MinuteTimer::start()
 {
     if (!timer.isActive()) {
         time = QTime::currentTime();
-        timer.start(1000, this);
-//        timer.start(1000-time.second()*1000, this);
+        timer.start(60000-time.second()*1000, this);
     }
 }
 void MinuteTimer::stop()
@@ -36,8 +35,7 @@ void MinuteTimer::timerEvent(QTimerEvent *)
         timer.start(60500, this);
     } else {
         time = now;
-        timer.start(1000, this);
-//        timer.start(60000-time.second()*1000, this);
+        timer.start(60000-time.second()*1000, this);
     }
     emit timeChanged();
 }

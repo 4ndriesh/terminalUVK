@@ -31,7 +31,6 @@ Item{
             wink: false
             EventMouseArea{
                 onClicked: {
-                    console.log(name)
                     Settings.visibleInputPanel=false;
                     manageModel.setRegimEdit();
                 }
