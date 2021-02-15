@@ -200,12 +200,14 @@ bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
             qDebug()<< "error sortir send otcep " << o.NO;
             break;
         }
-
+        int nv=0;
         foreach (const tSlVagon &v, o.vVag) {
+            nv++;
             m.clear();
             m["DEST"]="UVK";
             m["CMD"]="ADD_OTCEP_VAG";
             m["N"]=QString::number(o.NO);
+            m["NV"]=QString::number(nv);
             QVariantHash vm=tSlVagon2Map(v);
             foreach (QString key, vm.keys()) {
                 m[key]=vm[key].toString();
