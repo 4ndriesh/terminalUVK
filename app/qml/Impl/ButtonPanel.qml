@@ -31,6 +31,7 @@ Item{
             wink: false
             EventMouseArea{
                 onClicked: {
+                    console.log(name)
                     Settings.visibleInputPanel=false;
                     manageModel.setRegimEdit();
                 }
@@ -81,7 +82,7 @@ Item{
     RowLayout {
         spacing: 5
         anchors.right: parent.right
-        width: 220
+        width: 220        
         MultiButton {
             id: newSortList
             Layout.alignment: Qt.AlignRight

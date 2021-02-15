@@ -11,6 +11,7 @@ Rectangle {
     radius: 8
     border.width: 2
     border.color: "black"
+
     states:
         State {
         name: "Hovering"
