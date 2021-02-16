@@ -56,6 +56,7 @@ public:
     void updateOtceps();
     QMap<QString,QString> getDSOBusyRc();
     void resetDSOBusyRc(QString idtsr);
+    void send_cmd(QMap<QString,QString> &m);
 
 signals:
     void sortirArrived(const tSl2Odo2 *srt);
@@ -67,6 +68,7 @@ public slots:
     void buffer14Changed(GtBuffer *B);
     void makeSortir();
 protected:
+    QElapsedTimer sended_cmd;
 
 };
 

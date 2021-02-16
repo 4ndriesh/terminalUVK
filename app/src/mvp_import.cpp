@@ -141,13 +141,14 @@ bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
     m["DEST"]="UVK";
     m["CMD"]="OTCEPS";
     m["CLEAR_ALL"]="1";
-    MVP_Import::instance()->cmd->send_cmd(m);
+    send_cmd(m);
     qDebug()<< "sortir send clear " ;
     QElapsedTimer t;
     t.start();
 
     while ((!otceps->enabledOtceps().isEmpty())&&(t.elapsed()<1000)){
         QCoreApplication::processEvents();
+        send_cmd(m);
     }
     if (!otceps->enabledOtceps().isEmpty()){
         // не прошла команда очистки
@@ -178,7 +179,7 @@ bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
         m["SL_BAZA"]=QString::number(o.aDb);
         m["SL_UR"]=QString::number(o.Ne);
         m["SL_OSO"]=QString::number(o.OSO);
-        MVP_Import::instance()->cmd->send_cmd(m);
+        send_cmd(m);
         qDebug()<< "sortir send otcep " << o.NO;
 
         pB.m_qmlStatusPB.m_set_value+=1.0;
@@ -193,6 +194,7 @@ bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
         }
         while ((otcep->STATE_SP()!=o.SP)&&(t.elapsed()<1000)){
             QCoreApplication::processEvents();
+            send_cmd(m);
         }
         if ((otcep->STATE_SP()!=o.SP)){
             // не прошла команда на отцеп
@@ -213,12 +215,13 @@ bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
                 m[key]=vm[key].toString();
             }
 
-            MVP_Import::instance()->cmd->send_cmd(m);
+            send_cmd(m);
             qDebug()<< "sortir send otcep vagon" << o.NO << v.IV;
 
             t.start();
             while (((otcep->vVag.isEmpty())||(otcep->vVag.last().IV!=v.IV))&&(t.elapsed()<1000)){
                 QCoreApplication::processEvents();
+                send_cmd(m);
             }
             if ((otcep->vVag.isEmpty())||(otcep->vVag.last().IV!=v.IV)){
                 // не прошла команда на вагон
@@ -375,6 +378,14 @@ void MVP_Import::resetDSOBusyRc(QString idtsr)
     m["CMD"]="RESET_DSO_BUSY";
     m["RC"]=idtsr;
     MVP_Import::instance()->cmd->send_cmd(m);
+}
+
+void MVP_Import::send_cmd(QMap<QString, QString> &m)
+{
+    if ((!sended_cmd.isValid())||(sended_cmd.elapsed()>20)){
+        MVP_Import::instance()->cmd->send_cmd(m);
+        sended_cmd.restart();
+    };
 }
 QDateTime _ttt;
 void MVP_Import::quickSlotUpdate()
