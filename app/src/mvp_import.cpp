@@ -287,6 +287,26 @@ void MVP_Import::setPutNadvig(int p)
     qDebug()<< "setPutNadvig to uvk" << p;
 }
 
+void MVP_Import::setOtcepSP(int N, int SP)
+{
+    QMap<QString,QString> m;
+    m["DEST"]="UVK";
+    m["CMD"]="SET_OTCEP_STATE";
+    m["SP"]=QString::number(SP);
+    m["N"]=QString::number(N);
+    MVP_Import::instance()->cmd->send_cmd(m);
+
+    //    QThread::sleep(1);
+
+    QElapsedTimer t;
+    t.start();
+
+    while (t.elapsed()<50){
+        QCoreApplication::processEvents();
+    }
+
+}
+
 void MVP_Import::incOtcep(int N)
 {
     QMap<QString,QString> m;
@@ -303,17 +323,6 @@ void MVP_Import::incOtcep(int N)
     while (t.elapsed()<50){
         QCoreApplication::processEvents();
     }
-
-    m.clear();
-    m["DEST"]="UVK";
-    m["CMD"]="ADD_OTCEP_VAG";
-    m["NO"]=QString::number(N);
-    m["N"]=QString::number(N);
-    //    QVariantHash vm=tSlVagon2Map(v);
-    //    foreach (QString key, vm.keys()) {
-    //        m[key]=vm[key].toString();
-    MVP_Import::instance()->cmd->send_cmd(m);
-    qDebug()<< "incOtcep to uvk" << N;
 }
 
 void MVP_Import::delOtcep(int N)

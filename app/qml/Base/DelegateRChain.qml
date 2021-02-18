@@ -10,7 +10,7 @@ Rectangle {
     property bool wink: rChain.wink_reset
     color: Settings.backgroundColor
     //        anchors.fill: parent
-    width: parent.width; height: 30
+    width: parent.width; height: 40
     clip: true
     RowLayout   {
         id: layout

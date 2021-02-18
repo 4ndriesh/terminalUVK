@@ -16,6 +16,8 @@ struct QML_ManagerButton
     Q_PROPERTY(int editing MEMBER m_editing)
     Q_PROPERTY(int regim MEMBER m_regim)
     Q_PROPERTY(int bef_regim MEMBER m_bef_regim)
+    Q_PROPERTY(int tmp_Cursor MEMBER m_tmp_Cursor)
+    Q_PROPERTY(bool wink_Cursor MEMBER m_wCursor)
     Q_PROPERTY(bool wink_Stop MEMBER m_wStop)
     Q_PROPERTY(bool wink_Pause MEMBER m_wPause)
     Q_PROPERTY(bool wink_Nadvig MEMBER m_wNadvig)
@@ -24,8 +26,10 @@ public:
     int m_putNadviga;
     int m_bef_putNadviga;
     int m_bef_regim=10;
+    int m_tmp_Cursor;
     int m_regim;
     int m_editing=0;
+    bool m_wCursor=false;
     bool m_wStop=false;
     bool m_wPause=false;
     bool m_wNadvig=false;
@@ -102,7 +106,7 @@ public:
     Q_INVOKABLE void delOtcep(const int&);
     Q_INVOKABLE void clearAllOtcep();
     Q_INVOKABLE void inputPut(const int&);
-    Q_INVOKABLE void keyDown(const DWORD &);
+    Q_INVOKABLE void keyDown(const DWORD &, const bool &);
     Q_INVOKABLE void setRegimEdit();
     Q_INVOKABLE void keyUpDown(const int&);
     Q_INVOKABLE void deleteMsg();
@@ -136,7 +140,7 @@ public:
     }
 
     //Наличие увк
-    int m_uvkLive;
+    int m_uvkLive=0;
     int uvkLive()const {return m_uvkLive;}
 
     //Оповещение о новом сортирововчном листке

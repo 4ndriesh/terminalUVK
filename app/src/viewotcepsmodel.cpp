@@ -106,8 +106,10 @@ void ViewOtcepsModel::slotOtcepChanged()
 {
     //    qDebug()<<"STATE_REGIM"<<MVP_Import::instance()->gorka->STATE_REGIM();
     Mn.m_stateBt.m_regim=MVP_Import::instance()->gorka->STATE_REGIM();
-    if(Mn.m_stateBt.m_regim==0 && Mn.m_stateBt.m_editing==0)
+    if(countEnabled()==0 && Mn.m_stateBt.m_editing==0)
+//    if(Mn.m_stateBt.m_regim==0 && Mn.m_stateBt.m_editing==0)
         Mn.setQmlCurrentItem(0);
+
 
     //    qDebug()<<"PUT_NADVIG"<<MVP_Import::instance()->gorka->PUT_NADVIG();
     Mn.m_uvkLive=!MVP_Import::instance()->gorka->SIGNAL_ROSPUSK().is33();
@@ -184,17 +186,17 @@ QVariant ViewOtcepsModel::data(const QModelIndex &index, int role) const
 
 bool ViewOtcepsModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-
-    DataObject &dataSourceObject = ViewOtcepList[index.row()];
-    if (data(index, role) != value) {
-        if (otcepRoles.contains(role)){
-            dataSourceObject.setState(otcepRoles[role],value);
-        } else {
-            QAbstractListModel::setData(index,value,role);
-        }
-        emit dataChanged(index, index, QVector<int>() << role);
-        return true;
-    }
+qDebug()<<"value->>"<<value;
+//    DataObject &dataSourceObject = ViewOtcepList[index.row()];
+//    if (data(index, role) != value) {
+//        if (otcepRoles.contains(role)){
+//            dataSourceObject.setState(otcepRoles[role],value);
+//        } else {
+//            QAbstractListModel::setData(index,value,role);
+//        }
+//        emit dataChanged(index, index, QVector<int>() << role);
+//        return true;
+//    }
     return false;
 }
 

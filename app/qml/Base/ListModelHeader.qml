@@ -23,27 +23,6 @@ ListModel {
         maximumHeight: 50
     }
     ListElement {
-        name: "ДЛИНА"
-        rowSpan: 1
-        columnSpan: 2
-        row: 0
-        column: 4
-        minimumWidth: 120
-        minimumHeight: 30
-        maximumHeight: 50
-    }
-    ListElement {
-        name: "ВЕС"
-        rowSpan: 1
-        columnSpan: 1
-        row: 0
-        column: 6
-        minimumWidth: 120
-        minimumHeight: 30
-        maximumHeight: 50
-    }
-
-    ListElement {
         name: "Задн"
         rowSpan: 1
         columnSpan: 1
@@ -60,6 +39,16 @@ ListModel {
         row: 1
         column: 3
         minimumWidth: 60
+        minimumHeight: 30
+        maximumHeight: 50
+    }
+    ListElement {
+        name: "ДЛИНА"
+        rowSpan: 1
+        columnSpan: 2
+        row: 0
+        column: 4
+        minimumWidth: 120
         minimumHeight: 30
         maximumHeight: 50
     }
@@ -84,11 +73,45 @@ ListModel {
         maximumHeight: 50
     }
     ListElement {
-        name: "Задн"
+        name: "ДБ"
+        rowSpan: 1
+        columnSpan: 1
+        row: 0
+        column: 6
+        minimumWidth: 60
+        minimumHeight: 60
+        maximumHeight: 100
+    }
+    ListElement {
+        name: "факт"
         rowSpan: 1
         columnSpan: 1
         row: 1
         column: 6
+        minimumWidth: 60
+        minimumHeight: 30
+        maximumHeight: 50
+    }
+
+    ListElement {
+        name: "ВЕС"
+        rowSpan: 1
+        columnSpan: 1
+        row: 0
+        column: 7
+        minimumWidth: 120
+        minimumHeight: 30
+        maximumHeight: 50
+    }
+
+
+
+    ListElement {
+        name: "Задн"
+        rowSpan: 1
+        columnSpan: 1
+        row: 1
+        column: 7
         minimumWidth: 60
         minimumHeight: 30
         maximumHeight: 50
@@ -123,9 +146,10 @@ ListModel {
         minimumHeight: 30
         maximumHeight: 50
     }
+
     ListElement {
-        name: "ДБ"
-        rowSpan: 2
+        name: "ПР"
+        rowSpan: 1
         columnSpan: 1
         row: 0
         column: 9
@@ -133,25 +157,16 @@ ListModel {
         minimumHeight: 60
         maximumHeight: 100
     }
+
     ListElement {
-        name: "ПР"
-        rowSpan: 2
+        name: "факт"
+        rowSpan: 1
         columnSpan: 1
-        row: 0
-        column: 10
+        row: 1
+        column: 9
         minimumWidth: 60
-        minimumHeight: 60
-        maximumHeight: 100
-    }
-    ListElement {
-        name: "ERR"
-        rowSpan: 2
-        columnSpan: 1
-        row: 0
-        column: 11
-        minimumWidth: 60
-        minimumHeight: 60
-        maximumHeight: 100
+        minimumHeight: 30
+        maximumHeight: 50
     }
 //    ListElement {
 //        name: "3ТП"

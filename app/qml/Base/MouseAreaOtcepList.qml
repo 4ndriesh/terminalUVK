@@ -7,13 +7,12 @@ MouseArea {
     id: mouseArea
 
     anchors.fill: delegate
-    enabled: manageModel.stateBt.editing
+//    enabled: (manageModel.stateBt.editing===1 || manageModel.stateBt.regim===2)? false:true
 //    propagateComposedEvents: true
     acceptedButtons: Qt.LeftButton | Qt.Wheel
     onClicked: {
         if (mouse.button === Qt.LeftButton)
         {
-            console.log(index);
             manageModel.qmlCurentIndex=index;
         }
     }

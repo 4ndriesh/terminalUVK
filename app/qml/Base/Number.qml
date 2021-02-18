@@ -50,6 +50,7 @@ Rectangle {
 
     TextInput {
         id: _textPut
+        cursorVisible: false
         anchors.fill: parent
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
@@ -58,10 +59,32 @@ Rectangle {
         enabled: false
         inputMethodHints:Qt.ImhFormattedNumbersOnly
         focus: false
+        states:
+            [
+            State {
+                name: "colorSTRA"
+//                extend: "colorSTRB"
+                when: STATE_GAC_W_STRA===1 && textField===state_gac_w_stra
+                PropertyChanges {
+                    target: state_gac_w_stra
+                    color: "orange"
+                    //                visible: MyScript.state_spWidthmin()
+                }
+            },
+            State {
+                name: "colorSTRB"
+                when: STATE_GAC_W_STRB===1 && textField===state_gac_w_strb
+                PropertyChanges {
+                    target: state_gac_w_strb
+                    color: "red"
+                    //                visible: MyScript.state_spWidthmin()
+                }
+            }
+        ]
+//        onEditingFinished: {
+//            STATE_SP=_textPut.text;
+//        }
 
-        onEditingFinished: {
-            STATE_SP=_textPut.text;
-        }
     }
     Connections{
         target: manageModel
@@ -71,11 +94,16 @@ Rectangle {
                     //                    && manageModel.stateBt.editing===1
                     && state_sp.enabled===true)
             {
-                _textPut.cursorVisible=true;
-                _textPut.cursorPosition= _textPut.text.length;
+//                _textPut.cursorVisible=true;
+//                _textPut.cursorPosition= _textPut.text.length;
                 _textPut.text=manageModel.textInput;
+                STATE_SP=manageModel.textInput;
                 _textPut.forceActiveFocus()
             }
         }
+    }
+    Component.onCompleted: {
+    if(STATE_SP===_textPut.text)
+        _textPut.text=STATE_SP;
     }
 }

@@ -36,6 +36,7 @@ Rectangle {
         duration: 500
         running: wink
         onStopped: {
+            manageModel.qmlRegim(10);
             manageModel.qmlRegim(11);
             rectangleButton.opacity=1;
         }
@@ -46,8 +47,8 @@ Rectangle {
         interval: Settings.timeWink
         running: wink
         onTriggered: {
-            manageModel.qmlRegim(11);
             manageModel.qmlRegim(10);
+            manageModel.qmlRegim(11);
         }
     }
 

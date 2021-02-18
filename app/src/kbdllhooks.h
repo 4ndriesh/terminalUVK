@@ -20,6 +20,7 @@ public:
         return *_instance;
     }
     static LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam);
+
     bool bWinKey=true;
 private:
     HHOOK   kbHook;

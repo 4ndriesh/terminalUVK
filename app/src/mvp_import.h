@@ -50,6 +50,7 @@ public:
     bool loadSortirToUvk(const tSl2Odo2 *srt);
     void setRegim(int p);
     void setPutNadvig(int p);
+    void setOtcepSP(int N, int SP);
     void incOtcep(int N);
     void delOtcep(int N);
     void ClearAllOtcep();

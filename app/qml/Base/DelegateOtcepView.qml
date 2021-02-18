@@ -27,7 +27,7 @@ stat
 
 
 
-    property variant items_color: ["red", "yellow","green","dimgrey","white","LightGray"]
+    property variant items_color: ["red", "yellow","green","dimgrey","white","silver"]
     width: listView.width;
     height: 60;
     //    visible: true
@@ -35,63 +35,71 @@ stat
     transform: Scale {
         id: spinBoxIndicatorIconScale
     }
+    state: "default"
     states:
         [
         State {
             name: "red"
             when: STATE_ERROR===1// bind to isCurrentItem to set the state
             PropertyChanges {
-                target: delegate
+                target: state_sp
+                color:delegate.items_color[0]
+                //                color:delegate.items_color[0]
+            }
+            PropertyChanges {
+                target: state_sp_f
                 color:delegate.items_color[0]
                 //                color:delegate.items_color[0]
             }
         },
         State {
             name: "yellow"
-            extend: "focus"
+            extend: "lightsteelblue"
             when: STATE_ZKR_S_IN===1
             PropertyChanges {
                 target: delegate
                 color:delegate.items_color[1]
 
             }
+//            PropertyChanges {
+//                target: state_sp
+//                enabled:true;
+//                border.color: "green";
+//                border.width: 5;
+//                textEnabled:true;
+//                textPutfocus: true;
+//                visibleCursor:true;
+//            }
+        },
+//        State {
+//            name: "focus"
+//            extend: "lightsteelblue"
+//            when: STATE_IS_CURRENT===1
+//            PropertyChanges {
+//                target: delegate
+//                height:80
 
+//            }
 //            StateChangeScript {
 //                name: "insertIndex"
 //                script: manageModel.qmlCurentIndex=index
 
 //            }
-            StateChangeScript {
-                name: "delegateScale"
-                script: delegate.height=80
+//         },
 
-            }
-        },
-        State {
-            name: "focus"
-            when: (((STATE_LOCATION === 1) && (STATE_GAC_ACTIVE===1)) ||
-                   ((STATE_LOCATION === 2) && (STATE_GAC_ACTIVE===1)&&(STATE_ZKR_S_IN===1)))&& STATE_ZKR_S_IN!==1
-
-//            PropertyChanges {
-//                target: delegate
-//                height:80
-//                //                color:delegate.items_color[5]
-//            }
-            StateChangeScript {
-                name: "insertIndex"
-                script: manageModel.qmlCurentIndex=index
-
-            }
-        },
         State {
             name: "lightsteelblue"
             //            when: manageModel.qmlCurentIndex === index // bind to isCurrentItem to set the state
-            when: delegate.ListView.isCurrentItem
-                  && STATE_LOCATION===1
+            //            when: delegate.ListView.isCurrentItem
+
+            //                  && manageModel.stateBt.editing===1// bind to isCurrentItem to set the state
+            when: (delegate.ListView.isCurrentItem && STATE_IS_CURRENT===1 && STATE_LOCATION===1)
+                  || (STATE_LOCATION===1 && delegate.ListView.isCurrentItem)
             //                  && manageModel.stateBt.editing===1// bind to isCurrentItem to set the state
             PropertyChanges {
                 target: delegate
-                color: "lightsteelblue"
+                height:80
+//                color: "lightsteelblue"
 
             }
             PropertyChanges {
@@ -102,35 +110,33 @@ stat
                 textEnabled:true;
                 textPutfocus: true;
                 visibleCursor:true;
-
             }
-         },
 
-        State {
-            name: "lightgrey"
-            when: (STATE_LOCATION == 2) && (STATE_GAC_ACTIVE==1)
             PropertyChanges {
                 target: delegate
-                color:delegate.items_color[5]
-            }
-        },
-        State {
-            name: "darkgrey"
-            when: (STATE_LOCATION !== 1) && (STATE_GAC_ACTIVE==0)
-            PropertyChanges {
-                target: delegate
-                color:delegate.items_color[3]
-            }
-        },
+                height:80
 
+            }
+            StateChangeScript {
+                name: "insertIndex"
+                script: manageModel.qmlCurentIndex=index
+
+            }
+        },
 
         State {
             name: "white"
-            when: STATE_LOCATION === 2// bind to isCurrentItem to set the state
+            when: STATE_LOCATION === 1// bind to isCurrentItem to set the state
             PropertyChanges {
                 target: delegate
-                //                color: MyScript.borderGreen(STATE_NUM,STATE_LOCATION);
                 color: delegate.items_color[4]
+            }
+        },
+        State {
+            name: "default"
+            PropertyChanges {
+                target: delegate
+                color: delegate.items_color[5]
             }
         }
     ]
@@ -141,21 +147,17 @@ stat
         anchors.fill: parent
         spacing: 0
         Number {txt: STATE_NUM;}
-        Number {id: state_sp; txt: STATE_SP; }
-        Number {id: state_sp_f; txt: STATE_SP_F;}
-        Number {id: state_sl; txt: STATE_SL_VAGON_CNT;}
-        Number {txt: STATE_ZKR_VAGON_CNT;}
-        Number { txt: STATE_SL_VES.toFixed(2);}
-        //        Number {txt: STATE_ZKR_VES.toFixed(2); }
-        //        Number { txt: STATE_ZKR_BAZA;}
-        //        Number { txt: STATE_NAGON;}
-        //        Number { txt: STATE_SL_UR;}
-        //        Number { txt: STATE_V;}
-        //        Number { txt: STATE_ENABLED;}
-        Number { txt: STATE_LOCATION;}
-        Number { txt: STATE_GAC_ACTIVE;}
-        Number { txt: STATE_ZKR_S_IN;}
-        Number { txt: STATE_GAC_W_STRA;}
+        Number {id: state_sp; txt: STATE_SP ? STATE_SP:""; }
+        Number {id: state_sp_f; txt: STATE_SP_F ? STATE_SP_F:"";}
+        Number {txt: STATE_SL_VAGON_CNT ? STATE_SP:"";}
+        Number {txt: STATE_ZKR_VAGON_CNT ? STATE_ZKR_VAGON_CNT:"";}
+        Number { txt: STATE_BAZA ? STATE_BAZA:"";}
+        Number { txt: STATE_SL_VES ? STATE_SL_VES.toFixed(2):"";}
+        Number { txt: STATE_SL_UR ? STATE_SL_UR:"";}
+        Number {id: state_gac_w_stra; txt: STATE_GAC_W_STRA? "СТР":"";
+            Layout.preferredWidth:(listView.width/10)/2}
+        Number {id: state_gac_w_strb; txt: STATE_GAC_W_STRB? "БЛК":"";
+            Layout.preferredWidth:(listView.width/10)/2}
     }
 }
 

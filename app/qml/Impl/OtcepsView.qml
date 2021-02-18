@@ -7,6 +7,7 @@ import QtQml.Models 2.14
 Rectangle {
     id: _otcepView
     color: Settings.backgroundListView
+    property bool wink_Cursor: manageModel.stateBt.wink_Cursor
     ListView {
         id: listView
         anchors.fill: parent
@@ -21,7 +22,7 @@ Rectangle {
         highlightMoveDuration: -1
         highlightMoveVelocity: -1
 
-        currentIndex: manageModel.qmlCurentIndex
+//        currentIndex: manageModel.qmlCurentIndex
         //        currentIndex: manageModel.stateBt.editing ? manageModel.qmlCurentIndex:0
         model: otcepsModel
         keyNavigationEnabled: false
@@ -30,20 +31,19 @@ Rectangle {
         headerPositioning: ListView.OverlayHeader
         highlight: Highlight{id:highliteBar;
             z:2
+            wink: wink_Cursor
             heightHighlite: listView.currentItem.height
             yHighlite:listView.currentItem.y;
             widthHighlite:parent.width
         }
         delegate: DelegateOtcepView{id:delegate}
     }
-    //    Connections{
-    //        target: manageModel
-    //        function onQmlCurrentItemChanged(){
-
-    //            listView.currentIndex=manageModel.qmlCurentIndex;
-    //            console.log("currentIndex->",listView.currentIndex)
-    //        }
-    //    }
+        Connections{
+            target: manageModel
+            function onQmlCurrentItemChanged(){
+                listView.currentIndex=manageModel.qmlCurentIndex;
+            }
+        }
 }
 
 

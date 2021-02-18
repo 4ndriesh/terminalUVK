@@ -71,19 +71,19 @@ KeyboardLayout {
         // Row2
         KeyboardRow {
             Key {
-                key: Qt.Key_7
-                onClicked: manageModel.textInput=7;
-                text: "7"
+                key: Qt.Key_4
+                onClicked: manageModel.textInput=4;
+                text: "4"
             }
             Key {
-                key: Qt.Key_8
-                onClicked: manageModel.textInput=8;
-                text: "8"
+                key: Qt.Key_5
+                onClicked: manageModel.textInput=5;
+                text: "5"
             }
             Key {
-                key: Qt.Key_9
-                onClicked: manageModel.textInput=9;
-                text: "9"
+                key: Qt.Key_6
+                onClicked: manageModel.textInput=6;
+                text: "6"
             }
 
             VKEYB.DarkKey {
@@ -100,20 +100,21 @@ KeyboardLayout {
         // Row3
         KeyboardRow {
             Key {
-                key: Qt.Key_4
-                onClicked: manageModel.textInput=4;
-                text: "4"
+                key: Qt.Key_7
+                onClicked: manageModel.textInput=7;
+                text: "7"
             }
             Key {
-                key: Qt.Key_5
-                onClicked: manageModel.textInput=5;
-                text: "5"
+                key: Qt.Key_8
+                onClicked: manageModel.textInput=8;
+                text: "8"
             }
             Key {
-                key: Qt.Key_6
-                onClicked: manageModel.textInput=6;
-                text: "6"
+                key: Qt.Key_9
+                onClicked: manageModel.textInput=9;
+                text: "9"
             }
+
 
             VKEYB.DarkKey {
                 text: "\u2193"
