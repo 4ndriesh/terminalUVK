@@ -42,7 +42,7 @@ Item{
             opacity: 1.0
             Layout.leftMargin:100
             buttonText: "РОСПУСК: 1"
-            colorButton: (regim===1 && putNadviga===1) ? Settings.themeRegimColor:Settings.themeHeaderColor
+            colorButton: (regim===1 && putNadviga===1) ? Settings.themeBtSignalRospusk:Settings.themeHeaderColor
             wink: (regim===1 && putNadviga===1) ?false:wink_nadvig
 
             EventMouseArea {setRegim: 1}
@@ -65,10 +65,19 @@ Item{
 
             EventMouseArea {setRegim: 2}
         }
+
+
+    }
+    RowLayout {
+        spacing: 5
+        anchors.right: parent.right
+        width: 380
+
         MultiButton {
             id: rchain
             buttonText: "РЦ"
             Layout.alignment: Qt.AlignRight
+            Layout.rightMargin:60
             wink: false
             EventMouseArea {
                 onClicked: {                    //                    Settings.visibleInputPanel=false;
@@ -77,11 +86,6 @@ Item{
             }
         }
 
-    }
-    RowLayout {
-        spacing: 5
-        anchors.right: parent.right
-        width: 220        
         MultiButton {
             id: newSortList
             Layout.alignment: Qt.AlignRight

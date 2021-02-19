@@ -51,17 +51,18 @@ void ManageModel::delOtcep(const int &index)
 //Удалить все отцепы
 void ManageModel::clearAllOtcep()
 {
-    if(m_stateBt.m_editing && m_qmlCurentIndex>=0){
-        setQmlCurrentItem(0);
+    setQmlCurrentItem(0);
+//    if(m_stateBt.m_editing && m_qmlCurentIndex>=0){
         MVP_Import::instance()->ClearAllOtcep();
-    }
+//    }
 }
 
 void ManageModel::addOtcep(const int & index)
 {
 
 
-    MVP_Import::instance()->incOtcep(m_qmlCurentIndex+index);
+    MVP_Import::instance()->incOtcep(index);
+    //    MVP_Import::instance()->incOtcep(m_qmlCurentIndex+index);
     qmlRegimEditing(10);
 
 }
@@ -73,6 +74,15 @@ void ManageModel::qmlRegimEditing(const int & regim)
     case 3:
         if(m_stateBt.m_regim!=1 && m_qmlCurentIndex>=0){
             m_stateBt.m_bef_regim=3;
+            m_stateBt.m_wCursor=true;
+            emit stateBtChanged();
+        }
+        else{addMsg("Перейти в режим <<ВВОД СЛ или ПАУЗА>>");}
+        break;
+        //удаление
+    case 7:
+        if(m_stateBt.m_regim!=1 && m_qmlCurentIndex>=0){
+            m_stateBt.m_bef_regim=7;
             m_stateBt.m_wCursor=true;
             emit stateBtChanged();
         }
@@ -93,6 +103,14 @@ void ManageModel::qmlRegimEditing(const int & regim)
             emit stateBtChanged();
         }
         else{addMsg("Перейти в режим <<ВВОД СЛ или ПАУЗА>>");}
+        break;
+    case 6:
+        if( m_qmlCurentIndex>=0){
+            m_stateBt.m_bef_regim=6;
+            m_stateBt.m_wCursor=true;
+            emit stateBtChanged();
+        }
+        //        else{addMsg("Перейти в режим <<ВВОД СЛ или ПАУЗА>>");}
         break;
     case 10:
         qDebug()<<"Команда не задана";
@@ -127,31 +145,43 @@ void ManageModel::qmlRegim(const int & regim)
         emit stateBtChanged();
         //        }
         break;
-        //удаление
-    case 3:
-        if((m_stateBt.m_editing || m_stateBt.m_regim==2 || m_stateBt.m_regim==0) && m_qmlCurentIndex>=0){
-            m_stateBt.m_bef_regim=3;
-            m_stateBt.m_wCursor=true;
-            emit stateBtChanged();
-        }
-        else{addMsg("Перейти в режим <<ВВОД СЛ или ПАУЗА>>");}
-        break;
-    case 4:
-        if(m_stateBt.m_regim!=1 && m_qmlCurentIndex>=0){
-            m_stateBt.m_bef_regim=4;
-            m_stateBt.m_wCursor=true;
-            emit stateBtChanged();
-        }
-        else{addMsg("Перейти в режим <<ВВОД СЛ или ПАУЗА>>");}
-        break;
-    case 5:
-        if((m_stateBt.m_editing || m_stateBt.m_regim==2 || m_stateBt.m_regim==0) && m_qmlCurentIndex>=0){
-            m_stateBt.m_bef_regim=5;
-            m_stateBt.m_wCursor=true;
-            emit stateBtChanged();
-        }
-        else{addMsg("Перейти в режим <<ВВОД СЛ или ПАУЗА>>");}
-        break;
+//        //удаление
+//    case 3:
+//        if((m_stateBt.m_editing || m_stateBt.m_regim==2) && m_qmlCurentIndex>=0){
+//            m_stateBt.m_bef_regim=3;
+//            m_stateBt.m_wCursor=true;
+//            emit stateBtChanged();
+//        }
+//        else{addMsg("Перейти в режим <<ВВОД СЛ или ПАУЗА>>");}
+//        break;
+//        //Вставить До
+//    case 4:
+//        qDebug()<<m_stateBt.m_editing<< m_stateBt.m_regim;
+//        if((m_stateBt.m_editing==1 || m_stateBt.m_regim==2) && m_qmlCurentIndex>=0){
+//            m_stateBt.m_bef_regim=4;
+//            m_stateBt.m_wCursor=true;
+//            emit stateBtChanged();
+//        }
+//        else{addMsg("Перейти в режим <<ВВОД СЛ или ПАУЗА>>");}
+//        break;
+//    case 5:
+//        //Вставить После
+//        if((m_stateBt.m_editing || m_stateBt.m_regim==2) && m_qmlCurentIndex>=0){
+//            m_stateBt.m_bef_regim=5;
+//            m_stateBt.m_wCursor=true;
+//            emit stateBtChanged();
+//        }
+//        else{addMsg("Перейти в режим <<ВВОД СЛ или ПАУЗА>>");}
+//        break;
+//        //вставить путь
+//    case 6:
+//        if(m_stateBt.m_regim!=0 && m_qmlCurentIndex>=0){
+//            m_stateBt.m_bef_regim=6;
+//            m_stateBt.m_wCursor=true;
+//            emit stateBtChanged();
+//        }
+//        else{addMsg("Перейти в режим <<ВВОД СЛ или ПАУЗА или РОСПУСК>>");}
+//        break;
     case 10:
         qDebug()<<"Команда не задана";
         if(m_stateBt.m_bef_regim!=10){
@@ -185,6 +215,15 @@ void ManageModel::accept()
         break;
     case 3:
         delOtcep(1);
+        break;
+    case 6:
+        emit textInputChanged();
+        qmlRegimEditing(10);
+        break;
+    case 7:
+
+        clearAllOtcep();
+        qmlRegimEditing(10);
         break;
 
     case 10:
@@ -254,18 +293,33 @@ bool ManageModel::getTimerDelMsg() const
 //Установить путь
 void ManageModel::inputPut(const int &numberPut)
 {
+
+    m_textInput=numberPut;
     if(m_stateBt.m_bef_regim==4){
-        addOtcep(1);
+        addOtcep(m_qmlCurentIndex+1);
+        qDebug()<<"отцеп №"<<m_qmlCurentIndex+1;
+        qmlRegimEditing(6);
         setQmlCurrentItem(m_qmlCurentIndex);
+        accept();
     }
     else if(m_stateBt.m_bef_regim==5){
-        addOtcep(2);
-        m_qmlCurentIndex++;
+        if(ViewOtcepsModel::instance().countEnabled()==0){
+            addOtcep(m_qmlCurentIndex+1);
+            qDebug()<<"отцеп №"<<m_qmlCurentIndex+1;
+        }
+        else{
+            addOtcep(m_qmlCurentIndex+2);
+            qDebug()<<"отцеп №"<<m_qmlCurentIndex+2;
+            m_qmlCurentIndex++;
+        }
+        qmlRegimEditing(6);
         setQmlCurrentItem(m_qmlCurentIndex);
+        accept();
     }
-    m_textInput=numberPut;
-    //    MVP_Import::instance()->setOtcepSP(m_qmlCurentIndex+1,numberPut);
-    emit textInputChanged();
+    else{qmlRegimEditing(6);}
+
+    //    //    MVP_Import::instance()->setOtcepSP(m_qmlCurentIndex+1,numberPut);
+    //    emit textInputChanged();
 
 }
 //Режим редактирования
@@ -338,7 +392,8 @@ void ManageModel::keyDown(const DWORD &key, const bool &ctrl)
 
         if(ctrl){
             //Удалить все
-            clearAllOtcep();
+            qmlRegimEditing(7);
+
             break;
         }
         //Удалить
@@ -346,8 +401,8 @@ void ManageModel::keyDown(const DWORD &key, const bool &ctrl)
         break;
     case VK_ESCAPE:
         qmlRegimEditing(10);
-        qmlRegim(10);
-        qmlRegim(11);
+//        qmlRegim(10);
+//        qmlRegim(11);
         break;
     case 81:
         if(ctrl)inputPut(1);

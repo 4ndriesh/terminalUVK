@@ -54,10 +54,11 @@ Window {
 //                anchors.fill: parent
 //                verticalAlignment: Text.AlignVCenter
 //                horizontalAlignment: Text.AlignHCenter
-//                text: hour+":"+minute+":"+second
+//                text: manageModel.stateBt.code
 //                font.pixelSize: 22
 //                font.italic: true
 //            }
+
 //        }
         ButtonPanel {
             id: controlPanel

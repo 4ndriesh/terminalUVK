@@ -9,7 +9,8 @@ QtObject {
     readonly property color backgroundListView: "gainsboro"
     readonly property color themeHeaderColor: isDarkTheme ? "#607D8B" : "#b0c4de"
     readonly property color themeBtSignalColorDAct: isDarkTheme ? "#607D8B" : "#b0c4de"
-    readonly property color themeBtSignalColorAct: isDarkTheme ? "#607D8B" : "orange"
+    readonly property color themeBtSignalRospusk: isDarkTheme ? "#607D8B" : "lime"
+    readonly property color themeBtSignalColorAct: isDarkTheme ? "#607D8B" : "lime"
     readonly property color themeButtonColor: isDarkTheme ? "#607D8B" : "#b0c4de"
     readonly property color themeRegimColor: "orange"
 

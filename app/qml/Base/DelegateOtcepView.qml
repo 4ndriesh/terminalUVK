@@ -161,6 +161,9 @@ stat
         Number {id: state_gac_w_strb; txt: STATE_GAC_W_STRB? "БЛК":"";
             Layout.preferredWidth:(listView.width/10)/2}
     }
+
+
+
 }
 
 

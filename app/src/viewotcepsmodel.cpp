@@ -107,7 +107,7 @@ void ViewOtcepsModel::slotOtcepChanged()
     //    qDebug()<<"STATE_REGIM"<<MVP_Import::instance()->gorka->STATE_REGIM();
     Mn.m_stateBt.m_regim=MVP_Import::instance()->gorka->STATE_REGIM();
     if(countEnabled()==0 && Mn.m_stateBt.m_editing==0)
-//    if(Mn.m_stateBt.m_regim==0 && Mn.m_stateBt.m_editing==0)
+        //    if(Mn.m_stateBt.m_regim==0 && Mn.m_stateBt.m_editing==0)
         Mn.setQmlCurrentItem(0);
 
 
@@ -144,9 +144,13 @@ void ViewOtcepsModel::slotOtcepChanged()
 int ViewOtcepsModel::countEnabled()
 {
     int countRow=0;
-    do{
+    while (get(countRow)["STATE_ENABLED"]!=false && countRow<98){
         ++countRow;
-    }while (get(countRow)["STATE_ENABLED"]!=false && countRow<98);
+    }
+
+    //    do{
+    //        ++countRow;
+    //    }while (get(countRow)["STATE_ENABLED"]!=false && countRow<98);
     return countRow;
 }
 
@@ -186,7 +190,7 @@ QVariant ViewOtcepsModel::data(const QModelIndex &index, int role) const
 
 bool ViewOtcepsModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-qDebug()<<"value->>"<<value;
+    qDebug()<<"value->>"<<value;
     DataObject &dataSourceObject = ViewOtcepList[index.row()];
     if (data(index, role) != value) {
         if (otcepRoles.contains(role)){

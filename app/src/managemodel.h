@@ -17,6 +17,7 @@ struct QML_ManagerButton
     Q_PROPERTY(int regim MEMBER m_regim)
     Q_PROPERTY(int bef_regim MEMBER m_bef_regim)
     Q_PROPERTY(int tmp_Cursor MEMBER m_tmp_Cursor)
+//    Q_PROPERTY(int code MEMBER m_code)
     Q_PROPERTY(bool wink_Cursor MEMBER m_wCursor)
     Q_PROPERTY(bool wink_Stop MEMBER m_wStop)
     Q_PROPERTY(bool wink_Pause MEMBER m_wPause)
@@ -33,6 +34,7 @@ public:
     bool m_wStop=false;
     bool m_wPause=false;
     bool m_wNadvig=false;
+//    int m_code=0;
 };
 Q_DECLARE_METATYPE(QML_ManagerButton)
 
