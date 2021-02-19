@@ -13,6 +13,7 @@ MouseArea {
     onClicked: {
         if (mouse.button === Qt.LeftButton)
         {
+            console.log(index);
             manageModel.qmlCurentIndex=index;
         }
     }

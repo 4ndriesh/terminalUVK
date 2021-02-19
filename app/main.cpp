@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
     engine.addImportPath(":/qml");
-    engine.addImportPath("qrc:/vkeyboard/");
+    engine.addImportPath(":/vkeyboard/");
     qputenv("QT_VIRTUALKEYBOARD_STYLE", "test");
     QQmlContext* context = engine.rootContext();
     //    qmlRegisterType<QML_ManagerButton>("MModel", 1, 0, "QML_ManagerButton");

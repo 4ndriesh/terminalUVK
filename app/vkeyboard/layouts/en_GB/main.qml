@@ -27,7 +27,7 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.0
+import QtQuick 2.14
 import QtQuick.Layouts 1.0
 import QtQuick.VirtualKeyboard 2.14
 import QtQuick.VirtualKeyboard.Plugins 2.3
@@ -48,18 +48,19 @@ KeyboardLayout {
         Layout.preferredWidth: height*5/4            
         // Row1
         KeyboardRow {
+            KeyOtcep1{}
+//            Key {
+////                key: Qt.Key_1
+//                onClicked: manageModel.inputPut(1);
+//                text: "1"
+//            }
             Key {
-                key: Qt.Key_1
-                onClicked: manageModel.textInput=1;
-                text: "1"
-            }
-            Key {
-                key: Qt.Key_2
-                onClicked: manageModel.textInput=2;
+//                key: Qt.Key_2
+                onClicked: manageModel.inputPut(2);
                 text: "2"
             }
             Key {
-                key: Qt.Key_3
+//                key: Qt.Key_3
                 onClicked: manageModel.textInput=3;
                 text: "3"
             }
@@ -88,7 +89,7 @@ KeyboardLayout {
 
             VKEYB.DarkKey {
                 displayText: "\u2191"
-                key: Qt.Key_Up
+//                key: Qt.Key_Up
                 onClicked: manageModel.keyUpDown(38);
                 showPreview: false
                 repeat: true
@@ -118,7 +119,7 @@ KeyboardLayout {
 
             VKEYB.DarkKey {
                 text: "\u2193"
-                key: Qt.Key_Down
+//                key: Qt.Key_Down
                 onClicked: manageModel.keyUpDown(40);
                 showPreview: false
                 repeat: true

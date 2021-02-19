@@ -26,20 +26,18 @@ Rectangle {
         running: wink
 //        onStarted: _highlight.color="white"
         onStopped: {
-            manageModel.qmlRegim(10);
-            manageModel.qmlRegim(11);
+//            manageModel.qmlRegimEditing(10);
             _highlight.opacity=1;
 //            _highlight.color="transparent"
         }
     }
-    Timer {
-        id: _timerwink
-        interval: Settings.timeWink
-        running: wink
-        onTriggered: {
-            manageModel.qmlRegim(10);
-            manageModel.qmlRegim(11);
-        }
-    }
+//    Timer {
+//        id: _timerwink
+//        interval: Settings.timeWink
+//        running: wink
+//        onTriggered: {
+//            manageModel.qmlRegim(10);
+//        }
+//    }
 
 }

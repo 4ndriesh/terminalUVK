@@ -46,6 +46,6 @@ BaseKey {
     readonly property int actionId: 2
 
     functionKey: true
-    onClicked: manageModel.addOtcep(1)
+    onClicked: manageModel.qmlRegimEditing(5);
     keyPanelDelegate: keyboard.style ? keyboard.style.backspaceKeyPanel : undefined
 }

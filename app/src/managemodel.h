@@ -60,7 +60,8 @@ class ManageModel: public QObject
 
     Q_PROPERTY(int qmlCurentIndex READ qmlCurrentItem WRITE setQmlCurrentItem NOTIFY qmlCurrentItemChanged)
 
-    Q_PROPERTY(int textInput READ textInput WRITE setTextInput NOTIFY textInputChanged)
+    Q_PROPERTY(int textInput READ textInput NOTIFY textInputChanged)
+//    Q_PROPERTY(int textInput READ textInput WRITE setTextInput NOTIFY textInputChanged)
 
     Q_PROPERTY(int selectHook WRITE setSelectHook)
 
@@ -101,6 +102,7 @@ signals:
     void timerDelMsgChanged();
 
 public:
+    Q_INVOKABLE void qmlRegimEditing(const int&);
     Q_INVOKABLE void qmlRegim(const int&);
     Q_INVOKABLE void addOtcep(const int&);
     Q_INVOKABLE void delOtcep(const int&);
@@ -134,10 +136,11 @@ public:
     //Общая переменная для ввода с клавиатуры номера пути
     int m_textInput;
     int textInput()const {return m_textInput;}
-    void setTextInput(const int &index){
-        m_textInput = index;
-        emit textInputChanged();
-    }
+//    void setTextInput(const int &index){
+//        m_textInput = index;
+//        inputPut(m_textInput);
+////        emit textInputChanged();
+//    }
 
     //Наличие увк
     int m_uvkLive=0;

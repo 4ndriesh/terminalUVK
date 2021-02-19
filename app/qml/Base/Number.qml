@@ -7,7 +7,7 @@ Rectangle {
     property alias txt: _textPut.text
     property alias textEnabled: _textPut.enabled
     property alias textPutfocus: _textPut.focus
-    property alias visibleCursor: _textPut.cursorVisible
+//    property alias visibleCursor: _textPut.cursorVisible
 
     Layout.fillWidth: true
     Layout.fillHeight: true
@@ -47,17 +47,17 @@ Rectangle {
             }
         }
     ]
-
-    TextInput {
+//    TextInput {
+    Text {
         id: _textPut
-        cursorVisible: false
+//        cursorVisible: false
         anchors.fill: parent
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
         font.family: Settings.fontFamily;
         font.pointSize: parent.height/3
         enabled: false
-        inputMethodHints:Qt.ImhFormattedNumbersOnly
+//        inputMethodHints:Qt.ImhFormattedNumbersOnly
         focus: false
         states:
             [
@@ -96,14 +96,14 @@ Rectangle {
             {
 //                _textPut.cursorVisible=true;
 //                _textPut.cursorPosition= _textPut.text.length;
-                _textPut.text=manageModel.textInput;
+//                _textPut.text=manageModel.textInput;
                 STATE_SP=manageModel.textInput;
                 _textPut.forceActiveFocus()
             }
         }
     }
-    Component.onCompleted: {
-    if(STATE_SP===_textPut.text)
-        _textPut.text=STATE_SP;
-    }
+//    Component.onCompleted: {
+//    if(STATE_SP===_textPut.text)
+//        _textPut.text=STATE_SP;
+//    }
 }

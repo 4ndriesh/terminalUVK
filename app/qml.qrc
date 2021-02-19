@@ -56,5 +56,6 @@
         <file>qml/Base/PopupRChain.qml</file>
         <file>qml/Base/Highlight.qml</file>
         <file>settings.json</file>
+        <file>vkeyboard/Components/KeyOtcep1.qml</file>
     </qresource>
 </RCC>

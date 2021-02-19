@@ -35,11 +35,12 @@ stat
     transform: Scale {
         id: spinBoxIndicatorIconScale
     }
-    state: "default"
+//    state: "default"
     states:
         [
         State {
             name: "red"
+            extend: "default"
             when: STATE_ERROR===1// bind to isCurrentItem to set the state
             PropertyChanges {
                 target: state_sp
@@ -109,7 +110,7 @@ stat
                 border.width: 5;
                 textEnabled:true;
                 textPutfocus: true;
-                visibleCursor:true;
+//                visibleCursor:true;
             }
 
             PropertyChanges {
@@ -134,6 +135,7 @@ stat
         },
         State {
             name: "default"
+            when: STATE_LOCATION !== 1
             PropertyChanges {
                 target: delegate
                 color: delegate.items_color[5]

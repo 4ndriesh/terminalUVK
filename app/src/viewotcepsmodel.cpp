@@ -86,7 +86,7 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
     connect(MVP_Import::instance()->cmd,&GtCommandInterface::recv_accept,this,&ViewOtcepsModel::uvk_cmd_accept);
 
 
-    timer->setInterval(500);
+    timer->setInterval(1000);
     connect(timer, &QTimer::timeout , this, &ViewOtcepsModel::slotOtcepChanged);
     timer->start();
 
@@ -187,16 +187,16 @@ QVariant ViewOtcepsModel::data(const QModelIndex &index, int role) const
 bool ViewOtcepsModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
 qDebug()<<"value->>"<<value;
-//    DataObject &dataSourceObject = ViewOtcepList[index.row()];
-//    if (data(index, role) != value) {
-//        if (otcepRoles.contains(role)){
-//            dataSourceObject.setState(otcepRoles[role],value);
-//        } else {
-//            QAbstractListModel::setData(index,value,role);
-//        }
-//        emit dataChanged(index, index, QVector<int>() << role);
-//        return true;
-//    }
+    DataObject &dataSourceObject = ViewOtcepList[index.row()];
+    if (data(index, role) != value) {
+        if (otcepRoles.contains(role)){
+            dataSourceObject.setState(otcepRoles[role],value);
+        } else {
+            QAbstractListModel::setData(index,value,role);
+        }
+        emit dataChanged(index, index, QVector<int>() << role);
+        return true;
+    }
     return false;
 }
 
