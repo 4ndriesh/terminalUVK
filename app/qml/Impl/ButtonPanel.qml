@@ -2,8 +2,9 @@ import QtQuick 2.14
 import QtQuick.Layouts 1.1
 import Base 1.0
 import SettingsModule 1.0
-import ResourceProvider 1.0
+//import ResourceProvider 1.0
 import QtQuick.Controls 1.4
+
 
 Item{
     id:bt
@@ -22,16 +23,13 @@ Item{
 
     RowLayout {
         spacing: 5
-
-
         MultiButton {
             id: edirSortList
             buttonText: "ВВОД СЛ"
-            colorButton: editing ? Settings.themeRegimColor:Settings.themeHeaderColor
+            colorButton: editing ? Settings.buttonColor.regim:Settings.buttonColor.baseColor
             wink: false
             EventMouseArea{
                 onClicked: {
-                    Settings.visibleInputPanel=false;
                     manageModel.setRegimEdit();
                 }
             }
@@ -39,10 +37,9 @@ Item{
 
         MultiButton {
             id: putnadviga
-            opacity: 1.0
             Layout.leftMargin:100
             buttonText: "РОСПУСК: 1"
-            colorButton: (regim===1 && putNadviga===1) ? Settings.themeBtSignalRospusk:Settings.themeHeaderColor
+            colorButton: (regim===1 && putNadviga===1) ? Settings.buttonColor.regimRospusk:Settings.buttonColor.baseColor
             wink: (regim===1 && putNadviga===1) ?false:wink_nadvig
 
             EventMouseArea {setRegim: 1}
@@ -52,7 +49,7 @@ Item{
         MultiButton {
             id: stop
             buttonText: "СТОП"
-            colorButton: regim===0 ? Settings.themeRegimColor:Settings.themeHeaderColor
+            colorButton: regim===0 ? Settings.buttonColor.regim:Settings.buttonColor.baseColor
             wink: regim===0 ? false:wink_stop
             EventMouseArea {setRegim: 0}
         }
@@ -60,12 +57,11 @@ Item{
         MultiButton {
             id: pause
             buttonText: "ПАУЗА"
-            colorButton: regim===2 ? Settings.themeRegimColor:Settings.themeHeaderColor
+            colorButton: regim===2 ? Settings.buttonColor.regim:Settings.buttonColor.baseColor
             wink: regim===2 ? false:wink_pause
 
             EventMouseArea {setRegim: 2}
         }
-
 
     }
     RowLayout {
@@ -80,7 +76,7 @@ Item{
             Layout.rightMargin:60
             wink: false
             EventMouseArea {
-                onClicked: {                    //                    Settings.visibleInputPanel=false;
+                onClicked: {
                     _rchaindialog.open();
                 }
             }
@@ -89,13 +85,12 @@ Item{
         MultiButton {
             id: newSortList
             Layout.alignment: Qt.AlignRight
-            colorButton: qmlnewList ? Settings.themeBtSignalColorAct:Settings.themeBtSignalColorDAct
+            colorButton: qmlnewList ? Settings.newSortList.actColor:Settings.newSortList.baseColor
             wink: qmlnewList ? true:false
             ImageSVG {
-                source: Resources.contacts.defaulticonList
-                widthsvg: newSortList.height/1.5
-                heightsvg:  newSortList.height/1.5
-                //                    color: "#228b22"
+                source: Settings.newSortList.svgSortList
+                widthsvg: parent.height/1.5
+                heightsvg:  parent.height/1.5
             }
         }
 
@@ -103,13 +98,12 @@ Item{
             id: _uvkLive
             Layout.alignment: Qt.AlignRight
             Layout.rightMargin:10
-            colorButton: qmluvkLive ?  Settings.themeBtSignalColorAct:Settings.themeBtSignalColorDAct
+            colorButton: qmluvkLive ?  Settings.aliveUvk.actColor:Settings.aliveUvk.baseColor
             wink: qmluvkLive ? false:true
             ImageSVG {
-                source: Resources.contacts.defaulticonConnect
-                widthsvg: newSortList.height/1.5
-                heightsvg:  newSortList.height/1.5
-                //                    color: "#dc143c"
+                source: Settings.aliveUvk.svgAliveUvk
+                widthsvg: parent.height/1.5
+                heightsvg:  parent.height/1.5
             }
         }
     }

@@ -15,7 +15,7 @@ Rectangle {
     height: 60
     color: delegate.color
     enabled: false
-    border.width: Settings.borderWidth
+    border.width: Settings.listView.borderWidth
     states:
         [
         State {
@@ -54,8 +54,8 @@ Rectangle {
         anchors.fill: parent
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
-        font.family: Settings.fontFamily;
-        font.pointSize: parent.height/3
+        font.family: Settings.listView.fontFamily;
+        font.pointSize: parent.height*0.5
         enabled: false
 //        inputMethodHints:Qt.ImhFormattedNumbersOnly
         focus: false

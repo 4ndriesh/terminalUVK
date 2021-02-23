@@ -1,0 +1,3 @@
+module KeyBoard
+KeyBoard 1.0 KeyBoard.qml
+MouseKeyBoard 1.0 MouseKeyBoard.qml

@@ -1,38 +1,104 @@
 pragma Singleton
 import QtQuick 2.14
 
-QtObject {
+Item {
+    property alias window: _window
+    property alias keyboard: _keyboard
+    property alias buttonPanel: _buttonPanel
+    property alias buttonColor: _buttonColor
+    property alias aliveUvk: _aliveUvk
+    property alias newSortList: _newSortList
+    property alias listView: _listView
+    property alias highlight: _highlight
+    property alias header: _header
+    property alias progressbar: _progressbar
+    property alias rChain: _rChain
+
     property bool isDarkTheme: false
-    property bool visibleInputPanel: false
-    readonly property color backgroundColor: "white"
-    readonly property color backgroundListViewRChain: "#ff4500"
-    readonly property color backgroundListView: "gainsboro"
-    readonly property color themeHeaderColor: isDarkTheme ? "#607D8B" : "#b0c4de"
-    readonly property color themeBtSignalColorDAct: isDarkTheme ? "#607D8B" : "#b0c4de"
-    readonly property color themeBtSignalRospusk: isDarkTheme ? "#607D8B" : "lime"
-    readonly property color themeBtSignalColorAct: isDarkTheme ? "#607D8B" : "lime"
-    readonly property color themeButtonColor: isDarkTheme ? "#607D8B" : "#b0c4de"
-    readonly property color themeRegimColor: "orange"
+    QtObject {
+        id: _window
+//        property bool visibleInputPanel: false
+        readonly property color backgroundColor: "white"
 
-//    readonly property string fontFamily: "Cyrillic"
-    readonly property color fontColor: "black"
-    readonly property string fontFamily: "Cursive"
-    readonly property color editColorHighlight: "#ffa500"
-    readonly property color baseColorHighlight: "#00bfff"
-    readonly property int baseHeightHighlight: 60
+    }
+    QtObject {
+        id: _keyboard
+        //Ресурсы для клавиатуры
+//        readonly property color baseColor: isDarkTheme ? "black":"grey"
+        readonly property color baseColor: isDarkTheme ? "black":"#708090"
+        readonly property color textColor: isDarkTheme ? "white":"white"
+        readonly property color overlay: isDarkTheme ? "white":"white"
+        readonly property string fontFamily: "Cursive"
 
-    readonly property color themeColorPB: "#17a81a"
-    readonly property color backgroundColorPB: "#e6e6e6"
+        readonly property string insertDown: "qrc:/qml/resources/InsertDown.svg"
+        readonly property string enter: "qrc:/qml/resources/Enter.svg"
+        readonly property string upArrow: "qrc:/qml/resources/Up.svg"
+        readonly property string downArrow: "qrc:/qml/resources/Down.svg"
+        readonly property string trash: "qrc:/qml/resources/Trash.svg"
+    }
+    QtObject {
+        id: _aliveUvk
+        readonly property color baseColor: isDarkTheme ? "red" : "red"
+        readonly property color actColor: isDarkTheme ? "#607D8B" : "lime"
+        readonly property string svgAliveUvk: "qrc:/qml/resources/AliveUVK.svg"
+    }
+    QtObject {
+        id: _newSortList
+        readonly property color baseColor: isDarkTheme ? "#607D8B" : "#b0c4de"
+        readonly property color actColor: isDarkTheme ? "orange" : "orange"
+        readonly property string svgSortList: "qrc:/qml/resources/NewSortList.svg"
+    }
 
+    QtObject {
+        id: _buttonPanel
+        //Панель кнопок
+        readonly property color regimRospusk: isDarkTheme ? "#607D8B" : "lime"
+        readonly property color regim: isDarkTheme ? "orange":"orange"
+        readonly property int timeWink: 5000
+        readonly property string fontFamily: "Cursive"
 
-    readonly property int baseHeight: 50
-    readonly property int timeWink: 5000
-
-    readonly property int borderWidth: 1
-
-    readonly property real defaultOpacity: 1
-
-
-
+    }
+    QtObject {
+        id: _listView
+        //Список отцепов
+        readonly property color baseColor: isDarkTheme ? "#607D8B" : "#b0c4de"
+        readonly property int borderWidth: 1
+        readonly property string fontFamily: "Cursive"
+        readonly property color background: isDarkTheme ? "gainsboro": "gainsboro"
+    }
+    QtObject {
+        id: _buttonColor
+        //Список отцепов
+        readonly property color baseColor: isDarkTheme ? "#607D8B" : "#b0c4de"
+        readonly property color regim: isDarkTheme ? "orange":"orange"
+        readonly property color regimRospusk: isDarkTheme ? "#607D8B" : "lime"
+    }
+    QtObject {
+        id: _highlight
+        //Список отцепов
+        readonly property color edit: "#ffa500"
+        readonly property color base: "#00bfff"
+    }
+    QtObject {
+        id: _progressbar
+        //Список отцепов
+        readonly property color load: "#17a81a"
+        readonly property color background: "#e6e6e6"
+    }
+    QtObject {
+        id: _header
+        //Шапка
+        readonly property color baseColor: isDarkTheme ? "#607D8B" : "#b0c4de"
+        readonly property int height: 80
+        readonly property int borderWidth: 1
+        readonly property string fontFamily: "Cursive"
+        readonly property color textColor: isDarkTheme ? "black":"black"
+    }
+    QtObject {
+        id: _rChain
+        //Шапка
+        readonly property color background: "#ff4500"
+        readonly property int borderWidth: 1
+    }
 
 }

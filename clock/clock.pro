@@ -2,15 +2,15 @@ TEMPLATE = lib
 CONFIG += qt plugin
 QT += qml
 
-TARGET = mbutton
-DESTDIR = ../../../../terminal_uvk
+TARGET = clock
+DESTDIR = ../../terminal_uvk
 DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
-    mbutton.cpp
+    clock.cpp
 
 HEADERS += \
-    mbutton.h
+    clock.h
 
 DISTFILES += \
-    mbutton.qml
+    clock.qml
 

@@ -1,4 +1,4 @@
 TEMPLATE = subdirs
 SUBDIRS += app
-SUBDIRS += app/src/mbutton
+SUBDIRS += clock
 CONFIG += ordered

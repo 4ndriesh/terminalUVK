@@ -15,5 +15,4 @@ ImageSVG 1.0 ImageSVG.qml
 RChain 1.0 RChain.qml
 PopupRChain 1.0 PopupRChain.qml
 Highlight 1.0 Highlight.qml
-MButton 1.0 MButton.qml
-plugin mbutton
+plugin clock

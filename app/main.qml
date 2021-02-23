@@ -14,20 +14,16 @@ Window {
     visibility: "Maximized"
     minimumWidth: 800
     minimumHeight: 600
-    color: Settings.backgroundColor
+    color: Settings.window.backgroundColor
 
-    MButton {
-        id: manage
+    Clock {
+        id: timer
     }
-    property int hour:manage.hour
-    property int minute:manage.minute
-    title: qsTr(hour+":"+minute);
-//    title: qsTr("Терминал УВК")
 
-    //    name: manage.qmlManagerButton.regim
-//    property int hour:manage.hour
-//    property int minute:manage.minute
-//    property int second:manage.second
+    property var timeFormat:timer.timeFormat
+
+    title: qsTr("Терминал УВК")
+
     GridLayout{
         anchors.fill: parent
         rows: 6
@@ -46,20 +42,21 @@ Window {
         //            Layout.columnSpan:3
         //            Layout.row: 2
         //        }
-//        Rectangle{
-//            Layout.fillWidth: true
-//            Layout.preferredHeight: 50
-//            Layout.row: 2
-//            Label {
-//                anchors.fill: parent
-//                verticalAlignment: Text.AlignVCenter
-//                horizontalAlignment: Text.AlignHCenter
-//                text: manageModel.stateBt.code
-//                font.pixelSize: 22
-//                font.italic: true
-//            }
+        Rectangle{
+            Layout.fillWidth: true
+            Layout.preferredHeight: 22
+            Layout.rightMargin:30
+            Layout.row: 2
+            Label {
+                anchors.fill: parent
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignRight
+                text: timeFormat
+                font.pixelSize: 22
+                font.italic: true
+            }
 
-//        }
+        }
         ButtonPanel {
             id: controlPanel
             Layout.fillWidth: true
@@ -90,5 +87,5 @@ Window {
     }
 
     //    RChain{id:_rchaindialog}
-    InputPanelKB{}
+//    InputPanelKB{}
 }

@@ -4,8 +4,8 @@ import SettingsModule 1.0
 Rectangle {
     id: rectangleButton
     property alias buttonText: _buttonText.text;
-    property color colorButton:Settings.themeHeaderColor
-    property bool wink
+    property color colorButton:Settings.newSortList.baseColor
+    property bool wink: false
     color: colorButton
     width: 100; height: 50
     radius: 8
@@ -22,7 +22,7 @@ Rectangle {
     }
     Text {
         id: _buttonText
-        font.family: Settings.fontFamily;
+        font.family: Settings.buttonPanel.fontFamily;
         font.pointSize: 10
         anchors.centerIn: parent
     }
@@ -36,17 +36,17 @@ Rectangle {
         duration: 500
         running: wink
         onStopped: {
-            manageModel.qmlRegim(10);
-            manageModel.qmlRegim(11);
+            console.log("onStopped")
             rectangleButton.opacity=1;
         }
     }
 
     Timer {
         id: _timerwink
-        interval: Settings.timeWink
+        interval: Settings.buttonPanel.timeWink
         running: wink
         onTriggered: {
+            console.log("onTriggered")
             manageModel.qmlRegim(10);
             manageModel.qmlRegim(11);
         }

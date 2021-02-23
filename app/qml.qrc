@@ -1,7 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>qml/ResourceProvider/qmldir</file>
-        <file>qml/ResourceProvider/Resources.qml</file>
         <file>main.qml</file>
         <file>qml/Impl/ButtonPanel.qml</file>
         <file>qml/Base/MultiButton.qml</file>
@@ -41,15 +39,12 @@
         <file>vkeyboard/Components/DownUpKey.qml</file>
         <file>qml/Impl/SignalPanel.qml</file>
         <file>qml/Base/MouseAreaOtcepList.qml</file>
-        <file>qml/resources/list.svg</file>
-        <file>qml/resources/monitor.svg</file>
-        <file>qml/resources/transfer.svg</file>
-        <file>qml/resources/transfer2.svg</file>
+        <file>qml/resources/NewSortList.svg</file>
+        <file>qml/resources/AliveUVK.svg</file>
         <file>qml/Base/ImageSVG.qml</file>
         <file>vkeyboard/Components/DelOtcep.qml</file>
         <file>qml/Impl/InputPanelKB.qml</file>
-        <file>qml/resources/download-button.svg</file>
-        <file>qml/resources/fast-forward.svg</file>
+        <file>qml/resources/InsertDown.svg</file>
         <file>vkeyboard/QtQuick/VirtualKeyboard/Styles/test/images/fast-forward.svg</file>
         <file>vkeyboard/QtQuick/VirtualKeyboard/Styles/test/images/download-button.svg</file>
         <file>qml/Base/DelegateRChain.qml</file>
@@ -57,5 +52,13 @@
         <file>qml/Base/Highlight.qml</file>
         <file>settings.json</file>
         <file>vkeyboard/Components/KeyOtcep1.qml</file>
+        <file>qml/KeyBoard/KeyBoard.qml</file>
+        <file>qml/KeyBoard/ButtonKey.qml</file>
+        <file>qml/KeyBoard/qmldir</file>
+        <file>qml/resources/Enter.svg</file>
+        <file>qml/resources/Down.svg</file>
+        <file>qml/resources/Trash.svg</file>
+        <file>qml/resources/Up.svg</file>
+        <file>qml/KeyBoard/MouseKeyBoard.qml</file>
     </qresource>
 </RCC>

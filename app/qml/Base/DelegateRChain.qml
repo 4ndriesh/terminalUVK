@@ -2,13 +2,12 @@ import QtQuick 2.14
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.1
 import SettingsModule 1.0
-import ResourceProvider 1.0
 
 Rectangle {
     id: delegateRChain
     property int counter: 0
     property bool wink: rChain.wink_reset
-    color: Settings.backgroundColor
+    color: Settings.window.backgroundColor
     //        anchors.fill: parent
     width: parent.width; height: 40
     clip: true
@@ -20,9 +19,9 @@ Rectangle {
             id: textField
             Layout.fillWidth: true
             Layout.fillHeight: true
-            color: Settings.backgroundListViewRChain
+            color: Settings.rChain.background
             enabled: true
-            border.width: Settings.borderWidth
+            border.width: Settings.rChain.borderWidth
             Text {
                 id: _textRChain
                 anchors.horizontalCenter: parent.horizontalCenter

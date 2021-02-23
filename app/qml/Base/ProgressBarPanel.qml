@@ -19,7 +19,7 @@ Rectangle {
         background: Rectangle {
             implicitWidth: 200
             implicitHeight: 6
-            color: Settings.backgroundColorPB
+            color: Settings.progressbar.background
             radius: 3
         }
 
@@ -31,7 +31,7 @@ Rectangle {
                 width: pb1.visualPosition * parent.width
                 height: parent.height
                 radius: 2
-                color: Settings.themeColorPB
+                color: Settings.progressbar.load
             }
         }
     }

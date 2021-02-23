@@ -1,5 +1,5 @@
-#ifndef MBUTTON_H
-#define MBUTTON_H
+#ifndef CLOCK_H
+#define CLOCK_H
 
 #include <QObject>
 
@@ -7,6 +7,7 @@
 #include <qdatetime.h>
 #include <qbasictimer.h>
 #include <qcoreapplication.h>
+#include <QTime>
 
 // Implements a "TimeModel" class with hour and minute properties
 // that change on-the-minute yet efficiently sleep the rest
@@ -24,9 +25,13 @@ public:
 
     void stop();
 
-    int hour() const { return time.hour(); }
+    QString timeFormat() const {
+        QString timeString =time.toString("hh:mm");
+        return timeString;
+    }
+    int hour() const {return time.hour(); }
     int minute() const { return time.minute(); }
-//    int second() const { return time.second(); }
+    //    int second() const { return time.second(); }
 
 signals:
     void timeChanged();
@@ -44,7 +49,7 @@ class TimeModel : public QObject
     Q_OBJECT
     Q_PROPERTY(int hour READ hour NOTIFY timeChanged)
     Q_PROPERTY(int minute READ minute NOTIFY timeChanged)
-//    Q_PROPERTY(int second READ second NOTIFY timeChanged)
+    Q_PROPERTY(QString timeFormat READ second NOTIFY timeChanged)
 
 public:
     explicit TimeModel(QObject *parent = nullptr);
@@ -57,27 +62,9 @@ public:
         return *_instance;
     }
 
-
-//    TimeModel(QObject *parent=nullptr) : QObject(parent)
-//    {
-//        if (++instances == 1) {
-//            if (!timer)
-//                timer = new MinuteTimer(QCoreApplication::instance());
-//            connect(timer, &MinuteTimer::timeChanged, this, &TimeModel::timeChanged);
-//            timer->start();
-//        }
-//    }
-
-//    ~TimeModel() override
-//    {
-//        if (--instances == 0) {
-//            timer->stop();
-//        }
-//    }
-
     int minute() const { return timer->minute(); }
     int hour() const { return timer->hour(); }
-//    int second() const { return timer->second(); }
+    QString second() const { return timer->timeFormat(); }
 
 signals:
     void timeChanged();
@@ -94,19 +81,18 @@ private:
 #include <QObject>
 #include <QQmlExtensionPlugin>
 #include <QtQml>
-#include "mbutton.h"
+#include "clock.h"
 
 class QExampleQmlPlugin : public QQmlExtensionPlugin
 {
     Q_OBJECT
-//    Q_PLUGIN_METADATA(IID "mbutton.json")
     Q_PLUGIN_METADATA(IID QQmlExtensionInterface_iid)
 
 public:
     void registerTypes(const char *uri)
     {
-    Q_ASSERT(uri == QLatin1String("Base"));
-    qmlRegisterType<TimeModel>(uri, 1, 0, "MButton");
+        Q_ASSERT(uri == QLatin1String("Base"));
+        qmlRegisterType<TimeModel>(uri, 1, 0, "Clock");
     }
 };
-#endif // MBUTTON_H
+#endif // CLOCK_H

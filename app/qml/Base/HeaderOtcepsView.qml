@@ -5,9 +5,9 @@ import SettingsModule 1.0
 
 GridLayout {
     id: _header
-    width: listView.width
+    width: parent.width
 //    property int heightHeader: listView.height/6
-    height: Settings.baseHeight+20
+    height: Settings.header.height
     rows: 2
     columns: 13
     columnSpacing:0
@@ -17,7 +17,7 @@ GridLayout {
         model:ListModelHeader{}
         Rectangle {
             id: _number
-            border.width: Settings.borderWidth
+            border.width: Settings.header.borderWidth
             Layout.rowSpan: rowSpan
             Layout.columnSpan: columnSpan
             Layout.column: column
@@ -25,13 +25,13 @@ GridLayout {
             Layout.fillWidth: true
             Layout.fillHeight: true
             height: minimumHeight
-            color:  Settings.themeHeaderColor
+            color:  Settings.header.baseColor
             Text { text: name;
                 anchors.centerIn: parent;
-                font.family: Settings.fontFamily;
-                color: Settings.fontColor;
+                font.family: Settings.header.fontFamily;
+                color: Settings.header.textColor;
                 font.letterSpacing : 3
-                font.pointSize: _number.height/2;
+                font.pointSize: parent.height/2;
 //                font.bold: true;
             }
         }

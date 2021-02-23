@@ -14,7 +14,7 @@ Rectangle {
     width: widthHighlite;
     color: "transparent"
     border.width: 5
-    border.color: manageModel.stateBt.editing ? Settings.editColorHighlight:Settings.baseColorHighlight
+    border.color: manageModel.stateBt.editing ? Settings.highlight.edit:Settings.highlight.base
     Behavior on y {SpringAnimation { spring: 2; damping: 0.4;}}
     OpacityAnimator on opacity{
         id: _opacitywink
