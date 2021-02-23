@@ -109,7 +109,7 @@ void ManageModel::qmlRegimEditing(const int & regim)
         if( m_stateBt.m_regim!=0 && m_qmlCurentIndex>=0){
             m_stateBt.m_bef_regim=6;
             if(m_stateBt.m_regim!=1)
-            m_stateBt.m_wCursor=true;
+                m_stateBt.m_wCursor=true;
             emit stateBtChanged();
         }
         else{addMsg("Перейти в режим: <<ВВОД СЛ, РОСПУСК, ПАУЗА>>");}
@@ -294,13 +294,16 @@ void ManageModel::setRegimEdit()
         addMsg("Перейти в режим <<КОНЕЦ РОСПУСКА>>");
         return;
     }
+
+    if(m_stateBt.m_editing==0){clearAllOtcep();}
     m_stateBt.m_editing=!m_stateBt.m_editing;
-    clearAllOtcep();
-    if(m_newList)
-        ViewOtcepsModel::instance().sortirArrived(ViewOtcepsModel::instance().tmpSrt);
     m_qmlCurentIndex=0;
     emit qmlCurrentItemChanged();
     emit stateBtChanged();
+    if(m_newList)
+        ViewOtcepsModel::instance().sortirArrived(ViewOtcepsModel::instance().tmpSrt);
+
+    return;
 }
 //Обработка клавы
 void ManageModel::keyDown(const DWORD &key, const bool &ctrl)
