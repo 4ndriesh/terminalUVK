@@ -11,7 +11,7 @@ onLoadSettings();
 }
 void Json::onLoadSettings()
 {
-    QFile jsonFile(":/settings.json");
+    QFile jsonFile("settings.json");
     if (!jsonFile.open(QIODevice::ReadOnly))
     {
         qWarning("Couldn't open save file.");

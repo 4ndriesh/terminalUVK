@@ -43,8 +43,8 @@
 int main(int argc, char *argv[])
 {
 
-    qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
-    qputenv("QT_VIRTUALKEYBOARD_LAYOUT_PATH", QByteArray("qrc:/vkeyboard/layouts"));
+//    qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
+//    qputenv("QT_VIRTUALKEYBOARD_LAYOUT_PATH", QByteArray("qrc:/vkeyboard/layouts"));
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
@@ -65,15 +65,15 @@ int main(int argc, char *argv[])
 
 
     QQmlApplicationEngine engine;
-    engine.addImportPath(":/qml");
-    engine.addImportPath(":/vkeyboard/");
-    qputenv("QT_VIRTUALKEYBOARD_STYLE", "test");
+    engine.addImportPath("qrc:/qml");
+//    engine.addImportPath(":/vkeyboard/");
+//    qputenv("QT_VIRTUALKEYBOARD_STYLE", "test");
     QQmlContext* context = engine.rootContext();
     //    qmlRegisterType<QML_ManagerButton>("MModel", 1, 0, "QML_ManagerButton");
     context->setContextProperty("otcepsModel", &model);
     context->setContextProperty("manageModel", &manage);
     context->setContextProperty("rChain", &rch);
-
+//    const QUrl url(QStringLiteral("main.qml"));
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {

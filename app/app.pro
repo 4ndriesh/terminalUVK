@@ -30,7 +30,7 @@ SOURCES += \
 RESOURCES += qml.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
-#QML_IMPORT_PATH += $$PWD/qml
+#QML_IMPORT_PATH += C:\work_dir\C++\terminal_uvk
 #QML2_IMPORT_PATH += $$PWD/qml/vkeyboard
 #QML3_IMPORT_PATH += $$PWD/../test
 # Additional import path used to resolve QML modules just for Qt Quick Designer

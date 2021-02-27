@@ -23,17 +23,19 @@ void ManageModel::keyUpDown(const int &updown)
         return;
     switch (updown) {
     case VK_UP:
-        if(m_stateBt.m_regim!=1 && m_qmlCurentIndex>0)
+        if(m_qmlCurentIndex>0)
         {
             m_qmlCurentIndex--;
             setQmlCurrentItem(m_qmlCurentIndex);
+            qmlRegimEditing(10);
         }
         break;
     case VK_DOWN:
-        if(m_stateBt.m_regim!=1 && m_qmlCurentIndex<ViewOtcepsModel::instance().countEnabled()-1)
+        if(m_qmlCurentIndex<ViewOtcepsModel::instance().countEnabled()-1)
         {
             m_qmlCurentIndex++;
             setQmlCurrentItem(m_qmlCurentIndex);
+            qmlRegimEditing(10);
         }
         break;
     }
@@ -70,17 +72,9 @@ void ManageModel::qmlRegimEditing(const int & regim)
     switch (regim) {
     //удалить один отцеп
     case 3:
-        if(m_stateBt.m_regim!=1 && m_stateBt.m_regim!=0 && m_qmlCurentIndex>=0){
+        qmlRegimEditing(10);
+        if(m_stateBt.m_editing==1 || (m_stateBt.m_regim!=1 && m_stateBt.m_regim!=0 && m_qmlCurentIndex>=0)){
             m_stateBt.m_bef_regim=3;
-            m_stateBt.m_wCursor=true;
-            emit stateBtChanged();
-        }
-        else{addMsg("Перейти в режим: <<ВВОД СЛ или ПАУЗА>>");}
-        break;
-        //удалить все
-    case 7:
-        if(m_stateBt.m_regim!=1 && m_stateBt.m_regim!=0 && m_qmlCurentIndex>=0){
-            m_stateBt.m_bef_regim=7;
             m_stateBt.m_wCursor=true;
             emit stateBtChanged();
         }
@@ -88,7 +82,8 @@ void ManageModel::qmlRegimEditing(const int & regim)
         break;
         //Вставить до
     case 4:
-        if(m_stateBt.m_regim!=1 && m_stateBt.m_regim!=0 && m_qmlCurentIndex>=0){
+        qmlRegimEditing(10);
+        if(m_stateBt.m_editing==1 || (m_stateBt.m_regim!=1 && m_stateBt.m_regim!=0 && m_qmlCurentIndex>=0)){
             m_stateBt.m_bef_regim=4;
             m_stateBt.m_wCursor=true;
             emit stateBtChanged();
@@ -97,7 +92,8 @@ void ManageModel::qmlRegimEditing(const int & regim)
         break;
         //Вставить после
     case 5:
-        if(m_stateBt.m_regim!=1 && m_stateBt.m_regim!=0 && m_qmlCurentIndex>=0){
+        qmlRegimEditing(10);
+        if(m_stateBt.m_editing==1 || (m_stateBt.m_regim!=1 && m_stateBt.m_regim!=0 && m_qmlCurentIndex>=0)){
             m_stateBt.m_bef_regim=5;
             m_stateBt.m_wCursor=true;
             emit stateBtChanged();
@@ -106,16 +102,26 @@ void ManageModel::qmlRegimEditing(const int & regim)
         break;
         //Изменить путь
     case 6:
-        if( m_stateBt.m_regim!=0 && m_qmlCurentIndex>=0){
+        qmlRegimEditing(10);
+        if(m_stateBt.m_editing==1 || (m_stateBt.m_regim!=0 && m_qmlCurentIndex>=0)){
             m_stateBt.m_bef_regim=6;
-            if(m_stateBt.m_regim!=1)
-                m_stateBt.m_wCursor=true;
+            m_stateBt.m_wCursor=true;
             emit stateBtChanged();
         }
         else{addMsg("Перейти в режим: <<ВВОД СЛ, РОСПУСК, ПАУЗА>>");}
         break;
+        //удалить все
+    case 7:
+        qmlRegimEditing(10);
+        if(m_stateBt.m_editing==1 || (m_stateBt.m_regim!=1 && m_stateBt.m_regim!=0 && m_qmlCurentIndex>=0)){
+            m_stateBt.m_bef_regim=7;
+            m_stateBt.m_wCursor=true;
+            emit stateBtChanged();
+        }
+        else{addMsg("Перейти в режим: <<ВВОД СЛ или ПАУЗА>>");}
+        break;
     case 10:
-        qDebug()<<"Сброс мигания курсора->>"<<m_stateBt.m_bef_regim;
+
         if(m_stateBt.m_bef_regim!=10){
             m_stateBt.m_wCursor=false;
             m_stateBt.m_bef_regim=10;
@@ -132,25 +138,31 @@ void ManageModel::qmlRegim(const int & regim)
     }
     switch (regim) {
     case 0:
+        qmlRegimEditing(10);
         m_stateBt.m_bef_regim=0;
         m_stateBt.m_wStop=true;
         emit stateBtChanged();
         break;
     case 1:
+        qmlRegimEditing(10);
         m_stateBt.m_bef_regim=1;
         m_stateBt.m_wNadvig=true;
         emit  stateBtChanged();
         break;
     case 2:
+        qmlRegimEditing(10);
         m_stateBt.m_bef_regim=2;
         m_stateBt.m_wPause=true;
         emit stateBtChanged();
         //        }
         break;
     case 10:
-        qDebug()<<"Команда не задана";
+
         if(m_stateBt.m_bef_regim!=10){
             m_stateBt.m_bef_regim=10;
+            m_stateBt.m_wPause=false;
+            m_stateBt.m_wStop=false;
+            m_stateBt.m_wNadvig=false;
             emit stateBtChanged();
         }
         break;
@@ -182,6 +194,12 @@ void ManageModel::accept()
         delOtcep(1);
         qmlRegimEditing(10);
         break;
+    case 4:
+        qmlRegimEditing(10);
+        break;
+    case 5:
+        qmlRegimEditing(10);
+        break;
     case 6:
         emit textInputChanged();
         qmlRegimEditing(10);
@@ -192,7 +210,7 @@ void ManageModel::accept()
         break;
 
     case 10:
-        qDebug()<<"Команда не задана";
+         addMsg("Команда не задана");
         break;
     }
 }

@@ -48,7 +48,7 @@ Rectangle {
         onTriggered: {
             console.log("onTriggered")
             manageModel.qmlRegim(10);
-            manageModel.qmlRegim(11);
+//            manageModel.qmlRegim(11);
         }
     }
 

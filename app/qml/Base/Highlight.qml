@@ -31,13 +31,13 @@ Rectangle {
 //            _highlight.color="transparent"
         }
     }
-//    Timer {
-//        id: _timerwink
-//        interval: Settings.timeWink
-//        running: wink
-//        onTriggered: {
-//            manageModel.qmlRegim(10);
-//        }
-//    }
+    Timer {
+        id: _timerwink
+        interval: Settings.highlight.timeWink
+        running: wink
+        onTriggered: {
+            manageModel.qmlRegimEditing(10);
+        }
+    }
 
 }

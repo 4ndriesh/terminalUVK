@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-	<file>qml/Base/ListModelHeader.qml</file>        
         <file>qml/Impl/ButtonPanel.qml</file>
         <file>qml/Base/MultiButton.qml</file>
         <file>qml/Impl/OtcepsView.qml</file>
@@ -9,6 +8,7 @@
         <file>qml/Message/qmldir</file>
         <file>qml/SettingsModule/qmldir</file>
         <file>qml/SettingsModule/Settings.qml</file>
+	<file>qml/Base/ListModelHeader.qml</file>        
 	<file>qml/Base/qmldir</file>
         <file>qml/Base/Number.qml</file>
         <file>qml/Message/MsgDelegate.qml</file>

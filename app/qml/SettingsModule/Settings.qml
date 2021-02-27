@@ -78,6 +78,7 @@ Item {
         //Список отцепов
         readonly property color edit: "#ffa500"
         readonly property color base: "#00bfff"
+        readonly property int timeWink: 5000
     }
     QtObject {
         id: _progressbar
