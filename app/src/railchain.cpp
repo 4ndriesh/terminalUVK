@@ -18,10 +18,16 @@ void RailChain::addRChain()
 //    qDebug()<<"addChain";
     m_qmlRChain.clear();
     rch=MVP_Import::instance()->getDSOBusyRc();
-    foreach (auto rc_name, rch.keys()) {
+    auto l=rch.keys();
+    l.sort();
+    int i=l.indexOf("ВСЕ");
+    if (i>0) l.swapItemsAt(i,0);
+
+    foreach (auto rc_name, l) {
         m_qmlRChain.append(rc_name);
     }
-    std::reverse(m_qmlRChain.begin(), m_qmlRChain.end());
+    //m_qmlRChain.sort();
+    //std::reverse(m_qmlRChain.begin(), m_qmlRChain.end());
     emit qmlRChainChanged();
 }
 

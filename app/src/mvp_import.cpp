@@ -363,7 +363,8 @@ QMap<QString, QString> MVP_Import::getDSOBusyRc()
     if (gorka!=nullptr){
         auto l=gorka->findChildren<m_RC*>();
         foreach (auto rc, l) {
-            if (rc->STATE_BUSY_DSO()!=0) mName2Id[rc->objectName()]=rc->idstr();
+            if (qobject_cast<m_RC_Gor_Park*>(rc)!=nullptr) continue;
+            if ((rc->STATE_BUSY_DSO()!=0)|| (rc->STATE_BUSY_DSO()==MVP_Enums::TRCBusy::busy_unknow)||(rc->STATE_BUSY_DSO_ERR()==1)) mName2Id[rc->objectName()]=rc->idstr();
         }
         if (mName2Id.count()>0) mName2Id["ВСЕ"]="*";
     }
