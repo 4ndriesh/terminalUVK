@@ -57,21 +57,14 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
 
 {
     QTimer *timer=new QTimer(this);
-
-    //    Mn.qmlPutNadviga.m_set_putnadviga=MVP_Import::instance()->gorka->PUT_NADVIG();
-
-    //    Mn.qmlRegim=MVP_Import::instance()->gorka->STATE_REGIM();
     qmlX=1;
     updateOtcep=0;
-    //    Mn.qmlVisibleObject=false;
-    //    Mn.qmlCurentIndex=-1;
     int irole=Qt::UserRole+1;
     for (int idx = 0; idx < m_Otcep::staticMetaObject.propertyCount(); idx++) {
         QMetaProperty metaProperty = m_Otcep::staticMetaObject.property(idx);
         QString proprtyName=metaProperty.name();
         otcepRoles[irole++] = qPrintable(proprtyName);
     }
-    //    qmlCurentIndex=0;
     if (MVP_Import::instance()->gorka!=nullptr){
 
         for (int i=0; i<MVP_Import::instance()->otceps->l_otceps.size();i++) {
@@ -130,7 +123,11 @@ void ViewOtcepsModel::slotOtcepChanged()
 int ViewOtcepsModel::countEnabled()
 {
     int countRow=0;
-    while (get(countRow)["STATE_ENABLED"]!=false && countRow<98){
+    while (get(countRow)["STATE_ENABLED"]!=false){
+        if(countRow==98){
+            ++countRow;
+            break;
+        }
         ++countRow;
     }
     return countRow;
@@ -207,7 +204,6 @@ QHash<int, QByteArray> ViewOtcepsModel::roleNames() const
 void ViewOtcepsModel::sortirArrived(const tSl2Odo2 *srt)
 {
     Mn.setNewList(1);
-
     // прверить что режим ввода установлен
     // если нет то запомнить и мигать кнопкой
     if(Mn.m_stateBt.m_editing==1){

@@ -9,11 +9,12 @@ Popup {
     height: parent.height/2
     width: parent.width/2
     focus: true
-    background: Rectangle {color: "transparent"}
-     ListView{
+    //    background: Rectangle {color: "red"}
+    ListView{
         id:listRChainView
         anchors.fill: parent
-        highlightFollowsCurrentItem: false
+        highlightFollowsCurrentItem: true
+        clip: true
         currentIndex: rChain.qmlChainItem
         model:rChain.qmlRChain
         delegate: DelegateRChain{}
@@ -23,32 +24,32 @@ Popup {
             z:2
         }
     }
-     onClosed: {
-         rChain.qmlChainItem=0;
-         manageModel.selectHook=0;
-         msgTimer.running=false;
-     }
-     onOpened: {
-         rChain.addRChain();
-         manageModel.selectHook=1;
-         msgTimer.running=true;
-     }
+    onClosed: {
+        rChain.qmlChainItem=0;
+        manageModel.selectHook=0;
+        msgTimer.running=false;
+    }
+    onOpened: {
+        rChain.addRChain();
+        manageModel.selectHook=1;
+        msgTimer.running=true;
+    }
 
-     Timer {
-         id: msgTimer
-         interval: 1000
-         repeat: true
-         running: false
-         onTriggered: rChain.addRChain();
-     }
+    Timer {
+        id: msgTimer
+        interval: 1000
+        repeat: true
+        running: false
+        onTriggered: rChain.addRChain();
+    }
 
-     Connections{
-         target: rChain
-         function onQmlChainItemChanged(){listRChainView.currentIndex=rChain.qmlChainItem}
-         function onCloseRChainChanged(){_rchaindialog.close();}
-     }
-     Connections{
-         target: manageModel
-         function onOpenRChainChanged(){_rchaindialog.open();}
-     }
+    Connections{
+        target: rChain
+        function onQmlChainItemChanged(){listRChainView.currentIndex=rChain.qmlChainItem}
+        function onCloseRChainChanged(){_rchaindialog.close();}
+    }
+    Connections{
+        target: manageModel
+        function onOpenRChainChanged(){_rchaindialog.open();}
+    }
 }

@@ -114,7 +114,7 @@ public:
     Q_INVOKABLE void delOtcep(const int&);
     Q_INVOKABLE void clearAllOtcep();
     Q_INVOKABLE void inputPut(const int&);
-    Q_INVOKABLE void keyDown(const DWORD &, const bool &);
+    Q_INVOKABLE void keyDown(const int &, const bool &);
     Q_INVOKABLE void setRegimEdit();
     Q_INVOKABLE void keyUpDown(const int&);
     Q_INVOKABLE void deleteMsg();

@@ -8,8 +8,8 @@ MouseArea {
     onEntered: { parent.state='Hovering';}
     onExited: { parent.state='';}
     onClicked: {
-
         if(parent.wink===false){
+            manageModel.qmlRegim(10);
             manageModel.qmlRegim(11);
             manageModel.qmlRegim(setRegim);
         }

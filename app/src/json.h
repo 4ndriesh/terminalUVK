@@ -9,7 +9,6 @@ class Json
 public:
     explicit Json(const QString &);
     virtual ~Json(){
-        qDebug()<<"del";
     }
     static Json &instance(const QString & path){
         static Json *_instance=0;

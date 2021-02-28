@@ -10,8 +10,8 @@ Rectangle {
     color: "transparent"
     border.width: 5
     border.color: Settings.highlight.base
-    y:listRChainView.currentItem.y;
-    Behavior on y {SpringAnimation { spring: 2; damping: 0.4;}}
+//    y:listRChainView.currentItem.y
+//    Behavior on y {SpringAnimation { spring: 2; damping: 0.4;}}
 
     OpacityAnimator on opacity{
         id: _opacitywink
@@ -30,8 +30,7 @@ Rectangle {
         interval: Settings.highlight.timeWink
         running: wink
         onTriggered: {
-            manageModel.qmlRegim(11);
-            manageModel.qmlRegim(10);
+            rChain.setWink_reset(false);
         }
     }
 }

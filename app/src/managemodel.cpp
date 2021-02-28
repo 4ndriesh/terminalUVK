@@ -15,8 +15,6 @@ ManageModel::ManageModel(QObject *parent) : QObject(parent)
 //Навигация по списку отцепов
 void ManageModel::keyUpDown(const int &updown)
 {
-    if(m_stateBt.m_bef_regim>=3 && m_stateBt.m_bef_regim<=5 )
-        return;
     switch (updown) {
     case VK_UP:
         if(m_qmlCurentIndex>0)
@@ -60,11 +58,8 @@ void ManageModel::clearAllOtcep()
 
 void ManageModel::addOtcep(const int & index)
 {
-
     MVP_Import::instance()->incOtcep(index);
-    //    MVP_Import::instance()->incOtcep(m_qmlCurentIndex+index);
     return;
-
 }
 
 
@@ -252,7 +247,7 @@ void ManageModel::inputPut(const int &numberPut)
     if(m_stateBt.m_bef_regim==4){
         addOtcep(m_qmlCurentIndex+1);
         qmlRegim(6);
-        setQmlCurrentItem(m_qmlCurentIndex);
+        //        setQmlCurrentItem(m_qmlCurentIndex);
         accept();
         return;
     }
@@ -262,10 +257,10 @@ void ManageModel::inputPut(const int &numberPut)
         }
         else{
             addOtcep(m_qmlCurentIndex+2);
-            m_qmlCurentIndex++;
+            keyUpDown(VK_DOWN);
         }
         qmlRegim(6);
-        setQmlCurrentItem(m_qmlCurentIndex);
+        //        setQmlCurrentItem(m_qmlCurentIndex);
         accept();
         return;
     }
@@ -293,19 +288,22 @@ void ManageModel::setRegimEdit()
     return;
 }
 //Обработка клавы
-void ManageModel::keyDown(const DWORD &key, const bool &ctrl)
+void ManageModel::keyDown(const int &key, const bool &ctrl)
 {
     qmlRegim(11);
     switch (key) {
     case VK_F5:
         emit openRChainChanged();
         break;
+
     case VK_F4:
         setRegimEdit();
         break;
+
     case VK_RETURN:
         accept();
         break;
+
     case VK_F1:
         //Роспуск 1
         qmlRegim(1);
@@ -315,70 +313,82 @@ void ManageModel::keyDown(const DWORD &key, const bool &ctrl)
         //Пауза
         qmlRegim(2);
         break;
+
     case VK_F3:
         //Стоп
         qmlRegim(0);
         break;
+
     case VK_UP:
         //UP
         keyUpDown(VK_UP);
         break;
-        //            case  65:
+
     case VK_DOWN:
         //DOWN
         keyUpDown(VK_DOWN);
         break;
 
     case VK_INSERT:
-
+        //Вставить после
         if(ctrl){
-            //Вставить после
             qmlRegim(5);
             break;
         }
         //Вставить до
         qmlRegim(4);
         break;
-    case VK_DELETE:
-        if(ctrl){
-            //Удалить все
-            qmlRegim(7);
 
+    case VK_DELETE:
+        //Удалить все
+        if(ctrl){
+            qmlRegim(7);
             break;
         }
-        //Удалить
+        //Удалить один
         qmlRegim(3);
         break;
+
     case VK_ESCAPE:
         qmlRegim(10);
         break;
+
     case 81:
         if(ctrl)inputPut(1);
         break;
+
     case 87:
         if(ctrl)inputPut(2);
         break;
+
     case 69:
         if(ctrl)inputPut(3);
         break;
+
     case 82:
         if(ctrl)inputPut(4);
         break;
+
     case 84:
         if(ctrl)inputPut(5);
         break;
+
     case 89:
         if(ctrl)inputPut(6);
         break;
+
     case 85:
         if(ctrl)inputPut(7);
         break;
+
     case 73:
         if(ctrl)inputPut(8);
         break;
+
     case 79:
         if(ctrl)inputPut(9);
         break;
+
     default:
         break;
 

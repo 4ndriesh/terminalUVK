@@ -27,6 +27,7 @@ void RailChain::addRChain()
     }
     //m_qmlRChain.sort();
     //std::reverse(m_qmlRChain.begin(), m_qmlRChain.end());
+    emit qmlChainItemChanged();
     emit qmlRChainChanged();
     return;
 }
@@ -40,23 +41,24 @@ void RailChain::keyUpDown(const int &updown)
         if(m_qmlChainItem>0)
         {
             m_qmlChainItem--;
-            setQmlChainItem(m_qmlChainItem);
         }
         break;
     case VK_DOWN:
         if(m_qmlChainItem<rch.count()-1)
         {
             m_qmlChainItem++;
-            setQmlChainItem(m_qmlChainItem);
+
         }
         break;
     }
+    setQmlChainItem(m_qmlChainItem);
     return;
 }
 void RailChain::accept()
 {
     if(m_wink_reset)resetRChain(m_qmlRChain[m_qmlChainItem]);
     setWink_reset(false);
+    emit qmlChainItemChanged();
     return;
 }
 //Обработка клавы
@@ -67,6 +69,7 @@ void RailChain::keyDown(const DWORD &key)
     switch (key) {
 
     case VK_F5:
+        setQmlChainItem(0);
         emit closeRChainChanged();
         break;
     case VK_RETURN:
@@ -85,6 +88,7 @@ void RailChain::keyDown(const DWORD &key)
 
     case VK_DELETE:
         //Удалить
+        emit qmlChainItemChanged();
         setWink_reset(true);
         break;
     }

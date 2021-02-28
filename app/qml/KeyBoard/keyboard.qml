@@ -78,7 +78,7 @@ Popup {
                 widthsvg: upArrow.height/1.5
                 heightsvg:  upArrow.height/1.5
             }
-            MouseKeyBoard{onClicked: manageModel.keyUpDown(38);}
+            MouseKeyBoard{onClicked: manageModel.keyDown(38,false);}
         }
         ButtonKey{
             id:insertUp
@@ -112,7 +112,7 @@ Popup {
                 widthsvg: downArrow.height/1.5
                 heightsvg:  downArrow.height/1.5
             }
-            MouseKeyBoard{onClicked: manageModel.keyUpDown(40);}
+            MouseKeyBoard{onClicked: manageModel.keyDown(40,false);}
         }
         ButtonKey{
             id: insertDown

@@ -2,7 +2,6 @@ import QtQuick 2.14
 import QtQuick.Layouts 1.1
 import Base 1.0
 import SettingsModule 1.0
-//import ResourceProvider 1.0
 import QtQuick.Controls 1.4
 
 RowLayout {
@@ -16,7 +15,6 @@ RowLayout {
     property bool wink_stop: manageModel.stateBt.wink_Stop
     property bool wink_nadvig: manageModel.stateBt.wink_Nadvig
     property bool editing: manageModel.stateBt.editing
-
     property int qmlnewList: manageModel.newList
     property int qmluvkLive: manageModel.uvkLive
 
@@ -63,7 +61,6 @@ RowLayout {
         buttonText: "ПАУЗА"
         colorButton: regim===2 ? Settings.buttonColor.regim:Settings.buttonColor.baseColor
         wink: regim===2 ? false:wink_pause
-
         EventMouseArea {setRegim: 2}
     }
 
@@ -76,9 +73,8 @@ RowLayout {
             anchors.centerIn: parent
             text: timeFormat
             font.pointSize:  parent.height/2;
-            font.italic: true
+//            font.italic: true
         }
-
     }
 
     MultiButton {
