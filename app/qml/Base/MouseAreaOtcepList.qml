@@ -14,7 +14,7 @@ MouseArea {
         if (mouse.button === Qt.LeftButton)
         {
             manageModel.qmlCurentIndex=index;
-            manageModel.qmlRegimEditing(10);
+            manageModel.qmlRegim(10);
         }
     }
 }

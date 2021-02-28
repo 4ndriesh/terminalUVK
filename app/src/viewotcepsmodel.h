@@ -34,16 +34,10 @@ public:
     void addDataObject(const DataObject &DataObject);
     bool loadSortirToUvk(const tSl2Odo2 *srt);
     void deleteDataSourceObject();
-
     int updateOtcep;
-
-
 
 private:
     static ViewOtcepsModel* model;
-
-
-
     bool qmlVisible;
     int qmlX;
     int qmlY;

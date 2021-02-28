@@ -25,13 +25,16 @@ GridLayout {
             Layout.fillHeight: true
             height: minimumHeight
             color:  Settings.header.baseColor
-            Text { text: name;
-                anchors.centerIn: parent;
+            Text {
+                text: name;
+                anchors.fill: parent
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
                 font.family: Settings.header.fontFamily;
                 color: Settings.header.textColor;
                 font.letterSpacing : 3
                 font.pointSize: parent.height/2;
-//                font.bold: true;
+                fontSizeMode: Text.Fit
             }
         }
     }

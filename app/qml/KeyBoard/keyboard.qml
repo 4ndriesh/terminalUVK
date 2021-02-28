@@ -55,7 +55,7 @@ Popup {
                 widthsvg: trash.height/1.5
                 heightsvg:  trash.height/1.5
             }
-            MouseKeyBoard{onClicked: manageModel.qmlRegimEditing(3);}
+            MouseKeyBoard{onClicked: manageModel.qmlRegim(3);}
 
         }
         ButtonKey{
@@ -89,7 +89,7 @@ Popup {
                 widthsvg: insertUp.height/1.5
                 heightsvg:  insertUp.height/1.5
             }
-            MouseKeyBoard{onClicked: manageModel.qmlRegimEditing(4);}
+            MouseKeyBoard{onClicked: manageModel.qmlRegim(4);}
         }
 
         ButtonKey{
@@ -122,7 +122,7 @@ Popup {
                 widthsvg: insertDown.height/1.5
                 heightsvg:  insertDown.height/1.5
             }
-            MouseKeyBoard{onClicked: manageModel.qmlRegimEditing(5);}
+            MouseKeyBoard{onClicked: manageModel.qmlRegim(5);}
         }
 
     }

@@ -7,7 +7,6 @@ Rectangle {
     property alias txt: _textPut.text
     property alias textEnabled: _textPut.enabled
     property alias textPutfocus: _textPut.focus
-//    property alias visibleCursor: _textPut.cursorVisible
 
     Layout.fillWidth: true
     Layout.fillHeight: true
@@ -24,12 +23,10 @@ Rectangle {
             PropertyChanges {
                 target: state_sp_f
                 visible: false
-                //                visible: MyScript.state_spWidth()
             }
             PropertyChanges {
                 target: state_sp
                 Layout.preferredWidth: (listView.width/10)*2;
-                //                visible: MyScript.state_spWidth()
             }
         },
         State {
@@ -38,24 +35,21 @@ Rectangle {
             PropertyChanges {
                 target: state_sp_f
                 visible: true
-                //                visible: MyScript.state_spWidthmin()
             }
             PropertyChanges {
                 target: state_sp
                 Layout.preferredWidth:(listView.width/10);
-                //                visible: MyScript.state_spWidthmin()
             }
         }
     ]
-//    TextInput {
     Text {
         id: _textPut
-//        cursorVisible: false
         anchors.fill: parent
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
         font.family: Settings.listView.fontFamily;
         font.pointSize: parent.height*0.5
+        fontSizeMode: Text.Fit
         enabled: false
 //        inputMethodHints:Qt.ImhFormattedNumbersOnly
         focus: false
@@ -68,7 +62,6 @@ Rectangle {
                 PropertyChanges {
                     target: state_gac_w_stra
                     color: "orange"
-                    //                visible: MyScript.state_spWidthmin()
                 }
             },
             State {
@@ -77,13 +70,9 @@ Rectangle {
                 PropertyChanges {
                     target: state_gac_w_strb
                     color: "red"
-                    //                visible: MyScript.state_spWidthmin()
                 }
             }
         ]
-//        onEditingFinished: {
-//            STATE_SP=_textPut.text;
-//        }
 
     }
     Connections{
@@ -94,16 +83,9 @@ Rectangle {
                     //                    && manageModel.stateBt.editing===1
                     && state_sp.enabled===true)
             {
-//                _textPut.cursorVisible=true;
-//                _textPut.cursorPosition= _textPut.text.length;
-//                _textPut.text=manageModel.textInput;
                 STATE_SP=manageModel.textInput;
                 _textPut.forceActiveFocus()
             }
         }
     }
-//    Component.onCompleted: {
-//    if(STATE_SP===_textPut.text)
-//        _textPut.text=STATE_SP;
-//    }
 }

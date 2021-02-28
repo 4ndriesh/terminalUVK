@@ -7,6 +7,7 @@
 #include <QQuickItem>
 #include <QKeyEvent>
 #include "viewotcepsmodel.h"
+#include "json.h"
 
 struct QML_ManagerButton
 {
@@ -17,7 +18,7 @@ struct QML_ManagerButton
     Q_PROPERTY(int regim MEMBER m_regim)
     Q_PROPERTY(int bef_regim MEMBER m_bef_regim)
     Q_PROPERTY(int tmp_Cursor MEMBER m_tmp_Cursor)
-//    Q_PROPERTY(int code MEMBER m_code)
+    //    Q_PROPERTY(int code MEMBER m_code)
     Q_PROPERTY(bool wink_Cursor MEMBER m_wCursor)
     Q_PROPERTY(bool wink_Stop MEMBER m_wStop)
     Q_PROPERTY(bool wink_Pause MEMBER m_wPause)
@@ -34,7 +35,7 @@ public:
     bool m_wStop=false;
     bool m_wPause=false;
     bool m_wNadvig=false;
-//    int m_code=0;
+    //    int m_code=0;
 };
 Q_DECLARE_METATYPE(QML_ManagerButton)
 
@@ -63,11 +64,13 @@ class ManageModel: public QObject
     Q_PROPERTY(int qmlCurentIndex READ qmlCurrentItem WRITE setQmlCurrentItem NOTIFY qmlCurrentItemChanged)
 
     Q_PROPERTY(int textInput READ textInput NOTIFY textInputChanged)
-//    Q_PROPERTY(int textInput READ textInput WRITE setTextInput NOTIFY textInputChanged)
+    //    Q_PROPERTY(int textInput READ textInput WRITE setTextInput NOTIFY textInputChanged)
 
     Q_PROPERTY(int selectHook WRITE setSelectHook)
 
     Q_PROPERTY(int uvkLive READ uvkLive NOTIFY uvkLiveChanged)
+
+    Q_PROPERTY(QString msgEvent READ msgEvent WRITE setMsgEvent NOTIFY msgEventChanged)
 
     Q_PROPERTY(int newList READ newList WRITE setNewList NOTIFY newListChanged)
 
@@ -78,7 +81,7 @@ class ManageModel: public QObject
     Q_PROPERTY(StructProgressBar qmlStatusPB READ qmlStatusPB NOTIFY statusPBChanged)
 
 private:
-
+    Json *notice=nullptr;
 public:
     explicit ManageModel(QObject *parent = nullptr);
     virtual ~ManageModel(){}
@@ -92,9 +95,10 @@ public:
 
 signals:
 
+    void msgEventChanged();
     void openRChainChanged();
     void stateBtChanged();
-//    void maximumValuePBChanged();
+    //    void maximumValuePBChanged();
     void textInputChanged();
     void uvkLiveChanged();
     void newListChanged();
@@ -104,7 +108,7 @@ signals:
     void timerDelMsgChanged();
 
 public:
-    Q_INVOKABLE void qmlRegimEditing(const int&);
+//    Q_INVOKABLE void qmlRegimEditing(const int&);
     Q_INVOKABLE void qmlRegim(const int&);
     Q_INVOKABLE void addOtcep(const int&);
     Q_INVOKABLE void delOtcep(const int&);
@@ -117,7 +121,6 @@ public:
     Q_INVOKABLE int selectHook=0;
     //Подтверждает команду кнопкой ENTER
     Q_INVOKABLE void accept();
-
     void addMsg(const QString &);
     QML_ManagerButton m_stateBt;
     QML_ManagerButton stateBt()const {return m_stateBt;}
@@ -138,15 +141,24 @@ public:
     //Общая переменная для ввода с клавиатуры номера пути
     int m_textInput;
     int textInput()const {return m_textInput;}
-//    void setTextInput(const int &index){
-//        m_textInput = index;
-//        inputPut(m_textInput);
-////        emit textInputChanged();
-//    }
+    //    void setTextInput(const int &index){
+    //        m_textInput = index;
+    //        inputPut(m_textInput);
+    ////        emit textInputChanged();
+    //    }
 
     //Наличие увк
     int m_uvkLive=0;
     int uvkLive()const {return m_uvkLive;}
+
+    //Сообщение в Highlite на событие
+    QString m_msgEvent="";
+    QString msgEvent()const {return m_msgEvent;}
+    void setMsgEvent(const QString &msg){
+        m_msgEvent = msg;
+        emit msgEventChanged();
+
+    }
 
     //Оповещение о новом сортирововчном листке
     int m_newList;

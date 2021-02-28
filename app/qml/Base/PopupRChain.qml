@@ -9,21 +9,18 @@ Popup {
     height: parent.height/2
     width: parent.width/2
     focus: true
+    background: Rectangle {color: "transparent"}
      ListView{
         id:listRChainView
         anchors.fill: parent
-        highlightFollowsCurrentItem: true
+        highlightFollowsCurrentItem: false
         currentIndex: rChain.qmlChainItem
         model:rChain.qmlRChain
         delegate: DelegateRChain{}
-        highlight: Highlight{
+
+        highlight: HighlightRChain{
             id:highliteBarChain;
             z:2
-            heightHighlite: 30
-//            height: listRChainView.currentItem.height
-            yHighlite:0;
-            width: _rchaindialog.width
-//            y: listRChainView.currentItem.y;
         }
     }
      onClosed: {

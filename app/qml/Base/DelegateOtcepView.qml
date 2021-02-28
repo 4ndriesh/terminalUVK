@@ -25,17 +25,13 @@ Rectangle {
 stat
     EDIT когда ЖИР всегда или (STATE_LOCATION == 2)*/
 
-
-
-    property variant items_color: ["red", "yellow","green","dimgrey","white","silver"]
+    property variant items_color: ["red", "yellow","white","silver","lightcyan"]
     width: listView.width;
     height: 60;
-    //    visible: true
     visible: STATE_ENABLED ? true:false
     transform: Scale {
         id: spinBoxIndicatorIconScale
     }
-//    state: "default"
     states:
         [
         State {
@@ -45,12 +41,10 @@ stat
             PropertyChanges {
                 target: state_sp
                 color:delegate.items_color[0]
-                //                color:delegate.items_color[0]
             }
             PropertyChanges {
                 target: state_sp_f
                 color:delegate.items_color[0]
-                //                color:delegate.items_color[0]
             }
         },
         State {
@@ -60,57 +54,21 @@ stat
             PropertyChanges {
                 target: delegate
                 color:delegate.items_color[1]
-
             }
-//            PropertyChanges {
-//                target: state_sp
-//                enabled:true;
-//                border.color: "green";
-//                border.width: 5;
-//                textEnabled:true;
-//                textPutfocus: true;
-//                visibleCursor:true;
-//            }
         },
-//        State {
-//            name: "focus"
-//            extend: "lightsteelblue"
-//            when: STATE_IS_CURRENT===1
-//            PropertyChanges {
-//                target: delegate
-//                height:80
-
-//            }
-//            StateChangeScript {
-//                name: "insertIndex"
-//                script: manageModel.qmlCurentIndex=index
-
-//            }
-//         },
 
         State {
             name: "lightsteelblue"
-            //            when: manageModel.qmlCurentIndex === index // bind to isCurrentItem to set the state
-            //            when: delegate.ListView.isCurrentItem
-
-            //                  && manageModel.stateBt.editing===1// bind to isCurrentItem to set the state
             when: (delegate.ListView.isCurrentItem && STATE_IS_CURRENT===1 && STATE_LOCATION===1)
                   || (STATE_LOCATION===1 && delegate.ListView.isCurrentItem)
-            //                  && manageModel.stateBt.editing===1// bind to isCurrentItem to set the state
-            PropertyChanges {
-                target: delegate
-                height:80
-//                color: "lightsteelblue"
-
-            }
             PropertyChanges {
                 target: state_sp
                 enabled:true;
-                border.color: "green";
-                border.width: 5;
+                color: delegate.items_color[4];
+//                border.color: "green";
+//                border.width: 5;
                 textEnabled:true;
                 textPutfocus: true;
-//                visibleCursor:true;
             }
 
             PropertyChanges {
@@ -121,7 +79,6 @@ stat
             StateChangeScript {
                 name: "insertIndex"
                 script: manageModel.qmlCurentIndex=index
-
             }
         },
 
@@ -130,7 +87,7 @@ stat
             when: STATE_LOCATION === 1// bind to isCurrentItem to set the state
             PropertyChanges {
                 target: delegate
-                color: delegate.items_color[4]
+                color: delegate.items_color[2]
             }
         },
         State {
@@ -138,7 +95,7 @@ stat
             when: STATE_LOCATION !== 1
             PropertyChanges {
                 target: delegate
-                color: delegate.items_color[5]
+                color: delegate.items_color[3]
             }
         }
     ]

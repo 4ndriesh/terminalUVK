@@ -25,9 +25,6 @@ LRESULT CALLBACK KBdllhooks::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPAR
     {
         KBDLLHOOKSTRUCT * pKBStruct = (KBDLLHOOKSTRUCT *)lParam;
         if(pKBStruct != nullptr) {
-            qDebug()<<"pKBStruct->vkCode"<<pKBStruct->vkCode<<"flag"<<pKBStruct->flags;
-
-
             if(pKBStruct->vkCode==VK_LCONTROL || pKBStruct->vkCode==VK_CONTROL){
                 ctrl=true;
                 return CallNextHookEx(NULL, nCode, wParam, lParam);

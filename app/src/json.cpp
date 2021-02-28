@@ -5,13 +5,9 @@
 #include <QFileDialog>
 #include <QFile>
 
-Json::Json()
+Json::Json(const QString & path)
 {
-onLoadSettings();
-}
-void Json::onLoadSettings()
-{
-    QFile jsonFile("settings.json");
+    QFile jsonFile(path);
     if (!jsonFile.open(QIODevice::ReadOnly))
     {
         qWarning("Couldn't open save file.");
@@ -25,9 +21,17 @@ void Json::onLoadSettings()
     QJsonDocument jsonDocument(QJsonDocument::fromJson(saveData));
     // Из которого выделяем объект в текущий рабочий QJsonObject
     m_currentJsonObject = jsonDocument.object();
-    return;
 }
-QString Json::getMXml(const QString &get)
+
+QString Json::getMXml(const QString &get,const QString &select)
+{
+    QJsonValue itemValue = m_currentJsonObject.value(get);
+    QJsonObject itemObject = itemValue.toObject();
+    return itemObject.value(select).toString();
+    //    QJsonValue item=m_currentJsonObject[get];
+    //    return item.toString();
+}
+QString Json::getSettings(const QString &get)
 {
     QJsonValue item=m_currentJsonObject[get];
     return item.toString();

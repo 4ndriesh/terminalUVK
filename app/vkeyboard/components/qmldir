@@ -1,5 +1,0 @@
-module Components
-AddUpKey 1.0 AddUpKey.qml
-DownUpKey 1.0 DownUpKey.qml 
-DelOtcep 1.0 DelOtcep.qml
-KeyOtcep1 1.0 KeyOtcep1.qml

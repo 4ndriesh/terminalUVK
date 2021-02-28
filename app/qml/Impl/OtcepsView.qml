@@ -25,8 +25,6 @@ Rectangle {
         highlightMoveDuration: -1
         highlightMoveVelocity: -1
 
-        //        currentIndex: manageModel.qmlCurentIndex
-        //        currentIndex: manageModel.stateBt.editing ? manageModel.qmlCurentIndex:0
         model: otcepsModel
         keyNavigationEnabled: false
         keyNavigationWraps: false

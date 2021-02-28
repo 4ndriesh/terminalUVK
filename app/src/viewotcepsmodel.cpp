@@ -104,34 +104,20 @@ ViewOtcepsModel &ViewOtcepsModel::instance()
 
 void ViewOtcepsModel::slotOtcepChanged()
 {
-    //    qDebug()<<"STATE_REGIM"<<MVP_Import::instance()->gorka->STATE_REGIM();
     Mn.m_stateBt.m_regim=MVP_Import::instance()->gorka->STATE_REGIM();
     if(countEnabled()==0 && Mn.m_stateBt.m_editing==0)
-        //    if(Mn.m_stateBt.m_regim==0 && Mn.m_stateBt.m_editing==0)
         Mn.setQmlCurrentItem(0);
 
 
-    //    qDebug()<<"PUT_NADVIG"<<MVP_Import::instance()->gorka->PUT_NADVIG();
     Mn.m_uvkLive=!MVP_Import::instance()->gorka->SIGNAL_ROSPUSK().is33();
     emit Mn.uvkLiveChanged();
-    //    bool uvkisalive=!MVP_Import::instance()->gorka->SIGNAL_ROSPUSK().is33();
+
     Mn.m_stateBt.m_putNadviga=MVP_Import::instance()->gorka->STATE_PUT_NADVIG();
-    //    qDebug()<<"PUT_NADVIG----"<< Mn.m_stateBt.m_putNadviga;
     Mn.m_stateBt.m_bef_putNadviga=Mn.m_stateBt.m_putNadviga;
     emit Mn.stateBtChanged();
 
-    //    int rowCount=countEnabled();
-    //    if(updateOtcep==rowCount && rowCount>0)
     emit dataChanged(createIndex(0,0), createIndex(98, 7));
-    //    else if(updateOtcep!=rowCount ){
-    //        qDebug()<<"qDeleteAll";
-    //        emit dataChanged(createIndex(0,0), createIndex(updateOtcep, otcepRoles.count()));
-    //        beginResetModel();
-    //        endResetModel();
-    //        updateOtcep=rowCount;
-    //    }
-    //            beginResetModel();
-    //            endResetModel();
+
     struct TUVK_status{
         time_t time;
     };
@@ -147,16 +133,11 @@ int ViewOtcepsModel::countEnabled()
     while (get(countRow)["STATE_ENABLED"]!=false && countRow<98){
         ++countRow;
     }
-
-    //    do{
-    //        ++countRow;
-    //    }while (get(countRow)["STATE_ENABLED"]!=false && countRow<98);
     return countRow;
 }
 
 QVariantMap ViewOtcepsModel::get(int row) const
 {
-    //    qDebug()<<ViewOtcepList[row].toMap()["STATE_ENABLED"];
     return ViewOtcepList[row].toMap();
 }
 
@@ -190,7 +171,6 @@ QVariant ViewOtcepsModel::data(const QModelIndex &index, int role) const
 
 bool ViewOtcepsModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    qDebug()<<"value->>"<<value;
     DataObject &dataSourceObject = ViewOtcepList[index.row()];
     if (data(index, role) != value) {
         if (otcepRoles.contains(role)){

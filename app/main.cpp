@@ -42,34 +42,27 @@
 
 int main(int argc, char *argv[])
 {
-
-//    qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
-//    qputenv("QT_VIRTUALKEYBOARD_LAYOUT_PATH", QByteArray("qrc:/vkeyboard/layouts"));
-
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
-    Json &sett = Json::instance();
-    if(QHostInfo::localHostName() == sett.getMXml("localHostName"))
+    Json *sett = new Json("settings.json");
+//    Json &sett = Json::instance("settings.json");
+    if(QHostInfo::localHostName() == sett->getSettings("localHostName"))
         KBdllhooks::instance();
 
-    if (!MVP_Import::instance()->load(sett.getMXml("xml")))
+    if (!MVP_Import::instance()->load(sett->getSettings("xml")))
     {
         exit(-1);
     }
+    delete sett;
 
     qRegisterMetaType<QML_ManagerButton>("QML_ManagerButton");
     qRegisterMetaType<StructProgressBar>("StructProgressBar");
     ViewOtcepsModel &model = ViewOtcepsModel::instance();
     ManageModel &manage = ManageModel::instance();
     RailChain &rch = RailChain::instance();
-
-
     QQmlApplicationEngine engine;
     engine.addImportPath("qrc:/qml");
-//    engine.addImportPath(":/vkeyboard/");
-//    qputenv("QT_VIRTUALKEYBOARD_STYLE", "test");
     QQmlContext* context = engine.rootContext();
-    //    qmlRegisterType<QML_ManagerButton>("MModel", 1, 0, "QML_ManagerButton");
     context->setContextProperty("otcepsModel", &model);
     context->setContextProperty("manageModel", &manage);
     context->setContextProperty("rChain", &rch);

@@ -16,6 +16,22 @@ Rectangle {
     border.width: 5
     border.color: manageModel.stateBt.editing ? Settings.highlight.edit:Settings.highlight.base
     Behavior on y {SpringAnimation { spring: 2; damping: 0.4;}}
+    //    Rectangle{
+    //        id: _rectHighlight
+    //        anchors.horizontalCenter: parent.horizontalCenter
+    //        anchors.verticalCenter: parent.verticalCenter
+    //        height: parent.height/2
+    //        width: parent.width/4
+    //        visible: false
+    Text {
+        id: _textHighlight
+        anchors.fill: parent
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
+        font.family: Settings.listView.fontFamily;
+        font.pointSize: parent.height/2
+    }
+    //    }
     OpacityAnimator on opacity{
         id: _opacitywink
         target: _highlight
@@ -24,11 +40,8 @@ Rectangle {
         to: 1;
         duration: 500
         running: wink
-//        onStarted: _highlight.color="white"
         onStopped: {
-//            manageModel.qmlRegimEditing(10);
             _highlight.opacity=1;
-//            _highlight.color="transparent"
         }
     }
     Timer {
@@ -36,8 +49,14 @@ Rectangle {
         interval: Settings.highlight.timeWink
         running: wink
         onTriggered: {
-            manageModel.qmlRegimEditing(10);
+            manageModel.qmlRegim(11);
+            manageModel.qmlRegim(10);
         }
     }
-
+    Connections{
+        target: manageModel
+        function onMsgEventChanged(){
+            _textHighlight.text=manageModel.msgEvent;
+        }
+    }
 }
