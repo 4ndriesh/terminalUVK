@@ -57,6 +57,7 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
 
 {
     QTimer *timer=new QTimer(this);
+//    QTimer *timerUVK=new QTimer(this);
     qmlX=1;
     updateOtcep=0;
     int irole=Qt::UserRole+1;
@@ -83,6 +84,10 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
     connect(timer, &QTimer::timeout , this, &ViewOtcepsModel::slotOtcepChanged);
     timer->start();
 
+//    timerUVK->setInterval(5000);
+//    connect(timerUVK, &QTimer::timeout , this, &ViewOtcepsModel::statusAliveUVK);
+//    timerUVK->start();
+
     connect(MVP_Import::instance(),&MVP_Import::sortirArrived,this, &ViewOtcepsModel::sortirArrived);
     MVP_Import::instance()->updateOtceps();
     //    connect(MVP_Import::instance(),&MVP_Import::sendStartProgressBar,this,&ViewOtcepsModel::slotStartProgressBar);
@@ -94,7 +99,10 @@ ViewOtcepsModel &ViewOtcepsModel::instance()
         _instance = new ViewOtcepsModel;
     return *_instance;
 }
-
+void ViewOtcepsModel::statusAliveUVK()
+{
+    qDebug()<<"AliveUVK";
+}
 void ViewOtcepsModel::slotOtcepChanged()
 {
     Mn.m_stateBt.m_regim=MVP_Import::instance()->gorka->STATE_REGIM();

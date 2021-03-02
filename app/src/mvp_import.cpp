@@ -337,7 +337,6 @@ void MVP_Import::delOtcep(int N)
 
 void MVP_Import::ClearAllOtcep()
 {
-    qDebug()<<"addupClearAll";
     QMap<QString,QString> m;
     m.clear();
     m["DEST"]="UVK";
@@ -348,7 +347,6 @@ void MVP_Import::ClearAllOtcep()
 
 void MVP_Import::updateOtceps()
 {
-    qDebug()<<"updateAllOtceps";
     QMap<QString,QString> m;
     m.clear();
     m["DEST"]="UVK";

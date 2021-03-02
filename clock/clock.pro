@@ -3,7 +3,7 @@ CONFIG += qt plugin
 QT += qml
 
 TARGET = clock
-DESTDIR = ../../terminal_uvk
+DESTDIR = ../../tuvk
 DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     clock.cpp

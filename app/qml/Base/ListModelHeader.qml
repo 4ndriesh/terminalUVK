@@ -23,7 +23,7 @@ ListModel {
         maximumHeight: 50
     }
     ListElement {
-        name: "Задн"
+        name: "Задан"
         rowSpan: 1
         columnSpan: 1
         row: 1
@@ -53,7 +53,7 @@ ListModel {
         maximumHeight: 50
     }
     ListElement {
-        name: "Задн"
+        name: "Задан"
         rowSpan: 1
         columnSpan: 1
         row: 1
@@ -107,7 +107,7 @@ ListModel {
 
 
     ListElement {
-        name: "Задн"
+        name: "Задан"
         rowSpan: 1
         columnSpan: 1
         row: 1
@@ -137,7 +137,7 @@ ListModel {
         maximumHeight: 50
     }
     ListElement {
-        name: "Задн"
+        name: "Задан"
         rowSpan: 1
         columnSpan: 1
         row: 1

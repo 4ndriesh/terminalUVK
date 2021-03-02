@@ -24,7 +24,7 @@ Rectangle {
     остальн - обычн фон
 stat
     EDIT когда ЖИР всегда или (STATE_LOCATION == 2)*/
-
+    property variant sl_ur: ["","О1", "N2","N3"]
     property variant items_color: ["red", "yellow","white","silver","lightcyan"]
     width: listView.width;
     height: 60;
@@ -108,11 +108,11 @@ stat
         Number {txt: STATE_NUM;}
         Number {id: state_sp; txt: STATE_SP ? STATE_SP:""; }
         Number {id: state_sp_f; txt: STATE_SP_F ? STATE_SP_F:"";}
-        Number {txt: STATE_SL_VAGON_CNT ? STATE_SP:"";}
+        Number {txt: STATE_SL_VAGON_CNT ? STATE_SL_VAGON_CNT:"";}
         Number {txt: STATE_ZKR_VAGON_CNT ? STATE_ZKR_VAGON_CNT:"";}
         Number { txt: STATE_BAZA ? STATE_BAZA:"";}
         Number { txt: STATE_SL_VES ? STATE_SL_VES.toFixed(2):"";}
-        Number { txt: STATE_SL_UR ? STATE_SL_UR:"";}
+        Number { id: state_sl_ur; txt: sl_ur[STATE_SL_UR]}
         Number {id: state_gac_w_stra; txt: STATE_GAC_W_STRA? "СТР":"";
             Layout.preferredWidth:(listView.width/10)/2}
         Number {id: state_gac_w_strb; txt: STATE_GAC_W_STRB? "БЛК":"";

@@ -65,7 +65,7 @@ void ManageModel::addOtcep(const int & index)
 
 void ManageModel::qmlRegim(const int & regim)
 {
-    if(m_stateBt.m_editing==1 && regim<=3){
+    if(m_stateBt.m_editing==1 && regim<3){
         addMsg("Закончить режим <<ВВОД СЛ>>");
         return;
     }
@@ -210,7 +210,6 @@ void ManageModel::setRegim(const int &regim)
 void ManageModel::addMsg(const QString &valMsg)
 {
     if(m_listMsg.isEmpty()){
-        qDebug()<<"Start Timer";
         timerDelMsg=true;
         emit timerDelMsgChanged();
     }
@@ -227,7 +226,6 @@ void ManageModel::deleteMsg()
         m_listMsg.removeLast();
     else {
         timerDelMsg=false;
-        qDebug()<<"Stop Timer";
         emit timerDelMsgChanged();
     }
     emit listMsgChanged();
@@ -390,6 +388,7 @@ void ManageModel::keyDown(const int &key, const bool &ctrl)
         break;
 
     default:
+        qmlRegim(10);
         break;
 
     }

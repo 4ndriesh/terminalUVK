@@ -21,6 +21,7 @@ public:
     static ViewOtcepsModel &instance();
     explicit ViewOtcepsModel(QObject *parent=nullptr);
     const tSl2Odo2 *tmpSrt;
+    void statusAliveUVK();
     void slotOtcepChanged();
 
     Q_INVOKABLE QVariantMap get(int row) const;
