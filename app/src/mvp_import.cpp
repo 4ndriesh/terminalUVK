@@ -202,35 +202,35 @@ bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
             qDebug()<< "error sortir send otcep " << o.NO;
             break;
         }
-        int nv=0;
-        foreach (const tSlVagon &v, o.vVag) {
-            nv++;
-            m.clear();
-            m["DEST"]="UVK";
-            m["CMD"]="ADD_OTCEP_VAG";
-            m["N"]=QString::number(o.NO);
-            m["NV"]=QString::number(nv);
-            QVariantHash vm=tSlVagon2Map(v);
-            foreach (QString key, vm.keys()) {
-                m[key]=vm[key].toString();
-            }
+//        int nv=0;
+//        foreach (const tSlVagon &v, o.vVag) {
+//            nv++;
+//            m.clear();
+//            m["DEST"]="UVK";
+//            m["CMD"]="ADD_OTCEP_VAG";
+//            m["N"]=QString::number(o.NO);
+//            m["NV"]=QString::number(nv);
+//            QVariantHash vm=tSlVagon2Map(v);
+//            foreach (QString key, vm.keys()) {
+//                m[key]=vm[key].toString();
+//            }
 
-            send_cmd(m);
-            qDebug()<< "sortir send otcep vagon" << o.NO << v.IV;
+//            send_cmd(m);
+//            qDebug()<< "sortir send otcep vagon" << o.NO << v.IV;
 
-            t.start();
-            while (((otcep->vVag.isEmpty())||(otcep->vVag.last().IV!=v.IV))&&(t.elapsed()<1000)){
-                QCoreApplication::processEvents();
-                send_cmd(m);
-            }
-            if ((otcep->vVag.isEmpty())||(otcep->vVag.last().IV!=v.IV)){
-                // не прошла команда на вагон
-                errorLoad=true;
-                qDebug()<< "error sortir send otcep vagon" << o.NO << v.IV;
-                break;
-            }
+//            t.start();
+//            while (((otcep->vVag.isEmpty())||(otcep->vVag.last().IV!=v.IV))&&(t.elapsed()<1000)){
+//                QCoreApplication::processEvents();
+//                send_cmd(m);
+//            }
+//            if ((otcep->vVag.isEmpty())||(otcep->vVag.last().IV!=v.IV)){
+//                // не прошла команда на вагон
+//                errorLoad=true;
+//                qDebug()<< "error sortir send otcep vagon" << o.NO << v.IV;
+//                break;
+//            }
 
-        }
+//        }
         if (errorLoad) break;
     }
     pB.m_qmlStatusPB.m_set_visible=false;
