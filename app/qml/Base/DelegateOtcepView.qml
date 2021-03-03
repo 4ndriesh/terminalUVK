@@ -6,7 +6,7 @@ import QtQml.Models 2.1
 Rectangle {
     id: delegate
     objectName: "delegate"
-    property alias iconFlip: spinBoxIndicatorIconScale.yScale
+//    property alias iconFlip: spinBoxIndicatorIconScale.yScale
     //    color: listView.isCurrentItem ? "black" : "red"
     //    color: Settings.backgroundListView
     //цвет в зависимости от STATE_LOCATION
@@ -29,9 +29,9 @@ stat
     width: listView.width;
     height: 60;
     visible: STATE_ENABLED ? true:false
-    transform: Scale {
-        id: spinBoxIndicatorIconScale
-    }
+//    transform: Scale {
+//        id: spinBoxIndicatorIconScale
+//    }
     states:
         [
         State {
@@ -63,12 +63,12 @@ stat
                   || (STATE_LOCATION===1 && delegate.ListView.isCurrentItem)
             PropertyChanges {
                 target: state_sp
-                enabled:true;
+//                enabled:true;
                 color: delegate.items_color[4];
 //                border.color: "green";
 //                border.width: 5;
-                textEnabled:true;
-                textPutfocus: true;
+//                textEnabled:true;
+//                textPutfocus: true;
             }
 
             PropertyChanges {

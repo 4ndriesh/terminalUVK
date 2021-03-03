@@ -13,7 +13,7 @@ Rectangle {
     Layout.preferredWidth: listView.width/10
     height: 60
     color: delegate.color
-    enabled: false
+//    enabled: false
     border.width: Settings.listView.borderWidth
     states:
         [
@@ -50,7 +50,7 @@ Rectangle {
         font.family: Settings.listView.fontFamily;
         font.pointSize: parent.height*0.5
         fontSizeMode: Text.Fit
-        enabled: false
+//        enabled: false
 //        inputMethodHints:Qt.ImhFormattedNumbersOnly
         focus: false
         states:
@@ -103,12 +103,10 @@ Rectangle {
         target: manageModel
         function onTextInputChanged(){
             if(manageModel.qmlCurentIndex === index
-                    && textField===state_sp
-                    //                    && manageModel.stateBt.editing===1
-                    && state_sp.enabled===true)
+                    && textField===state_sp)
             {
                 STATE_SP=manageModel.textInput;
-                _textPut.forceActiveFocus()
+//                _textPut.forceActiveFocus()
             }
         }
     }

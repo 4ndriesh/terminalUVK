@@ -22,20 +22,20 @@ Rectangle {
         preferredHighlightBegin: height/3
         preferredHighlightEnd: height/3
         //        focus: true
-        highlightMoveDuration: -1
-        highlightMoveVelocity: -1
+//        highlightMoveDuration: -1
+//        highlightMoveVelocity: -1
 
         model: otcepsModel
         keyNavigationEnabled: false
         keyNavigationWraps: false
-        header: HeaderOtcepsView {z:3}
+//        header: HeaderOtcepsView {z:3}
         headerPositioning: ListView.OverlayHeader
         highlight: Highlight{id:highliteBar;
             z:2
             wink: winkCursor
             heightHighlite: listView.currentItem.height
             yHighlite:listView.currentItem.y;
-            widthHighlite:parent.width
+            widthHighlite:listView.width
         }
         MouseArea {
             id: mouseArea

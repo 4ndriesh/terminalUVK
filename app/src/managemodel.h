@@ -139,7 +139,7 @@ public:
         m_selectHook = codWin;
     }
     //Общая переменная для ввода с клавиатуры номера пути
-    int m_textInput;
+    int m_textInput=0;
     int textInput()const {return m_textInput;}
     //    void setTextInput(const int &index){
     //        m_textInput = index;

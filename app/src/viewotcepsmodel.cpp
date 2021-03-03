@@ -101,6 +101,8 @@ ViewOtcepsModel &ViewOtcepsModel::instance()
 }
 void ViewOtcepsModel::statusAliveUVK()
 {
+//    beginResetModel();
+//    endResetModel();
     qDebug()<<"AliveUVK";
 }
 void ViewOtcepsModel::slotOtcepChanged()
@@ -117,7 +119,8 @@ void ViewOtcepsModel::slotOtcepChanged()
     Mn.m_stateBt.m_bef_putNadviga=Mn.m_stateBt.m_putNadviga;
     emit Mn.stateBtChanged();
 
-    emit dataChanged(createIndex(0,0), createIndex(98, 7));
+    emit dataChanged(createIndex(0,0), createIndex(98, 8));
+//    emit dataChanged(createIndex(0,1), createIndex(98, 8));
 
     struct TUVK_status{
         time_t time;

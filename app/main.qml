@@ -14,6 +14,8 @@ Window {
     visibility: "Maximized"
     minimumWidth: 1000
     minimumHeight: 600
+//    height: 1024
+//    width: 1280
     color: Settings.window.backgroundColor
     title: qsTr("Терминал УВК")
 
@@ -23,24 +25,29 @@ Window {
 
         ButtonPanel {
             id: controlPanel
-            Layout.row: 3
+            Layout.row: 1
+        }
+        HeaderOtcepsView {
+            Layout.fillWidth: true
+//            Layout.fillHeight: true
+            Layout.row: 2
         }
 
         OtcepsView{
             Layout.fillWidth: true
             Layout.fillHeight: true
-            Layout.row: 4
+            Layout.row: 3
         }
 
         ProgressBarPanel {
             Layout.fillWidth: true
             Layout.preferredHeight: 20
-            Layout.row: 5
+            Layout.row: 4
         }
 
         AlarmMessage {
             Layout.fillWidth: true
-            Layout.row: 6
+            Layout.row: 5
         }
     }
 }

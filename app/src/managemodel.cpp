@@ -179,7 +179,7 @@ void ManageModel::accept()
 }
 
 void ManageModel::setPutNadviga(const int &putNadviga)
-{    
+{
     MVP_Import::instance()->setPutNadvig(putNadviga);
     return;
 }
@@ -242,23 +242,18 @@ void ManageModel::inputPut(const int &numberPut)
 {
 
     m_textInput=numberPut;
-    if(m_stateBt.m_bef_regim==4){
+    if(m_stateBt.m_bef_regim==4 || ViewOtcepsModel::instance().countEnabled()==0){
         addOtcep(m_qmlCurentIndex+1);
         qmlRegim(6);
-        //        setQmlCurrentItem(m_qmlCurentIndex);
+        setQmlCurrentItem(m_qmlCurentIndex);
         accept();
         return;
     }
     else if(m_stateBt.m_bef_regim==5){
-        if(ViewOtcepsModel::instance().countEnabled()==0){
-            addOtcep(m_qmlCurentIndex+1);
-        }
-        else{
-            addOtcep(m_qmlCurentIndex+2);
-            keyUpDown(VK_DOWN);
-        }
+        addOtcep(m_qmlCurentIndex+2);
+
         qmlRegim(6);
-        //        setQmlCurrentItem(m_qmlCurentIndex);
+        setQmlCurrentItem(m_qmlCurentIndex+1);
         accept();
         return;
     }

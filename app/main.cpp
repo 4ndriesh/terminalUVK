@@ -42,10 +42,14 @@
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    //    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    //    QCoreApplication::setAttribute(Qt::AA_DisableHighDpiScaling);
+    QCoreApplication::setAttribute( Qt::AA_UseOpenGLES);
+//    QCoreApplication::setAttribute( Qt::AA_UseDesktopOpenGL );
     QGuiApplication app(argc, argv);
     Json *sett = new Json("settings.json");
-//    Json &sett = Json::instance("settings.json");
+
+    //    Json &sett = Json::instance("settings.json");
     if(QHostInfo::localHostName() == sett->getSettings("localHostName"))
         KBdllhooks::instance();
 
@@ -66,7 +70,7 @@ int main(int argc, char *argv[])
     context->setContextProperty("otcepsModel", &model);
     context->setContextProperty("manageModel", &manage);
     context->setContextProperty("rChain", &rch);
-//    const QUrl url(QStringLiteral("main.qml"));
+    //    const QUrl url(QStringLiteral("main.qml"));
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {

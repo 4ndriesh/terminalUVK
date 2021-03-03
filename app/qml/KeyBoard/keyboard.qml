@@ -41,9 +41,9 @@ Popup {
             id:enter
             ImageSVG {
                 source: Settings.keyboard.enter
-                color: Settings.keyboard.overlay
-                widthsvg: enter.height/1.5
-                heightsvg:  enter.height/1.5
+//                color: Settings.keyboard.overlay
+                widthsvg: enter.width/1.5
+                heightsvg:  enter.width/1.5
             }
             MouseKeyBoard{onClicked: manageModel.accept();}
         }
@@ -51,9 +51,9 @@ Popup {
             id:trash
             ImageSVG {
                 source: Settings.keyboard.trash
-                color: Settings.keyboard.overlay
-                widthsvg: trash.height/1.5
-                heightsvg:  trash.height/1.5
+//                color: Settings.keyboard.overlay
+                widthsvg: trash.width/1.5
+                heightsvg:  trash.width/1.5
             }
             MouseKeyBoard{onClicked: manageModel.qmlRegim(3);}
 
@@ -74,9 +74,9 @@ Popup {
             id:upArrow
             ImageSVG {
                 source: Settings.keyboard.upArrow
-                color: Settings.keyboard.overlay
-                widthsvg: upArrow.height/1.5
-                heightsvg:  upArrow.height/1.5
+//                color: Settings.keyboard.overlay
+                widthsvg: upArrow.width/1.5
+                heightsvg:  upArrow.width/1.5
             }
             MouseKeyBoard{onClicked: manageModel.keyDown(38,false);}
         }
@@ -85,9 +85,9 @@ Popup {
             ImageSVG {
                 source: Settings.keyboard.insertDown
                 rotation: 180
-                color: Settings.keyboard.overlay
-                widthsvg: insertUp.height/1.5
-                heightsvg:  insertUp.height/1.5
+//                color: Settings.keyboard.overlay
+                widthsvg: insertUp.width/1.5
+                heightsvg:  insertUp.width/1.5
             }
             MouseKeyBoard{onClicked: manageModel.qmlRegim(4);}
         }
@@ -108,9 +108,9 @@ Popup {
             id:downArrow
             ImageSVG {
                 source: Settings.keyboard.downArrow
-                color: Settings.keyboard.overlay
-                widthsvg: downArrow.height/1.5
-                heightsvg:  downArrow.height/1.5
+//                color: Settings.keyboard.overlay
+                widthsvg: downArrow.width/1.5
+                heightsvg:  downArrow.width/1.5
             }
             MouseKeyBoard{onClicked: manageModel.keyDown(40,false);}
         }
@@ -118,9 +118,9 @@ Popup {
             id: insertDown
             ImageSVG {
                 source: Settings.keyboard.insertDown
-                color: Settings.keyboard.overlay
-                widthsvg: insertDown.height/1.5
-                heightsvg:  insertDown.height/1.5
+//                color: Settings.keyboard.overlay
+                widthsvg: insertDown.width/1.5
+                heightsvg:  insertDown.width/1.5
             }
             MouseKeyBoard{onClicked: manageModel.qmlRegim(5);}
         }
