@@ -242,7 +242,8 @@ void ManageModel::inputPut(const int &numberPut)
 {
 
     m_textInput=numberPut;
-    if(m_stateBt.m_bef_regim==4 || ViewOtcepsModel::instance().countEnabled()==0){
+    int countEnabled=ViewOtcepsModel::instance().countEnabled();
+    if(m_stateBt.m_bef_regim==4 || countEnabled==0){
         addOtcep(m_qmlCurentIndex+1);
         qmlRegim(6);
         setQmlCurrentItem(m_qmlCurentIndex);
@@ -257,7 +258,7 @@ void ManageModel::inputPut(const int &numberPut)
         accept();
         return;
     }
-    else{
+    else {
         qmlRegim(6);
     }
     return;
