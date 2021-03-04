@@ -20,7 +20,7 @@ Popup {
         anchors.fill: parent
         spacing: 5
 
-        columns: 5
+        columns: 6
         rows: 3
         //        columns: keyboard.inPortrait ? 1 : 2
         //        rows: keyboard.inPortrait ? 6 : 3
@@ -41,7 +41,7 @@ Popup {
             id:enter
             ImageSVG {
                 source: Settings.keyboard.enter
-//                color: Settings.keyboard.overlay
+                //                color: Settings.keyboard.overlay
                 widthsvg: enter.width/1.5
                 heightsvg:  enter.width/1.5
             }
@@ -51,13 +51,14 @@ Popup {
             id:trash
             ImageSVG {
                 source: Settings.keyboard.trash
-//                color: Settings.keyboard.overlay
+                //                color: Settings.keyboard.overlay
                 widthsvg: trash.width/1.5
                 heightsvg:  trash.width/1.5
             }
             MouseKeyBoard{onClicked: manageModel.qmlRegim(3);}
 
         }
+        Item{width: panelKeyboard.itemWidth; height: panelKeyboard.itemHeight}
         ButtonKey{
             buttonText: "4"
             MouseKeyBoard{onClicked: manageModel.inputPut(4);}
@@ -74,7 +75,7 @@ Popup {
             id:upArrow
             ImageSVG {
                 source: Settings.keyboard.upArrow
-//                color: Settings.keyboard.overlay
+                //                color: Settings.keyboard.overlay
                 widthsvg: upArrow.width/1.5
                 heightsvg:  upArrow.width/1.5
             }
@@ -85,13 +86,13 @@ Popup {
             ImageSVG {
                 source: Settings.keyboard.insertDown
                 rotation: 180
-//                color: Settings.keyboard.overlay
+                //                color: Settings.keyboard.overlay
                 widthsvg: insertUp.width/1.5
                 heightsvg:  insertUp.width/1.5
             }
             MouseKeyBoard{onClicked: manageModel.qmlRegim(4);}
         }
-
+        Item{width: panelKeyboard.itemWidth; height: panelKeyboard.itemHeight}
         ButtonKey{
             buttonText: "7"
             MouseKeyBoard{onClicked: manageModel.inputPut(7);}
@@ -108,7 +109,7 @@ Popup {
             id:downArrow
             ImageSVG {
                 source: Settings.keyboard.downArrow
-//                color: Settings.keyboard.overlay
+                //                color: Settings.keyboard.overlay
                 widthsvg: downArrow.width/1.5
                 heightsvg:  downArrow.width/1.5
             }
@@ -118,12 +119,18 @@ Popup {
             id: insertDown
             ImageSVG {
                 source: Settings.keyboard.insertDown
-//                color: Settings.keyboard.overlay
+                //                color: Settings.keyboard.overlay
                 widthsvg: insertDown.width/1.5
                 heightsvg:  insertDown.width/1.5
             }
             MouseKeyBoard{onClicked: manageModel.qmlRegim(5);}
         }
+        Item{width: panelKeyboard.itemWidth; height: panelKeyboard.itemHeight}
+//        ButtonKey{
+//            id: setCurrentOtcep
+//            buttonText: "СТ"
+//            MouseKeyBoard{onClicked: manageModel.qmlRegim(8);}
+//        }
 
     }
 }

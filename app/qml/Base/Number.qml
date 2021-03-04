@@ -13,51 +13,76 @@ Rectangle {
     Layout.preferredWidth: listView.width/10
     height: 60
     color: delegate.color
-//    enabled: false
     border.width: Settings.listView.borderWidth
-    states:
-        [
-        State {
-            name: "join"
-            when: STATE_SP===STATE_SP_F
-            PropertyChanges {
-                target: state_sp_f
-                visible: false
+
+    Item {
+        id: _join
+        states:
+            [
+            State {
+                name: "join"
+                when: STATE_SP===STATE_SP_F
+                PropertyChanges {
+                    target: state_sp_f
+                    visible: false
+                }
+                PropertyChanges {
+                    target: state_sp
+                    Layout.preferredWidth: (listView.width/10)*2;
+                }
+            },
+            State {
+                name: "joinoff"
+                when: STATE_SP!==STATE_SP_F
+                PropertyChanges {
+                    target: state_sp_f
+                    visible: true
+                }
+                PropertyChanges {
+                    target: state_sp
+                    Layout.preferredWidth:(listView.width/10);
+                }
             }
-            PropertyChanges {
-                target: state_sp
-                Layout.preferredWidth: (listView.width/10)*2;
+        ]
+    }
+
+    Item {
+        id: _joinvagon
+        states:
+            [
+            State {
+                name: "joinvagon"
+                when: STATE_SL_VAGON_CNT===STATE_ZKR_VAGON_CNT
+                PropertyChanges {
+                    target: state_zkr_vagon_cnt
+                    visible: false
+                }
+                PropertyChanges {
+                    target: state_sl_vagon_cnt
+                    Layout.preferredWidth: (listView.width/10)*2;
+                }
+            },
+            State {
+                name: "joinoffvagon"
+                when: STATE_SL_VAGON_CNT!==STATE_ZKR_VAGON_CNT
+                PropertyChanges {
+                    target: state_zkr_vagon_cnt
+                    visible: true
+                }
+                PropertyChanges {
+                    target: state_sl_vagon_cnt
+                    Layout.preferredWidth:(listView.width/10);
+                }
             }
-        },
-        State {
-            name: "joinoff"
-            when: STATE_SP!==STATE_SP_F
-            PropertyChanges {
-                target: state_sp_f
-                visible: true
-            }
-            PropertyChanges {
-                target: state_sp
-                Layout.preferredWidth:(listView.width/10);
-            }
-        }
-    ]
-    Text {
-        id: _textPut
-        anchors.fill: parent
-        verticalAlignment: Text.AlignVCenter
-        horizontalAlignment: Text.AlignHCenter
-        font.family: Settings.listView.fontFamily;
-        font.pointSize: parent.height*0.5
-        fontSizeMode: Text.Fit
-//        enabled: false
-//        inputMethodHints:Qt.ImhFormattedNumbersOnly
-        focus: false
+        ]
+    }
+    Item {
+        id: _stra
         states:
             [
             State {
                 name: "colorSTRA"
-//                extend: "colorSTRB"
+                //                extend: "colorSTRB"
                 when: STATE_GAC_W_STRA===1 && textField===state_gac_w_stra
                 PropertyChanges {
                     target: state_gac_w_stra
@@ -71,7 +96,13 @@ Rectangle {
                     target: state_gac_w_strb
                     color: "red"
                 }
-            },
+            }
+        ]
+    }
+    Item {
+        id: _ur
+        states:
+            [
             State {
                 name: "colorUR1"
                 when: STATE_SL_UR===1 && textField===state_sl_ur
@@ -97,6 +128,19 @@ Rectangle {
                 }
             }
         ]
+    }
+    Text {
+        id: _textPut
+        anchors.fill: parent
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
+        font.family: Settings.listView.fontFamily;
+        font.pointSize: parent.height*0.5
+        fontSizeMode: Text.Fit
+        //        enabled: false
+        //        inputMethodHints:Qt.ImhFormattedNumbersOnly
+        focus: false
+
 
     }
     Connections{
@@ -106,7 +150,7 @@ Rectangle {
                     && textField===state_sp)
             {
                 STATE_SP=manageModel.textInput;
-//                _textPut.forceActiveFocus()
+                //                _textPut.forceActiveFocus()
             }
         }
     }

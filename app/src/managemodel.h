@@ -182,12 +182,12 @@ public:
     //Управляет курсором листвью
     int m_qmlCurentIndex=0;
     int qmlCurrentItem()const{
-        //        qDebug()<<"getCurrent"<<m_qmlCurentIndex;
+//                qDebug()<<"getCurrent"<<m_qmlCurentIndex;
         return m_qmlCurentIndex;}
 
-    void setQmlCurrentItem(const int &index){
+    Q_INVOKABLE void setQmlCurrentItem(const int &index){
         m_qmlCurentIndex = index;
-        //        qDebug()<<"setCurrent"<<m_qmlCurentIndex;
+//                qDebug()<<"setCurrent"<<m_qmlCurentIndex;
         emit qmlCurrentItemChanged();
 
     }

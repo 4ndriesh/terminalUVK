@@ -66,9 +66,12 @@ void ManageModel::addOtcep(const int & index)
 void ManageModel::qmlRegim(const int & regim)
 {
     if(m_stateBt.m_editing==1 && regim<3){
-        addMsg("Закончить режим <<ВВОД СЛ>>");
-        return;
+        m_stateBt.m_editing=0;
     }
+//    if(m_stateBt.m_editing==1 && regim<3){
+//        addMsg("Закончить режим <<ВВОД СЛ>>");
+//        return;
+//    }
     switch (regim) {
     case 0:
         m_stateBt.m_bef_regim=0;
@@ -126,6 +129,14 @@ void ManageModel::qmlRegim(const int & regim)
         }
         else{addMsg(notice->getMXml("clearAll","msg"));}
         break;
+    case 8:
+        if(m_stateBt.m_regim==2){
+            m_stateBt.m_bef_regim=8;
+            m_stateBt.m_wCursor=true;
+            setMsgEvent(QString(notice->getMXml("setCurrentOtcep","event")).arg(m_qmlCurentIndex+1));
+        }
+        else{addMsg(notice->getMXml("setCurrentOtcep","msg"));}
+        break;
     case 10:
         m_stateBt.m_bef_regim=10;
         break;
@@ -166,7 +177,9 @@ void ManageModel::accept()
         break;
     case 7:
         clearAllOtcep();
-
+        break;
+    case 8:
+        qDebug()<<"Установить отцеп";
         break;
 
     case 10:

@@ -2,13 +2,13 @@ import QtQuick 2.14
 import QtQuick.Layouts 1.14
 import SettingsModule 1.0
 import QtQml.Models 2.1
+import QtQuick.Controls 1.4
+import QtQuick.Controls 2.14
+import QtQuick.Controls.Styles 1.4
 
 Rectangle {
     id: delegate
     objectName: "delegate"
-//    property alias iconFlip: spinBoxIndicatorIconScale.yScale
-    //    color: listView.isCurrentItem ? "black" : "red"
-    //    color: Settings.backgroundListView
     //цвет в зависимости от STATE_LOCATION
     /*ЖИР и фокус при роспуске ((STATE_LOCATION == 1) && (STATE_GAC_ACTIVE==1)) ||
                              ((STATE_LOCATION == 2) && (STATE_GAC_ACTIVE==1)&&(STATE_ZKR_S_IN==1))
@@ -29,76 +29,96 @@ stat
     width: listView.width;
     height: 60;
     visible: STATE_ENABLED ? true:false
-//    transform: Scale {
-//        id: spinBoxIndicatorIconScale
-//    }
-    states:
-        [
-        State {
-            name: "red"
-            extend: "default"
-            when: STATE_ERROR===1// bind to isCurrentItem to set the state
-            PropertyChanges {
-                target: state_sp
-                color:delegate.items_color[0]
-            }
-            PropertyChanges {
-                target: state_sp_f
-                color:delegate.items_color[0]
-            }
-        },
-        State {
-            name: "yellow"
-            extend: "lightsteelblue"
-            when: STATE_ZKR_S_IN===1
-            PropertyChanges {
-                target: delegate
-                color:delegate.items_color[1]
-            }
-        },
 
-        State {
-            name: "lightsteelblue"
-            when: (delegate.ListView.isCurrentItem && STATE_IS_CURRENT===1 && STATE_LOCATION===1)
-                  || (STATE_LOCATION===1 && delegate.ListView.isCurrentItem)
-            PropertyChanges {
-                target: state_sp
-//                enabled:true;
-                color: delegate.items_color[4];
-//                border.color: "green";
-//                border.width: 5;
-//                textEnabled:true;
-//                textPutfocus: true;
-            }
 
-            PropertyChanges {
-                target: delegate
-                height:80
+    Item {
+        id: _focusOtcepstates
+        states: [
+            State {
+                name: "focus"
+                when: STATE_IS_CURRENT===1
+                StateChangeScript {
+                    name: "insertIndex"
+                    script: manageModel.qmlCurentIndex=STATE_NUM-1;
+                }
+                PropertyChanges {
+                    target: delegate
+                    height:80
 
+                }
             }
-            StateChangeScript {
-                name: "insertIndex"
-                script: manageModel.qmlCurentIndex=index
-            }
-        },
+        ]
+    }
 
-        State {
-            name: "white"
-            when: STATE_LOCATION === 1// bind to isCurrentItem to set the state
-            PropertyChanges {
-                target: delegate
-                color: delegate.items_color[2]
+    Item {
+        id: _error
+        states:[
+            State {
+                name: "red"
+                when: STATE_ERROR===1// bind to isCurrentItem to set the state
+                PropertyChanges {
+                    target: state_sp
+                    color:delegate.items_color[0]
+                }
+                PropertyChanges {
+                    target: state_sp_f
+                    color:delegate.items_color[0]
+                }
             }
-        },
-        State {
-            name: "default"
-            when: STATE_LOCATION !== 1
-            PropertyChanges {
-                target: delegate
-                color: delegate.items_color[3]
+        ]
+    }
+
+    Item {
+        id: _focusYellow
+        states: [
+            State {
+                name: "yellow"
+                when: STATE_ZKR_S_IN===1
+                PropertyChanges {
+                    target: delegate
+                    color:delegate.items_color[1]
+                }
+                PropertyChanges {
+                    target: delegate
+                    height:80
+                }
+            },
+            State {
+                name: "white"
+                when: STATE_LOCATION === 1// bind to isCurrentItem to set the state
+                PropertyChanges {
+                    target: delegate
+                    color: delegate.items_color[2]
+                }
+            },
+            State {
+                name: "grey"
+                when: STATE_LOCATION !== 1
+                PropertyChanges {
+                    target: delegate
+                    color: delegate.items_color[3]
+                }
+                PropertyChanges {
+                    target: delegate
+                    height:60
+
+                }
             }
-        }
-    ]
+        ]
+    }
+    Item {
+        id: _lightsteelblue
+        states:[
+            State {
+                name: "lightsteelblue"
+                when: (delegate.ListView.isCurrentItem && STATE_LOCATION===1)|| (delegate.ListView.isCurrentItem && STATE_ZKR_S_IN===1)
+                PropertyChanges {
+                    target: state_sp
+                    color: delegate.items_color[4];
+                }
+            }
+        ]
+    }
 
     MouseAreaOtcepList {id: mouseArea}
     RowLayout   {
@@ -108,8 +128,8 @@ stat
         Number {txt: STATE_NUM;}
         Number {id: state_sp; txt: STATE_SP ? STATE_SP:""; }
         Number {id: state_sp_f; txt: STATE_SP_F ? STATE_SP_F:"";}
-        Number {txt: STATE_SL_VAGON_CNT ? STATE_SL_VAGON_CNT:"";}
-        Number {txt: STATE_ZKR_VAGON_CNT ? STATE_ZKR_VAGON_CNT:"";}
+        Number {id: state_sl_vagon_cnt; txt: STATE_SL_VAGON_CNT ? STATE_SL_VAGON_CNT:"";}
+        Number {id: state_zkr_vagon_cnt; txt: STATE_ZKR_VAGON_CNT ? STATE_ZKR_VAGON_CNT:"";}
         Number { txt: STATE_BAZA ? STATE_BAZA:"";}
         Number { txt: STATE_SL_VES ? STATE_SL_VES.toFixed(2):"";}
         Number { id: state_sl_ur; txt: sl_ur[STATE_SL_UR]}
@@ -118,9 +138,6 @@ stat
         Number {id: state_gac_w_strb; txt: STATE_GAC_W_STRB? "БЛК":"";
             Layout.preferredWidth:(listView.width/10)/2}
     }
-
-
-
 }
 
 

@@ -108,8 +108,8 @@ void ViewOtcepsModel::statusAliveUVK()
 void ViewOtcepsModel::slotOtcepChanged()
 {
     Mn.m_stateBt.m_regim=MVP_Import::instance()->gorka->STATE_REGIM();
-    if(countEnabled()==0 && Mn.m_stateBt.m_editing==0)
-        Mn.setQmlCurrentItem(0);
+//    if(countEnabled()==0 && Mn.m_stateBt.m_editing==0)
+//    Mn.setQmlCurrentItem(Mn.m_qmlCurentIndex);
 
 //    if(MVP_Import::instance()->gorka->STATE_GAC_FINISH())
 //        Mn.m_stateBt.m_wStop=true;
