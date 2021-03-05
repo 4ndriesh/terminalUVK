@@ -35,6 +35,7 @@ Item {
         readonly property string upArrow: "qrc:/qml/resources/Up.svg"
         readonly property string downArrow: "qrc:/qml/resources/Down.svg"
         readonly property string trash: "qrc:/qml/resources/Trash.svg"
+        readonly property string setCurrentOtcep: "qrc:/qml/resources/SetCurrentOtcep.svg"
     }
     QtObject {
         id: _aliveUvk

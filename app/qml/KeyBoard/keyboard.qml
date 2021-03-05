@@ -125,12 +125,16 @@ Popup {
             }
             MouseKeyBoard{onClicked: manageModel.qmlRegim(5);}
         }
-        Item{width: panelKeyboard.itemWidth; height: panelKeyboard.itemHeight}
-//        ButtonKey{
-//            id: setCurrentOtcep
-//            buttonText: "СТ"
-//            MouseKeyBoard{onClicked: manageModel.qmlRegim(8);}
-//        }
+//        Item{width: panelKeyboard.itemWidth; height: panelKeyboard.itemHeight}
+        ButtonKey{
+            id: setCurrentOtcep
+            ImageSVG {
+                source: Settings.keyboard.setCurrentOtcep
+                widthsvg: insertDown.width/1.5
+                heightsvg:  insertDown.width/1.5
+            }
+            MouseKeyBoard{onClicked: manageModel.qmlRegim(8);}
+        }
 
     }
 }

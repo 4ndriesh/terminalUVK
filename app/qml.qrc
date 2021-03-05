@@ -34,5 +34,6 @@
         <file>qml/resources/Up.svg</file>
         <file>qml/KeyBoard/MouseKeyBoard.qml</file>
         <file>qml/Base/HighlightRChain.qml</file>
+        <file>qml/resources/SetCurrentOtcep.svg</file>
     </qresource>
 </RCC>
