@@ -8,6 +8,7 @@ RowLayout {
     Layout.fillWidth: true
     height: 50
     spacing: 5
+    property int regim_Finish: manageModel.stateBt.regim_Finish
     property int regim: manageModel.stateBt.regim
     property int bef_putNadviga: manageModel.stateBt.bef_putNadviga
     property int putNadviga: manageModel.stateBt.putNadviga
@@ -41,7 +42,9 @@ RowLayout {
         id: putnadviga
         Layout.leftMargin: 100
         buttonText: "РОСПУСК: 1"
-        colorButton: (regim===1 && putNadviga===1) ? Settings.buttonColor.regimRospusk:Settings.buttonColor.baseColor
+        colorButton: (regim===1 && putNadviga===1) ?
+                         Settings.buttonColor.regimRospusk:
+                         regim_Finish? Settings.buttonColor.regim:Settings.buttonColor.baseColor
         wink: (regim===1 && putNadviga===1) ?false:wink_nadvig
 
         EventMouseArea {setRegim: 1}

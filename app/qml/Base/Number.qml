@@ -21,7 +21,7 @@ Rectangle {
             [
             State {
                 name: "join"
-                when: STATE_SP===STATE_SP_F
+                when: STATE_SP===STATE_SP_F && STATE_GAC_ACTIVE!==1
                 PropertyChanges {
                     target: state_sp_f
                     visible: false
