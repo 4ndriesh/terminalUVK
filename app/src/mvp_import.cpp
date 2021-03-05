@@ -335,6 +335,16 @@ void MVP_Import::delOtcep(int N)
     qDebug()<< "delOtcep to uvk" << N;
 }
 
+void MVP_Import::setCurOtcep(int N)
+{
+    QMap<QString,QString> m;
+    m["DEST"]="UVK";
+    m["CMD"]="OTCEPS";
+    m["SET_CUR_OTCEP"]=QString::number(N);
+    MVP_Import::instance()->cmd->send_cmd(m);
+     qDebug()<< "setCurOtcep to uvk" << N;
+}
+
 void MVP_Import::ClearAllOtcep()
 {
     QMap<QString,QString> m;
