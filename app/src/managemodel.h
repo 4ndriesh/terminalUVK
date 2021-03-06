@@ -195,6 +195,7 @@ public:
     }
 
     void setRegim(const int &);
+    void setCurrentOtcep();
     void setPutNadviga(const int &);
 
     StructProgressBar m_qmlStatusPB;

@@ -14,37 +14,38 @@ Rectangle {
     height: 60
     color: delegate.color
     border.width: Settings.listView.borderWidth
-
     Item {
         id: _join
         states:
             [
             State {
-                name: "join"
-                when: STATE_SP===STATE_SP_F && STATE_GAC_ACTIVE!==1
-                PropertyChanges {
-                    target: state_sp_f
-                    visible: false
-                }
-                PropertyChanges {
-                    target: state_sp
-                    Layout.preferredWidth: (listView.width/10)*2;
-                }
-            },
-            State {
                 name: "joinoff"
                 when: STATE_SP!==STATE_SP_F
-                PropertyChanges {
-                    target: state_sp_f
-                    visible: true
-                }
                 PropertyChanges {
                     target: state_sp
                     Layout.preferredWidth:(listView.width/10);
                 }
+                PropertyChanges {
+                    target: state_sp_f
+                    visible: true
+                }
+            },
+            State {
+                name: "join"
+                when: STATE_SP===STATE_SP_F && STATE_GAC_ACTIVE!==1
+                PropertyChanges {
+                    target: state_sp
+                    Layout.preferredWidth: (listView.width/10)*2;
+                }
+                PropertyChanges {
+                    target: state_sp_f
+                    visible: false
+                }
             }
+
         ]
     }
+
 
     Item {
         id: _joinvagon
@@ -88,8 +89,14 @@ Rectangle {
                     target: state_gac_w_stra
                     color: "orange"
                 }
-            },
-            State {
+            }
+        ]
+    }
+    Item {
+        id: _strb
+        states:
+            [
+             State {
                 name: "colorSTRB"
                 when: STATE_GAC_W_STRB===1 && textField===state_gac_w_strb
                 PropertyChanges {

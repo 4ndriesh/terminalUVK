@@ -130,7 +130,7 @@ void ManageModel::qmlRegim(const int & regim)
         else{addMsg(notice->getMXml("clearAll","msg"));}
         break;
     case 8:
-        if(m_stateBt.m_regim==2){
+        if(m_stateBt.m_regim!=1){
             m_stateBt.m_bef_regim=8;
             m_stateBt.m_wCursor=true;
             setMsgEvent(QString(notice->getMXml("setCurrentOtcep","event")).arg(m_qmlCurentIndex+1));
@@ -179,7 +179,7 @@ void ManageModel::accept()
         clearAllOtcep();
         break;
     case 8:
-        qDebug()<<"Установить отцеп";
+        setCurrentOtcep();
         break;
 
     case 10:
@@ -191,6 +191,11 @@ void ManageModel::accept()
     return;
 }
 
+void ManageModel::setCurrentOtcep()
+{
+    MVP_Import::instance()->setCurOtcep(m_qmlCurentIndex+1);
+    return;
+}
 void ManageModel::setPutNadviga(const int &putNadviga)
 {
     MVP_Import::instance()->setPutNadvig(putNadviga);
