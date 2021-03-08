@@ -35,5 +35,8 @@
         <file>qml/KeyBoard/MouseKeyBoard.qml</file>
         <file>qml/Base/HighlightRChain.qml</file>
         <file>qml/resources/SetCurrentOtcep.svg</file>
+        <file>qml/Base/DelegateEditSortList.qml</file>
+        <file>qml/Base/NumberE.qml</file>
+        <file>qml/Impl/EditSortList.qml</file>
     </qresource>
 </RCC>
