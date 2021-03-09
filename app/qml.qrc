@@ -35,12 +35,9 @@
         <file>qml/KeyBoard/MouseKeyBoard.qml</file>
         <file>qml/Base/HighlightRChain.qml</file>
         <file>qml/resources/SetCurrentOtcep.svg</file>
-<<<<<<< HEAD
         <file>qml/Base/DualNumber.qml</file>
-=======
         <file>qml/Base/DelegateEditSortList.qml</file>
         <file>qml/Base/NumberE.qml</file>
         <file>qml/Impl/EditSortList.qml</file>
->>>>>>> refs/remotes/origin/master
     </qresource>
 </RCC>
