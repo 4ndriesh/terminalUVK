@@ -278,7 +278,6 @@ void ManageModel::inputPut(const int &numberPut)
     }
     else if(m_stateBt.m_bef_regim==5){
         addOtcep(m_qmlCurentIndex+2);
-
         qmlRegim(6);
         setQmlCurrentItem(m_qmlCurentIndex+1);
         accept();
