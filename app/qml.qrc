@@ -35,5 +35,6 @@
         <file>qml/KeyBoard/MouseKeyBoard.qml</file>
         <file>qml/Base/HighlightRChain.qml</file>
         <file>qml/resources/SetCurrentOtcep.svg</file>
+        <file>qml/Base/DualNumber.qml</file>
     </qresource>
 </RCC>

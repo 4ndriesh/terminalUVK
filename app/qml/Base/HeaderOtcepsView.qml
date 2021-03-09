@@ -12,7 +12,7 @@ Rectangle{
 
         anchors.fill: parent
         rows: 2
-        columns: 13
+        columns: 10
         columnSpacing:0
         rowSpacing: 0
 

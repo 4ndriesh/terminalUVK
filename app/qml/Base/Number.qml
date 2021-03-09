@@ -5,78 +5,18 @@ import SettingsModule 1.0
 Rectangle {
     id: textField
     property alias txt: _textPut.text
-    property alias textEnabled: _textPut.enabled
-    property alias textPutfocus: _textPut.focus
+//    property alias textEnabled: _textPut.enabled
+//    property alias textPutfocus: _textPut.focus
 
-    Layout.fillWidth: true
+
     Layout.fillHeight: true
+    Layout.fillWidth: true
     Layout.preferredWidth: listView.width/10
+
     height: 60
     color: delegate.color
     border.width: Settings.listView.borderWidth
-    Item {
-        id: _join
-        states:
-            [
-            State {
-                name: "joinoff"
-                when: STATE_SP!==STATE_SP_F
-                PropertyChanges {
-                    target: state_sp
-                    Layout.preferredWidth:(listView.width/10);
-                }
-                PropertyChanges {
-                    target: state_sp_f
-                    visible: true
-                }
-            },
-            State {
-                name: "join"
-                when: STATE_SP===STATE_SP_F && STATE_GAC_ACTIVE!==1
-                PropertyChanges {
-                    target: state_sp
-                    Layout.preferredWidth: (listView.width/10)*2;
-                }
-                PropertyChanges {
-                    target: state_sp_f
-                    visible: false
-                }
-            }
 
-        ]
-    }
-
-
-    Item {
-        id: _joinvagon
-        states:
-            [
-            State {
-                name: "joinvagon"
-                when: STATE_SL_VAGON_CNT===STATE_ZKR_VAGON_CNT
-                PropertyChanges {
-                    target: state_zkr_vagon_cnt
-                    visible: false
-                }
-                PropertyChanges {
-                    target: state_sl_vagon_cnt
-                    Layout.preferredWidth: (listView.width/10)*2;
-                }
-            },
-            State {
-                name: "joinoffvagon"
-                when: STATE_SL_VAGON_CNT!==STATE_ZKR_VAGON_CNT
-                PropertyChanges {
-                    target: state_zkr_vagon_cnt
-                    visible: true
-                }
-                PropertyChanges {
-                    target: state_sl_vagon_cnt
-                    Layout.preferredWidth:(listView.width/10);
-                }
-            }
-        ]
-    }
     Item {
         id: _stra
         states:
@@ -96,7 +36,7 @@ Rectangle {
         id: _strb
         states:
             [
-             State {
+            State {
                 name: "colorSTRB"
                 when: STATE_GAC_W_STRB===1 && textField===state_gac_w_strb
                 PropertyChanges {

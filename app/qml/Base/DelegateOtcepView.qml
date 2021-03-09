@@ -2,9 +2,6 @@ import QtQuick 2.14
 import QtQuick.Layouts 1.14
 import SettingsModule 1.0
 import QtQml.Models 2.1
-import QtQuick.Controls 1.4
-import QtQuick.Controls 2.14
-import QtQuick.Controls.Styles 1.4
 
 Rectangle {
     id: delegate
@@ -125,11 +122,26 @@ stat
         id: layout
         anchors.fill: parent
         spacing: 0
-        Number {txt: STATE_NUM;}
-        Number {id: state_sp; txt: STATE_SP ? STATE_SP:""; }
-        Number {id: state_sp_f; txt: STATE_SP_F ? STATE_SP_F:"";}
-        Number {id: state_sl_vagon_cnt; txt: STATE_SL_VAGON_CNT ? STATE_SL_VAGON_CNT:"";}
-        Number {id: state_zkr_vagon_cnt; txt: STATE_ZKR_VAGON_CNT ? STATE_ZKR_VAGON_CNT:"";}
+        Number {id: state_num;txt: STATE_NUM;}
+        DualNumber{
+            RowLayout   {
+                id: layout_sp
+                anchors.fill: parent
+                spacing: 0
+                Number {id: state_sp; txt: STATE_SP ? STATE_SP:""; }
+                Number {id: state_sp_f; txt: STATE_SP_F ? STATE_SP_F:"";}
+            }
+        }
+        DualNumber{
+            RowLayout   {
+                id: layout_sp_f
+                anchors.fill: parent
+                spacing: 0
+                Number {id: state_sl_vagon_cnt; txt: STATE_SL_VAGON_CNT ? STATE_SL_VAGON_CNT:"";}
+                Number {id: state_zkr_vagon_cnt; txt: STATE_ZKR_VAGON_CNT ? STATE_ZKR_VAGON_CNT:"";}
+
+            }
+        }
         Number { txt: STATE_BAZA ? STATE_BAZA:"";}
         Number { txt: STATE_SL_VES ? STATE_SL_VES.toFixed(2):"";}
         Number { id: state_sl_ur; txt: sl_ur[STATE_SL_UR]}
