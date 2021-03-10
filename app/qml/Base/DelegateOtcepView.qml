@@ -2,9 +2,6 @@ import QtQuick 2.14
 import QtQuick.Layouts 1.14
 import SettingsModule 1.0
 import QtQml.Models 2.1
-import QtQuick.Controls 1.4
-import QtQuick.Controls 2.14
-import QtQuick.Controls.Styles 1.4
 
 Rectangle {
     id: delegate
@@ -25,7 +22,7 @@ Rectangle {
 stat
     EDIT когда ЖИР всегда или (STATE_LOCATION == 2)*/
     property variant sl_ur: ["","О1", "N2","N3"]
-    property variant items_color: ["red", "yellow","white","silver","lightcyan"]
+    property variant items_color: ["red", "yellow","white","silver","lightcyan","orange"]
     width: listView.width;
     height: 60;
     visible: STATE_ENABLED ? true:false
@@ -46,10 +43,50 @@ stat
                     height:80
 
                 }
+            },
+            State {
+                name: "notfocus"
+                when: STATE_IS_CURRENT!==1
+                PropertyChanges {
+                    target: delegate
+                    height:60
+                }
             }
         ]
     }
 
+    Item {
+        id: _zkr_progress
+        states:[
+            State {
+                name: "red"
+                when: STATE_ZKR_PROGRESS===1// bind to isCurrentItem to set the state
+                PropertyChanges {
+                    target: state_sl_vagon_cnt
+                    color:delegate.items_color[1]
+                }
+                PropertyChanges {
+                    target: state_zkr_vagon_cnt
+                    color:delegate.items_color[1]
+                }
+            }
+        ]
+    }
+    Item {
+        id: _zkr_vagons
+        states:[
+            State {
+                name: "red"
+                when: STATE_SL_VAGON_CNT!==0 &&
+                      STATE_ZKR_VAGON_CNT!==0 &&
+                      STATE_ZKR_VAGON_CNT>STATE_SL_VAGON_CNT
+                PropertyChanges {
+                    target: state_zkr_vagon_cnt
+                    color:delegate.items_color[5]
+                }
+            }
+        ]
+    }
     Item {
         id: _error
         states:[
@@ -68,8 +105,21 @@ stat
         ]
     }
 
+//    Item {
+//        id: _focusYellow
+//        states: [
+//            State {
+//                name: "yellow"
+//                when: STATE_ZKR_S_IN===1
+//                PropertyChanges {
+//                    target: delegate
+//                    color:delegate.items_color[1]
+//                }
+//            }
+//        ]
+//    }
     Item {
-        id: _focusYellow
+        id: _locationColor
         states: [
             State {
                 name: "yellow"
@@ -77,10 +127,6 @@ stat
                 PropertyChanges {
                     target: delegate
                     color:delegate.items_color[1]
-                }
-                PropertyChanges {
-                    target: delegate
-                    height:80
                 }
             },
             State {
@@ -97,11 +143,6 @@ stat
                 PropertyChanges {
                     target: delegate
                     color: delegate.items_color[3]
-                }
-                PropertyChanges {
-                    target: delegate
-                    height:60
-
                 }
             }
         ]
@@ -125,12 +166,48 @@ stat
         id: layout
         anchors.fill: parent
         spacing: 0
-        Number {txt: STATE_NUM;}
-        Number {id: state_sp; txt: STATE_SP ? STATE_SP:""; }
-        Number {id: state_sp_f; txt: STATE_SP_F ? STATE_SP_F:"";}
-        Number {id: state_sl_vagon_cnt; txt: STATE_SL_VAGON_CNT ? STATE_SL_VAGON_CNT:"";}
-        Number {id: state_zkr_vagon_cnt; txt: STATE_ZKR_VAGON_CNT ? STATE_ZKR_VAGON_CNT:"";}
-        Number { txt: STATE_BAZA ? STATE_BAZA:"";}
+        Number {
+            id: state_num;
+//            txt: STATE_EXTNUM ? STATE_NUM: STATE_EXTNUM;
+            txt: STATE_EXTNUM ? STATE_EXTNUM+"."+STATE_EXTNUMPART:STATE_NUM;
+
+            Text {
+                id: _secondnum
+                anchors.fill: parent
+                verticalAlignment: Text.AlignBottom
+                horizontalAlignment: Text.AlignRight
+                font.family: Settings.listView.fontFamily;
+                font.pointSize: parent.height/3
+                fontSizeMode: Text.Fit
+                text: STATE_EXTNUM ? STATE_NUM:"";
+                //        enabled: false
+                //        inputMethodHints:Qt.ImhFormattedNumbersOnly
+                focus: false
+
+
+            }
+
+        }
+        DualNumber{
+            RowLayout   {
+                id: layout_sp
+                anchors.fill: parent
+                spacing: 0
+                Number {id: state_sp; txt: STATE_SP ? STATE_SP:""; }
+                Number {id: state_sp_f; txt: STATE_SP_F ? STATE_SP_F:"";}
+            }
+        }
+        DualNumber{
+            RowLayout   {
+                id: layout_sp_f
+                anchors.fill: parent
+                spacing: 0
+                Number {id: state_sl_vagon_cnt; txt: STATE_SL_VAGON_CNT ? STATE_SL_VAGON_CNT:"";}
+                Number {id: state_zkr_vagon_cnt; txt: STATE_ZKR_VAGON_CNT ? STATE_ZKR_VAGON_CNT:"";}
+
+            }
+        }
+        Number { txt: STATE_BAZA ? "ДБ":"";}
         Number { txt: STATE_SL_VES ? STATE_SL_VES.toFixed(2):"";}
         Number { id: state_sl_ur; txt: sl_ur[STATE_SL_UR]}
         Number {id: state_gac_w_stra; txt: STATE_GAC_W_STRA? "СТР":"";
