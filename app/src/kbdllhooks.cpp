@@ -5,6 +5,7 @@
 #include "managemodel.h"
 #include "railchain.h"
 #include "json.h"
+#include "editotcepsmodel.h"
 
 KBdllhooks::KBdllhooks(QObject *parent) : QObject(parent)
 {
@@ -31,6 +32,9 @@ LRESULT CALLBACK KBdllhooks::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPAR
             }
             if(ManageModel::instance().m_selectHook==1){
                 RailChain::instance().keyDown(pKBStruct->vkCode);
+            }
+            else if(ManageModel::instance().m_selectHook==2){
+                EditOtcepsModel::instance().keyDown(pKBStruct->vkCode);
             }
             else {
                 ManageModel::instance().keyDown(pKBStruct->vkCode,ctrl);

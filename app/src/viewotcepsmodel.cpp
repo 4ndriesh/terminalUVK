@@ -2,11 +2,9 @@
 #include <iostream>
 #include <QTimer>
 #include <QMapIterator>
-#include "managemodel.h"
-
 #include "mvp_import.h"
 #include <QMetaProperty>
-
+#include "managemodel.h"
 
 
 
@@ -49,17 +47,17 @@
  */
 
 
-static ViewOtcepsModel *_instance=nullptr;
+//static ViewOtcepsModel *_instance=nullptr;
 ManageModel &Mn = ManageModel::instance();
 ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
     : QAbstractListModel(parent)
-    //    ,timer(new QTimer(this))
+    ,timer(new QTimer(this))
 
 {
-    QTimer *timer=new QTimer(this);
-//    QTimer *timerUVK=new QTimer(this);
-    qmlX=1;
-    updateOtcep=0;
+    //    QTimer *timer=new QTimer(this);
+    //    QTimer *timerUVK=new QTimer(this);
+    //    qmlX=1;
+    //    updateOtcep=0;
     int irole=Qt::UserRole+1;
     for (int idx = 0; idx < m_Otcep::staticMetaObject.propertyCount(); idx++) {
         QMetaProperty metaProperty = m_Otcep::staticMetaObject.property(idx);
@@ -84,32 +82,26 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
     connect(timer, &QTimer::timeout , this, &ViewOtcepsModel::slotOtcepChanged);
     timer->start();
 
-//    timerUVK->setInterval(5000);
-//    connect(timerUVK, &QTimer::timeout , this, &ViewOtcepsModel::statusAliveUVK);
-//    timerUVK->start();
+    //    timerUVK->setInterval(5000);
+    //    connect(timerUVK, &QTimer::timeout , this, &ViewOtcepsModel::statusAliveUVK);
+    //    timerUVK->start();
 
     connect(MVP_Import::instance(),&MVP_Import::sortirArrived,this, &ViewOtcepsModel::sortirArrived);
     MVP_Import::instance()->updateOtceps();
     //    connect(MVP_Import::instance(),&MVP_Import::sendStartProgressBar,this,&ViewOtcepsModel::slotStartProgressBar);
     //    connect(MVP_Import::instance(),&MVP_Import::sendStopProgressBar,this,&ViewOtcepsModel::slotStopProgressBar);
 }
-ViewOtcepsModel &ViewOtcepsModel::instance()
-{
-    if (_instance == nullptr) // avoid creation of new instances
-        _instance = new ViewOtcepsModel;
-    return *_instance;
-}
 void ViewOtcepsModel::statusAliveUVK()
 {
-//    beginResetModel();
-//    endResetModel();
+    //    beginResetModel();
+    //    endResetModel();
     qDebug()<<"AliveUVK";
 }
 void ViewOtcepsModel::slotOtcepChanged()
 {
     Mn.m_stateBt.m_regim=MVP_Import::instance()->gorka->STATE_REGIM();
-//    if(countEnabled()==0 && Mn.m_stateBt.m_editing==0)
-//    Mn.setQmlCurrentItem(Mn.m_qmlCurentIndex);
+    //    if(countEnabled()==0 && Mn.m_stateBt.m_editing==0)
+    //    Mn.setQmlCurrentItem(Mn.m_qmlCurentIndex);
 
     Mn.m_stateBt.m_regim_Finish=MVP_Import::instance()->gorka->STATE_GAC_FINISH();
 
@@ -117,11 +109,11 @@ void ViewOtcepsModel::slotOtcepChanged()
     emit Mn.uvkLiveChanged();
 
     Mn.m_stateBt.m_putNadviga=MVP_Import::instance()->gorka->STATE_PUT_NADVIG();
-    Mn.m_stateBt.m_bef_putNadviga=Mn.m_stateBt.m_putNadviga;
+//    Mn.m_stateBt.m_bef_putNadviga=Mn.m_stateBt.m_putNadviga;
     emit Mn.stateBtChanged();
 
     emit dataChanged(createIndex(0,0), createIndex(98, 8));
-//    emit dataChanged(createIndex(0,1), createIndex(98, 8));
+    //    emit dataChanged(createIndex(0,1), createIndex(98, 8));
 
     struct TUVK_status{
         time_t time;
@@ -135,13 +127,10 @@ void ViewOtcepsModel::slotOtcepChanged()
 int ViewOtcepsModel::countEnabled()
 {
     int countRow=0;
-    while (get(countRow)["STATE_ENABLED"]!=false){
-        if(countRow==98){
-            ++countRow;
-            break;
-        }
-        ++countRow;
-    }
+    do{
+        countRow++;
+        if(countRow==99)break;
+    }while (get(countRow)["STATE_ENABLED"]!=false);
     return countRow;
 }
 
@@ -170,8 +159,7 @@ QVariant ViewOtcepsModel::data(const QModelIndex &index, int role) const
 
     const DataObject &DataObject = ViewOtcepList[index.row()];
 
-    if (otcepRoles.contains(role)){
-        return DataObject.getState(otcepRoles[role]);
+    if (otcepRoles.contains(role)){return DataObject.getState(otcepRoles[role]);
     }
     return QVariant();
 
@@ -216,6 +204,19 @@ QHash<int, QByteArray> ViewOtcepsModel::roleNames() const
 void ViewOtcepsModel::sortirArrived(const tSl2Odo2 *srt)
 {
     Mn.setNewList(1);
+//    tSl2Odo2 *srt1=new tSl2Odo2;
+//    tSl2OdoRec2 *srt2=new tSl2OdoRec2;
+//    tSlVagon *srt3=new tSlVagon;
+//    tSlVagon *srt4=new tSlVagon;
+//    srt1->Id=1;
+//    srt2->NO=1;
+//    srt2->SP=5;
+//    srt3->NO=1;
+//srt4->NO=1;
+//    srt1->vOtceps.append(*srt2);
+//    srt2->vVag.append(*srt3);
+//    srt2->vVag.append(*srt4);
+
     // прверить что режим ввода установлен
     // если нет то запомнить и мигать кнопкой
     if(Mn.m_stateBt.m_editing==1){

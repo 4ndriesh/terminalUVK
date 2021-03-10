@@ -16,4 +16,5 @@ RChain 1.0 RChain.qml
 PopupRChain 1.0 PopupRChain.qml
 Highlight 1.0 Highlight.qml
 HighlightRChain 1.0 HighlightRChain.qml
+DelegateEditSortList 1.0 DelegateEditSortList.qml
 plugin clock

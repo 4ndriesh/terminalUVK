@@ -36,5 +36,11 @@
         <file>qml/Base/HighlightRChain.qml</file>
         <file>qml/resources/SetCurrentOtcep.svg</file>
         <file>qml/Base/DualNumber.qml</file>
+<<<<<<< HEAD
+=======
+        <file>qml/Base/DelegateEditSortList.qml</file>
+        <file>qml/Base/NumberE.qml</file>
+        <file>qml/Impl/EditSortList.qml</file>
+>>>>>>> 1875760f9afb78816d481d890b3e5cbac2e87a5e
     </qresource>
 </RCC>

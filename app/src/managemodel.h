@@ -100,7 +100,6 @@ signals:
     void msgEventChanged();
     void openRChainChanged();
     void stateBtChanged();
-    //    void maximumValuePBChanged();
     void textInputChanged();
     void uvkLiveChanged();
     void newListChanged();
@@ -110,7 +109,6 @@ signals:
     void timerDelMsgChanged();
 
 public:
-//    Q_INVOKABLE void qmlRegimEditing(const int&);
     Q_INVOKABLE void qmlRegim(const int&);
     Q_INVOKABLE void addOtcep(const int&);
     Q_INVOKABLE void delOtcep(const int&);
@@ -159,7 +157,6 @@ public:
     void setMsgEvent(const QString &msg){
         m_msgEvent = msg;
         emit msgEventChanged();
-
     }
 
     //Оповещение о новом сортирововчном листке

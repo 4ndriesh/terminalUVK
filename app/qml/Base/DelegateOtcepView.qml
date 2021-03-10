@@ -166,6 +166,7 @@ stat
         id: layout
         anchors.fill: parent
         spacing: 0
+<<<<<<< HEAD
         Number {
             id: state_num;
 //            txt: STATE_EXTNUM ? STATE_NUM: STATE_EXTNUM;
@@ -188,6 +189,9 @@ stat
             }
 
         }
+=======
+        Number {id: state_num;txt: STATE_NUM;}
+>>>>>>> 1875760f9afb78816d481d890b3e5cbac2e87a5e
         DualNumber{
             RowLayout   {
                 id: layout_sp
@@ -207,7 +211,11 @@ stat
 
             }
         }
+<<<<<<< HEAD
         Number { txt: STATE_BAZA ? "ДБ":"";}
+=======
+        Number { txt: STATE_BAZA ? STATE_BAZA:"";}
+>>>>>>> 1875760f9afb78816d481d890b3e5cbac2e87a5e
         Number { txt: STATE_SL_VES ? STATE_SL_VES.toFixed(2):"";}
         Number { id: state_sl_ur; txt: sl_ur[STATE_SL_UR]}
         Number {id: state_gac_w_stra; txt: STATE_GAC_W_STRA? "СТР":"";
