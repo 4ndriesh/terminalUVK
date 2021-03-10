@@ -168,7 +168,6 @@ stat
         spacing: 0
         Number {
             id: state_num;
-//            txt: STATE_EXTNUM ? STATE_NUM: STATE_EXTNUM;
             txt: STATE_EXTNUM ? STATE_EXTNUM+"."+STATE_EXTNUMPART:STATE_NUM;
 
             Text {
