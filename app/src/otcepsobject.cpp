@@ -7,9 +7,11 @@ DataObject::DataObject(m_Otcep *otcep)
 {
     this->otcep=otcep;
     m_storedStateVal=toMap();
+
+
 }
 
-void DataObject::setState(QString stateName, const QVariant &val)
+void DataObject::setState(QString stateName, QVariant val)
 {
     QVariant oldVal=getState(stateName);
     if (oldVal!=val){
@@ -30,7 +32,7 @@ void DataObject::setState(QString stateName, const QVariant &val)
     }
 }
 
-QVariant DataObject::getState(const QString &stateName) const
+QVariant DataObject::getState(QString stateName) const
 {
     return otcep->property(qPrintable(stateName));
 }

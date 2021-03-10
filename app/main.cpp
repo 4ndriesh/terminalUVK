@@ -35,7 +35,6 @@
 #include "kbdllhooks.h"
 #include "railchain.h"
 #include "managemodel.h"
-#include "editotcepsmodel.h"
 #include <QtSvg>
 #include <QQmlContext>
 #include <QHostInfo>
@@ -62,7 +61,6 @@ int main(int argc, char *argv[])
 
     qRegisterMetaType<QML_ManagerButton>("QML_ManagerButton");
     qRegisterMetaType<StructProgressBar>("StructProgressBar");
-    EditOtcepsModel &edit = EditOtcepsModel::instance();
     ViewOtcepsModel &model = ViewOtcepsModel::instance();
     ManageModel &manage = ManageModel::instance();
     RailChain &rch = RailChain::instance();
@@ -71,7 +69,6 @@ int main(int argc, char *argv[])
     QQmlContext* context = engine.rootContext();
     context->setContextProperty("otcepsModel", &model);
     context->setContextProperty("manageModel", &manage);
-    context->setContextProperty("editModel", &edit);
     context->setContextProperty("rChain", &rch);
     //    const QUrl url(QStringLiteral("main.qml"));
     const QUrl url(QStringLiteral("qrc:/main.qml"));

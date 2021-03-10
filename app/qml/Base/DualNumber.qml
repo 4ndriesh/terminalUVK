@@ -14,26 +14,16 @@ Rectangle{
         states:
             [
             State {
-<<<<<<< HEAD
                 name: "joinoffSP"
                 when: STATE_SP!==STATE_SP_F || STATE_GAC_ACTIVE===1
-=======
-                name: "joinoff"
-                when: STATE_SP!==STATE_SP_F
->>>>>>> 1875760f9afb78816d481d890b3e5cbac2e87a5e
                 PropertyChanges {
                     target: state_sp_f
                     visible: true
                 }
             },
             State {
-<<<<<<< HEAD
                 name: "joinSP"
                 when: STATE_SP===STATE_SP_F && STATE_GAC_ACTIVE===0
-=======
-                name: "join"
-                when: STATE_SP===STATE_SP_F && STATE_GAC_ACTIVE!==1
->>>>>>> 1875760f9afb78816d481d890b3e5cbac2e87a5e
                 PropertyChanges {
                     target: state_sp_f
                     visible: false

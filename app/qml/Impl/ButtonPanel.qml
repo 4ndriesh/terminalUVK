@@ -1,6 +1,5 @@
 import QtQuick 2.14
 import QtQuick.Layouts 1.1
-import Impl 1.0
 import Base 1.0
 import SettingsModule 1.0
 import QtQuick.Controls 1.4
@@ -20,7 +19,6 @@ RowLayout {
     property int qmlnewList: manageModel.newList
     property int qmluvkLive: manageModel.uvkLive
 
-    EditSortList{id:_listNewEdit}
     PopupRChain{id:_rchaindialog}
     Clock {
         id: timer
@@ -91,18 +89,6 @@ RowLayout {
         EventMouseArea {
             onClicked: {
                 _rchaindialog.open();
-            }
-        }
-    }
-    MultiButton {
-        id: _editModel
-        buttonText: "Набор"
-        Layout.alignment: Qt.AlignRight
-        Layout.rightMargin:50
-        wink: false
-        EventMouseArea {
-            onClicked: {
-                _listNewEdit.open();
             }
         }
     }

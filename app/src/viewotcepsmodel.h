@@ -5,7 +5,7 @@
 
 #include <QAbstractListModel>
 #include <QTimer>
-#include "managemodel.h"
+
 
 struct tSl2Odo2;
 
@@ -18,14 +18,8 @@ class ViewOtcepsModel : public QAbstractListModel
     QTimer * timer;
 
 public:
+    static ViewOtcepsModel &instance();
     explicit ViewOtcepsModel(QObject *parent=nullptr);
-    static ViewOtcepsModel &instance(){
-        static ViewOtcepsModel *_instance=0;
-        if(_instance ==0){
-            _instance=new ViewOtcepsModel();
-        }
-        return *_instance;
-    }
     const tSl2Odo2 *tmpSrt;
     void statusAliveUVK();
     void slotOtcepChanged();
@@ -41,8 +35,14 @@ public:
     void addDataObject(const DataObject &DataObject);
     bool loadSortirToUvk(const tSl2Odo2 *srt);
     void deleteDataSourceObject();
+    int updateOtcep;
 
 private:
+    static ViewOtcepsModel* model;
+    bool qmlVisible;
+    int qmlX;
+    int qmlY;
+
     QList<DataObject> ViewOtcepList;
     QHash<int, QByteArray> otcepRoles;
 public slots:

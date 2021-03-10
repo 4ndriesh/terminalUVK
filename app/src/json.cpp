@@ -10,7 +10,7 @@ Json::Json(const QString & path)
     QFile jsonFile(path);
     if (!jsonFile.open(QIODevice::ReadOnly))
     {
-        qDebug()<<(QString("Couldn't open file %1").arg(path));
+        qWarning("Couldn't open save file.");
         return;
     }
 

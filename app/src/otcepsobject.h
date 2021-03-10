@@ -8,8 +8,8 @@ class DataObject
 public:
     m_Otcep *otcep;
     DataObject(m_Otcep *otcep);
-    void setState(QString, const QVariant &);
-    QVariant getState(const QString &) const;
+    void setState(QString stateName,QVariant val);
+    QVariant getState(QString stateName) const;
     QVariantMap toMap() const;
 
 private:
