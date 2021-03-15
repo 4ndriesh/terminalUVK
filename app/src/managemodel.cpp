@@ -21,7 +21,7 @@ void ManageModel::keyUpDown(const int &updown)
         {
             m_qmlCurentIndex--;
             setQmlCurrentItem(m_qmlCurentIndex);
-            qmlRegim(10);
+//            qmlRegim(10);
         }
         break;
     case VK_DOWN:
@@ -29,7 +29,7 @@ void ManageModel::keyUpDown(const int &updown)
         {
             m_qmlCurentIndex++;
             setQmlCurrentItem(m_qmlCurentIndex);
-            qmlRegim(10);
+//            qmlRegim(10);
         }
         break;
     }

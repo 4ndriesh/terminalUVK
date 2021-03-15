@@ -5,7 +5,6 @@ import QtQml.Models 2.1
 
 Rectangle {
     id: delegate
-    objectName: "delegate"
     //цвет в зависимости от STATE_LOCATION
     /*ЖИР и фокус при роспуске ((STATE_LOCATION == 1) && (STATE_GAC_ACTIVE==1)) ||
                              ((STATE_LOCATION == 2) && (STATE_GAC_ACTIVE==1)&&(STATE_ZKR_S_IN==1))
@@ -21,13 +20,31 @@ Rectangle {
     остальн - обычн фон
 stat
     EDIT когда ЖИР всегда или (STATE_LOCATION == 2)*/
+
+    property variant st_num: STATE_EXTNUMPART ? STATE_EXTNUM+"."+STATE_EXTNUMPART:STATE_EXTNUM
     property variant sl_ur: ["","О1", "N2","N3"]
     property variant items_color: ["red", "yellow","white","silver","lightcyan","orange"]
+
     width: listView.width;
     height: 60;
     visible: STATE_ENABLED ? true:false
-
-
+    Item {
+        id: _zkr_progress
+        states:[
+            State {
+                name: "zkr_yellow"
+                when: STATE_ZKR_PROGRESS===1
+                PropertyChanges {
+                    target: state_sl_vagon_cnt
+                    color:delegate.items_color[1]
+                }
+                PropertyChanges {
+                    target: state_zkr_vagon_cnt
+                    color:delegate.items_color[1]
+                }
+            }
+        ]
+    }
     Item {
         id: _focusOtcepstates
         states: [
@@ -56,69 +73,6 @@ stat
     }
 
     Item {
-        id: _zkr_progress
-        states:[
-            State {
-                name: "red"
-                when: STATE_ZKR_PROGRESS===1// bind to isCurrentItem to set the state
-                PropertyChanges {
-                    target: state_sl_vagon_cnt
-                    color:delegate.items_color[1]
-                }
-                PropertyChanges {
-                    target: state_zkr_vagon_cnt
-                    color:delegate.items_color[1]
-                }
-            }
-        ]
-    }
-    Item {
-        id: _zkr_vagons
-        states:[
-            State {
-                name: "red"
-                when: STATE_SL_VAGON_CNT!==0 &&
-                      STATE_ZKR_VAGON_CNT!==0 &&
-                      STATE_ZKR_VAGON_CNT>STATE_SL_VAGON_CNT
-                PropertyChanges {
-                    target: state_zkr_vagon_cnt
-                    color:delegate.items_color[5]
-                }
-            }
-        ]
-    }
-    Item {
-        id: _error
-        states:[
-            State {
-                name: "red"
-                when: STATE_ERROR===1// bind to isCurrentItem to set the state
-                PropertyChanges {
-                    target: state_sp
-                    color:delegate.items_color[0]
-                }
-                PropertyChanges {
-                    target: state_sp_f
-                    color:delegate.items_color[0]
-                }
-            }
-        ]
-    }
-
-//    Item {
-//        id: _focusYellow
-//        states: [
-//            State {
-//                name: "yellow"
-//                when: STATE_ZKR_S_IN===1
-//                PropertyChanges {
-//                    target: delegate
-//                    color:delegate.items_color[1]
-//                }
-//            }
-//        ]
-//    }
-    Item {
         id: _locationColor
         states: [
             State {
@@ -131,7 +85,7 @@ stat
             },
             State {
                 name: "white"
-                when: STATE_LOCATION === 1// bind to isCurrentItem to set the state
+                when: STATE_LOCATION === 1
                 PropertyChanges {
                     target: delegate
                     color: delegate.items_color[2]
@@ -147,6 +101,7 @@ stat
             }
         ]
     }
+
     Item {
         id: _lightsteelblue
         states:[
@@ -160,31 +115,59 @@ stat
             }
         ]
     }
+    Item {
+        id: _zkr_vagons
+        states:[
+            State {
+                name: "orange"
+                when: STATE_SL_VAGON_CNT!==0 &&
+                      STATE_ZKR_VAGON_CNT!==0 &&
+                      STATE_ZKR_VAGON_CNT>STATE_SL_VAGON_CNT
+                PropertyChanges {
+                    target: state_zkr_vagon_cnt
+                    color:delegate.items_color[5]
+                }
+            }
+        ]
+    }
+    Item {
+        id: _error
+        states:[
+            State {
+                name: "red"
+                when: STATE_ERROR===1
+                PropertyChanges {
+                    target: state_sp
+                    color:delegate.items_color[0]
+                }
+                PropertyChanges {
+                    target: state_sp_f
+                    color:delegate.items_color[0]
+                }
+            }
+        ]
+    }
 
     MouseAreaOtcepList {id: mouseArea}
     RowLayout   {
         id: layout
         anchors.fill: parent
         spacing: 0
+        //        Number {id: state_num;txt: STATE_NUM;}
         Number {
             id: state_num;
-//            txt: STATE_EXTNUM ? STATE_NUM: STATE_EXTNUM;
-            txt: STATE_EXTNUM ? STATE_EXTNUM+"."+STATE_EXTNUMPART:STATE_NUM;
+            txt: STATE_EXTNUM ? st_num:STATE_NUM;
 
             Text {
                 id: _secondnum
                 anchors.fill: parent
+                anchors.margins: 5
                 verticalAlignment: Text.AlignBottom
                 horizontalAlignment: Text.AlignRight
                 font.family: Settings.listView.fontFamily;
-                font.pointSize: parent.height/3
+                font.pointSize: parent.height/4
                 fontSizeMode: Text.Fit
                 text: STATE_EXTNUM ? STATE_NUM:"";
-                //        enabled: false
-                //        inputMethodHints:Qt.ImhFormattedNumbersOnly
-                focus: false
-
-
             }
 
         }
@@ -210,10 +193,14 @@ stat
         Number { txt: STATE_BAZA ? "ДБ":"";}
         Number { txt: STATE_SL_VES ? STATE_SL_VES.toFixed(2):"";}
         Number { id: state_sl_ur; txt: sl_ur[STATE_SL_UR]}
-        Number {id: state_gac_w_stra; txt: STATE_GAC_W_STRA? "СТР":"";
-            Layout.preferredWidth:(listView.width/10)/2}
-        Number {id: state_gac_w_strb; txt: STATE_GAC_W_STRB? "БЛК":"";
-            Layout.preferredWidth:(listView.width/10)/2}
+        Number {
+            id: state_gac_w_stra; txt: STATE_GAC_W_STRA? "СТР":"";
+            Layout.preferredWidth:(listView.width/10)/2
+        }
+        Number {
+            id: state_gac_w_strb; txt: STATE_GAC_W_STRB? "БЛК":"";
+            Layout.preferredWidth:(listView.width/10)/2
+        }
     }
 }
 

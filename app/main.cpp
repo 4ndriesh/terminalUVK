@@ -66,6 +66,8 @@ int main(int argc, char *argv[])
     RailChain &rch = RailChain::instance();
     QQmlApplicationEngine engine;
     engine.addImportPath("qrc:/qml");
+//    engine.setObjectOwnership(&model,QQmlEngine::CppOwnership);
+    //    QQmlEngine::setObjectOwnership(this,QQmlEngine::CppOwnership);
     QQmlContext* context = engine.rootContext();
     context->setContextProperty("otcepsModel", &model);
     context->setContextProperty("manageModel", &manage);

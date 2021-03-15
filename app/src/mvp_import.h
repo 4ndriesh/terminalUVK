@@ -38,8 +38,8 @@ public:
     static MVP_Import* instance(){
            static MVP_Import one;
            return &one;
-
     }
+
     ManageModel &pB = ManageModel::instance();
     GtBuffers_UDP_D2 udp;
     bool load(QString fn);

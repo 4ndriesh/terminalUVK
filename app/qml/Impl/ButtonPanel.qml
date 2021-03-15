@@ -8,7 +8,7 @@ RowLayout {
     Layout.fillWidth: true
     height: 50
     spacing: 5
-    property int regim_Finish: manageModel.stateBt.regim_Finish
+    property color colorRegimRospusk: manageModel.stateBt.regim_Finish ? Settings.buttonColor.regim : Settings.buttonColor.regimRospusk
     property int regim: manageModel.stateBt.regim
     property int bef_putNadviga: manageModel.stateBt.bef_putNadviga
     property int putNadviga: manageModel.stateBt.putNadviga
@@ -41,10 +41,9 @@ RowLayout {
     MultiButton {
         id: putnadviga
         Layout.leftMargin: 100
-        buttonText: "РОСПУСК: 1"
-        colorButton: (regim===1 && putNadviga===1) ?
-                         Settings.buttonColor.regimRospusk:
-                         regim_Finish? Settings.buttonColor.regim:Settings.buttonColor.baseColor
+        buttonText: "РОСПУСК"
+        colorButton: (regim===1 && putNadviga===1) ? colorRegimRospusk: Settings.buttonColor.baseColor
+
         wink: (regim===1 && putNadviga===1) ?false:wink_nadvig
 
         EventMouseArea {setRegim: 1}
@@ -76,7 +75,7 @@ RowLayout {
             anchors.centerIn: parent
             text: timeFormat
             font.pointSize:  parent.height/2;
-//            font.italic: true
+            //            font.italic: true
         }
     }
 

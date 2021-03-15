@@ -5,10 +5,6 @@ import SettingsModule 1.0
 Rectangle {
     id: textField
     property alias txt: _textPut.text
-//    property alias textEnabled: _textPut.enabled
-//    property alias textPutfocus: _textPut.focus
-
-
     Layout.fillHeight: true
     Layout.fillWidth: true
     Layout.preferredWidth: listView.width/10
@@ -16,14 +12,28 @@ Rectangle {
     height: 60
     color: delegate.color
     border.width: Settings.listView.borderWidth
-
+    Item {
+        id: _zkr_vagons
+        states:[
+            State {
+                name: "orange"
+                when: STATE_SL_VAGON_CNT!==0 &&
+                      STATE_ZKR_VAGON_CNT!==0 &&
+                      STATE_ZKR_VAGON_CNT>STATE_SL_VAGON_CNT
+//                      textField===state_zkr_vagon_cnt
+                PropertyChanges {
+                    target: state_zkr_vagon_cnt
+                    color:delegate.items_color[5]
+                }
+            }
+        ]
+    }
     Item {
         id: _stra
         states:
             [
             State {
                 name: "colorSTRA"
-                //                extend: "colorSTRB"
                 when: STATE_GAC_W_STRA===1 && textField===state_gac_w_stra
                 PropertyChanges {
                     target: state_gac_w_stra
@@ -32,6 +42,7 @@ Rectangle {
             }
         ]
     }
+
     Item {
         id: _strb
         states:
@@ -46,6 +57,7 @@ Rectangle {
             }
         ]
     }
+
     Item {
         id: _ur
         states:
@@ -76,16 +88,15 @@ Rectangle {
             }
         ]
     }
+
     Text {
         id: _textPut
         anchors.fill: parent
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
         font.family: Settings.listView.fontFamily;
-        font.pointSize: parent.height*0.5
+        font.pointSize: parent.height/2
         fontSizeMode: Text.Fit
-//        text: "1.1"
-        //        enabled: false
         //        inputMethodHints:Qt.ImhFormattedNumbersOnly
         focus: false
 

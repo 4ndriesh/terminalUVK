@@ -9,6 +9,9 @@ Rectangle{
     height: 60
     color: delegate.color
     border.width: Settings.listView.borderWidth
+
+
+
     Item {
         id: _join
         states:
@@ -54,4 +57,6 @@ Rectangle{
             }
         ]
     }
+
+
 }

@@ -20,8 +20,7 @@ class ViewOtcepsModel : public QAbstractListModel
 public:
     static ViewOtcepsModel &instance();
     explicit ViewOtcepsModel(QObject *parent=nullptr);
-    const tSl2Odo2 *tmpSrt;
-    void statusAliveUVK();
+    const tSl2Odo2 *tmpSrt=nullptr;
     void slotOtcepChanged();
 
     Q_INVOKABLE QVariantMap get(int row) const;
@@ -31,20 +30,13 @@ public:
                  int role = Qt::EditRole) override;
     Qt::ItemFlags flags(const QModelIndex& index) const override;
     QHash<int, QByteArray> roleNames() const override;
-    //bool checkIndex(const QModelIndex &index) const;
     void addDataObject(const DataObject &DataObject);
     bool loadSortirToUvk(const tSl2Odo2 *srt);
-    void deleteDataSourceObject();
-    int updateOtcep;
 
 private:
-    static ViewOtcepsModel* model;
-    bool qmlVisible;
-    int qmlX;
-    int qmlY;
-
     QList<DataObject> ViewOtcepList;
     QHash<int, QByteArray> otcepRoles;
+
 public slots:
     int countEnabled();
     void sortirArrived(const tSl2Odo2 *srt);

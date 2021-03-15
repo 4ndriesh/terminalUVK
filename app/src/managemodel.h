@@ -18,7 +18,6 @@ struct QML_ManagerButton
     Q_PROPERTY(int regim MEMBER m_regim)
     Q_PROPERTY(int bef_regim MEMBER m_bef_regim)
     Q_PROPERTY(int tmp_Cursor MEMBER m_tmp_Cursor)
-    //    Q_PROPERTY(int code MEMBER m_code)
     Q_PROPERTY(int regim_Finish MEMBER m_regim_Finish)
     Q_PROPERTY(bool wink_Cursor MEMBER m_wCursor)
     Q_PROPERTY(bool wink_Stop MEMBER m_wStop)
@@ -37,8 +36,8 @@ public:
     bool m_wStop=false;
     bool m_wPause=false;
     bool m_wNadvig=false;
-    //    int m_code=0;
 };
+
 Q_DECLARE_METATYPE(QML_ManagerButton)
 
 struct StructProgressBar{
@@ -66,7 +65,6 @@ class ManageModel: public QObject
     Q_PROPERTY(int qmlCurentIndex READ qmlCurrentItem WRITE setQmlCurrentItem NOTIFY qmlCurrentItemChanged)
 
     Q_PROPERTY(int textInput READ textInput NOTIFY textInputChanged)
-    //    Q_PROPERTY(int textInput READ textInput WRITE setTextInput NOTIFY textInputChanged)
 
     Q_PROPERTY(int selectHook WRITE setSelectHook)
 
@@ -100,7 +98,6 @@ signals:
     void msgEventChanged();
     void openRChainChanged();
     void stateBtChanged();
-    //    void maximumValuePBChanged();
     void textInputChanged();
     void uvkLiveChanged();
     void newListChanged();
@@ -127,14 +124,13 @@ public:
     QML_ManagerButton m_stateBt;
     QML_ManagerButton stateBt()const {return m_stateBt;}
 
-    void controlWindow(DWORD vkKeyCode);
+//    void controlWindow(DWORD vkKeyCode);
 
     void setStateBt(const QML_ManagerButton &stateBt)
     {
         m_stateBt = stateBt;
         emit stateBtChanged();
     }
-
 
     int m_selectHook;
     void setSelectHook(const int &codWin){
@@ -143,11 +139,6 @@ public:
     //Общая переменная для ввода с клавиатуры номера пути
     int m_textInput=0;
     int textInput()const {return m_textInput;}
-    //    void setTextInput(const int &index){
-    //        m_textInput = index;
-    //        inputPut(m_textInput);
-    ////        emit textInputChanged();
-    //    }
 
     //Наличие увк
     int m_uvkLive=0;
@@ -168,10 +159,7 @@ public:
     void setNewList(const int &index){
         m_newList = index;
         emit newListChanged();
-
     }
-
-
 
     //Удаляем сообщения с формы об ошибках
     bool timerDelMsg;
@@ -183,15 +171,12 @@ public:
 
     //Управляет курсором листвью
     int m_qmlCurentIndex=0;
-    int qmlCurrentItem()const{
-//                qDebug()<<"getCurrent"<<m_qmlCurentIndex;
-        return m_qmlCurentIndex;}
+    int qmlCurrentItem()const{return m_qmlCurentIndex;}
 
-    Q_INVOKABLE void setQmlCurrentItem(const int &index){
+    void setQmlCurrentItem(const int &index){
         m_qmlCurentIndex = index;
-//                qDebug()<<"setCurrent"<<m_qmlCurentIndex;
+        qmlRegim(10);
         emit qmlCurrentItemChanged();
-
     }
 
     void setRegim(const int &);
