@@ -265,15 +265,15 @@ void ManageModel::inputPut(const int &numberPut)
             || (countEnabled==0 && m_stateBt.m_regim==2&& (m_stateBt.m_bef_regim==4 || m_stateBt.m_bef_regim==5))){
         addOtcep(m_qmlCurentIndex+1);
         qmlRegim(6);
-        setQmlCurrentItem(m_qmlCurentIndex);
         accept();
+        setQmlCurrentItem(m_qmlCurentIndex);
         return;
     }
     if(m_stateBt.m_bef_regim==4){
         addOtcep(m_qmlCurentIndex+1);
         qmlRegim(6);
-        setQmlCurrentItem(m_qmlCurentIndex);
         accept();
+        setQmlCurrentItem(m_qmlCurentIndex);
         return;
     }
     else if(m_stateBt.m_bef_regim==5){
