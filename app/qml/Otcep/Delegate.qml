@@ -1,7 +1,6 @@
 import QtQuick 2.14
 import QtQuick.Layouts 1.14
 import SettingsModule 1.0
-import QtQml.Models 2.1
 
 Rectangle {
     id: delegate
@@ -25,9 +24,26 @@ stat
     property variant sl_ur: ["","О1", "N2","N3"]
     property variant items_color: ["red", "yellow","white","silver","lightcyan","orange"]
 
-    width: listView.width;
-    height: 60;
+    width: _otceps.width;
+    height: Settings.listView.height;
     visible: STATE_ENABLED ? true:false
+    Item {
+        states: [
+            State {
+                name: "yellow12"
+                when: STATE_EXTNUMPART!==0 && delegate.ListView.isCurrentItem && STATE_LOCATION===1
+            }
+        ]
+        transitions: Transition {
+            OpacityAnimator {
+                target: delegate
+                loops:5
+                from: 0;
+                to: 1;
+                duration: 500 }
+        }
+    }
+
     Item {
         id: _zkr_progress
         states:[
@@ -53,11 +69,14 @@ stat
                 when: STATE_IS_CURRENT===1
                 StateChangeScript {
                     name: "insertIndex"
-                    script: manageModel.qmlCurentIndex=STATE_NUM-1;
+                    script: {
+                        manageModel.qmlRegim(10);
+                        manageModel.qmlCurrentIndex=STATE_NUM-1;
+                    }
                 }
                 PropertyChanges {
                     target: delegate
-                    height:80
+                    height:Settings.listView.heightScale;
 
                 }
             },
@@ -66,7 +85,7 @@ stat
                 when: STATE_IS_CURRENT!==1
                 PropertyChanges {
                     target: delegate
-                    height:60
+                    height:Settings.listView.height;
                 }
             }
         ]
@@ -98,6 +117,14 @@ stat
                     target: delegate
                     color: delegate.items_color[3]
                 }
+                PropertyChanges {
+                    target: state_sp
+                    textPutfocus:false
+                }
+                PropertyChanges {
+                    target: state_sl_vagon_cnt
+                    textPutfocus:false
+                }
             }
         ]
     }
@@ -110,8 +137,14 @@ stat
                 when: (delegate.ListView.isCurrentItem && STATE_LOCATION===1)|| (delegate.ListView.isCurrentItem && STATE_ZKR_S_IN===1)
                 PropertyChanges {
                     target: state_sp
-                    color: delegate.items_color[4];
+                    textPutfocus:true
                 }
+                //                StateChangeScript {
+                //                    name: "focusSet"
+                //                    script: {
+                //                        manageModel.focus=1;
+                //                    }
+                //                }
             }
         ]
     }
@@ -148,16 +181,14 @@ stat
         ]
     }
 
-    MouseAreaOtcepList {id: mouseArea}
+    ListArea {id: mouseArea}
     RowLayout   {
         id: layout
         anchors.fill: parent
         spacing: 0
-        //        Number {id: state_num;txt: STATE_NUM;}
         Number {
             id: state_num;
             txt: STATE_EXTNUM ? st_num:STATE_NUM;
-
             Text {
                 id: _secondnum
                 anchors.fill: parent
@@ -169,8 +200,8 @@ stat
                 fontSizeMode: Text.Fit
                 text: STATE_EXTNUM ? STATE_NUM:"";
             }
-
         }
+
         DualNumber{
             RowLayout   {
                 id: layout_sp
@@ -180,6 +211,7 @@ stat
                 Number {id: state_sp_f; txt: STATE_SP_F ? STATE_SP_F:"";}
             }
         }
+
         DualNumber{
             RowLayout   {
                 id: layout_sp_f
@@ -187,19 +219,19 @@ stat
                 spacing: 0
                 Number {id: state_sl_vagon_cnt; txt: STATE_SL_VAGON_CNT ? STATE_SL_VAGON_CNT:"";}
                 Number {id: state_zkr_vagon_cnt; txt: STATE_ZKR_VAGON_CNT ? STATE_ZKR_VAGON_CNT:"";}
-
             }
         }
+
         Number { txt: STATE_BAZA ? "ДБ":"";}
         Number { txt: STATE_SL_VES ? STATE_SL_VES.toFixed(2):"";}
         Number { id: state_sl_ur; txt: sl_ur[STATE_SL_UR]}
         Number {
             id: state_gac_w_stra; txt: STATE_GAC_W_STRA? "СТР":"";
-            Layout.preferredWidth:(listView.width/10)/2
+            Layout.preferredWidth:(delegate.width/Settings.header.column)/2
         }
         Number {
             id: state_gac_w_strb; txt: STATE_GAC_W_STRB? "БЛК":"";
-            Layout.preferredWidth:(listView.width/10)/2
+            Layout.preferredWidth:(delegate.width/Settings.header.column)/2
         }
     }
 }

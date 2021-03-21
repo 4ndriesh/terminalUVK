@@ -1,8 +1,4 @@
 import QtQuick 2.0
-import QtQuick.Controls 2.0
-import SettingsModule 1.0
-import Impl 1.0
-
 
 MouseArea {
     id: mouseArea

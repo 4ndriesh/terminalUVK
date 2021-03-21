@@ -13,8 +13,8 @@ public:
     explicit KBdllhooks(QObject *parent = nullptr);
     virtual ~KBdllhooks(){}
     static KBdllhooks &instance(){
-        static KBdllhooks *_instance=0;
-        if(_instance ==0){
+        static KBdllhooks *_instance=nullptr;
+        if(_instance ==nullptr){
             _instance=new KBdllhooks();
         }
         return *_instance;

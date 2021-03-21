@@ -1,5 +1,4 @@
 import QtQuick 2.14
-import QtQuick.Layouts 1.14
 import QtQuick.Controls 2.14
 import Base 1.0
 import SettingsModule 1.0
@@ -41,17 +40,16 @@ Popup {
             id:enter
             ImageSVG {
                 source: Settings.keyboard.enter
-                //                color: Settings.keyboard.overlay
                 widthsvg: enter.width/1.5
                 heightsvg:  enter.width/1.5
             }
             MouseKeyBoard{onClicked: manageModel.accept();}
         }
+
         ButtonKey{
             id:trash
             ImageSVG {
                 source: Settings.keyboard.trash
-                //                color: Settings.keyboard.overlay
                 widthsvg: trash.width/1.5
                 heightsvg:  trash.width/1.5
             }
@@ -75,7 +73,6 @@ Popup {
             id:upArrow
             ImageSVG {
                 source: Settings.keyboard.upArrow
-                //                color: Settings.keyboard.overlay
                 widthsvg: upArrow.width/1.5
                 heightsvg:  upArrow.width/1.5
             }
@@ -86,7 +83,6 @@ Popup {
             ImageSVG {
                 source: Settings.keyboard.insertDown
                 rotation: 180
-                //                color: Settings.keyboard.overlay
                 widthsvg: insertUp.width/1.5
                 heightsvg:  insertUp.width/1.5
             }
@@ -109,7 +105,6 @@ Popup {
             id:downArrow
             ImageSVG {
                 source: Settings.keyboard.downArrow
-                //                color: Settings.keyboard.overlay
                 widthsvg: downArrow.width/1.5
                 heightsvg:  downArrow.width/1.5
             }
@@ -119,13 +114,11 @@ Popup {
             id: insertDown
             ImageSVG {
                 source: Settings.keyboard.insertDown
-                //                color: Settings.keyboard.overlay
                 widthsvg: insertDown.width/1.5
                 heightsvg:  insertDown.width/1.5
             }
             MouseKeyBoard{onClicked: manageModel.qmlRegim(5);}
         }
-//        Item{width: panelKeyboard.itemWidth; height: panelKeyboard.itemHeight}
         ButtonKey{
             id: setCurrentOtcep
             ImageSVG {

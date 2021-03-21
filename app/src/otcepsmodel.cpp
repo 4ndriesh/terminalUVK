@@ -1,14 +1,12 @@
-﻿#include "viewotcepsmodel.h"
+﻿#include "otcepsmodel.h"
 #include <iostream>
 #include <QTimer>
 #include <QMapIterator>
 #include "managemodel.h"
-
 #include "mvp_import.h"
 #include <QMetaProperty>
 
-
-
+#include "vagonsmodel.h"
 
 
 //Всегда возвращает 1
@@ -16,21 +14,6 @@
 
 /*
 Видимость -  STATE_ENABLED
-
-    ЖИР и фокус при роспуске ((STATE_LOCATION == 1) && (STATE_GAC_ACTIVE==1)) ||
-                             ((STATE_LOCATION == 2) && (STATE_GAC_ACTIVE==1)&&(STATE_ZKR_S_IN==1))
-
-    цвет фона строки
-    Белый STATE_LOCATION = 2
-    желтый   STATE_ZKR_S_IN==1
-    светло серый (STATE_LOCATION == 1) && (STATE_GAC_ACTIVE==1)
-    ост - серый
-
-    цвет фона ячейки маршрута
-    Красный -STATE_ERROR
-    остальн - обычн фон
-
-    EDIT когда ЖИР всегда или (STATE_LOCATION == 2)
 
     КНОПКИ: ВВОД СЛ
             РОСПУСК1 ПАУЗА СТОП MVP_Import::instance()->gorka->STATE_REGIM                  РОСПУСК1/РОСПУСК2 - сделаю доп свойство gorka->PUT_NADVIG = 1..2
@@ -49,9 +32,9 @@
  */
 
 
-static ViewOtcepsModel *_instance=nullptr;
+static OtcepsModel *_instance=nullptr;
 ManageModel &Mn = ManageModel::instance();
-ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
+OtcepsModel::OtcepsModel(QObject *parent)
     : QAbstractListModel(parent)
     //    ,timer(new QTimer(this))
 
@@ -68,29 +51,23 @@ ViewOtcepsModel::ViewOtcepsModel(QObject *parent)
     if (MVP_Import::instance()->gorka!=nullptr){
         for (int i=0; i<MVP_Import::instance()->otceps->l_otceps.size();i++) {
             addDataObject(DataObject(MVP_Import::instance()->otceps->l_otceps[i]));
-            connect(MVP_Import::instance()->otceps->l_otceps[i],&m_Otcep::stateChanged,this,&ViewOtcepsModel::slotOtcepChanged);
+            connect(MVP_Import::instance()->otceps->l_otceps[i],&m_Otcep::stateChanged,this,&OtcepsModel::slotOtcepChanged);
         }
-        connect(MVP_Import::instance()->gorka,&ModelGroupGorka::stateChanged,this,&ViewOtcepsModel::slotOtcepChanged);
+        connect(MVP_Import::instance()->gorka,&ModelGroupGorka::stateChanged,this,&OtcepsModel::slotOtcepChanged);
     }
 
-    connect(MVP_Import::instance()->cmd,&GtCommandInterface::recv_accept,this,&ViewOtcepsModel::uvk_cmd_accept);
+    connect(MVP_Import::instance()->cmd,&GtCommandInterface::recv_accept,this,&OtcepsModel::uvk_cmd_accept);
 
     timer->setInterval(1000);
-    connect(timer, &QTimer::timeout , this, &ViewOtcepsModel::slotOtcepChanged);
+    connect(timer, &QTimer::timeout , this, &OtcepsModel::slotOtcepChanged);
     timer->start();
 
-    connect(MVP_Import::instance(),&MVP_Import::sortirArrived,this, &ViewOtcepsModel::sortirArrived);
+    connect(MVP_Import::instance(),&MVP_Import::sortirArrived,this, &OtcepsModel::sortirArrived);
     MVP_Import::instance()->updateOtceps();
+
 }
 
-ViewOtcepsModel &ViewOtcepsModel::instance()
-{
-    if (_instance == nullptr) // avoid creation of new instances
-        _instance = new ViewOtcepsModel;
-    return *_instance;
-}
-
-void ViewOtcepsModel::slotOtcepChanged()
+void OtcepsModel::slotOtcepChanged()
 {
     Mn.m_stateBt.m_regim=MVP_Import::instance()->gorka->STATE_REGIM();
     //    if(countEnabled()==0 && Mn.m_stateBt.m_editing==0)
@@ -116,38 +93,35 @@ void ViewOtcepsModel::slotOtcepChanged()
     MVP_Import::instance()->udp.sendData(3,"Term_UVK",QByteArray((const char*)&c,sizeof(c)));
 }
 
-int ViewOtcepsModel::countEnabled()
+int OtcepsModel::countEnabled()
 {
-    int countRow=0;
-    while (get(countRow)["STATE_ENABLED"]!=false){
-        if(countRow==98){
-            ++countRow;
-            break;
-        }
-        ++countRow;
-    }
+    int countRow=99;
+    do{
+        countRow--;
+        if(countRow==-1)break;
+    }while (get(countRow)["STATE_ENABLED"]!=true && countRow!=-1);
     return countRow;
 }
 
-QVariantMap ViewOtcepsModel::get(int row) const
+QVariantMap OtcepsModel::get(int row) const
 {
     return ViewOtcepList[row].toMap();
 }
 
-void ViewOtcepsModel::addDataObject(const DataObject &dataSourceObject)
+void OtcepsModel::addDataObject(const DataObject &dataSourceObject)
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    ViewOtcepList << dataSourceObject;
+    ViewOtcepList << dataSourceObject;    
     endInsertRows();
 }
-int ViewOtcepsModel::rowCount(const QModelIndex &parent) const
+int OtcepsModel::rowCount(const QModelIndex &parent) const
 {
     if (parent.isValid())
         return 0;
     return ViewOtcepList.count();
 }
 
-QVariant ViewOtcepsModel::data(const QModelIndex &index, int role) const
+QVariant OtcepsModel::data(const QModelIndex &index, int role) const
 {
     if(index.row() < 0 || index.row() >= ViewOtcepList.count() || !index.isValid())
         return  QVariant();
@@ -162,7 +136,7 @@ QVariant ViewOtcepsModel::data(const QModelIndex &index, int role) const
 }
 
 
-bool ViewOtcepsModel::setData(const QModelIndex &index, const QVariant &value, int role)
+bool OtcepsModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     DataObject &dataSourceObject = ViewOtcepList[index.row()];
     if (data(index, role) != value) {
@@ -178,14 +152,14 @@ bool ViewOtcepsModel::setData(const QModelIndex &index, const QVariant &value, i
 }
 
 
-Qt::ItemFlags ViewOtcepsModel::flags(const QModelIndex &index) const
+Qt::ItemFlags OtcepsModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid())
         return Qt::NoItemFlags;
     return Qt::ItemIsEditable; // FIXME: Implement me!
 }
 
-QHash<int, QByteArray> ViewOtcepsModel::roleNames() const
+QHash<int, QByteArray> OtcepsModel::roleNames() const
 {
 
     auto  roles=QAbstractListModel::roleNames();
@@ -197,27 +171,31 @@ QHash<int, QByteArray> ViewOtcepsModel::roleNames() const
     return  roles;
 }
 
-void ViewOtcepsModel::sortirArrived(const tSl2Odo2 *srt)
+void OtcepsModel::sortirArrived(const tSl2Odo2 *srt)
 {
-    Mn.setNewList(1);
+    Mn.m_newList=1;
+    VagonsModel::instance().loadSortList(srt);
     // прверить что режим ввода установлен
     // если нет то запомнить и мигать кнопкой
     if(Mn.m_stateBt.m_editing==1){
         if (!loadSortirToUvk(srt)) {
             MVP_Import::instance()->_Id=0;
-            Mn.setNewList(0);
+            Mn.m_newList=0;
             MVP_Import::instance()->updateOtceps();
+            //            tmpSrt=nullptr;
         }
     }else tmpSrt=srt;
+    emit Mn.newListChanged();
+    return;
 }
 
-void ViewOtcepsModel::uvk_cmd_accept(QMap<QString, QString> m)
+void OtcepsModel::uvk_cmd_accept(QMap<QString, QString> m)
 {
     if (m["ACCEPT_SRC"]!="UVK") return;
     Mn.addMsg(m["ACCEPT_TXT"]);
 }
 
-bool ViewOtcepsModel::loadSortirToUvk(const tSl2Odo2 *srt)
+bool OtcepsModel::loadSortirToUvk(const tSl2Odo2 *srt)
 {
     return MVP_Import::instance()->loadSortirToUvk(srt);
 }

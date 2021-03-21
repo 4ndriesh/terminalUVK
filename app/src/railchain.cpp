@@ -4,12 +4,13 @@
 
 RailChain::RailChain(QObject *parent) : QObject(parent)
 {
-
+m_wink_reset=false;
 }
 //Ресет рельсовой цепи
 void RailChain::resetRChain(const QString &valRChain)
 {
     MVP_Import::instance()->resetDSOBusyRc(rch[valRChain]);
+    setwink_reset(false);
     return;
 }
 //Добавляем рельсовые цепи в список
@@ -51,13 +52,14 @@ void RailChain::keyUpDown(const int &updown)
         }
         break;
     }
-    setQmlChainItem(m_qmlChainItem);
+    setwink_reset(false);
+    emit qmlChainItemChanged();
     return;
 }
 void RailChain::accept()
 {
     if(m_wink_reset)resetRChain(m_qmlRChain[m_qmlChainItem]);
-    setWink_reset(false);
+    setwink_reset(false);
     emit qmlChainItemChanged();
     return;
 }
@@ -69,7 +71,7 @@ void RailChain::keyDown(const DWORD &key)
     switch (key) {
 
     case VK_F5:
-        setQmlChainItem(0);
+        setqmlChainItem(0);
         emit closeRChainChanged();
         break;
     case VK_RETURN:
@@ -89,7 +91,7 @@ void RailChain::keyDown(const DWORD &key)
     case VK_DELETE:
         //Удалить
         emit qmlChainItemChanged();
-        setWink_reset(true);
+        setwink_reset(true);
         break;
     }
     return;

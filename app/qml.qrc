@@ -1,40 +1,46 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
-        <file>qml/Base/ListModelHeader.qml</file>
-        <file>qml/Impl/ButtonPanel.qml</file>
+        <file>qml/Base/ImageSVG.qml</file>
         <file>qml/Base/MultiButton.qml</file>
-        <file>qml/Impl/OtcepsView.qml</file>
-        <file>qml/Impl/qmldir</file>
-        <file>qml/Message/qmldir</file>
+        <file>qml/Base/ProgressBarPanel.qml</file>
+        <file>qml/Base/qmldir</file>
+        <file>qml/KeyBoard/ButtonKey.qml</file>
+        <file>qml/KeyBoard/MouseKeyBoard.qml</file>
+        <file>qml/KeyBoard/qmldir</file>
+        <file>qml/RChain/Delegate.qml</file>
+        <file>qml/RChain/Highlight.qml</file>
+        <file>qml/RChain/RChainView.qml</file>
+        <file>qml/RChain/qmldir</file>
+        <file>qml/Resources/AliveUVK.svg</file>
+        <file>qml/Resources/Down.svg</file>
+        <file>qml/Resources/Enter.svg</file>
+        <file>qml/Resources/InsertDown.svg</file>
+        <file>qml/Resources/NewSortList.svg</file>
+        <file>qml/Resources/SetCurrentOtcep.svg</file>
+        <file>qml/Resources/Trash.svg</file>
+        <file>qml/Resources/Up.svg</file>
         <file>qml/SettingsModule/qmldir</file>
         <file>qml/SettingsModule/Settings.qml</file>
-        <file>qml/Base/qmldir</file>
-        <file>qml/Base/Number.qml</file>
-        <file>qml/Message/MsgDelegate.qml</file>
-        <file>qml/Base/ProgressBarPanel.qml</file>
-        <file>qml/Base/AlarmMessage.qml</file>
-        <file>qml/Base/DelegateOtcepView.qml</file>
-        <file>qml/Base/HeaderOtcepsView.qml</file>
-        <file>qml/Base/EventMouseArea.qml</file>
-        <file>qml/Base/MouseAreaOtcepList.qml</file>
-        <file>qml/resources/NewSortList.svg</file>
-        <file>qml/resources/AliveUVK.svg</file>
-        <file>qml/Base/ImageSVG.qml</file>
-        <file>qml/resources/InsertDown.svg</file>
-        <file>qml/Base/DelegateRChain.qml</file>
-        <file>qml/Base/PopupRChain.qml</file>
-        <file>qml/Base/Highlight.qml</file>
+        <file>qml/Vagons/Delegate.qml</file>
+        <file>qml/Vagons/Number.qml</file>
+        <file>qml/Vagons/qmldir</file>
+        <file>qml/Vagons/VagonsView.qml</file>
+        <file>main.qml</file>
+        <file>qml/Base/ButtonPanel.qml</file>
+        <file>qml/Base/ButtonArea.qml</file>
         <file>qml/KeyBoard/KeyBoard.qml</file>
-        <file>qml/KeyBoard/ButtonKey.qml</file>
-        <file>qml/KeyBoard/qmldir</file>
-        <file>qml/resources/Enter.svg</file>
-        <file>qml/resources/Down.svg</file>
-        <file>qml/resources/Trash.svg</file>
-        <file>qml/resources/Up.svg</file>
-        <file>qml/KeyBoard/MouseKeyBoard.qml</file>
-        <file>qml/Base/HighlightRChain.qml</file>
-        <file>qml/resources/SetCurrentOtcep.svg</file>
-        <file>qml/Base/DualNumber.qml</file>
+        <file>qml/Otcep/Delegate.qml</file>
+        <file>qml/Otcep/DualNumber.qml</file>
+        <file>qml/Otcep/Header.qml</file>
+        <file>qml/Otcep/Highlight.qml</file>
+        <file>qml/Otcep/ListModelHeader.qml</file>
+        <file>qml/Otcep/ListArea.qml</file>
+        <file>qml/Otcep/Number.qml</file>
+        <file>qml/Otcep/OtcepsView.qml</file>
+        <file>qml/Otcep/qmldir</file>
+        <file>qml/Base/AlarmMessage.qml</file>
+        <file>qml/Base/MsgDelegate.qml</file>
+        <file>qml/Base/Opacity.qml</file>
+        <file>qml/Base/TimerWink.qml</file>
     </qresource>
 </RCC>

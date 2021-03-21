@@ -3,7 +3,6 @@ import SettingsModule 1.0
 
 Rectangle {
     id: rectangleButton
-//    parent: Overlay.overlay
     property alias buttonText: _buttonText.text;
     property color colorButton:Settings.newSortList.baseColor
     property bool wink: false
@@ -30,28 +29,6 @@ Rectangle {
         font.pointSize: parent.height/5;
         fontSizeMode: Text.Fit
     }
-
-    OpacityAnimator on opacity{
-        id: _opacitywink
-        target: rectangleButton
-        loops: Animation.Infinite;
-        from: 0;
-        to: 1;
-        duration: 500
-        running: wink
-        onStopped: {
-            rectangleButton.opacity=1;
-        }
-    }
-
-    Timer {
-        id: _timerwink
-        interval: Settings.buttonPanel.timeWink
-        running: wink
-        onTriggered: {
-            manageModel.qmlRegim(11);
-            manageModel.qmlRegim(10);
-        }
-    }
-
+    Opacity{target:rectangleButton}
+    TimerWink{running: wink}
 }

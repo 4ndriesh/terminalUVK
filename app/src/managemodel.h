@@ -1,13 +1,13 @@
 #ifndef MANAGEMENT_H
 #define MANAGEMENT_H
-#include "otcepsobject.h"
-//#include <QQmlExtensionPlugin>
+//#include "otcepsobject.h"
 #include <QtQml>
 #include <qt_windows.h>
 #include <QQuickItem>
 #include <QKeyEvent>
-#include "viewotcepsmodel.h"
+#include "otcepsmodel.h"
 #include "json.h"
+#include "manage_define.h"
 
 struct QML_ManagerButton
 {
@@ -25,20 +25,18 @@ struct QML_ManagerButton
     Q_PROPERTY(bool wink_Nadvig MEMBER m_wNadvig)
 
 public:
-    int m_putNadviga;
-    int m_bef_putNadviga;
+    int m_putNadviga=0;
+    int m_bef_putNadviga=0;
     int m_bef_regim=10;
-    int m_tmp_Cursor;
-    int m_regim;
+    int m_tmp_Cursor=0;
+    int m_regim=0;
     int m_editing=0;
     int m_regim_Finish=0;
     bool m_wCursor=false;
     bool m_wStop=false;
     bool m_wPause=false;
     bool m_wNadvig=false;
-};
-
-Q_DECLARE_METATYPE(QML_ManagerButton)
+};Q_DECLARE_METATYPE(QML_ManagerButton)
 
 struct StructProgressBar{
     Q_GADGET
@@ -47,10 +45,9 @@ struct StructProgressBar{
     Q_PROPERTY(bool set_visible MEMBER m_set_visible)
 
 public:
-    float m_set_value;
-    int m_set_maximumValue;
+    float m_set_value=0.0;
+    int m_set_maximumValue=0;
     bool m_set_visible=false;
-
 };
 
 class ManageModel: public QObject
@@ -62,130 +59,88 @@ class ManageModel: public QObject
 
     Q_PROPERTY(QML_ManagerButton stateBt READ stateBt WRITE setStateBt NOTIFY stateBtChanged)
 
-    Q_PROPERTY(int qmlCurentIndex READ qmlCurrentItem WRITE setQmlCurrentItem NOTIFY qmlCurrentItemChanged)
-
-    Q_PROPERTY(int textInput READ textInput NOTIFY textInputChanged)
-
-    Q_PROPERTY(int selectHook WRITE setSelectHook)
-
-    Q_PROPERTY(int uvkLive READ uvkLive NOTIFY uvkLiveChanged)
-
-    Q_PROPERTY(QString msgEvent READ msgEvent WRITE setMsgEvent NOTIFY msgEventChanged)
-
-    Q_PROPERTY(int newList READ newList WRITE setNewList NOTIFY newListChanged)
-
-    Q_PROPERTY(QStringList listMsg READ getListMsg NOTIFY listMsgChanged)
-
-    Q_PROPERTY(bool timerDelMsg READ getTimerDelMsg NOTIFY timerDelMsgChanged)
-
     Q_PROPERTY(StructProgressBar qmlStatusPB READ qmlStatusPB NOTIFY statusPBChanged)
+
+    //Управляет фокусом
+    Q_PROPERTY_RWN(int,focus);
+    //Управляет курсором листвью
+    Q_PROPERTY_RWN(int,qmlCurrentIndex);
+
+    //Общая переменная для ввода с клавиатуры номера пути
+    Q_PROPERTY_RWN(QString,textInput);
+
+    //Управляет сообщениями
+    Q_PROPERTY_RN(QStringList,listMsg);
+
+    //Удаляем сообщения с формы об ошибках
+    Q_PROPERTY_RN(bool,timerDelMsg);
+
+    //Установить хук на окно
+    Q_PROPERTY_RW(int,selectHook);
+
+    //Наличие увк
+    Q_PROPERTY_RN(int,uvkLive);
+
+    //Сообщение в Highlite на событие
+    Q_PROPERTY_RWN(QString,msgEvent);
+
+    //Оповещение о новом сортирововчном листке
+    Q_PROPERTY_RN(int,newList);
 
 private:
     Json *notice=nullptr;
+    void setRegim(const int &);
+    void setCurrentOtcep();
+    void setPutNadviga(const int &);
+
 public:
     explicit ManageModel(QObject *parent = nullptr);
     virtual ~ManageModel(){}
     static ManageModel &instance(){
-        static ManageModel *_instance=0;
-        if(_instance ==0){
+        static ManageModel *_instance=nullptr;
+        if(_instance == nullptr){
             _instance=new ManageModel();
         }
         return *_instance;
     }
 
 signals:
-
+    void focusChanged();
     void msgEventChanged();
     void openRChainChanged();
     void stateBtChanged();
     void textInputChanged();
     void uvkLiveChanged();
     void newListChanged();
-    void qmlCurrentItemChanged();
+    void qmlCurrentIndexChanged();
     void statusPBChanged();
     void listMsgChanged();
     void timerDelMsgChanged();
 
 public:
-//    Q_INVOKABLE void qmlRegimEditing(const int&);
     Q_INVOKABLE void qmlRegim(const int&);
     Q_INVOKABLE void addOtcep(const int&);
     Q_INVOKABLE void delOtcep(const int&);
     Q_INVOKABLE void clearAllOtcep();
-    Q_INVOKABLE void inputPut(const int&);
+    Q_INVOKABLE void inputPut(const QString&);
     Q_INVOKABLE void keyDown(const int &, const bool &);
     Q_INVOKABLE void setRegimEdit();
     Q_INVOKABLE void keyUpDown(const int&);
     Q_INVOKABLE void deleteMsg();
-    Q_INVOKABLE int selectHook=0;
     //Подтверждает команду кнопкой ENTER
     Q_INVOKABLE void accept();
     void addMsg(const QString &);
+
     QML_ManagerButton m_stateBt;
     QML_ManagerButton stateBt()const {return m_stateBt;}
-
-//    void controlWindow(DWORD vkKeyCode);
-
     void setStateBt(const QML_ManagerButton &stateBt)
     {
         m_stateBt = stateBt;
         emit stateBtChanged();
     }
 
-    int m_selectHook;
-    void setSelectHook(const int &codWin){
-        m_selectHook = codWin;
-    }
-    //Общая переменная для ввода с клавиатуры номера пути
-    int m_textInput=0;
-    int textInput()const {return m_textInput;}
-
-    //Наличие увк
-    int m_uvkLive=0;
-    int uvkLive()const {return m_uvkLive;}
-
-    //Сообщение в Highlite на событие
-    QString m_msgEvent="";
-    QString msgEvent()const {return m_msgEvent;}
-    void setMsgEvent(const QString &msg){
-        m_msgEvent = msg;
-        emit msgEventChanged();
-
-    }
-
-    //Оповещение о новом сортирововчном листке
-    int m_newList;
-    int newList()const {return m_newList;}
-    void setNewList(const int &index){
-        m_newList = index;
-        emit newListChanged();
-    }
-
-    //Удаляем сообщения с формы об ошибках
-    bool timerDelMsg;
-    bool getTimerDelMsg()const;
-
-    //Управляет сообщениями
-    QStringList m_listMsg;
-    QStringList getListMsg()const{return m_listMsg;}
-
-    //Управляет курсором листвью
-    int m_qmlCurentIndex=0;
-    int qmlCurrentItem()const{return m_qmlCurentIndex;}
-
-    void setQmlCurrentItem(const int &index){
-        m_qmlCurentIndex = index;
-        qmlRegim(10);
-        emit qmlCurrentItemChanged();
-    }
-
-    void setRegim(const int &);
-    void setCurrentOtcep();
-    void setPutNadviga(const int &);
-
     StructProgressBar m_qmlStatusPB;
     StructProgressBar qmlStatusPB()const {return m_qmlStatusPB;}
-
 };
 
 #endif // MANAGEMENT_H

@@ -75,9 +75,6 @@ private:
     static int instances;
 };
 
-
-
-
 #include <QObject>
 #include <QQmlExtensionPlugin>
 #include <QtQml>

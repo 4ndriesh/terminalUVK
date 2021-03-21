@@ -30,24 +30,24 @@ Item {
         readonly property color overlay: isDarkTheme ? "white":"white"
         readonly property string fontFamily: "Cursive"
 
-        readonly property string insertDown: "qrc:/qml/resources/InsertDown.svg"
-        readonly property string enter: "qrc:/qml/resources/Enter.svg"
-        readonly property string upArrow: "qrc:/qml/resources/Up.svg"
-        readonly property string downArrow: "qrc:/qml/resources/Down.svg"
-        readonly property string trash: "qrc:/qml/resources/Trash.svg"
-        readonly property string setCurrentOtcep: "qrc:/qml/resources/SetCurrentOtcep.svg"
+        readonly property string insertDown: "qrc:/qml/Resources/InsertDown.svg"
+        readonly property string enter: "qrc:/qml/Resources/Enter.svg"
+        readonly property string upArrow: "qrc:/qml/Resources/Up.svg"
+        readonly property string downArrow: "qrc:/qml/Resources/Down.svg"
+        readonly property string trash: "qrc:/qml/Resources/Trash.svg"
+        readonly property string setCurrentOtcep: "qrc:/qml/Resources/SetCurrentOtcep.svg"
     }
     QtObject {
         id: _aliveUvk
         readonly property color baseColor: isDarkTheme ? "red" : "red"
         readonly property color actColor: isDarkTheme ? "#607D8B" : "lime"
-        readonly property string svgAliveUvk: "qrc:/qml/resources/AliveUVK.svg"
+        readonly property string svgAliveUvk: "qrc:/qml/Resources/AliveUVK.svg"
     }
     QtObject {
         id: _newSortList
         readonly property color baseColor: isDarkTheme ? "#607D8B" : "#b0c4de"
         readonly property color actColor: isDarkTheme ? "orange" : "orange"
-        readonly property string svgSortList: "qrc:/qml/resources/NewSortList.svg"
+        readonly property string svgSortList: "qrc:/qml/Resources/NewSortList.svg"
     }
 
     QtObject {
@@ -63,6 +63,8 @@ Item {
         id: _listView
         //Список отцепов
         readonly property color baseColor: isDarkTheme ? "#607D8B" : "#b0c4de"
+        readonly property int height: 60
+        readonly property int heightScale: 80
         readonly property int borderWidth: 1
         readonly property string fontFamily: "Cursive"
         readonly property color background: isDarkTheme ? "gainsboro": "gainsboro"
@@ -77,6 +79,7 @@ Item {
     QtObject {
         id: _highlight
         //Список отцепов
+        readonly property color text: "red"
         readonly property color edit: "#ffa500"
         readonly property color base: "#00bfff"
         readonly property int timeWink: 5000
@@ -92,6 +95,7 @@ Item {
         //Шапка
         readonly property color baseColor: isDarkTheme ? "#607D8B" : "#b0c4de"
         readonly property int height: 80
+        readonly property int column: 10
         readonly property int borderWidth: 1
         readonly property string fontFamily: "Cursive"
         readonly property color textColor: isDarkTheme ? "black":"black"

@@ -1,19 +1,10 @@
 module Base
-ListModelHeader 1.0 ListModelHeader.qml
-Number 1.0 Number.qml
-DualNumber 1.0 DualNumber.qml
-ProgressBarPanel 1.0 ProgressBarPanel.qml
 AlarmMessage 1.0 AlarmMessage.qml
+ButtonPanel 1.0 ButtonPanel.qml
+ProgressBarPanel 1.0 ProgressBarPanel.qml
 MultiButton 1.0 MultiButton.qml
-DelegateOtcepView 1.0 DelegateOtcepView.qml
-HighlightBar 1.0 HighlightBar.qml
-HeaderOtcepsView 1.0 HeaderOtcepsView.qml
-AnimationButton 1.0 AnimationButton.qml
-EventMouseArea 1.0 EventMouseArea.qml
-MouseAreaOtcepList 1.0 MouseAreaOtcepList.qml
 ImageSVG 1.0 ImageSVG.qml
-RChain 1.0 RChain.qml
-PopupRChain 1.0 PopupRChain.qml
-Highlight 1.0 Highlight.qml
-HighlightRChain 1.0 HighlightRChain.qml
+ButtonArea 1.0 ButtonArea.qml
+Opacity 1.0 Opacity.qml
+TimerWink 1.0 TimerWink.qml
 plugin clock

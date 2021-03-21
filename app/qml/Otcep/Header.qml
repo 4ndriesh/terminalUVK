@@ -1,18 +1,16 @@
 import QtQuick 2.14
-import QtQuick.Layouts 1.4
+import QtQuick.Layouts 1.14
 import Base 1.0
 import SettingsModule 1.0
 
 Rectangle{
     height: Settings.header.height
+
     GridLayout {
         id: _header
-        //    width: parent.width
-        //    property int heightHeader: listView.height/6
-
         anchors.fill: parent
         rows: 2
-        columns: 10
+        columns: Settings.header.column
         columnSpacing:0
         rowSpacing: 0
 

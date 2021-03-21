@@ -9,26 +9,22 @@ Popup {
     height: parent.height/2
     width: parent.width/2
     focus: true
-    //    background: Rectangle {color: "red"}
     ListView{
-        id:listRChainView
+        id:_rchain
         anchors.fill: parent
-        highlightFollowsCurrentItem: true
         clip: true
         currentIndex: rChain.qmlChainItem
         model:rChain.qmlRChain
-        delegate: DelegateRChain{}
-
-        highlight: HighlightRChain{
-            id:highliteBarChain;
-            z:2
-        }
+        delegate: Delegate{}
+        highlight: Highlight{z:2}
     }
+
     onClosed: {
         rChain.qmlChainItem=0;
         manageModel.selectHook=0;
         msgTimer.running=false;
     }
+
     onOpened: {
         rChain.addRChain();
         manageModel.selectHook=1;
@@ -45,7 +41,7 @@ Popup {
 
     Connections{
         target: rChain
-        function onQmlChainItemChanged(){listRChainView.currentIndex=rChain.qmlChainItem}
+//        function onQmlChainItemChanged(){listRChainView.currentIndex=rChain.qmlChainItem}
         function onCloseRChainChanged(){_rchaindialog.close();}
     }
     Connections{

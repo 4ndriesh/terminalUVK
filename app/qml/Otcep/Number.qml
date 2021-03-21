@@ -5,13 +5,27 @@ import SettingsModule 1.0
 Rectangle {
     id: textField
     property alias txt: _textPut.text
+    property alias textPutfocus: _textPut.focus
     Layout.fillHeight: true
     Layout.fillWidth: true
-    Layout.preferredWidth: listView.width/10
-
-    height: 60
+    Layout.preferredWidth: delegate.width/Settings.header.column
+    height: Settings.listView.height;
     color: delegate.color
     border.width: Settings.listView.borderWidth
+    Item {
+        id: _lightsteelblue
+        states:[
+            State {
+                name: "lightsteelblue"
+                when: _textPut.focus===true
+                PropertyChanges {
+                    target: textField
+                    color: delegate.items_color[4];
+                }
+            }
+        ]
+    }
+
     Item {
         id: _zkr_vagons
         states:[
@@ -20,7 +34,7 @@ Rectangle {
                 when: STATE_SL_VAGON_CNT!==0 &&
                       STATE_ZKR_VAGON_CNT!==0 &&
                       STATE_ZKR_VAGON_CNT>STATE_SL_VAGON_CNT
-//                      textField===state_zkr_vagon_cnt
+                //                      textField===state_zkr_vagon_cnt
                 PropertyChanges {
                     target: state_zkr_vagon_cnt
                     color:delegate.items_color[5]
@@ -97,19 +111,31 @@ Rectangle {
         font.family: Settings.listView.fontFamily;
         font.pointSize: parent.height/2
         fontSizeMode: Text.Fit
-        //        inputMethodHints:Qt.ImhFormattedNumbersOnly
-        focus: false
-
-
     }
+
     Connections{
         target: manageModel
+        function onFocusChanged(){
+            if(delegate.ListView.isCurrentItem){
+                if(manageModel.focus===1)
+                    state_sp.textPutfocus=true;
+                if(manageModel.focus===2)
+                    state_sl_vagon_cnt.textPutfocus=true;
+            }
+        }
+
         function onTextInputChanged(){
-            if(manageModel.qmlCurentIndex === index
-                    && textField===state_sp)
-            {
-                STATE_SP=manageModel.textInput;
-                //                _textPut.forceActiveFocus()
+            if(delegate.ListView.isCurrentItem){
+                if(state_sp.textPutfocus===true && textField===state_sp)
+                {
+                    STATE_SP=manageModel.textInput;
+                    manageModel.focus=2;
+                    manageModel.textInput="";
+                }
+                else if (state_sl_vagon_cnt.textPutfocus===true && textField===state_sl_vagon_cnt){
+                    STATE_SL_VAGON_CNT=manageModel.textInput;
+                    manageModel.textInput="";
+                }
             }
         }
     }

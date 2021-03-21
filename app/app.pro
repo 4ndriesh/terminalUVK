@@ -2,7 +2,6 @@ QT += qml \
       quick \
       core \
       svg
-QTPLUGIN += qsvg qsvgicon
 CONFIG += c++17
 #TEMPLATE = lib
 TARGET = tuvk
@@ -11,7 +10,9 @@ DESTDIR = ../../tuvk
 # any Qt feature that has been marked deprecated (the exact warnings
 # depend on your compiler). Refer to the documentation for the
 # deprecated API to know how to port your code away from it.
-DEFINES += QT_DEPRECATED_WARNINGS
+DEFINES += QT_DEPRECATED_WARNINGS\
+MANAGE_DEFINE
+
 # You can also make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
@@ -21,9 +22,10 @@ SOURCES += \
     src/json.cpp \
     src/kbdllhooks.cpp \
     src/managemodel.cpp \
+    src/otcepsmodel.cpp \
     src/otcepsobject.cpp \
     src/railchain.cpp \
-    src/viewotcepsmodel.cpp \
+    src/vagonsmodel.cpp \
     src/mvp_import.cpp \
     main.cpp
 
@@ -31,7 +33,7 @@ RESOURCES += qml.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 #QML_IMPORT_PATH += C:\work_dir\C++\terminal_uvk
-#QML2_IMPORT_PATH += $$PWD/qml/vkeyboard
+QML_IMPORT_PATH += $$PWD/qml
 #QML3_IMPORT_PATH += $$PWD/../test
 # Additional import path used to resolve QML modules just for Qt Quick Designer
 QML_DESIGNER_IMPORT_PATH =
@@ -46,11 +48,13 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     src/json.h \
     src/kbdllhooks.h \
+    src/manage_define.h \
     src/managemodel.h \
+    src/otcepsmodel.h \
     src/otcepsobject.h \
     src/mvp_import.h \
     src/railchain.h \
-    src/viewotcepsmodel.h
+    src/vagonsmodel.h
 
 # SYB
 #DEFINES += NO_LIBRARY

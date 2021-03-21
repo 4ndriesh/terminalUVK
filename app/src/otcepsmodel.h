@@ -1,25 +1,31 @@
 #ifndef DATASOURCEMODEL_H
 #define DATASOURCEMODEL_H
-
 #include "otcepsobject.h"
-
 #include <QAbstractListModel>
 #include <QTimer>
 
 
 struct tSl2Odo2;
 
-class ViewOtcepsModel : public QAbstractListModel
+class OtcepsModel : public QAbstractListModel
 {
     Q_OBJECT
 
-    Q_DISABLE_COPY(ViewOtcepsModel)
+    Q_DISABLE_COPY(OtcepsModel)
 
     QTimer * timer;
 
 public:
-    static ViewOtcepsModel &instance();
-    explicit ViewOtcepsModel(QObject *parent=nullptr);
+    explicit OtcepsModel(QObject *parent=nullptr);
+    virtual ~OtcepsModel(){}
+    static OtcepsModel &instance(){
+        static OtcepsModel *_instance=nullptr;
+        if(_instance == nullptr){
+            _instance=new OtcepsModel();
+        }
+        return *_instance;
+    }
+
     const tSl2Odo2 *tmpSrt=nullptr;
     void slotOtcepChanged();
 
@@ -41,7 +47,5 @@ public slots:
     int countEnabled();
     void sortirArrived(const tSl2Odo2 *srt);
     void uvk_cmd_accept(QMap<QString,QString> m);
-
-
 };
 #endif // DATASOURCEMODEL_H

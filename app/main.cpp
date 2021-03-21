@@ -30,10 +30,11 @@
 #include <QQmlApplicationEngine>
 #include <QDebug>
 
-#include "viewotcepsmodel.h"
+#include "otcepsmodel.h"
 #include "mvp_import.h"
 #include "kbdllhooks.h"
 #include "railchain.h"
+#include "vagonsmodel.h"
 #include "managemodel.h"
 #include <QtSvg>
 #include <QQmlContext>
@@ -44,12 +45,11 @@ int main(int argc, char *argv[])
 {
     //    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     //    QCoreApplication::setAttribute(Qt::AA_DisableHighDpiScaling);
+    //    QCoreApplication::setAttribute( Qt::AA_UseDesktopOpenGL );
     QCoreApplication::setAttribute( Qt::AA_UseOpenGLES);
-//    QCoreApplication::setAttribute( Qt::AA_UseDesktopOpenGL );
     QGuiApplication app(argc, argv);
     Json *sett = new Json("settings.json");
 
-    //    Json &sett = Json::instance("settings.json");
     if(QHostInfo::localHostName() == sett->getSettings("localHostName"))
         KBdllhooks::instance();
 
@@ -61,18 +61,20 @@ int main(int argc, char *argv[])
 
     qRegisterMetaType<QML_ManagerButton>("QML_ManagerButton");
     qRegisterMetaType<StructProgressBar>("StructProgressBar");
-    ViewOtcepsModel &model = ViewOtcepsModel::instance();
+    VagonsModel &vagons = VagonsModel::instance();
+    OtcepsModel &model = OtcepsModel::instance();
     ManageModel &manage = ManageModel::instance();
     RailChain &rch = RailChain::instance();
     QQmlApplicationEngine engine;
+QQmlEngine::setObjectOwnership(&model, QQmlEngine::CppOwnership);
     engine.addImportPath("qrc:/qml");
-//    engine.setObjectOwnership(&model,QQmlEngine::CppOwnership);
-    //    QQmlEngine::setObjectOwnership(this,QQmlEngine::CppOwnership);
+//    QQmlEngine::setObjectOwnership(&engine, QQmlEngine::CppOwnership);
+
     QQmlContext* context = engine.rootContext();
     context->setContextProperty("otcepsModel", &model);
     context->setContextProperty("manageModel", &manage);
     context->setContextProperty("rChain", &rch);
-    //    const QUrl url(QStringLiteral("main.qml"));
+    context->setContextProperty("vagonsModel", &vagons);
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {

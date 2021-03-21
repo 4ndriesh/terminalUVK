@@ -1,8 +1,9 @@
 import QtQuick 2.14
-import QtQuick.Layouts 1.1
+import QtQuick.Layouts 1.14
+import QtQuick.Controls 2.14
 import Base 1.0
 import SettingsModule 1.0
-import QtQuick.Controls 1.4
+import RChain 1.0
 
 RowLayout {
     Layout.fillWidth: true
@@ -18,8 +19,7 @@ RowLayout {
     property bool editing: manageModel.stateBt.editing
     property int qmlnewList: manageModel.newList
     property int qmluvkLive: manageModel.uvkLive
-
-    PopupRChain{id:_rchaindialog}
+    RChainView{id:_rchaindialog}
     Clock {
         id: timer
     }
@@ -30,8 +30,7 @@ RowLayout {
         id: edirSortList
         buttonText: "ВВОД СЛ"
         colorButton: editing ? Settings.buttonColor.regim:Settings.buttonColor.baseColor
-        wink: false
-        EventMouseArea{
+        ButtonArea{
             onClicked: {
                 manageModel.setRegimEdit();
             }
@@ -46,7 +45,7 @@ RowLayout {
 
         wink: (regim===1 && putNadviga===1) ?false:wink_nadvig
 
-        EventMouseArea {setRegim: 1}
+        ButtonArea {setRegim: 1}
 
     }
 
@@ -55,7 +54,7 @@ RowLayout {
         buttonText: "СТОП"
         colorButton: regim===0 ? Settings.buttonColor.regim:Settings.buttonColor.baseColor
         wink: regim===0 ? false:wink_stop
-        EventMouseArea {setRegim: 0}
+        ButtonArea {setRegim: 0}
     }
 
     MultiButton {
@@ -63,7 +62,7 @@ RowLayout {
         buttonText: "ПАУЗА"
         colorButton: regim===2 ? Settings.buttonColor.regim:Settings.buttonColor.baseColor
         wink: regim===2 ? false:wink_pause
-        EventMouseArea {setRegim: 2}
+        ButtonArea {setRegim: 2}
     }
 
     Rectangle{
@@ -75,7 +74,6 @@ RowLayout {
             anchors.centerIn: parent
             text: timeFormat
             font.pointSize:  parent.height/2;
-            //            font.italic: true
         }
     }
 
@@ -84,8 +82,7 @@ RowLayout {
         buttonText: "РЦ"
         Layout.alignment: Qt.AlignRight
         Layout.rightMargin:50
-        wink: false
-        EventMouseArea {
+        ButtonArea {
             onClicked: {
                 _rchaindialog.open();
             }

@@ -1,5 +1,4 @@
 import QtQuick 2.14
-import Message 1.0
 
 Rectangle {
     id: showmessage

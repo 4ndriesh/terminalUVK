@@ -4,9 +4,9 @@ import SettingsModule 1.0
 
 Rectangle{
     Layout.fillHeight: true
-    Layout.preferredWidth: (listView.width/10)*2
+    Layout.preferredWidth: (delegate.width/Settings.header.column)*2
     Layout.fillWidth: true
-    height: 60
+    height: Settings.listView.height
     color: delegate.color
     border.width: Settings.listView.borderWidth
 

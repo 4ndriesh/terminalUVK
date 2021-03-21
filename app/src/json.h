@@ -11,8 +11,8 @@ public:
     virtual ~Json(){
     }
     static Json &instance(const QString & path){
-        static Json *_instance=0;
-        if(_instance ==0){
+        static Json *_instance=nullptr;
+        if(_instance ==nullptr){
             _instance=new Json(path);
         }
         return *_instance;
