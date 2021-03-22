@@ -2,7 +2,6 @@
 #include <iostream>
 #include <QTimer>
 #include <QMapIterator>
-#include "managemodel.h"
 #include "mvp_import.h"
 #include <QMetaProperty>
 
@@ -31,8 +30,6 @@
 
  */
 
-
-static OtcepsModel *_instance=nullptr;
 ManageModel &Mn = ManageModel::instance();
 OtcepsModel::OtcepsModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -63,7 +60,7 @@ OtcepsModel::OtcepsModel(QObject *parent)
     timer->start();
 
     connect(MVP_Import::instance(),&MVP_Import::sortirArrived,this, &OtcepsModel::sortirArrived);
-    MVP_Import::instance()->updateOtceps();
+    Mn.updateOtcep();
 
 }
 
@@ -173,18 +170,21 @@ QHash<int, QByteArray> OtcepsModel::roleNames() const
 
 void OtcepsModel::sortirArrived(const tSl2Odo2 *srt)
 {
-    Mn.m_newList=1;
-    VagonsModel::instance().loadSortList(srt);
+    Mn.m_newList=true;
+
     // прверить что режим ввода установлен
     // если нет то запомнить и мигать кнопкой
-    if(Mn.m_stateBt.m_editing==1){
+    if(Mn.m_stateBt.m_bef_regim==12){
+//    if(Mn.m_stateBt.m_editing==1){
         if (!loadSortirToUvk(srt)) {
+            VagonsModel::instance().loadSortList(srt);
             MVP_Import::instance()->_Id=0;
-            Mn.m_newList=0;
-            MVP_Import::instance()->updateOtceps();
-            //            tmpSrt=nullptr;
+            Mn.m_newList=false;
+            Mn.updateOtcep();
+            tmpSrt=nullptr;
         }
     }else tmpSrt=srt;
+    Mn.m_stateBt.m_wGetList=false;
     emit Mn.newListChanged();
     return;
 }

@@ -23,6 +23,7 @@ struct QML_ManagerButton
     Q_PROPERTY(bool wink_Stop MEMBER m_wStop)
     Q_PROPERTY(bool wink_Pause MEMBER m_wPause)
     Q_PROPERTY(bool wink_Nadvig MEMBER m_wNadvig)
+    Q_PROPERTY(bool wink_GetList MEMBER m_wGetList)
 
 public:
     int m_putNadviga=0;
@@ -36,6 +37,7 @@ public:
     bool m_wStop=false;
     bool m_wPause=false;
     bool m_wNadvig=false;
+    bool m_wGetList=false;
 };Q_DECLARE_METATYPE(QML_ManagerButton)
 
 struct StructProgressBar{
@@ -85,7 +87,7 @@ class ManageModel: public QObject
     Q_PROPERTY_RWN(QString,msgEvent);
 
     //Оповещение о новом сортирововчном листке
-    Q_PROPERTY_RN(int,newList);
+    Q_PROPERTY_RN(bool,newList);
 
 private:
     Json *notice=nullptr;
@@ -118,13 +120,14 @@ signals:
     void timerDelMsgChanged();
 
 public:
+    Q_INVOKABLE void updateOtcep();
     Q_INVOKABLE void qmlRegim(const int&);
     Q_INVOKABLE void addOtcep(const int&);
     Q_INVOKABLE void delOtcep(const int&);
     Q_INVOKABLE void clearAllOtcep();
     Q_INVOKABLE void inputPut(const QString&);
     Q_INVOKABLE void keyDown(const int &, const bool &);
-    Q_INVOKABLE void setRegimEdit();
+//    Q_INVOKABLE void setRegimEdit();
     Q_INVOKABLE void keyUpDown(const int&);
     Q_INVOKABLE void deleteMsg();
     //Подтверждает команду кнопкой ENTER

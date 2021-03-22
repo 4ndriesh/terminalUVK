@@ -7,11 +7,12 @@
 #include "mvp_import.h"
 #include <QMetaProperty>
 #include <otcepsmodel.h>
+#include "managemodel.h"
 
 
 VagonsModel::VagonsModel(QObject *parent)
     : QAbstractListModel(parent)
-{
+{    
 }
 
 void VagonsModel::loadSortList(const tSl2Odo2 *srt)

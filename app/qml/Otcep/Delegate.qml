@@ -118,10 +118,6 @@ stat
                     color: delegate.items_color[3]
                 }
                 PropertyChanges {
-                    target: state_sp
-                    textPutfocus:false
-                }
-                PropertyChanges {
                     target: state_sl_vagon_cnt
                     textPutfocus:false
                 }
@@ -139,12 +135,6 @@ stat
                     target: state_sp
                     textPutfocus:true
                 }
-                //                StateChangeScript {
-                //                    name: "focusSet"
-                //                    script: {
-                //                        manageModel.focus=1;
-                //                    }
-                //                }
             }
         ]
     }

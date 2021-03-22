@@ -1,6 +1,7 @@
 #ifndef DATASOURCEMODEL_H
 #define DATASOURCEMODEL_H
 #include "otcepsobject.h"
+#include "managemodel.h"
 #include <QAbstractListModel>
 #include <QTimer>
 
@@ -39,7 +40,7 @@ public:
     void addDataObject(const DataObject &DataObject);
     bool loadSortirToUvk(const tSl2Odo2 *srt);
 
-private:
+private:    
     QList<DataObject> ViewOtcepList;
     QHash<int, QByteArray> otcepRoles;
 

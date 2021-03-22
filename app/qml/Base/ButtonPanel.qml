@@ -16,8 +16,9 @@ RowLayout {
     property bool wink_pause: manageModel.stateBt.wink_Pause
     property bool wink_stop: manageModel.stateBt.wink_Stop
     property bool wink_nadvig: manageModel.stateBt.wink_Nadvig
+    property bool wink_GetList: manageModel.stateBt.wink_GetList
     property bool editing: manageModel.stateBt.editing
-    property int qmlnewList: manageModel.newList
+    property bool newList: manageModel.newList
     property int qmluvkLive: manageModel.uvkLive
     RChainView{id:_rchaindialog}
     Clock {
@@ -26,16 +27,16 @@ RowLayout {
 
     property var timeFormat:timer.timeFormat
 
-    MultiButton {
-        id: edirSortList
-        buttonText: "ВВОД СЛ"
-        colorButton: editing ? Settings.buttonColor.regim:Settings.buttonColor.baseColor
-        ButtonArea{
-            onClicked: {
-                manageModel.setRegimEdit();
-            }
-        }
-    }
+//    MultiButton {
+//        id: edirSortList
+//        buttonText: "ВВОД СЛ"
+//        colorButton: editing ? Settings.buttonColor.regim:Settings.buttonColor.baseColor
+//        ButtonArea{
+//            onClicked: {
+//                manageModel.setRegimEdit();
+//            }
+//        }
+//    }
 
     MultiButton {
         id: putnadviga
@@ -92,24 +93,31 @@ RowLayout {
     MultiButton {
         id: newSortList
         Layout.alignment: Qt.AlignRight
-        colorButton: qmlnewList ? Settings.newSortList.actColor:Settings.newSortList.baseColor
-        wink: qmlnewList ? true:false
+        colorButton: newList ? Settings.newSortList.actColor:Settings.newSortList.baseColor
+        wink: wink_GetList
         ImageSVG {
             source: Settings.newSortList.svgSortList
             widthsvg: parent.height/1.5
             heightsvg:  parent.height/1.5
         }
+        ButtonArea {setRegim: 12}
     }
 
     MultiButton {
         id: _uvkLive
         Layout.alignment: Qt.AlignRight
         colorButton: qmluvkLive ?  Settings.aliveUvk.actColor:Settings.aliveUvk.baseColor
-        wink: qmluvkLive ? false:true
+        wink: qmluvkLive ? false:true        
         ImageSVG {
             source: Settings.aliveUvk.svgAliveUvk
             widthsvg: parent.height/1.5
             heightsvg:  parent.height/1.5
+        }
+        ButtonArea {
+            onClicked: {
+                if(qmluvkLive)
+                    manageModel.updateOtcep();
+            }
         }
     }
 }

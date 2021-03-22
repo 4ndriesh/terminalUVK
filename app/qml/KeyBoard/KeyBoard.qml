@@ -86,7 +86,7 @@ Popup {
                 widthsvg: insertUp.width/1.5
                 heightsvg:  insertUp.width/1.5
             }
-            MouseKeyBoard{onClicked: manageModel.qmlRegim(4);}
+            MouseKeyBoard{onClicked: manageModel.keyDown(45,false);}
         }
         Item{width: panelKeyboard.itemWidth; height: panelKeyboard.itemHeight}
         ButtonKey{
@@ -117,7 +117,7 @@ Popup {
                 widthsvg: insertDown.width/1.5
                 heightsvg:  insertDown.width/1.5
             }
-            MouseKeyBoard{onClicked: manageModel.qmlRegim(5);}
+            MouseKeyBoard{onClicked: manageModel.keyDown(45,true);}
         }
         ButtonKey{
             id: setCurrentOtcep

@@ -8,8 +8,9 @@
 
 ManageModel::ManageModel(QObject *parent) : QObject(parent)
 {
+
     m_uvkLive=0;
-    m_newList=0;
+    m_newList=false;
     m_selectHook=0;
     m_qmlCurrentIndex=0;
     m_textInput="";
@@ -43,7 +44,6 @@ void ManageModel::addOtcep(const int & index)
     MVP_Import::instance()->incOtcep(index);
     return;
 }
-
 
 void ManageModel::qmlRegim(const int & regim)
 {
@@ -119,6 +119,12 @@ void ManageModel::qmlRegim(const int & regim)
         //        }
         //        else{addMsg(notice->getMXml("setCurrentOtcep","msg"));}
         break;
+    case 12:
+        if(m_stateBt.m_regim==0 && m_newList==true){
+            m_stateBt.m_wGetList=true;
+            m_stateBt.m_bef_regim=12;
+        }
+            break;
     case 10:
         m_stateBt.m_bef_regim=10;
         m_textInput="";
@@ -129,6 +135,7 @@ void ManageModel::qmlRegim(const int & regim)
         m_stateBt.m_wPause=false;
         m_stateBt.m_wStop=false;
         m_stateBt.m_wNadvig=false;
+        m_stateBt.m_wGetList=false;
         break;
     }
 
@@ -166,6 +173,9 @@ void ManageModel::accept()
         setCurrentOtcep();
         break;
     case 9:
+        break;
+    case 12:
+        OtcepsModel::instance().sortirArrived(OtcepsModel::instance().tmpSrt);
         break;
 
     case 10:
@@ -274,24 +284,28 @@ void ManageModel::inputPut(const QString &numberPut)
     }
     return;
 }
-//Режим редактирования
-void ManageModel::setRegimEdit()
+void ManageModel::updateOtcep()
 {
-    if(m_stateBt.m_regim==1 || m_stateBt.m_regim==2){
-        addMsg("Перейти в режим <<КОНЕЦ РОСПУСКА>>");
-        return;
-    }
-
-    if(m_stateBt.m_editing==0){clearAllOtcep();}
-    m_stateBt.m_editing=!m_stateBt.m_editing;
-    m_qmlCurrentIndex=0;
-    emit qmlCurrentIndexChanged();
-    emit stateBtChanged();
-    if(m_newList)
-        OtcepsModel::instance().sortirArrived(OtcepsModel::instance().tmpSrt);
-
-    return;
+    MVP_Import::instance()->updateOtceps();
 }
+
+////Режим редактирования
+//void ManageModel::setRegimEdit()
+//{
+//    if(m_stateBt.m_regim==1 || m_stateBt.m_regim==2){
+//        addMsg("Перейти в режим <<КОНЕЦ РОСПУСКА>>");
+//        return;
+//    }
+
+//    if(m_stateBt.m_editing==0){clearAllOtcep();}
+//    m_stateBt.m_editing=!m_stateBt.m_editing;
+//    m_qmlCurrentIndex=0;
+//    emit qmlCurrentIndexChanged();
+//    emit stateBtChanged();
+////    if(m_newList)
+////        OtcepsModel::instance().sortirArrived(OtcepsModel::instance().tmpSrt);
+//    return;
+//}
 //Навигация по списку отцепов
 void ManageModel::keyUpDown(const int &updown)
 {
@@ -331,7 +345,8 @@ void ManageModel::keyDown(const int &key, const bool &ctrl)
         break;
 
     case VK_F4:
-        setRegimEdit();
+        qmlRegim(12);
+//        setRegimEdit();
         break;
 
     case VK_RETURN:
