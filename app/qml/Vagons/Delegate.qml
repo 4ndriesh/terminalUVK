@@ -6,7 +6,7 @@ Rectangle   {
     id: delegate
     width: _vagons.width;
     height: Settings.listView.height/3;
-
+//visible: STATE_ENABLED ? true:false
     states:[
         State {
             name: "scale"
@@ -22,7 +22,7 @@ Rectangle   {
         id: layout
         anchors.fill:parent
         spacing: 0
-        Number {id: sl_vagon_cnt;txt: SL_VAGON_CNT}
+        Number {id: sl_vagon_cnt;txt: STATE_NUMV.toString()}
     }
 }
 

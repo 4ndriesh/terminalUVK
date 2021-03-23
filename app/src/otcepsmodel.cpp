@@ -4,10 +4,7 @@
 #include <QMapIterator>
 #include "mvp_import.h"
 #include <QMetaProperty>
-
 #include "vagonsmodel.h"
-
-
 //Всегда возвращает 1
 //qmlStopPause=MVP_Import::instance()->gorka->STATE_REGIM();
 
@@ -29,6 +26,7 @@
     РОСПУСК1/РОСПУСК2: CMD=SET_ACT_ZKR  ACT_ZKR =1/2
 
  */
+
 
 ManageModel &Mn = ManageModel::instance();
 OtcepsModel::OtcepsModel(QObject *parent)
@@ -80,7 +78,7 @@ void OtcepsModel::slotOtcepChanged()
     emit Mn.stateBtChanged();
 
     emit dataChanged(createIndex(0,0), createIndex(98, 8));
-
+    emit VagonsModel::instance().dataChanged(createIndex(0,0), createIndex(98, 5));
     struct TUVK_status{
         time_t time;
     };
@@ -108,7 +106,7 @@ QVariantMap OtcepsModel::get(int row) const
 void OtcepsModel::addDataObject(const DataObject &dataSourceObject)
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    ViewOtcepList << dataSourceObject;    
+    ViewOtcepList << dataSourceObject;
     endInsertRows();
 }
 int OtcepsModel::rowCount(const QModelIndex &parent) const
@@ -175,9 +173,8 @@ void OtcepsModel::sortirArrived(const tSl2Odo2 *srt)
     // прверить что режим ввода установлен
     // если нет то запомнить и мигать кнопкой
     if(Mn.m_stateBt.m_bef_regim==12){
-//    if(Mn.m_stateBt.m_editing==1){
+        //    if(Mn.m_stateBt.m_editing==1){
         if (!loadSortirToUvk(srt)) {
-            VagonsModel::instance().loadSortList(srt);
             MVP_Import::instance()->_Id=0;
             Mn.m_newList=false;
             Mn.updateOtcep();

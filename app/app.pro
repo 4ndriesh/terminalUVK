@@ -27,7 +27,8 @@ SOURCES += \
     src/railchain.cpp \
     src/vagonsmodel.cpp \
     src/mvp_import.cpp \
-    main.cpp
+    main.cpp \
+    src/vagonsobject.cpp
 
 RESOURCES += qml.qrc
 
@@ -54,7 +55,8 @@ HEADERS += \
     src/otcepsobject.h \
     src/mvp_import.h \
     src/railchain.h \
-    src/vagonsmodel.h
+    src/vagonsmodel.h \
+    src/vagonsobject.h
 
 # SYB
 #DEFINES += NO_LIBRARY
