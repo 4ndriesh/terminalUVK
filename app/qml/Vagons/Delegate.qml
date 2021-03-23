@@ -22,7 +22,7 @@ Rectangle   {
         id: layout
         anchors.fill:parent
         spacing: 0
-        Number {id: sl_vagon_cnt;txt: STATE_NUMV.toString()}
+        Number {id: sl_vagon_cnt;txt: STATE_NUM_OTCEP}
     }
 }
 

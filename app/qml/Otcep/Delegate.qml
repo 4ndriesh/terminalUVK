@@ -27,22 +27,22 @@ stat
     width: _otceps.width;
     height: Settings.listView.height;
     visible: STATE_ENABLED ? true:false
-    Item {
-        states: [
-            State {
-                name: "yellow12"
-                when: STATE_EXTNUMPART!==0 && delegate.ListView.isCurrentItem && STATE_LOCATION===1
-            }
-        ]
-        transitions: Transition {
-            OpacityAnimator {
-                target: delegate
-                loops:5
-                from: 0;
-                to: 1;
-                duration: 500 }
-        }
-    }
+//    Item {
+//        states: [
+//            State {
+//                name: "yellow12"
+//                when: STATE_EXTNUMPART!==0 && delegate.ListView.isCurrentItem && STATE_LOCATION===1
+//            }
+//        ]
+//        transitions: Transition {
+//            OpacityAnimator {
+//                target: delegate
+//                loops:5
+//                from: 0;
+//                to: 1;
+//                duration: 500 }
+//        }
+//    }
 
     Item {
         id: _zkr_progress

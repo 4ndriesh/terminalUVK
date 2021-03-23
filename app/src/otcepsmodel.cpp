@@ -61,9 +61,14 @@ OtcepsModel::OtcepsModel(QObject *parent)
     Mn.updateOtcep();
 
 }
-
 void OtcepsModel::slotOtcepChanged()
 {
+
+    static QElapsedTimer t;
+    if (!t.isValid()) t.restart();
+    if (t.elapsed()<250) return;
+    t.restart();
+
     Mn.m_stateBt.m_regim=MVP_Import::instance()->gorka->STATE_REGIM();
     //    if(countEnabled()==0 && Mn.m_stateBt.m_editing==0)
     //    Mn.setQmlCurrentItem(Mn.m_qmlCurentIndex);
@@ -79,13 +84,6 @@ void OtcepsModel::slotOtcepChanged()
 
     emit dataChanged(createIndex(0,0), createIndex(98, 8));
     emit VagonsModel::instance().dataChanged(createIndex(0,0), createIndex(98, 5));
-    struct TUVK_status{
-        time_t time;
-    };
-    static TUVK_status c;
-    c.time=QDateTime().currentDateTime().toTime_t();
-
-    MVP_Import::instance()->udp.sendData(3,"Term_UVK",QByteArray((const char*)&c,sizeof(c)));
 }
 
 int OtcepsModel::countEnabled()

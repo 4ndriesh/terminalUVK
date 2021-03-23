@@ -40,7 +40,7 @@ bool MVP_Import::load(QString fn)
         connect(otcep->SIGNAL_DATA().getBuffer(),&GtBuffer::bufferChanged,this,&MVP_Import::quickSlotUpdate);
     }
 
-    timer->start(250);
+    timer->start(500);
     return true;
 }
 
@@ -49,6 +49,15 @@ bool MVP_Import::load(QString fn)
 void MVP_Import::slotTimer()
 {
     gorka->updateStates();
+
+    struct TUVK_status{
+        time_t time;
+    };
+    static TUVK_status c;
+    c.time=QDateTime().currentDateTime().toTime_t();
+
+    MVP_Import::instance()->udp.sendData(3,"Term_UVK",QByteArray((const char*)&c,sizeof(c)));
+
 }
 void SplitOSO(int i, uint8* OSO)
 {
@@ -156,13 +165,15 @@ bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
         return false;
     }
     bool errorLoad=false;
-
+    int allcnt=0;
     foreach (const tSl2OdoRec2 &o, srt->vOtceps) {
-
-        pB.m_qmlStatusPB.m_set_maximumValue=srt->vOtceps.count();
-        emit pB.statusPBChanged();
-
-
+        allcnt++;
+        allcnt+=o.vVag.size();
+    }
+    pB.m_qmlStatusPB.m_set_maximumValue=allcnt;
+    emit pB.statusPBChanged();
+    // сначала грузим отцепы
+    foreach (const tSl2OdoRec2 &o, srt->vOtceps) {
         m.clear();
         m["DEST"]="UVK";
         m["CMD"]="SET_OTCEP_STATE";
@@ -181,58 +192,88 @@ bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
         m["SL_OSO"]=QString::number(o.OSO);
         send_cmd(m);
         qDebug()<< "sortir send otcep " << o.NO;
-
         pB.m_qmlStatusPB.m_set_value+=1.0;
         emit pB.statusPBChanged();
+        QCoreApplication::processEvents();
+        //send_cmd(m);
+        QThread::msleep(20);
+//        t.start(); while (t.elapsed()<20) QCoreApplication::processEvents();
 
-        t.start();
-        m_Otcep *otcep=otceps->otcepByNum(o.NO);
-        if (otcep==nullptr){
-            errorLoad=true;
 
-            break;
-        }
-        while ((otcep->STATE_SP()!=o.SP)&&(t.elapsed()<1000)){
-            QCoreApplication::processEvents();
-            send_cmd(m);
-        }
-        if ((otcep->STATE_SP()!=o.SP)){
-            // не прошла команда на отцеп
-            errorLoad=true;
-            qDebug()<< "error sortir send otcep " << o.NO;
-            break;
-        }
-//        int nv=0;
-//        foreach (const tSlVagon &v, o.vVag) {
-//            nv++;
-//            m.clear();
-//            m["DEST"]="UVK";
-//            m["CMD"]="ADD_OTCEP_VAG";
-//            m["N"]=QString::number(o.NO);
-//            m["NV"]=QString::number(nv);
-//            QVariantHash vm=tSlVagon2Map(v);
-//            foreach (QString key, vm.keys()) {
-//                m[key]=vm[key].toString();
-//            }
-
-//            send_cmd(m);
-//            qDebug()<< "sortir send otcep vagon" << o.NO << v.IV;
-
-//            t.start();
-//            while (((otcep->vVag.isEmpty())||(otcep->vVag.last().IV!=v.IV))&&(t.elapsed()<1000)){
-//                QCoreApplication::processEvents();
-//                send_cmd(m);
-//            }
-//            if ((otcep->vVag.isEmpty())||(otcep->vVag.last().IV!=v.IV)){
-//                // не прошла команда на вагон
-//                errorLoad=true;
-//                qDebug()<< "error sortir send otcep vagon" << o.NO << v.IV;
-//                break;
-//            }
-
-//        }
-        if (errorLoad) break;
     }
+    // проверим
+    t.start();
+    errorLoad=true;
+    while (t.elapsed()<2000){
+        QCoreApplication::processEvents();
+        gorka->updateStates();
+        bool good_compare=true;
+        foreach (const tSl2OdoRec2 &o, srt->vOtceps) {
+            m_Otcep *otcep=otceps->otcepByNum(o.NO);
+            if ((otcep==nullptr)||(otcep->STATE_SP()!=o.SP)) {good_compare=false;break;}
+        }
+        if (good_compare){errorLoad=false;break;}
+    }
+
+    if (errorLoad){
+        qDebug()<< "error sortir send otceps ";
+    } else {
+        //  грузим вагоны
+        foreach (const tSl2OdoRec2 &o, srt->vOtceps) {
+            int nv=0;
+            foreach (const tSlVagon &v, o.vVag) {
+                nv++;
+                m.clear();
+                m["DEST"]="UVK";
+                m["CMD"]="SET_VAGON_STATE";
+
+                QVariantHash vm=tSlVagon2Map(v);
+                foreach (QString key, vm.keys()) {
+                    m[key]=vm[key].toString();
+                }
+                m["N"]=QString::number(o.NO);
+                m["N_IN_OTCEP"]=QString::number(nv);
+                send_cmd(m);
+                qDebug()<< "sortir send otcep vagon" << o.NO << v.IV;
+                pB.m_qmlStatusPB.m_set_value+=1.0;
+                emit pB.statusPBChanged();
+//                send_cmd(m);
+                QCoreApplication::processEvents();
+                QThread::msleep(20);
+
+//                t.start(); while (t.elapsed()<20) QCoreApplication::processEvents();
+
+
+            }
+        }
+        updateOtceps();
+        // проверим
+        t.start();
+        errorLoad=true;
+        while (t.elapsed()<2000){
+            QCoreApplication::processEvents();
+            gorka->updateStates();
+            bool good_compare=true;
+            foreach (const tSl2OdoRec2 &o, srt->vOtceps) {
+                m_Otcep *otcep=otceps->otcepByNum(o.NO);
+                if ((otcep==nullptr)||(otcep->vVag.size()!=o.vVag.size())) {good_compare=false;break;}
+                for (int i=0;i<o.vVag.size();i++){
+                    auto &ov=o.vVag[i];
+                    auto &uvkv=otcep->vVag[i];
+                    if (ov.NumV!=uvkv.STATE_NUMV()){
+                        good_compare=false;
+                        break;
+                    }
+                }
+
+            }
+            if (good_compare){errorLoad=false;break;}
+        }
+        if (errorLoad){
+            qDebug()<< "error sortir send otcep vagons ";
+        }
+    }
+
     pB.m_qmlStatusPB.m_set_visible=false;
     emit pB.statusPBChanged();
 
@@ -315,7 +356,7 @@ void MVP_Import::incOtcep(int N)
     m["INC_OTCEP"]=QString::number(N);
     MVP_Import::instance()->cmd->send_cmd(m);
 
-//    QThread::sleep(1);
+    //    QThread::sleep(1);
 
     QElapsedTimer t;
     t.start();
@@ -342,7 +383,7 @@ void MVP_Import::setCurOtcep(int N)
     m["CMD"]="OTCEPS";
     m["SET_CUR_OTCEP"]=QString::number(N);
     MVP_Import::instance()->cmd->send_cmd(m);
-     qDebug()<< "setCurOtcep to uvk" << N;
+    qDebug()<< "setCurOtcep to uvk" << N;
 }
 
 void MVP_Import::ClearAllOtcep()
@@ -400,15 +441,15 @@ void MVP_Import::resetDSOBusyRc(QString idtsr)
 
 void MVP_Import::send_cmd(QMap<QString, QString> &m)
 {
-    if ((!sended_cmd.isValid())||(sended_cmd.elapsed()>20)){
+//    if ((!sended_cmd.isValid())||(sended_cmd.elapsed()>20)){
         MVP_Import::instance()->cmd->send_cmd(m);
-        sended_cmd.restart();
-    };
+//        sended_cmd.restart();
+//    };
 }
 QDateTime _ttt;
 void MVP_Import::quickSlotUpdate()
 {
-    if (_ttt.msecsTo(QDateTime::currentDateTime())>30){
+    if ((!_ttt.isValid())||(_ttt.msecsTo(QDateTime::currentDateTime())>100)){
         _ttt=QDateTime::currentDateTime();
         slotTimer();
     }
