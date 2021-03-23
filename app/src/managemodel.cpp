@@ -4,6 +4,7 @@
 #include "mvp_import.h"
 #include <QMetaProperty>
 #include "otcepsmodel.h"
+#include "vagonsmodel.h"
 
 
 ManageModel::ManageModel(QObject *parent) : QObject(parent)
@@ -118,7 +119,7 @@ void ManageModel::qmlRegim(const int & regim)
             m_stateBt.m_wGetList=true;
             m_stateBt.m_bef_regim=12;
         }
-            break;
+        break;
     case 10:
         m_stateBt.m_bef_regim=10;
         m_textInput="";
@@ -218,7 +219,7 @@ void ManageModel::setRegim(const int &regim)
 void ManageModel::addMsg(const QString &valMsg)
 {
     if(m_listMsg.isEmpty()){
-        m_timerDelMsg=true;        
+        m_timerDelMsg=true;
     }
     m_listMsg.append(valMsg);
     std::reverse(m_listMsg.begin(), m_listMsg.end());
@@ -245,31 +246,35 @@ void ManageModel::inputPut(const QString &numberPut)
 {
     if(m_textInput.length()<2 && m_focus==2)
         m_textInput.append(numberPut);
-    else if(m_focus==1 && numberPut!="0")
+    else if(numberPut!="0")
         m_textInput=numberPut;
+    //    if(m_textInput.length()==2 && m_qmlCurrentIndex==count && m_focus==2){
+    //        accept();
+    //        qmlRegim(5);
+    //        m_textInput="";
+    //        setfocus(1);
+    //        setqmlCurrentIndex(m_qmlCurrentIndex);
+    //        return;
+    //    }
 
     int countEnabled=OtcepsModel::instance().countEnabled();
     if(countEnabled==-1 && m_stateBt.m_bef_regim==5) {
         m_stateBt.m_bef_regim=4;
     }
-
+    qDebug()<<m_stateBt.m_bef_regim;
     if(m_stateBt.m_bef_regim==4){
         addOtcep(m_qmlCurrentIndex+1);
-        setfocus(1);
         setqmlCurrentIndex(m_qmlCurrentIndex);
         qmlRegim(6);
         accept();
-        m_stateBt.m_bef_regim=9;
         setfocus(2);
         return;
     }
     else if(m_stateBt.m_bef_regim==5){
         addOtcep(m_qmlCurrentIndex+2);
-        setfocus(1);
         setqmlCurrentIndex(m_qmlCurrentIndex+1);
         qmlRegim(6);
         accept();
-        m_stateBt.m_bef_regim=9;
         setfocus(2);
         return;
     }
@@ -278,6 +283,19 @@ void ManageModel::inputPut(const QString &numberPut)
     }
     return;
 }
+
+
+void ManageModel::setPositionVagons()
+{
+    int countRow=0;
+    while(VagonsModel::instance().get(countRow)["STATE_NUM_OTCEP"]!=m_qmlCurrentIndex+1 && countRow<99)
+    {
+        countRow++;
+    }
+    VagonsModel::instance().m_qmlCurrentIndex=countRow;
+    emit VagonsModel::instance().qmlCurrentIndexChanged();
+}
+
 void ManageModel::updateOtcep()
 {
     MVP_Import::instance()->updateOtceps();
@@ -292,6 +310,7 @@ void ManageModel::keyUpDown(const int &updown)
         {
             m_qmlCurrentIndex--;
             emit qmlCurrentIndexChanged();
+            setPositionVagons();
         }
         break;
     case VK_DOWN:
@@ -299,6 +318,7 @@ void ManageModel::keyUpDown(const int &updown)
         {
             m_qmlCurrentIndex++;
             emit qmlCurrentIndexChanged();
+            setPositionVagons();
         }
         break;
     case VK_RIGHT:
@@ -323,7 +343,7 @@ void ManageModel::keyDown(const int &key, const bool &ctrl)
 
     case VK_F4:
         qmlRegim(12);
-//        setRegimEdit();
+        //        setRegimEdit();
         break;
 
     case VK_RETURN:
@@ -366,12 +386,18 @@ void ManageModel::keyDown(const int &key, const bool &ctrl)
     case VK_INSERT:
         //Вставить после
         if(ctrl){
-            if(m_stateBt.m_bef_regim==6)accept();
+            if(m_stateBt.m_bef_regim==6)
+            {
+                accept();
+            }
             qmlRegim(5);
             break;
         }
         //Вставить до
-        if(m_stateBt.m_bef_regim==6)accept();
+        if(m_stateBt.m_bef_regim==6)
+        {
+            accept();
+        }
         qmlRegim(4);
         break;
 

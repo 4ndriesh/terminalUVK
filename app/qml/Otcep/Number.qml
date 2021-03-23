@@ -111,32 +111,5 @@ Rectangle {
         font.family: Settings.listView.fontFamily;
         font.pointSize: parent.height/2
         fontSizeMode: Text.Fit
-    }
-
-    Connections{
-        target: manageModel
-        function onFocusChanged(){
-            if(delegate.ListView.isCurrentItem){
-                if(manageModel.focus===1)
-                    state_sp.textPutfocus=true;
-                if(manageModel.focus===2)
-                    state_sl_vagon_cnt.textPutfocus=true;
-            }
-        }
-
-        function onTextInputChanged(){
-            if(delegate.ListView.isCurrentItem){
-                if(state_sp.textPutfocus===true && textField===state_sp)
-                {
-                    STATE_SP=manageModel.textInput;
-                    manageModel.focus=2;
-                    manageModel.textInput="";
-                }
-                else if (state_sl_vagon_cnt.textPutfocus===true && textField===state_sl_vagon_cnt){
-                    STATE_SL_VAGON_CNT=manageModel.textInput;
-                    manageModel.textInput="";
-                }
-            }
-        }
-    }
+    }    
 }

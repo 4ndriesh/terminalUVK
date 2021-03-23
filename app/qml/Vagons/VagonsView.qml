@@ -11,7 +11,7 @@ Rectangle {
         preferredHighlightBegin: height/3
         preferredHighlightEnd: height/3
         clip: true
-        currentIndex: 0
+        currentIndex: vagonsModel.qmlCurrentIndex
         model:vagonsModel
         delegate: Delegate{}
         highlight:
@@ -25,4 +25,5 @@ Rectangle {
             border.color: "red"
         }
     }
+
 }

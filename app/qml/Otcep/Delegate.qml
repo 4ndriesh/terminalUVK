@@ -27,22 +27,22 @@ stat
     width: _otceps.width;
     height: Settings.listView.height;
     visible: STATE_ENABLED ? true:false
-//    Item {
-//        states: [
-//            State {
-//                name: "yellow12"
-//                when: STATE_EXTNUMPART!==0 && delegate.ListView.isCurrentItem && STATE_LOCATION===1
-//            }
-//        ]
-//        transitions: Transition {
-//            OpacityAnimator {
-//                target: delegate
-//                loops:5
-//                from: 0;
-//                to: 1;
-//                duration: 500 }
-//        }
-//    }
+    //    Item {
+    //        states: [
+    //            State {
+    //                name: "yellow12"
+    //                when: STATE_EXTNUMPART!==0 && delegate.ListView.isCurrentItem && STATE_LOCATION===1
+    //            }
+    //        ]
+    //        transitions: Transition {
+    //            OpacityAnimator {
+    //                target: delegate
+    //                loops:5
+    //                from: 0;
+    //                to: 1;
+    //                duration: 500 }
+    //        }
+    //    }
 
     Item {
         id: _zkr_progress
@@ -116,16 +116,6 @@ stat
                 PropertyChanges {
                     target: delegate
                     color: delegate.items_color[3]
-                }
-                PropertyChanges {
-                    target: state_sl_vagon_cnt
-                    textPutfocus:false
-                }
-                StateChangeScript {
-                    name: "focusvagon"
-                    script: {
-                        manageModel.focus=1;
-                    }
                 }
             }
         ]
@@ -234,6 +224,33 @@ stat
         Number {
             id: state_gac_w_strb; txt: STATE_GAC_W_STRB? "БЛК":"";
             Layout.preferredWidth:(delegate.width/Settings.header.column)/2
+        }
+    }
+    Connections{
+        target: manageModel
+        function onFocusChanged(){
+            if(delegate.ListView.isCurrentItem){
+                if(manageModel.focus===1)
+                    state_sp.textPutfocus=true;
+                else if(manageModel.focus===2)
+                    state_sl_vagon_cnt.textPutfocus=true;
+            }
+        }
+
+        function onTextInputChanged(){
+            if(delegate.ListView.isCurrentItem){
+                if(manageModel.focus===1)
+                {
+                    STATE_SP=manageModel.textInput;
+                    manageModel.focus=2;
+                    manageModel.textInput="";
+                }
+                else if (manageModel.focus===2){
+                    STATE_SL_VAGON_CNT=manageModel.textInput;
+                    manageModel.focus=1;
+//                    manageModel.textInput="";
+                }
+            }
         }
     }
 }

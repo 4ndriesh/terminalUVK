@@ -22,6 +22,7 @@ VagonsModel::VagonsModel(QObject *parent)
         }
         //        connect(MVP_Import::instance()->gorka,&ModelGroupGorka::stateChanged,this,&OtcepsModel::slotOtcepChanged);
     }
+    m_qmlCurrentIndex=0;
 }
 
 void VagonsModel::slotOtcepChanged()

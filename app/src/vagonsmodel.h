@@ -5,7 +5,7 @@
 #include <QAbstractListModel>
 #include <QTimer>
 #include <QDebug>
-
+#include "manage_define.h"
 
 class VagonsModel : public QAbstractListModel
 {
@@ -13,6 +13,7 @@ class VagonsModel : public QAbstractListModel
     QTimer * timer;
 signals:
     void qmlEditOtcepItemChanged();
+    void qmlCurrentIndexChanged();
 public:
 
     explicit VagonsModel(QObject *parent = nullptr);
@@ -23,6 +24,7 @@ public:
         }
         return *_instance;
     }
+    Q_PROPERTY_RWN(int,qmlCurrentIndex);
     void slotOtcepChanged();
     void addDataObject(const VagonsObject &VagonsObject);
     Q_INVOKABLE QVariantMap get(int row) const;

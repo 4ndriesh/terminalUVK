@@ -63,15 +63,13 @@ OtcepsModel::OtcepsModel(QObject *parent)
 }
 void OtcepsModel::slotOtcepChanged()
 {
-
-    static QElapsedTimer t;
-    if (!t.isValid()) t.restart();
-    if (t.elapsed()<250) return;
-    t.restart();
-
+    if(Mn.m_qmlStatusPB.m_set_visible){
+        static QElapsedTimer t;
+        if (!t.isValid()) t.restart();
+        if (t.elapsed()<500) return;
+        t.restart();
+    }
     Mn.m_stateBt.m_regim=MVP_Import::instance()->gorka->STATE_REGIM();
-    //    if(countEnabled()==0 && Mn.m_stateBt.m_editing==0)
-    //    Mn.setQmlCurrentItem(Mn.m_qmlCurentIndex);
 
     Mn.m_stateBt.m_regim_Finish=MVP_Import::instance()->gorka->STATE_GAC_FINISH();
 
