@@ -17,7 +17,6 @@ RowLayout {
     property bool wink_stop: manageModel.stateBt.wink_Stop
     property bool wink_nadvig: manageModel.stateBt.wink_Nadvig
     property bool wink_GetList: manageModel.stateBt.wink_GetList
-    property bool editing: manageModel.stateBt.editing
     property bool newList: manageModel.newList
     property int qmluvkLive: manageModel.uvkLive
     RChainView{id:_rchaindialog}
@@ -27,20 +26,9 @@ RowLayout {
 
     property var timeFormat:timer.timeFormat
 
-//    MultiButton {
-//        id: edirSortList
-//        buttonText: "ВВОД СЛ"
-//        colorButton: editing ? Settings.buttonColor.regim:Settings.buttonColor.baseColor
-//        ButtonArea{
-//            onClicked: {
-//                manageModel.setRegimEdit();
-//            }
-//        }
-//    }
-
     MultiButton {
         id: putnadviga
-        Layout.leftMargin: 100
+        Layout.leftMargin: 10
         buttonText: "РОСПУСК"
         colorButton: (regim===1 && putNadviga===1) ? colorRegimRospusk: Settings.buttonColor.baseColor
 

@@ -41,6 +41,12 @@
 #include <QHostInfo>
 #include "json.h"
 
+void registerMetaTypes()
+{
+    qRegisterMetaType<QML_ManagerButton>("QML_ManagerButton");
+    qRegisterMetaType<StructProgressBar>("StructProgressBar");
+}
+
 int main(int argc, char *argv[])
 {
     //    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -59,16 +65,16 @@ int main(int argc, char *argv[])
     }
     delete sett;
 
-    qRegisterMetaType<QML_ManagerButton>("QML_ManagerButton");
-    qRegisterMetaType<StructProgressBar>("StructProgressBar");
+    registerMetaTypes();
     VagonsModel &vagons = VagonsModel::instance();
     OtcepsModel &model = OtcepsModel::instance();
+//   qmlRegisterUncreatableType<OtcepsModel>( "otcepsModel", 1, 0, "OtcepsModel", "" );
     ManageModel &manage = ManageModel::instance();
     RailChain &rch = RailChain::instance();
     QQmlApplicationEngine engine;
-QQmlEngine::setObjectOwnership(&model, QQmlEngine::CppOwnership);
     engine.addImportPath("qrc:/qml");
-//    QQmlEngine::setObjectOwnership(&engine, QQmlEngine::CppOwnership);
+//    engine.setObjectOwnership(&model,QQmlEngine::ObjectOwnership::CppOwnership);
+    //    QQmlEngine::setObjectOwnership(&engine, QQmlEngine::CppOwnership);
 
     QQmlContext* context = engine.rootContext();
     context->setContextProperty("otcepsModel", &model);

@@ -121,6 +121,12 @@ stat
                     target: state_sl_vagon_cnt
                     textPutfocus:false
                 }
+                StateChangeScript {
+                    name: "focusvagon"
+                    script: {
+                        manageModel.focus=1;
+                    }
+                }
             }
         ]
     }
@@ -134,6 +140,12 @@ stat
                 PropertyChanges {
                     target: state_sp
                     textPutfocus:true
+                }
+                StateChangeScript {
+                    name: "focussp"
+                    script: {
+                        manageModel.focus=1;
+                    }
                 }
             }
         ]

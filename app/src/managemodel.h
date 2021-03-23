@@ -14,7 +14,6 @@ struct QML_ManagerButton
     Q_GADGET
     Q_PROPERTY(int putNadviga MEMBER m_putNadviga)
     Q_PROPERTY(int bef_putNadviga MEMBER m_bef_putNadviga)
-    Q_PROPERTY(int editing MEMBER m_editing)
     Q_PROPERTY(int regim MEMBER m_regim)
     Q_PROPERTY(int bef_regim MEMBER m_bef_regim)
     Q_PROPERTY(int tmp_Cursor MEMBER m_tmp_Cursor)
@@ -31,7 +30,6 @@ public:
     int m_bef_regim=10;
     int m_tmp_Cursor=0;
     int m_regim=0;
-    int m_editing=0;
     int m_regim_Finish=0;
     bool m_wCursor=false;
     bool m_wStop=false;
@@ -127,7 +125,6 @@ public:
     Q_INVOKABLE void clearAllOtcep();
     Q_INVOKABLE void inputPut(const QString&);
     Q_INVOKABLE void keyDown(const int &, const bool &);
-//    Q_INVOKABLE void setRegimEdit();
     Q_INVOKABLE void keyUpDown(const int&);
     Q_INVOKABLE void deleteMsg();
     //Подтверждает команду кнопкой ENTER

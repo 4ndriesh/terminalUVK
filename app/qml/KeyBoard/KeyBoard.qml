@@ -19,21 +19,22 @@ Popup {
         anchors.fill: parent
         spacing: 5
 
-        columns: 6
+        columns: 8
         rows: 3
         //        columns: keyboard.inPortrait ? 1 : 2
         //        rows: keyboard.inPortrait ? 6 : 3
+        Item{width: panelKeyboard.itemWidth; height: panelKeyboard.itemHeight}
         ButtonKey{
             buttonText: "1"
-            MouseKeyBoard{onClicked: manageModel.inputPut(1);}
+            MouseKeyBoard{onClicked: manageModel.keyDown(81,true);}
         }
         ButtonKey{
             buttonText: "2"
-            MouseKeyBoard{onClicked: manageModel.inputPut(2);}
+            MouseKeyBoard{onClicked: manageModel.keyDown(87,true);}
         }
         ButtonKey{
             buttonText: "3"
-            MouseKeyBoard{onClicked: manageModel.inputPut(3);}
+            MouseKeyBoard{onClicked: manageModel.keyDown(69,true);}
         }
 
         ButtonKey{
@@ -47,36 +48,47 @@ Popup {
         }
 
         ButtonKey{
+            id:del
+            ImageSVG {
+                source: Settings.keyboard.del
+                widthsvg: del.width/1.5
+                heightsvg:  del.width/1.5
+            }
+            MouseKeyBoard{onClicked: manageModel.keyDown(46,false);}
+
+        }
+        ButtonKey{
             id:trash
             ImageSVG {
                 source: Settings.keyboard.trash
                 widthsvg: trash.width/1.5
                 heightsvg:  trash.width/1.5
             }
-            MouseKeyBoard{onClicked: manageModel.qmlRegim(3);}
+            MouseKeyBoard{onClicked: manageModel.keyDown(46,true);}
 
+        }
+        //        Item{width: panelKeyboard.itemWidth; height: panelKeyboard.itemHeight}
+        ButtonKey{
+            id: setCurrentOtcep
+            ImageSVG {
+                source: Settings.keyboard.setCurrentOtcep
+                widthsvg: insertDown.width/1.5
+                heightsvg:  insertDown.width/1.5
+            }
+            MouseKeyBoard{onClicked: manageModel.qmlRegim(8);}
         }
         Item{width: panelKeyboard.itemWidth; height: panelKeyboard.itemHeight}
         ButtonKey{
             buttonText: "4"
-            MouseKeyBoard{onClicked: manageModel.inputPut(4);}
+            MouseKeyBoard{onClicked: manageModel.keyDown(82,true);}
         }
         ButtonKey{
             buttonText: "5"
-            MouseKeyBoard{onClicked: manageModel.inputPut(5);}
+            MouseKeyBoard{onClicked: manageModel.keyDown(84,true);}
         }
         ButtonKey{
             buttonText: "6"
-            MouseKeyBoard{onClicked: manageModel.inputPut(6);}
-        }
-        ButtonKey{
-            id:upArrow
-            ImageSVG {
-                source: Settings.keyboard.upArrow
-                widthsvg: upArrow.width/1.5
-                heightsvg:  upArrow.width/1.5
-            }
-            MouseKeyBoard{onClicked: manageModel.keyDown(38,false);}
+            MouseKeyBoard{onClicked: manageModel.keyDown(89,true);}
         }
         ButtonKey{
             id:insertUp
@@ -90,25 +102,31 @@ Popup {
         }
         Item{width: panelKeyboard.itemWidth; height: panelKeyboard.itemHeight}
         ButtonKey{
+            id:upArrow
+            ImageSVG {
+                source: Settings.keyboard.upArrow
+                widthsvg: upArrow.width/1.5
+                heightsvg:  upArrow.width/1.5
+            }
+            MouseKeyBoard{onClicked: manageModel.keyDown(38,false);}
+        }
+
+        Item{width: panelKeyboard.itemWidth; height: panelKeyboard.itemHeight}
+        ButtonKey{
+            buttonText: "0"
+            MouseKeyBoard{onClicked: manageModel.keyDown(80,true);}
+        }
+        ButtonKey{
             buttonText: "7"
-            MouseKeyBoard{onClicked: manageModel.inputPut(7);}
+            MouseKeyBoard{onClicked: manageModel.keyDown(85,true);}
         }
         ButtonKey{
             buttonText: "8"
-            MouseKeyBoard{onClicked: manageModel.inputPut(8);}
+            MouseKeyBoard{onClicked: manageModel.keyDown(73,true);}
         }
         ButtonKey{
             buttonText: "9"
-            MouseKeyBoard{onClicked: manageModel.inputPut(9);}
-        }
-        ButtonKey{
-            id:downArrow
-            ImageSVG {
-                source: Settings.keyboard.downArrow
-                widthsvg: downArrow.width/1.5
-                heightsvg:  downArrow.width/1.5
-            }
-            MouseKeyBoard{onClicked: manageModel.keyDown(40,false);}
+            MouseKeyBoard{onClicked: manageModel.keyDown(79,true);}
         }
         ButtonKey{
             id: insertDown
@@ -120,14 +138,36 @@ Popup {
             MouseKeyBoard{onClicked: manageModel.keyDown(45,true);}
         }
         ButtonKey{
-            id: setCurrentOtcep
+            id:leftArrow
             ImageSVG {
-                source: Settings.keyboard.setCurrentOtcep
-                widthsvg: insertDown.width/1.5
-                heightsvg:  insertDown.width/1.5
+                source: Settings.keyboard.downArrow
+                rotation: 90
+                widthsvg: downArrow.width/1.5
+                heightsvg:  downArrow.width/1.5
             }
-            MouseKeyBoard{onClicked: manageModel.qmlRegim(8);}
+            MouseKeyBoard{onClicked: manageModel.keyDown(37,false);}
         }
+        ButtonKey{
+            id:downArrow
+            ImageSVG {
+                source: Settings.keyboard.downArrow
+                widthsvg: downArrow.width/1.5
+                heightsvg:  downArrow.width/1.5
+            }
+            MouseKeyBoard{onClicked: manageModel.keyDown(40,false);}
+        }
+
+        ButtonKey{
+            id:rightArrow
+            ImageSVG {
+                source: Settings.keyboard.downArrow
+                rotation: -90
+                widthsvg: downArrow.width/1.5
+                heightsvg:  downArrow.width/1.5
+            }
+            MouseKeyBoard{onClicked: manageModel.keyDown(39,false);}
+        }
+
 
     }
 }

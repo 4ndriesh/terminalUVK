@@ -42,5 +42,6 @@
         <file>qml/Base/MsgDelegate.qml</file>
         <file>qml/Base/Opacity.qml</file>
         <file>qml/Base/TimerWink.qml</file>
+        <file>qml/Resources/Del.svg</file>
     </qresource>
 </RCC>

@@ -17,11 +17,12 @@ Rectangle {
     Text {
         id: _textHighlight
         anchors.fill: parent
-        color: Settings.highlight.base
+        color: Settings.highlight.text
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignRight
         font.family: Settings.listView.fontFamily;
         font.pointSize: _highlight.height/2
+        font.bold: true
         text:manageModel.msgEvent;
     }
 

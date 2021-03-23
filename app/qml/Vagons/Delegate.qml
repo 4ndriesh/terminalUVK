@@ -5,7 +5,7 @@ import SettingsModule 1.0
 Rectangle   {
     id: delegate
     width: _vagons.width;
-    height: Settings.listView.height;
+    height: Settings.listView.height/3;
 
     states:[
         State {
