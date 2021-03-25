@@ -315,7 +315,7 @@ void ManageModel::keyUpDown(const int &updown)
         {
             m_qmlCurrentIndex--;
             emit qmlCurrentIndexChanged();
-//                        setPositionVagons();
+                        setPositionVagons();
         }
         break;
     case VK_DOWN:
@@ -323,7 +323,7 @@ void ManageModel::keyUpDown(const int &updown)
         {
             m_qmlCurrentIndex++;
             emit qmlCurrentIndexChanged();
-//                        setPositionVagons();
+                        setPositionVagons();
         }
         break;
     case VK_RIGHT:

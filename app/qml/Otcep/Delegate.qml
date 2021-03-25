@@ -211,7 +211,20 @@ stat
                 id: layout_sp_f
                 anchors.fill: parent
                 spacing: 0
-                Number {id: state_sl_vagon_cnt; txt: STATE_SL_VAGON_CNT ? STATE_SL_VAGON_CNT:"";}
+                Number {id: state_sl_vagon_cnt; txt: STATE_SL_VAGON_CNT ? STATE_SL_VAGON_CNT:"";
+                    Text {
+                        id: _secondvag
+                        anchors.fill: parent
+                        anchors.margins: 5
+                        verticalAlignment: Text.AlignBottom
+                        horizontalAlignment: Text.AlignRight
+                        font.family: Settings.listView.fontFamily;
+                        font.pointSize: parent.height/4
+                        fontSizeMode: Text.Fit
+                        text: STATE_SL_VAGON_CNT_PRED ? STATE_SL_VAGON_CNT_PRED:"";
+                    }
+
+                }
                 Number {id: state_zkr_vagon_cnt; txt: STATE_ZKR_VAGON_CNT ? STATE_ZKR_VAGON_CNT:"";}
             }
         }

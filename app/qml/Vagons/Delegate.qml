@@ -7,7 +7,7 @@ Rectangle   {
     width: _vagons.width;
     height: Settings.listView.height/3;
     property variant st_num: STATE_NUMV===0 ? STATE_N_IN_OTCEP:STATE_NUMV
-//        visible: STATE_ENABLED && STATE_NUM_OTCEP===manageModel.qmlCurrentIndex+1? true:false
+    visible: STATE_ENABLED && STATE_NUM_OTCEP===manageModel.qmlCurrentIndex+1? true:false
 //        visible: STATE_ENABLED ? true:false
     property variant items_color: ["red", "yellow","white","silver","lightcyan","orange"]
     Item {
