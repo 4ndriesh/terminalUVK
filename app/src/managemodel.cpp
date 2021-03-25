@@ -122,7 +122,7 @@ void ManageModel::qmlRegim(const int & regim)
         break;
     case 10:
         m_stateBt.m_bef_regim=10;
-        m_textInput="";
+        //        m_textInput="";
         break;
     case 11:
         m_stateBt.m_wCursor=false;
@@ -246,7 +246,7 @@ void ManageModel::inputPut(const QString &numberPut)
 {
     if(m_textInput.length()<2 && m_focus==2)
         m_textInput.append(numberPut);
-    else if(numberPut!="0")
+    else if(m_focus==1)
         m_textInput=numberPut;
     //    if(m_textInput.length()==2 && m_qmlCurrentIndex==count && m_focus==2){
     //        accept();
@@ -263,19 +263,24 @@ void ManageModel::inputPut(const QString &numberPut)
     }
     qDebug()<<m_stateBt.m_bef_regim;
     if(m_stateBt.m_bef_regim==4){
+        setfocus(1);
         addOtcep(m_qmlCurrentIndex+1);
-        setqmlCurrentIndex(m_qmlCurrentIndex);
+        keyDown(38,false);
         qmlRegim(6);
         accept();
+        m_textInput="";
         setfocus(2);
         return;
     }
     else if(m_stateBt.m_bef_regim==5){
+        setfocus(1);
         addOtcep(m_qmlCurrentIndex+2);
-        setqmlCurrentIndex(m_qmlCurrentIndex+1);
+        keyDown(40,false);
         qmlRegim(6);
         accept();
+        m_textInput="";
         setfocus(2);
+        m_stateBt.m_bef_regim=9;
         return;
     }
     else if(countEnabled>=0) {
@@ -310,7 +315,7 @@ void ManageModel::keyUpDown(const int &updown)
         {
             m_qmlCurrentIndex--;
             emit qmlCurrentIndexChanged();
-            setPositionVagons();
+//                        setPositionVagons();
         }
         break;
     case VK_DOWN:
@@ -318,7 +323,7 @@ void ManageModel::keyUpDown(const int &updown)
         {
             m_qmlCurrentIndex++;
             emit qmlCurrentIndexChanged();
-            setPositionVagons();
+//                        setPositionVagons();
         }
         break;
     case VK_RIGHT:

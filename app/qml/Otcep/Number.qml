@@ -12,12 +12,13 @@ Rectangle {
     height: Settings.listView.height;
     color: delegate.color
     border.width: Settings.listView.borderWidth
+
     Item {
         id: _lightsteelblue
         states:[
             State {
                 name: "lightsteelblue"
-                when: _textPut.focus===true
+                when: _textPut.focus===true && STATE_LOCATION===1
                 PropertyChanges {
                     target: textField
                     color: delegate.items_color[4];
@@ -111,5 +112,8 @@ Rectangle {
         font.family: Settings.listView.fontFamily;
         font.pointSize: parent.height/2
         fontSizeMode: Text.Fit
-    }    
+    }
+
+
+
 }

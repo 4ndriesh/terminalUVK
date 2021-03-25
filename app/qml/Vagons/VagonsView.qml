@@ -6,7 +6,7 @@ Rectangle {
     ListView{
         id:_vagons
         anchors.fill: parent
-        highlightFollowsCurrentItem: true
+        highlightFollowsCurrentItem: false
         highlightRangeMode: ListView.StrictlyEnforceRange
         preferredHighlightBegin: height/3
         preferredHighlightEnd: height/3
@@ -18,11 +18,13 @@ Rectangle {
             Rectangle {
             id: _highlight
             z:2
-            width: _vagons.width; height: 60
+            width: _vagons.width;
+            height: _vagons.currentItem.height;
             color: "transparent"
-            enabled: true
             border.width: 5
             border.color: "red"
+            y:_vagons.currentItem.y;
+            Behavior on y {SpringAnimation { spring: 2; damping: 0.4;}}
         }
     }
 

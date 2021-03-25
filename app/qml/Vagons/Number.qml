@@ -10,6 +10,7 @@ Rectangle {
     Layout.preferredWidth: _vagons.width/Settings.header.column
     height: Settings.listView.height;
     border.width: Settings.listView.borderWidth
+    color: delegate.color
 
     Text {
         id: _textPut

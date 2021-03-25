@@ -18,9 +18,9 @@ VagonsModel::VagonsModel(QObject *parent)
     if (MVP_Import::instance()->gorka!=nullptr){
         for (int i=0; i<MVP_Import::instance()->otceps->l_vagons.size();i++) {
             addDataObject(VagonsObject(MVP_Import::instance()->otceps->l_vagons[i]));
-            //            connect(MVP_Import::instance()->otceps->l_otceps[i],&m_Otcep::stateChanged,this,&OtcepsModel::slotOtcepChanged);
+                        connect(MVP_Import::instance()->otceps->l_vagons[i],&m_Vagon::stateChanged,this,&VagonsModel::slotOtcepChanged);
         }
-        //        connect(MVP_Import::instance()->gorka,&ModelGroupGorka::stateChanged,this,&OtcepsModel::slotOtcepChanged);
+//                connect(MVP_Import::instance()->gorka,&ModelGroupGorka::stateChanged,this,&OtcepsModel::slotOtcepChanged);
     }
     m_qmlCurrentIndex=0;
 }

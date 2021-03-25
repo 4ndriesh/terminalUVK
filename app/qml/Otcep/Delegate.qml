@@ -19,7 +19,7 @@ Rectangle {
     остальн - обычн фон
 stat
     EDIT когда ЖИР всегда или (STATE_LOCATION == 2)*/
-
+    property variant sl_vagons: STATE_SL_VAGON_CNT_PRED!=0 ? STATE_EXTNUM+"."+STATE_EXTNUMPART:STATE_EXTNUM
     property variant st_num: STATE_EXTNUMPART ? STATE_EXTNUM+"."+STATE_EXTNUMPART:STATE_EXTNUM
     property variant sl_ur: ["","О1", "N2","N3"]
     property variant items_color: ["red", "yellow","white","silver","lightcyan","orange"]
@@ -44,23 +44,23 @@ stat
     //        }
     //    }
 
-    Item {
-        id: _zkr_progress
-        states:[
-            State {
-                name: "zkr_yellow"
-                when: STATE_ZKR_PROGRESS===1
-                PropertyChanges {
-                    target: state_sl_vagon_cnt
-                    color:delegate.items_color[1]
-                }
-                PropertyChanges {
-                    target: state_zkr_vagon_cnt
-                    color:delegate.items_color[1]
-                }
-            }
-        ]
-    }
+//    Item {
+//        id: _zkr_progress
+//        states:[
+//            State {
+//                name: "zkr_yellow"
+//                when: STATE_ZKR_PROGRESS===1
+//                PropertyChanges {
+//                    target: state_sl_vagon_cnt
+//                    color:delegate.items_color[1]
+//                }
+//                PropertyChanges {
+//                    target: state_zkr_vagon_cnt
+//                    color:delegate.items_color[1]
+//                }
+//            }
+//        ]
+//    }
     Item {
         id: _focusOtcepstates
         states: [
@@ -96,7 +96,7 @@ stat
         states: [
             State {
                 name: "yellow"
-                when: STATE_ZKR_S_IN===1
+                when: STATE_ZKR_PROGRESS===1
                 PropertyChanges {
                     target: delegate
                     color:delegate.items_color[1]
@@ -121,25 +121,27 @@ stat
         ]
     }
 
-    Item {
-        id: _lightsteelblue
-        states:[
-            State {
-                name: "lightsteelblue"
-                when: (delegate.ListView.isCurrentItem && STATE_LOCATION===1)|| (delegate.ListView.isCurrentItem && STATE_ZKR_S_IN===1)
-                PropertyChanges {
-                    target: state_sp
-                    textPutfocus:true
-                }
-                StateChangeScript {
-                    name: "focussp"
-                    script: {
-                        manageModel.focus=1;
+
+        Item {
+            id: _lightsteelblue
+            states:[
+                State {
+                    name: "lightsteelblue"
+                    when: (delegate.ListView.isCurrentItem && STATE_LOCATION===1)|| (delegate.ListView.isCurrentItem && STATE_ZKR_S_IN===1)
+                    PropertyChanges {
+                        target: state_sp
+                        textPutfocus:true
+                    }
+                    StateChangeScript {
+                        name: "focussp"
+                        script: {
+                            manageModel.focus=1;
+                        }
                     }
                 }
-            }
-        ]
-    }
+            ]
+        }
+
     Item {
         id: _zkr_vagons
         states:[
@@ -228,6 +230,7 @@ stat
     }
     Connections{
         target: manageModel
+
         function onFocusChanged(){
             if(delegate.ListView.isCurrentItem){
                 if(manageModel.focus===1)
@@ -238,19 +241,13 @@ stat
         }
 
         function onTextInputChanged(){
-            if(delegate.ListView.isCurrentItem){
-                if(manageModel.focus===1)
+                if(delegate.ListView.isCurrentItem && state_sp.textPutfocus===true)
                 {
                     STATE_SP=manageModel.textInput;
-                    manageModel.focus=2;
-                    manageModel.textInput="";
                 }
-                else if (manageModel.focus===2){
+                else if (delegate.ListView.isCurrentItem && state_sl_vagon_cnt.textPutfocus==true){
                     STATE_SL_VAGON_CNT=manageModel.textInput;
-                    manageModel.focus=1;
-//                    manageModel.textInput="";
                 }
-            }
         }
     }
 }

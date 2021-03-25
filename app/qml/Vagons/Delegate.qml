@@ -6,8 +6,9 @@ Rectangle   {
     id: delegate
     width: _vagons.width;
     height: Settings.listView.height/3;
-//    visible: STATE_NUM_OTCEP===manageModel.qmlCurrentIndex+1? true:false
-    visible: STATE_ENABLED ? true:false
+    property variant st_num: STATE_NUMV===0 ? STATE_N_IN_OTCEP:STATE_NUMV
+//        visible: STATE_ENABLED && STATE_NUM_OTCEP===manageModel.qmlCurrentIndex+1? true:false
+//        visible: STATE_ENABLED ? true:false
     property variant items_color: ["red", "yellow","white","silver","lightcyan","orange"]
     Item {
         id: _scale
@@ -22,16 +23,40 @@ Rectangle   {
             }
         ]
     }
+    //    Item {
+    //        id: _visible
+    //        states:
+    //            State {
+    //            name: "stat_num"
+    //            when: STATE_NUM_OTCEP!==manageModel.qmlCurrentIndex+1
+    //            PropertyChanges {
+    //                target: delegate
+    //                visible:false;
+    //            }
+    //        }
+
+    //    }
     Item {
-        id: _visible
+        id: _zkr_progress
         states:[
-            State {
-                name: "visible"
-                when: STATE_NUM_OTCEP!==manageModel.qmlCurrentIndex+1
-                PropertyChanges {
-                    target: delegate
-                    visible:false;
-                }
+            State{
+                when: STATE_ZKR_PROGRESS===1
+//                PropertyChanges {
+//                    target: _vagons
+//                    currentIndex:index;
+//                }
+//                StateChangeScript {
+//                    name: "currentIndex"
+//                    script: {
+//                        _vagons.currentIndex=STATE_N_IN_OTCEP-1;
+//                    }
+//                }
+                                StateChangeScript {
+                                    name: "currentIndex"
+                                    script: {
+                                        vagonsModel.qmlCurrentIndex=index;
+                                    }
+                                }
             }
         ]
     }
@@ -43,7 +68,7 @@ Rectangle   {
                 when: STATE_LOCATION === 1
                 PropertyChanges {
                     target: delegate
-                    color: delegate.items_color[2]
+                    color: items_color[2]
                 }
             },
             State {
@@ -51,7 +76,7 @@ Rectangle   {
                 when: STATE_LOCATION !== 1
                 PropertyChanges {
                     target: delegate
-                    color: delegate.items_color[3]
+                    color: items_color[3]
                 }
             }
         ]
@@ -60,6 +85,8 @@ Rectangle   {
         id: layout
         anchors.fill:parent
         spacing: 0
+        Number {txt: st_num}
+        Number {txt: STATE_ZKR_PROGRESS}
         Number {id: sl_vagon_cnt;txt: STATE_NUMV}
     }
 
