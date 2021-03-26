@@ -16,8 +16,8 @@ Rectangle {
             highlightRangeMode: ListView.StrictlyEnforceRange
             preferredHighlightBegin: height/3
             preferredHighlightEnd: height/3
-            //        highlightMoveDuration: -1
-            //        highlightMoveVelocity: -1
+//                    highlightMoveDuration: -1
+//                    highlightMoveVelocity: -1
             model: otcepsModel
             keyNavigationEnabled: false
             keyNavigationWraps: false

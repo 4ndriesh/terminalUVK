@@ -173,7 +173,7 @@ void OtcepsModel::sortirArrived(const tSl2Odo2 *srt)
         if (!loadSortirToUvk(srt)) {
             MVP_Import::instance()->_Id=0;
             Mn.m_newList=false;
-            Mn.updateOtcep();
+//            Mn.updateOtcep();
             tmpSrt=nullptr;
         }
     }else tmpSrt=srt;

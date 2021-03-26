@@ -22,7 +22,7 @@ Rectangle {
             height: _vagons.currentItem.height;
             color: "transparent"
             border.width: 5
-            border.color: "red"
+            border.color: Settings.highlight.base
             y:_vagons.currentItem.y;
             Behavior on y {SpringAnimation { spring: 2; damping: 0.4;}}
         }

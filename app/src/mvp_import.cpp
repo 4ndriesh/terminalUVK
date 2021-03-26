@@ -298,7 +298,7 @@ bool MVP_Import::loadSortirToUvk(const tSl2Odo2 *srt)
 //                    m["CLEAR_ALL"]="1";
 //                    MVP_Import::instance()->cmd->send_cmd(m);
 //                }
-                return true;
+                return false;
 }
 
 void MVP_Import::setRegim(int p)

@@ -101,6 +101,12 @@ stat
                     target: delegate
                     color:delegate.items_color[1]
                 }
+                StateChangeScript {
+                    name: "currentIndex"
+                    script: {
+                        manageModel.setPositionVagons();
+                    }
+                }
             },
             State {
                 name: "white"
@@ -180,6 +186,8 @@ stat
         id: layout
         anchors.fill: parent
         spacing: 0
+
+        Number { txt: STATE_SL_VAGON_CNT_PRED}
         Number {
             id: state_num;
             txt: STATE_EXTNUM ? st_num:STATE_NUM;

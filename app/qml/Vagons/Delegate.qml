@@ -64,6 +64,14 @@ Rectangle   {
         id: _locationColor
         states: [
             State {
+                name: "yellow"
+                when: STATE_ZKR_PROGRESS===1
+                PropertyChanges {
+                    target: delegate
+                    color:delegate.items_color[1]
+                }
+            },
+            State {
                 name: "white"
                 when: STATE_LOCATION === 1
                 PropertyChanges {

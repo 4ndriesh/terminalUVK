@@ -41,7 +41,7 @@ Rectangle{
             [
             State {
                 name: "joinvagon"
-                when: STATE_SL_VAGON_CNT===STATE_ZKR_VAGON_CNT
+                when: STATE_SL_VAGON_CNT_PRED!==0 ? STATE_SL_VAGON_CNT_PRED===STATE_ZKR_VAGON_CNT:STATE_SL_VAGON_CNT===STATE_ZKR_VAGON_CNT
                 PropertyChanges {
                     target: state_zkr_vagon_cnt
                     visible: false
@@ -49,7 +49,7 @@ Rectangle{
             },
             State {
                 name: "joinoffvagon"
-                when: STATE_SL_VAGON_CNT!==STATE_ZKR_VAGON_CNT
+                when:STATE_SL_VAGON_CNT_PRED!==0 ? STATE_SL_VAGON_CNT_PRED!==STATE_ZKR_VAGON_CNT:STATE_SL_VAGON_CNT!==STATE_ZKR_VAGON_CNT
                 PropertyChanges {
                     target: state_zkr_vagon_cnt
                     visible: true
