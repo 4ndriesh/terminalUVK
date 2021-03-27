@@ -49,6 +49,7 @@ RowLayout {
     MultiButton {
         id: pause
         buttonText: "ПАУЗА"
+        visible: regim===0 ? false:true
         colorButton: regim===2 ? Settings.buttonColor.regim:Settings.buttonColor.baseColor
         wink: regim===2 ? false:wink_pause
         ButtonArea {setRegim: 2}
@@ -95,7 +96,7 @@ RowLayout {
         id: _uvkLive
         Layout.alignment: Qt.AlignRight
         colorButton: qmluvkLive ?  Settings.aliveUvk.actColor:Settings.aliveUvk.baseColor
-        wink: qmluvkLive ? false:true        
+        wink: !qmluvkLive
         ImageSVG {
             source: Settings.aliveUvk.svgAliveUvk
             widthsvg: parent.height/1.5

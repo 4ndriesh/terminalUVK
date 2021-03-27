@@ -9,8 +9,7 @@
 
 ManageModel::ManageModel(QObject *parent) : QObject(parent)
 {
-
-    m_uvkLive=0;
+    m_uvkLive=false;
     m_newList=false;
     m_selectHook=0;
     m_qmlCurrentIndex=0;
@@ -20,13 +19,12 @@ ManageModel::ManageModel(QObject *parent) : QObject(parent)
 }
 
 //Удалить один отцеп
-void ManageModel::delOtcep(const int &index)
+void ManageModel::delOtcep()
 {
     if(m_stateBt.m_regim!=1 && m_qmlCurrentIndex>=0){
-        MVP_Import::instance()->delOtcep(m_qmlCurrentIndex+index);
+        MVP_Import::instance()->delOtcep(m_qmlCurrentIndex+1);
         if(m_qmlCurrentIndex!=0){
-            m_qmlCurrentIndex--;
-            setqmlCurrentIndex(m_qmlCurrentIndex);
+            setqmlCurrentIndex(m_qmlCurrentIndex-1);
         }
     }
     return;
@@ -46,87 +44,90 @@ void ManageModel::addOtcep(const int & index)
     return;
 }
 
-void ManageModel::qmlRegim(const int & regim)
+void ManageModel::qmlRegim(const int & bef_regim)
 {
-    switch (regim) {
-    case 0:
-        m_stateBt.m_bef_regim=0;
+    switch (bef_regim) {
+    case Stop:
+        m_stateBt.m_bef_regim=Stop;
         m_stateBt.m_wStop=true;
         break;
-    case 1:
-        m_stateBt.m_bef_regim=1;
+    case Rospusk:
+        m_stateBt.m_bef_regim=Rospusk;
         m_stateBt.m_wNadvig=true;
         break;
-    case 2:
-        m_stateBt.m_bef_regim=2;
+    case Pause:
+        m_stateBt.m_bef_regim=Pause;
         m_stateBt.m_wPause=true;
         break;
-    case 3:
+    case DelOtcep:
         //        if(m_stateBt.m_editing==1 || (m_stateBt.m_regim!=1 && m_stateBt.m_regim!=0 && m_qmlCurentIndex>=0)){
-        m_stateBt.m_bef_regim=3;
+        m_stateBt.m_bef_regim=DelOtcep;
         m_stateBt.m_wCursor=true;
         setmsgEvent(QString(notice->getMXml("delOtcep","event")).arg(m_qmlCurrentIndex+1));
         //        }
         //        else{addMsg(notice->getMXml("delOtcep","msg"));}
         break;
         //Вставить до
-    case 4:
+    case InsertUp:
         //        if(m_stateBt.m_editing==1 || (m_stateBt.m_regim!=1 && m_stateBt.m_regim!=0 && m_qmlCurentIndex>=0)){
-        m_stateBt.m_bef_regim=4;
+        m_stateBt.m_bef_regim=InsertUp;
         m_stateBt.m_wCursor=true;
         setmsgEvent(QString(notice->getMXml("insertUp","event")));
         //        }
         //        else{addMsg(notice->getMXml("insertUp","msg"));}
         break;
         //Вставить после
-    case 5:
+    case InsertDown:
         //        if(m_stateBt.m_editing==1 || (m_stateBt.m_regim!=1 && m_stateBt.m_regim!=0 && m_qmlCurentIndex>=0)){
-        m_stateBt.m_bef_regim=5;
+        m_stateBt.m_bef_regim=InsertDown;
         m_stateBt.m_wCursor=true;
         setmsgEvent(QString(notice->getMXml("insertDown","event")));
         //        }
         //        else{addMsg(notice->getMXml("insertDown","msg"));}
         break;
         //Изменить путь
-    case 6:
+    case InputPut:
         //        if(m_stateBt.m_editing==1 || (m_stateBt.m_regim!=0 && m_qmlCurentIndex>=0)){
-        m_stateBt.m_bef_regim=6;
+        m_stateBt.m_bef_regim=InputPut;
         m_stateBt.m_wCursor=true;
         setmsgEvent(QString(notice->getMXml("inputPut","event")).arg(m_textInput));
         //        }
         //        else{addMsg(notice->getMXml("inputPut","msg"));}
         break;
         //удалить все
-    case 7:
+    case DelAllOtcep:
         //        if(m_stateBt.m_editing==1 || (m_stateBt.m_regim!=1 && m_stateBt.m_regim!=0 && m_qmlCurentIndex>=0)){
-        m_stateBt.m_bef_regim=7;
+        m_stateBt.m_bef_regim=DelAllOtcep;
         m_stateBt.m_wCursor=true;
         setmsgEvent(notice->getMXml("clearAll","event"));
         //        }
         //        else{addMsg(notice->getMXml("clearAll","msg"));}
         break;
-    case 8:
+    case SetCurrentOtcep:
         //        if(m_stateBt.m_regim!=1){
-        m_stateBt.m_bef_regim=8;
+        m_stateBt.m_bef_regim=SetCurrentOtcep;
         m_stateBt.m_wCursor=true;
         setmsgEvent(QString(notice->getMXml("setCurrentOtcep","event")).arg(m_qmlCurrentIndex+1));
         //        }
         //        else{addMsg(notice->getMXml("setCurrentOtcep","msg"));}
         break;
-    case 12:
+    case GetNewList:
         setqmlCurrentIndex(0);
-        if(m_stateBt.m_regim==0 && m_newList==true){
+        if(m_stateBt.m_regim==Stop && m_newList==true){
             m_stateBt.m_wGetList=true;
-            m_stateBt.m_bef_regim=12;
+            m_stateBt.m_bef_regim=GetNewList;
         }
         break;
-    case 10:
-        m_stateBt.m_bef_regim=10;
-        m_textInput="";
+    case InputVag:
+        m_stateBt.m_bef_regim=InputVag;
+        m_stateBt.m_wCursor=true;
+        setmsgEvent(QString(notice->getMXml("inputVag","event")).arg(m_textInput));
         break;
-    case 11:
-        m_stateBt.m_wCursor=false;
+    case Escape:
+        m_stateBt.m_bef_regim=Escape;
+        m_textInput="";
         setmsgEvent("");
+        m_stateBt.m_wCursor=false;
         m_stateBt.m_wPause=false;
         m_stateBt.m_wStop=false;
         m_stateBt.m_wNadvig=false;
@@ -141,44 +142,44 @@ void ManageModel::accept()
 {
     switch (m_stateBt.m_bef_regim) {
 
-    case 0:
-        setRegim(0);
+    case Stop:
+        setRegim(Stop);
         break;
-    case 1:
+    case Rospusk:
         setPutNadviga(1);
-        setRegim(1);
+        setRegim(Rospusk);
         break;
-    case 2:
-        setRegim(2);
+    case Pause:
+        setRegim(Pause);
         break;
-    case 3:
-        delOtcep(1);
+    case DelOtcep:
+        delOtcep();
         break;
-    case 4:
+    case InsertUp:
         break;
-    case 5:
+    case InsertDown:
         break;
-    case 6:
+    case InputPut:
         emit textInputChanged();
         break;
-    case 7:
+    case InputVag:
+        emit textInputChanged();
+        break;
+    case DelAllOtcep:
         clearAllOtcep();
         break;
-    case 8:
+    case SetCurrentOtcep:
         setCurrentOtcep();
         break;
-    case 9:
-        break;
-    case 12:
+    case GetNewList:
         OtcepsModel::instance().sortirArrived(OtcepsModel::instance().tmpSrt);
         break;
 
-    case 10:
+    case Escape:
         addMsg("Команда не задана");
         break;
     }
-    qmlRegim(10);
-    qmlRegim(11);
+    qmlRegim(Escape);
     return;
 }
 
@@ -195,6 +196,7 @@ void ManageModel::setPutNadviga(const int &putNadviga)
 
 void ManageModel::setRegim(const int &regim)
 {
+    setqmlCurrentIndex(0);
     if (regim==ModelGroupGorka::regimStop){
         if (MVP_Import::instance()->gorka->STATE_REGIM()!=ModelGroupGorka::regimStop)
         {
@@ -250,50 +252,49 @@ void ManageModel::inputPut(const QString &numberPut)
     else if(m_textInput.length()==2 && m_focus==2){
         m_textInput=numberPut;
     }
-//        m_textInput=numberPut;
     else if(m_focus==1 && numberPut!="0")
         m_textInput=numberPut;
 
-    if(countEnabled==-1 && m_stateBt.m_bef_regim==5) {
-        m_stateBt.m_bef_regim=4;
-    }
-    if(m_stateBt.m_bef_regim==4){
+    if(countEnabled==-1)m_stateBt.m_bef_regim=InsertUp;
+
+    if(m_stateBt.m_bef_regim==InsertUp){
         setfocus(1);
         addOtcep(m_qmlCurrentIndex+1);
         MVP_Import::instance()->setOtcepSP(m_qmlCurrentIndex+1,m_textInput.toInt());
-        qmlRegim(10);
+        qmlRegim(Escape);
         setqmlCurrentIndex(m_qmlCurrentIndex);
-        qmlRegim(6);
+        qmlRegim(InputVag);
         setfocus(2);
         return;
     }
-    else if(m_stateBt.m_bef_regim==5){
+    else if(m_stateBt.m_bef_regim==InsertDown){
         setfocus(1);
-        addOtcep(m_qmlCurrentIndex+2);        
+        addOtcep(m_qmlCurrentIndex+2);
         MVP_Import::instance()->setOtcepSP(m_qmlCurrentIndex+2,m_textInput.toInt());
+        qmlRegim(Escape);
         setqmlCurrentIndex(m_qmlCurrentIndex+1);
-        qmlRegim(6);
+        qmlRegim(InputVag);
         setfocus(2);
         return;
     }
     else if(countEnabled>=0) {
-        qmlRegim(6);
+        if(m_focus==1)
+            qmlRegim(InputPut);
+        else if(m_focus==2)
+            qmlRegim(InputVag);
     }
     return;
 }
 
-
 int ManageModel::setPositionVagons()
 {
     int countRow=0;
-    if(VagonsModel::instance().get(0)["STATE_NUM_OTCEP"]!=0)
-    while(VagonsModel::instance().get(countRow)["STATE_NUM_OTCEP"]!=m_qmlCurrentIndex+1
-          && countRow<OtcepsModel::instance().rowVag_Count-1)
+    while(VagonsModel::instance().get(countRow)["STATE_NUM_OTCEP"]!=m_qmlCurrentIndex+1)
     {
         countRow++;
+        if(countRow==VagonsModel::instance().rowCount())return -1;
     }
-    VagonsModel::instance().m_qmlCurrentIndex=countRow;
-    emit VagonsModel::instance().qmlCurrentIndexChanged();
+    VagonsModel::instance().setqmlCurrentIndex(countRow);
     return countRow;
 }
 
@@ -305,14 +306,14 @@ void ManageModel::updateOtcep()
 //Навигация по списку отцепов
 void ManageModel::keyUpDown(const int &updown)
 {
-    qmlRegim(10);
+    qmlRegim(Escape);
     switch (updown) {
     case VK_UP:
         if(m_qmlCurrentIndex>0)
         {
             m_qmlCurrentIndex--;
             emit qmlCurrentIndexChanged();
-//            setPositionVagons();
+            setPositionVagons();
         }
         break;
     case VK_DOWN:
@@ -320,7 +321,7 @@ void ManageModel::keyUpDown(const int &updown)
         {
             m_qmlCurrentIndex++;
             emit qmlCurrentIndexChanged();
-//            setPositionVagons();
+            setPositionVagons();
         }
         break;
     case VK_RIGHT:
@@ -335,16 +336,14 @@ void ManageModel::keyUpDown(const int &updown)
 
 //Обработка клавы
 void ManageModel::keyDown(const int &key, const bool &ctrl)
-{
-    qmlRegim(11);
+{    
     switch (key) {
     case VK_F5:
         emit openRChainChanged();
         break;
 
     case VK_F4:
-        qmlRegim(12);
-        //        setRegimEdit();
+        qmlRegim(GetNewList);
         break;
 
     case VK_RETURN:
@@ -353,17 +352,20 @@ void ManageModel::keyDown(const int &key, const bool &ctrl)
 
     case VK_F1:
         //Роспуск 1
-        qmlRegim(1);
+        qmlRegim(Escape);
+        qmlRegim(Rospusk);
         break;
 
     case VK_F2:
         //Пауза
-        qmlRegim(2);
+        qmlRegim(Escape);
+        qmlRegim(Pause);
         break;
 
     case VK_F3:
         //Стоп
-        qmlRegim(0);
+        qmlRegim(Escape);
+        qmlRegim(Stop);
         break;
 
     case VK_RIGHT:
@@ -387,37 +389,30 @@ void ManageModel::keyDown(const int &key, const bool &ctrl)
     case VK_INSERT:
         //Вставить после
         if(ctrl){
-            if(m_stateBt.m_bef_regim==6)
-            {
-                accept();
-                m_textInput="";
-                setfocus(1);
-            }
-            qmlRegim(5);
+            if(m_stateBt.m_bef_regim==InputVag)accept();
+            qmlRegim(Escape);
+            qmlRegim(InsertDown);
             break;
         }
         //Вставить до
-        if(m_stateBt.m_bef_regim==6)
-        {
-            accept();
-            m_textInput="";
-
-        }
-        qmlRegim(4);
+        if(m_stateBt.m_bef_regim==InputVag)accept();
+        qmlRegim(Escape);
+        qmlRegim(InsertUp);
         break;
 
     case VK_DELETE:
+        qmlRegim(Escape);
         //Удалить все
         if(ctrl){
-            qmlRegim(7);
+            qmlRegim(DelAllOtcep);
             break;
         }
         //Удалить один
-        qmlRegim(3);
+        qmlRegim(DelOtcep);
         break;
 
     case VK_ESCAPE:
-        qmlRegim(10);
+        qmlRegim(Escape);
         break;
 
     case 81:
@@ -460,7 +455,7 @@ void ManageModel::keyDown(const int &key, const bool &ctrl)
         break;
 
     default:
-        qmlRegim(10);
+        qmlRegim(Escape);
         break;
 
     }

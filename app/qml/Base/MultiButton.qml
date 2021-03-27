@@ -20,15 +20,11 @@ Rectangle {
             color:Qt.darker(colorButton, 1.5)
         }
     }
-    Text {
+    TextOut{
         id: _buttonText
-        anchors.fill: parent
-        verticalAlignment: Text.AlignVCenter
-        horizontalAlignment: Text.AlignHCenter
-        font.family: Settings.buttonPanel.fontFamily;
         font.pointSize: parent.height/5;
-        fontSizeMode: Text.Fit
     }
+
     Opacity{target:rectangleButton}
     TimerWink{running: wink}
 }

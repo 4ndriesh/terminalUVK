@@ -91,6 +91,5 @@ int main(int argc, char *argv[])
     int r = app.exec();
     UnhookWindowsHookEx(KBdllhooks::instance().kbHook);
     return r;
-
 }
 

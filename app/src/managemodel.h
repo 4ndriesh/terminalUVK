@@ -79,7 +79,7 @@ class ManageModel: public QObject
     Q_PROPERTY_RW(int,selectHook);
 
     //Наличие увк
-    Q_PROPERTY_RN(int,uvkLive);
+    Q_PROPERTY_RN(bool,uvkLive);
 
     //Сообщение в Highlite на событие
     Q_PROPERTY_RWN(QString,msgEvent);
@@ -92,6 +92,21 @@ private:
     void setRegim(const int &);
     void setCurrentOtcep();
     void setPutNadviga(const int &);
+    enum enumRegim{
+        Stop=0,
+        Rospusk=1,
+        Pause=2,
+        DelOtcep=3,
+        InsertUp=4,
+        InsertDown=5,
+        InputPut=6,
+        DelAllOtcep=7,
+        SetCurrentOtcep=8,
+        InputVag=9,
+        Escape=10,
+//        CancelWink=11,
+        GetNewList=12
+    };
 
 public:
     explicit ManageModel(QObject *parent = nullptr);
@@ -122,7 +137,7 @@ public:
     Q_INVOKABLE void updateOtcep();
     Q_INVOKABLE void qmlRegim(const int&);
     Q_INVOKABLE void addOtcep(const int&);
-    Q_INVOKABLE void delOtcep(const int&);
+    Q_INVOKABLE void delOtcep();
     Q_INVOKABLE void clearAllOtcep();
     Q_INVOKABLE void inputPut(const QString&);
     Q_INVOKABLE void keyDown(const int &, const bool &);

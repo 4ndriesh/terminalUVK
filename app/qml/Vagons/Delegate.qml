@@ -32,7 +32,7 @@ Rectangle   {
                 StateChangeScript {
                     name: "currentIndex"
                     script: {
-                        vagonsModel.qmlCurrentIndex=index;
+                        vagonsModel.qmlCurrentIndex=index;                        
                     }
                 }
             }

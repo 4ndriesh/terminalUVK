@@ -6,14 +6,16 @@ Rectangle {
     ListView{
         id:_vagons
         anchors.fill: parent
+        clip: true
         highlightFollowsCurrentItem: false
         highlightRangeMode: ListView.StrictlyEnforceRange
         preferredHighlightBegin: height/3
         preferredHighlightEnd: height/3
-        clip: true
-        currentIndex: vagonsModel.qmlCurrentIndex
         model:vagonsModel
-        snapMode:ListView.SnapOneItem
+        currentIndex: vagonsModel.qmlCurrentIndex ? vagonsModel.qmlCurrentIndex:0
+        interactive: false
+//        cacheBuffer:1000
+//        snapMode:ListView.SnapOneItem
         delegate: Delegate{id:delegate}
         highlight:
             Rectangle {

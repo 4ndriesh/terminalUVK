@@ -19,23 +19,17 @@ Rectangle {
             preferredHighlightEnd: height/3
             model: otcepsModel
             currentIndex: manageModel.qmlCurrentIndex;
-            snapMode:ListView.SnapOneItem
             highlight: Highlight{z:2}
             delegate: Delegate{}
-
-            onCurrentIndexChanged: {
-                manageModel.qmlRegim(10);
-                manageModel.qmlCurrentIndex=currentIndex;
-                manageModel.setPositionVagons();
-            }
-
+            interactive: false
+//            cacheBuffer:1000
 
             MouseArea {
                 id: mouseArea
                 anchors.fill: parent
                 propagateComposedEvents: true
                 acceptedButtons: Qt.LeftButton
-                onClicked: mouse.accepted = false;
+//                onClicked: mouse.accepted = false;
                 onDoubleClicked: {keyboard.open();}
                 onWheel: {
                     if (wheel.angleDelta.y<0){
@@ -46,9 +40,5 @@ Rectangle {
                 }
             }
         }
-
     }
-
 }
-
-
