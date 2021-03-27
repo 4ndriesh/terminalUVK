@@ -25,9 +25,10 @@ public:
         return *_instance;
     }
     Q_PROPERTY_RWN(int,qmlCurrentIndex);
+
     void slotOtcepChanged();
     void addDataObject(const VagonsObject &VagonsObject);
-    Q_INVOKABLE QVariantMap get(int row) const;
+    QVariantMap get(int row) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     Q_INVOKABLE QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
@@ -38,6 +39,7 @@ public:
 private:
     QList<VagonsObject> VagonsList;
     QHash<int, QByteArray> vagonsRoles;
+
 
 };
 #endif // REDACTOTCEPLIST_H

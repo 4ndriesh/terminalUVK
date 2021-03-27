@@ -7,4 +7,5 @@ ImageSVG 1.0 ImageSVG.qml
 ButtonArea 1.0 ButtonArea.qml
 Opacity 1.0 Opacity.qml
 TimerWink 1.0 TimerWink.qml
+TextOut 1.0 TextOut.qml
 plugin clock

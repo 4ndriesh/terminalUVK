@@ -122,7 +122,7 @@ void ManageModel::qmlRegim(const int & regim)
         break;
     case 10:
         m_stateBt.m_bef_regim=10;
-        //        m_textInput="";
+        m_textInput="";
         break;
     case 11:
         m_stateBt.m_wCursor=false;
@@ -244,43 +244,36 @@ void ManageModel::deleteMsg()
 //Установить путь
 void ManageModel::inputPut(const QString &numberPut)
 {
+    int countEnabled=OtcepsModel::instance().countEnabled();
     if(m_textInput.length()<2 && m_focus==2)
         m_textInput.append(numberPut);
-    else if(m_focus==1)
+    else if(m_textInput.length()==2 && m_focus==2){
         m_textInput=numberPut;
-    //    if(m_textInput.length()==2 && m_qmlCurrentIndex==count && m_focus==2){
-    //        accept();
-    //        qmlRegim(5);
-    //        m_textInput="";
-    //        setfocus(1);
-    //        setqmlCurrentIndex(m_qmlCurrentIndex);
-    //        return;
-    //    }
+    }
+//        m_textInput=numberPut;
+    else if(m_focus==1 && numberPut!="0")
+        m_textInput=numberPut;
 
-    int countEnabled=OtcepsModel::instance().countEnabled();
     if(countEnabled==-1 && m_stateBt.m_bef_regim==5) {
         m_stateBt.m_bef_regim=4;
     }
-    qDebug()<<m_stateBt.m_bef_regim;
     if(m_stateBt.m_bef_regim==4){
         setfocus(1);
         addOtcep(m_qmlCurrentIndex+1);
-        keyDown(38,false);
+        MVP_Import::instance()->setOtcepSP(m_qmlCurrentIndex+1,m_textInput.toInt());
+        qmlRegim(10);
+        setqmlCurrentIndex(m_qmlCurrentIndex);
         qmlRegim(6);
-        accept();
-        m_textInput="";
         setfocus(2);
         return;
     }
     else if(m_stateBt.m_bef_regim==5){
         setfocus(1);
-        addOtcep(m_qmlCurrentIndex+2);
-        keyDown(40,false);
+        addOtcep(m_qmlCurrentIndex+2);        
+        MVP_Import::instance()->setOtcepSP(m_qmlCurrentIndex+2,m_textInput.toInt());
+        setqmlCurrentIndex(m_qmlCurrentIndex+1);
         qmlRegim(6);
-        accept();
-        m_textInput="";
         setfocus(2);
-        m_stateBt.m_bef_regim=9;
         return;
     }
     else if(countEnabled>=0) {
@@ -290,15 +283,18 @@ void ManageModel::inputPut(const QString &numberPut)
 }
 
 
-void ManageModel::setPositionVagons()
+int ManageModel::setPositionVagons()
 {
     int countRow=0;
-    while(VagonsModel::instance().get(countRow)["STATE_NUM_OTCEP"]!=m_qmlCurrentIndex+1 && countRow<99)
+    if(VagonsModel::instance().get(0)["STATE_NUM_OTCEP"]!=0)
+    while(VagonsModel::instance().get(countRow)["STATE_NUM_OTCEP"]!=m_qmlCurrentIndex+1
+          && countRow<OtcepsModel::instance().rowVag_Count-1)
     {
         countRow++;
     }
     VagonsModel::instance().m_qmlCurrentIndex=countRow;
     emit VagonsModel::instance().qmlCurrentIndexChanged();
+    return countRow;
 }
 
 void ManageModel::updateOtcep()
@@ -309,13 +305,14 @@ void ManageModel::updateOtcep()
 //Навигация по списку отцепов
 void ManageModel::keyUpDown(const int &updown)
 {
+    qmlRegim(10);
     switch (updown) {
     case VK_UP:
         if(m_qmlCurrentIndex>0)
         {
             m_qmlCurrentIndex--;
             emit qmlCurrentIndexChanged();
-                        setPositionVagons();
+//            setPositionVagons();
         }
         break;
     case VK_DOWN:
@@ -323,7 +320,7 @@ void ManageModel::keyUpDown(const int &updown)
         {
             m_qmlCurrentIndex++;
             emit qmlCurrentIndexChanged();
-                        setPositionVagons();
+//            setPositionVagons();
         }
         break;
     case VK_RIGHT:
@@ -333,7 +330,6 @@ void ManageModel::keyUpDown(const int &updown)
         setfocus(1);
         break;
     }
-    qmlRegim(10);
     return;
 }
 
@@ -394,6 +390,8 @@ void ManageModel::keyDown(const int &key, const bool &ctrl)
             if(m_stateBt.m_bef_regim==6)
             {
                 accept();
+                m_textInput="";
+                setfocus(1);
             }
             qmlRegim(5);
             break;
@@ -402,6 +400,8 @@ void ManageModel::keyDown(const int &key, const bool &ctrl)
         if(m_stateBt.m_bef_regim==6)
         {
             accept();
+            m_textInput="";
+
         }
         qmlRegim(4);
         break;

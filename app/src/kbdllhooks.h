@@ -22,8 +22,9 @@ public:
     static LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam);
 
     bool bWinKey=true;
-private:
     HHOOK   kbHook;
+private:
+
 };
 
 #endif // MOUSELOGGER_H

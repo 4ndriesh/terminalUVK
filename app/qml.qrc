@@ -30,7 +30,7 @@
         <file>qml/Base/ButtonArea.qml</file>
         <file>qml/KeyBoard/KeyBoard.qml</file>
         <file>qml/Otcep/Delegate.qml</file>
-        <file>qml/Otcep/DualNumber.qml</file>
+        <file>qml/Otcep/DualSP.qml</file>
         <file>qml/Otcep/Header.qml</file>
         <file>qml/Otcep/Highlight.qml</file>
         <file>qml/Otcep/ListModelHeader.qml</file>
@@ -43,5 +43,15 @@
         <file>qml/Base/Opacity.qml</file>
         <file>qml/Base/TimerWink.qml</file>
         <file>qml/Resources/Del.svg</file>
+        <file>qml/Otcep/DualVag.qml</file>
+        <file>qml/Otcep/ST_Num.qml</file>
+        <file>qml/Base/TextOut.qml</file>
+        <file>qml/Otcep/ST_Ur.qml</file>
+        <file>qml/Otcep/ST_Stra.qml</file>
+        <file>qml/Otcep/ST_Strb.qml</file>
+        <file>qml/Otcep/ST_Sp.qml</file>
+        <file>qml/Otcep/ST_Sp_F.qml</file>
+        <file>qml/Otcep/ST_Sl_Vag.qml</file>
+        <file>qml/Otcep/ST_Zkr_Vag.qml</file>
     </qresource>
 </RCC>

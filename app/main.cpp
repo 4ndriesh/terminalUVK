@@ -88,7 +88,9 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     engine.load(url);
+    int r = app.exec();
+    UnhookWindowsHookEx(KBdllhooks::instance().kbHook);
+    return r;
 
-    return app.exec();
 }
 

@@ -5,7 +5,6 @@
 #include <QAbstractListModel>
 #include <QTimer>
 
-
 struct tSl2Odo2;
 
 class OtcepsModel : public QAbstractListModel
@@ -38,11 +37,12 @@ public:
     Qt::ItemFlags flags(const QModelIndex& index) const override;
     QHash<int, QByteArray> roleNames() const override;
     void addDataObject(const DataObject &DataObject);
-    bool loadSortirToUvk(const tSl2Odo2 *srt);
-
+    int row_Count=0;
+    int rowVag_Count=0;
 private:    
     QList<DataObject> ViewOtcepList;
     QHash<int, QByteArray> otcepRoles;
+
 
 public slots:
     int countEnabled();

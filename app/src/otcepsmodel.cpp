@@ -58,6 +58,10 @@ OtcepsModel::OtcepsModel(QObject *parent)
     timer->start();
 
     connect(MVP_Import::instance(),&MVP_Import::sortirArrived,this, &OtcepsModel::sortirArrived);
+
+    row_Count=rowCount();
+    rowVag_Count=VagonsModel::instance().rowCount();
+
     Mn.updateOtcep();
 
 }
@@ -79,14 +83,14 @@ void OtcepsModel::slotOtcepChanged()
     Mn.m_stateBt.m_putNadviga=MVP_Import::instance()->gorka->STATE_PUT_NADVIG();
     Mn.m_stateBt.m_bef_putNadviga=Mn.m_stateBt.m_putNadviga;
     emit Mn.stateBtChanged();
+    emit dataChanged(createIndex(0,0), createIndex(row_Count-1, 10));
+    emit VagonsModel::instance().dataChanged(createIndex(0,0), createIndex(rowVag_Count-1, 3));
 
-    emit dataChanged(createIndex(0,0), createIndex(98, 8));
-    emit VagonsModel::instance().dataChanged(createIndex(0,0), createIndex(98, 5));
 }
 
 int OtcepsModel::countEnabled()
 {
-    int countRow=99;
+    int countRow=row_Count;
     do{
         countRow--;
         if(countRow==-1)break;
@@ -165,15 +169,12 @@ QHash<int, QByteArray> OtcepsModel::roleNames() const
 void OtcepsModel::sortirArrived(const tSl2Odo2 *srt)
 {
     Mn.m_newList=true;
-
     // прверить что режим ввода установлен
     // если нет то запомнить и мигать кнопкой
     if(Mn.m_stateBt.m_bef_regim==12){
-        //    if(Mn.m_stateBt.m_editing==1){
-        if (!loadSortirToUvk(srt)) {
+        if (!MVP_Import::instance()->loadSortirToUvk(srt)) {
             MVP_Import::instance()->_Id=0;
             Mn.m_newList=false;
-//            Mn.updateOtcep();
             tmpSrt=nullptr;
         }
     }else tmpSrt=srt;
@@ -188,10 +189,6 @@ void OtcepsModel::uvk_cmd_accept(QMap<QString, QString> m)
     Mn.addMsg(m["ACCEPT_TXT"]);
 }
 
-bool OtcepsModel::loadSortirToUvk(const tSl2Odo2 *srt)
-{
-    return MVP_Import::instance()->loadSortirToUvk(srt);
-}
 
 
 

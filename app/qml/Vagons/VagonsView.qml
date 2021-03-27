@@ -13,7 +13,8 @@ Rectangle {
         clip: true
         currentIndex: vagonsModel.qmlCurrentIndex
         model:vagonsModel
-        delegate: Delegate{}
+        snapMode:ListView.SnapOneItem
+        delegate: Delegate{id:delegate}
         highlight:
             Rectangle {
             id: _highlight
@@ -26,6 +27,25 @@ Rectangle {
             y:_vagons.currentItem.y;
             Behavior on y {SpringAnimation { spring: 2; damping: 0.4;}}
         }
-    }
 
+        MouseArea {
+            id: mouseArea
+            anchors.fill: parent
+            propagateComposedEvents: true
+            acceptedButtons: Qt.LeftButton
+            onClicked: mouse.accepted = false;
+            onWheel: {
+                if (wheel.angleDelta.y<0 && _vagons.currentItem.visible===true){
+                    vagonsModel.qmlCurrentIndex++;
+                    if(_vagons.currentItem.visible===false)vagonsModel.qmlCurrentIndex--;;
+                }else if(wheel.angleDelta.y>0 && _vagons.currentItem.visible===true
+                         && _vagons.currentIndex>0){
+                    vagonsModel.qmlCurrentIndex--;
+                    if(_vagons.currentItem.visible===false)vagonsModel.qmlCurrentIndex++;;
+                }
+
+
+            }
+        }
+    }
 }

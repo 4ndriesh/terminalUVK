@@ -13,4 +13,5 @@ MouseArea {
             manageModel.qmlRegim(10);
         }
     }
+
 }
