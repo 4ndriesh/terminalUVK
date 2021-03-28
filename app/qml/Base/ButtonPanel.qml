@@ -18,7 +18,7 @@ RowLayout {
     property bool wink_nadvig: manageModel.stateBt.wink_Nadvig
     property bool wink_GetList: manageModel.stateBt.wink_GetList
     property bool newList: manageModel.newList
-    property int qmluvkLive: manageModel.uvkLive
+    property bool qmluvkLive: manageModel.uvkLive
     RChainView{id:_rchaindialog}
     Clock {
         id: timer
@@ -54,8 +54,21 @@ RowLayout {
         wink: regim===2 ? false:wink_pause
         ButtonArea {setRegim: 2}
     }
-
-    Rectangle{
+    MultiButton {
+        id: newSortList
+        Layout.leftMargin:50
+//        Layout.alignment: Qt.AlignRight
+        colorButton: newList ? Settings.newSortList.actColor : Settings.newSortList.baseColor
+        wink: wink_GetList
+        visible: newList
+        ImageSVG {
+            source: Settings.newSortList.svgSortList
+            widthsvg: parent.height/1.5
+            heightsvg:  parent.height/1.5
+        }
+        ButtonArea {setRegim: 12}
+    }
+    Item{
         id:clock
         Layout.fillWidth: true
         Layout.minimumWidth: 100
@@ -79,18 +92,18 @@ RowLayout {
         }
     }
 
-    MultiButton {
-        id: newSortList
-        Layout.alignment: Qt.AlignRight
-        colorButton: newList ? Settings.newSortList.actColor:Settings.newSortList.baseColor
-        wink: wink_GetList
-        ImageSVG {
-            source: Settings.newSortList.svgSortList
-            widthsvg: parent.height/1.5
-            heightsvg:  parent.height/1.5
-        }
-        ButtonArea {setRegim: 12}
-    }
+//    MultiButton {
+//        id: newSortList
+//        Layout.alignment: Qt.AlignRight
+//        colorButton: newList ? Settings.newSortList.actColor : Settings.newSortList.baseColor
+//        wink: wink_GetList
+//        ImageSVG {
+//            source: Settings.newSortList.svgSortList
+//            widthsvg: parent.height/1.5
+//            heightsvg:  parent.height/1.5
+//        }
+//        ButtonArea {setRegim: 12}
+//    }
 
     MultiButton {
         id: _uvkLive

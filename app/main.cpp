@@ -54,7 +54,8 @@ int main(int argc, char *argv[])
     //    QCoreApplication::setAttribute( Qt::AA_UseDesktopOpenGL );
     QCoreApplication::setAttribute( Qt::AA_UseOpenGLES);
     QGuiApplication app(argc, argv);
-    Json *sett = new Json("settings.json");
+    Json *sett = new Json(":/settings.json");
+//    Json *sett = new Json("settings/settings.json");
 
     if(QHostInfo::localHostName() == sett->getSettings("localHostName"))
         KBdllhooks::instance();
@@ -62,17 +63,21 @@ int main(int argc, char *argv[])
     if (!MVP_Import::instance()->load(sett->getSettings("xml")))
     {
         exit(-1);
-    }
-    delete sett;
+    }    
+
 
     registerMetaTypes();
     VagonsModel &vagons = VagonsModel::instance();
     OtcepsModel &model = OtcepsModel::instance();
 //   qmlRegisterUncreatableType<OtcepsModel>( "otcepsModel", 1, 0, "OtcepsModel", "" );
     ManageModel &manage = ManageModel::instance();
+    manage.notice=new Json(sett->getSettings("notice"));
+    delete sett;
     RailChain &rch = RailChain::instance();
     QQmlApplicationEngine engine;
     engine.addImportPath("qrc:/qml");
+//    engine.addPluginPath("qrc:/");
+
 //    engine.setObjectOwnership(&model,QQmlEngine::ObjectOwnership::CppOwnership);
     //    QQmlEngine::setObjectOwnership(&engine, QQmlEngine::CppOwnership);
 

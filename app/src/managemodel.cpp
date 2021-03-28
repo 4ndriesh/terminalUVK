@@ -5,7 +5,7 @@
 #include <QMetaProperty>
 #include "otcepsmodel.h"
 #include "vagonsmodel.h"
-
+#include <QUrl>
 
 ManageModel::ManageModel(QObject *parent) : QObject(parent)
 {
@@ -15,7 +15,8 @@ ManageModel::ManageModel(QObject *parent) : QObject(parent)
     m_qmlCurrentIndex=0;
     m_textInput="";
     m_focus=1;
-    notice=new Json("notice.json");
+
+//    notice=new Json("settings/notice.json");
 }
 
 //Удалить один отцеп
@@ -112,11 +113,15 @@ void ManageModel::qmlRegim(const int & bef_regim)
         //        else{addMsg(notice->getMXml("setCurrentOtcep","msg"));}
         break;
     case GetNewList:
+//        for(int i=1;i<100;i++)
+//            addOtcep(i);
         setqmlCurrentIndex(0);
         if(m_stateBt.m_regim==Stop && m_newList==true){
             m_stateBt.m_wGetList=true;
             m_stateBt.m_bef_regim=GetNewList;
         }
+        else if(m_stateBt.m_regim!=Stop){addMsg(notice->getMXml("getNewList","msg"));}
+        else if(m_newList==false){addMsg(notice->getMXml("getNewList","msg2"));}
         break;
     case InputVag:
         m_stateBt.m_bef_regim=InputVag;

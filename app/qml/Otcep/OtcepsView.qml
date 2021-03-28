@@ -22,7 +22,8 @@ Rectangle {
             highlight: Highlight{z:2}
             delegate: Delegate{}
             interactive: false
-//            cacheBuffer:1000
+            cacheBuffer:0
+//            cacheBuffer:8000
 
             MouseArea {
                 id: mouseArea

@@ -3,15 +3,9 @@ import QtQuick.Layouts 1.14
 import SettingsModule 1.0
 import Base 1.0
 
-Rectangle {
+Number {
     id: state_gac_w_stra;
-    Layout.fillHeight: true
-    Layout.fillWidth: true
     Layout.preferredWidth:_otceps.prefWidthState/2
-    height: Settings.listView.height;
-    color: delegate.color
-    border.width: Settings.listView.borderWidth
-
     states:
         [
         State {

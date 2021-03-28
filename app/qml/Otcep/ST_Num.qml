@@ -3,15 +3,10 @@ import QtQuick.Layouts 1.14
 import SettingsModule 1.0
 import Base 1.0
 
-Rectangle {
+Number {
     id: _st_num
     property variant st_num: STATE_EXTNUMPART ? STATE_EXTNUM+"."+STATE_EXTNUMPART:STATE_EXTNUM
-    Layout.fillHeight: true
-    Layout.fillWidth: true
-    Layout.preferredWidth: _otceps.prefWidthState
-    height: Settings.listView.height;
-    color: delegate.color
-    border.width: Settings.listView.borderWidth
+
     TextOut
     {
         text:STATE_EXTNUM ? st_num:STATE_NUM;

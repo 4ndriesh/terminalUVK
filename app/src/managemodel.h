@@ -87,8 +87,7 @@ class ManageModel: public QObject
     //Оповещение о новом сортирововчном листке
     Q_PROPERTY_RN(bool,newList);
 
-private:
-    Json *notice=nullptr;
+private:    
     void setRegim(const int &);
     void setCurrentOtcep();
     void setPutNadviga(const int &);
@@ -145,6 +144,7 @@ public:
     Q_INVOKABLE void deleteMsg();
     //Подтверждает команду кнопкой ENTER
     Q_INVOKABLE void accept();
+    Json *notice=nullptr;
     void addMsg(const QString &);
 
     QML_ManagerButton m_stateBt;

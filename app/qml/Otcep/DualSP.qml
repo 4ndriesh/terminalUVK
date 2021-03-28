@@ -2,13 +2,8 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.14
 import SettingsModule 1.0
 
-Rectangle{
-    Layout.fillHeight: true
-    Layout.preferredWidth: (delegate.width/Settings.header.column)*2
-    Layout.fillWidth: true
-    height: Settings.listView.height
-    color: delegate.color
-    border.width: Settings.listView.borderWidth
+Number{
+    Layout.preferredWidth: _otceps.prefWidthState*2
 
     states:
         [
@@ -36,6 +31,7 @@ Rectangle{
         spacing: 0
 
         ST_Sp{id:state_sp;}
+
         ST_Sp_F{id:state_sp_f}
     }
 
@@ -48,5 +44,4 @@ Rectangle{
             }
         }
     }
-
 }

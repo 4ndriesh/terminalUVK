@@ -1,4 +1,5 @@
 {
-"xml": "./test/M.xml",
+"notice":":/notice.json",
+"xml": "./M.xml",
 "localHostName": "DESKTOP-S9PPEMK"
 }

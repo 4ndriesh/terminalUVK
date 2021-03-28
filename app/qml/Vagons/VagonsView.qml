@@ -14,21 +14,11 @@ Rectangle {
         model:vagonsModel
         currentIndex: vagonsModel.qmlCurrentIndex ? vagonsModel.qmlCurrentIndex:0
         interactive: false
-//        cacheBuffer:1000
+        cacheBuffer:0
+//        cacheBuffer:8000
 //        snapMode:ListView.SnapOneItem
         delegate: Delegate{id:delegate}
-        highlight:
-            Rectangle {
-            id: _highlight
-            z:2
-            width: _vagons.width;
-            height: _vagons.currentItem.height;
-            color: "transparent"
-            border.width: 5
-            border.color: Settings.highlight.base
-            y:_vagons.currentItem.y;
-            Behavior on y {SpringAnimation { spring: 2; damping: 0.4;}}
-        }
+        highlight:Highlight{z:2}
 
         MouseArea {
             id: mouseArea
@@ -37,7 +27,8 @@ Rectangle {
             acceptedButtons: Qt.LeftButton
             onClicked: mouse.accepted = false;
             onWheel: {
-                if (wheel.angleDelta.y<0 && _vagons.currentItem.visible===true){
+                if (wheel.angleDelta.y<0 && _vagons.currentItem.visible===true
+                        && _vagons.currentIndex<119){
                     vagonsModel.qmlCurrentIndex++;
                     if(_vagons.currentItem.visible===false)vagonsModel.qmlCurrentIndex--;;
                 }else if(wheel.angleDelta.y>0 && _vagons.currentItem.visible===true
@@ -45,8 +36,6 @@ Rectangle {
                     vagonsModel.qmlCurrentIndex--;
                     if(_vagons.currentItem.visible===false)vagonsModel.qmlCurrentIndex++;;
                 }
-
-
             }
         }
     }

@@ -41,7 +41,7 @@ Item {
     QtObject {
         id: _aliveUvk
         readonly property color baseColor: isDarkTheme ? "red" : "red"
-        readonly property color actColor: isDarkTheme ? "#607D8B" : "lime"
+        readonly property color actColor: isDarkTheme ? "lime" : "lime"
         readonly property string svgAliveUvk: "qrc:/qml/Resources/AliveUVK.svg"
     }
     QtObject {
@@ -65,10 +65,11 @@ Item {
         //Список отцепов
         readonly property color baseColor: isDarkTheme ? "#607D8B" : "#b0c4de"
         readonly property int height: 60
+        readonly property int textHeight: 30
         readonly property int heightScale: 80
         readonly property int borderWidth: 1
         readonly property string fontFamily: "Cursive"
-        readonly property color background: isDarkTheme ? "gainsboro": "gainsboro"
+        readonly property color background: isDarkTheme ? "silver":"gainsboro"
     }
     QtObject {
         id: _buttonColor
