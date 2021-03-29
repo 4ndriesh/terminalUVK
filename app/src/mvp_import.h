@@ -49,6 +49,7 @@ public:
     uint32 _Id=0;
     bool loadSortirToUvk(const tSl2Odo2 *srt);
     void setRegim(int p);
+    void setOsaga();
     void setPutNadvig(int p);
     void setOtcepSP(int N, int SP);
     void incOtcep(int N);

@@ -322,6 +322,16 @@ void MVP_Import::setRegim(int p)
     qDebug()<< "setRegim to uvk" << p;
 }
 
+void MVP_Import::setOsaga()
+{
+    QMap<QString,QString> m;
+    m["DEST"]="UVK";
+    m["CMD"]="SET_OSAGA";
+
+    MVP_Import::instance()->cmd->send_cmd(m);
+    qDebug()<< "setOsaga to uvk" ;
+}
+
 void MVP_Import::setPutNadvig(int p)
 {
     QMap<QString,QString> m;
