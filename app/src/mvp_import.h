@@ -52,7 +52,7 @@ public:
     void setOsaga();
     void setPutNadvig(int p);
     void setOtcepSP(int N, int SP);
-    void incOtcep(int N);
+    void incOtcep(int N, int SP);
     void delOtcep(int N);
     void setCurOtcep(int N);
     void ClearAllOtcep();
