@@ -38,7 +38,7 @@ Rectangle   {
             }
         ]
     }
-
+    onVisibleChanged: manageModel.setPositionVagons();
     RowLayout   {
         id: layout
         anchors.fill:parent

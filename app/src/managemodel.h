@@ -13,6 +13,7 @@ struct QML_ManagerButton
 {
     Q_GADGET
     Q_PROPERTY(int putNadviga MEMBER m_putNadviga)
+    Q_PROPERTY(int pull MEMBER m_pull)
     Q_PROPERTY(int bef_putNadviga MEMBER m_bef_putNadviga)
     Q_PROPERTY(int regim MEMBER m_regim)
     Q_PROPERTY(int bef_regim MEMBER m_bef_regim)
@@ -21,6 +22,7 @@ struct QML_ManagerButton
     Q_PROPERTY(bool wink_Cursor MEMBER m_wCursor)
     Q_PROPERTY(bool wink_Stop MEMBER m_wStop)
     Q_PROPERTY(bool wink_Pause MEMBER m_wPause)
+    Q_PROPERTY(bool wink_Pull MEMBER m_wPull)
     Q_PROPERTY(bool wink_Nadvig MEMBER m_wNadvig)
     Q_PROPERTY(bool wink_GetList MEMBER m_wGetList)
 
@@ -30,10 +32,12 @@ public:
     int m_bef_regim=10;
     int m_tmp_Cursor=0;
     int m_regim=0;
+    int m_pull=1;
     int m_regim_Finish=0;
     bool m_wCursor=false;
     bool m_wStop=false;
     bool m_wPause=false;
+    bool m_wPull=false;
     bool m_wNadvig=false;
     bool m_wGetList=false;
 };Q_DECLARE_METATYPE(QML_ManagerButton)
@@ -103,8 +107,8 @@ private:
         SetCurrentOtcep=8,
         InputVag=9,
         Escape=10,
-//        CancelWink=11,
-        GetNewList=12
+        GetNewList=12,
+        Pull=14
     };
 
 public:

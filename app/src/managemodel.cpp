@@ -60,6 +60,10 @@ void ManageModel::qmlRegim(const int & bef_regim)
         m_stateBt.m_bef_regim=Pause;
         m_stateBt.m_wPause=true;
         break;
+    case Pull:
+        m_stateBt.m_bef_regim=Pull;
+        m_stateBt.m_wPull=true;
+        break;
     case DelOtcep:
         //        if(m_stateBt.m_editing==1 || (m_stateBt.m_regim!=1 && m_stateBt.m_regim!=0 && m_qmlCurentIndex>=0)){
         m_stateBt.m_bef_regim=DelOtcep;
@@ -134,6 +138,7 @@ void ManageModel::qmlRegim(const int & bef_regim)
         setmsgEvent("");
         m_stateBt.m_wCursor=false;
         m_stateBt.m_wPause=false;
+        m_stateBt.m_wPull=false;
         m_stateBt.m_wStop=false;
         m_stateBt.m_wNadvig=false;
         m_stateBt.m_wGetList=false;
@@ -156,6 +161,9 @@ void ManageModel::accept()
         break;
     case Pause:
         setRegim(Pause);
+        break;
+    case Pull:
+        setRegim(Pull);
         break;
     case DelOtcep:
         delOtcep();
@@ -371,6 +379,11 @@ void ManageModel::keyDown(const int &key, const bool &ctrl)
         //Стоп
         qmlRegim(Escape);
         qmlRegim(Stop);
+        break;
+    case VK_F6:
+        //Стоп
+        qmlRegim(Escape);
+        qmlRegim(Pull);
         break;
 
     case VK_RIGHT:

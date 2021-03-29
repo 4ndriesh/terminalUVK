@@ -13,7 +13,9 @@ RowLayout {
     property int regim: manageModel.stateBt.regim
     property int bef_putNadviga: manageModel.stateBt.bef_putNadviga
     property int putNadviga: manageModel.stateBt.putNadviga
+    property int stpull: manageModel.stateBt.pull
     property bool wink_pause: manageModel.stateBt.wink_Pause
+    property bool wink_pull: manageModel.stateBt.wink_Pull
     property bool wink_stop: manageModel.stateBt.wink_Stop
     property bool wink_nadvig: manageModel.stateBt.wink_Nadvig
     property bool wink_GetList: manageModel.stateBt.wink_GetList
@@ -53,6 +55,14 @@ RowLayout {
         colorButton: regim===2 ? Settings.buttonColor.regim:Settings.buttonColor.baseColor
         wink: regim===2 ? false:wink_pause
         ButtonArea {setRegim: 2}
+    }
+    MultiButton {
+        id: bpull
+        buttonText: "ОСАЖИВАНИЕ"
+//        visible: regim===0 ? false:true
+        colorButton: stpull ? Settings.buttonColor.regim:Settings.buttonColor.baseColor
+        wink: wink_pull
+        ButtonArea {setRegim: 14}
     }
     MultiButton {
         id: newSortList
