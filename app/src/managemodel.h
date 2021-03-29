@@ -13,7 +13,7 @@ struct QML_ManagerButton
 {
     Q_GADGET
     Q_PROPERTY(int putNadviga MEMBER m_putNadviga)
-    Q_PROPERTY(int pull MEMBER m_pull)
+    Q_PROPERTY(bool pull MEMBER m_pull)
     Q_PROPERTY(int bef_putNadviga MEMBER m_bef_putNadviga)
     Q_PROPERTY(int regim MEMBER m_regim)
     Q_PROPERTY(int bef_regim MEMBER m_bef_regim)
@@ -32,7 +32,7 @@ public:
     int m_bef_regim=10;
     int m_tmp_Cursor=0;
     int m_regim=0;
-    int m_pull=1;
+    bool m_pull=false;
     int m_regim_Finish=0;
     bool m_wCursor=false;
     bool m_wStop=false;

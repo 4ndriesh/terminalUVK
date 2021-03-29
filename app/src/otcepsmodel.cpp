@@ -75,6 +75,7 @@ void OtcepsModel::slotOtcepChanged()
 //    }
     Mn.m_stateBt.m_regim=MVP_Import::instance()->gorka->STATE_REGIM();
 
+    Mn.m_stateBt.m_pull=MVP_Import::instance()->gorka->STATE_OSAGA();
     Mn.m_stateBt.m_regim_Finish=MVP_Import::instance()->gorka->STATE_GAC_FINISH();
 
     Mn.m_uvkLive=!MVP_Import::instance()->gorka->SIGNAL_ROSPUSK().is33();

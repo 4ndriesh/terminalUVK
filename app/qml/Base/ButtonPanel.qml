@@ -13,7 +13,7 @@ RowLayout {
     property int regim: manageModel.stateBt.regim
     property int bef_putNadviga: manageModel.stateBt.bef_putNadviga
     property int putNadviga: manageModel.stateBt.putNadviga
-    property int stpull: manageModel.stateBt.pull
+    property bool stpull: manageModel.stateBt.pull
     property bool wink_pause: manageModel.stateBt.wink_Pause
     property bool wink_pull: manageModel.stateBt.wink_Pull
     property bool wink_stop: manageModel.stateBt.wink_Stop

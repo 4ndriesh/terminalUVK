@@ -163,7 +163,7 @@ void ManageModel::accept()
         setRegim(Pause);
         break;
     case Pull:
-        setRegim(Pull);
+        MVP_Import::instance()->setOsaga();
         break;
     case DelOtcep:
         delOtcep();
