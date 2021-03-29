@@ -322,6 +322,16 @@ void MVP_Import::setRegim(int p)
     qDebug()<< "setRegim to uvk" << p;
 }
 
+void MVP_Import::setOsaga()
+{
+    QMap<QString,QString> m;
+    m["DEST"]="UVK";
+    m["CMD"]="SET_OSAGA";
+
+    MVP_Import::instance()->cmd->send_cmd(m);
+    qDebug()<< "setOsaga to uvk" ;
+}
+
 void MVP_Import::setPutNadvig(int p)
 {
     QMap<QString,QString> m;
@@ -361,12 +371,13 @@ void MVP_Import::setOtcepSP(int N, int SP)
 
 }
 
-void MVP_Import::incOtcep(int N)
+void MVP_Import::incOtcep(int N, int SP)
 {
     QMap<QString,QString> m;
     m["DEST"]="UVK";
     m["CMD"]="OTCEPS";
     m["INC_OTCEP"]=QString::number(N);
+    m["SP"]=QString::number(SP);
     MVP_Import::instance()->cmd->send_cmd(m);
 
     //    QThread::sleep(1);

@@ -41,7 +41,7 @@ void ManageModel::clearAllOtcep()
 
 void ManageModel::addOtcep(const int & index)
 {
-    MVP_Import::instance()->incOtcep(index);
+    MVP_Import::instance()->incOtcep(index,0); //<<< ДОБАВЬ СП
     return;
 }
 
