@@ -20,7 +20,7 @@ import SettingsModule 1.0
 import Base 1.0
 
 Rectangle {
-    id: delegate
+    id: delegate    
     width: _otceps.width;
     height: Settings.listView.height;
     visible: STATE_ENABLED ? true:false
@@ -35,8 +35,7 @@ Rectangle {
                 StateChangeScript {
                     name: "insertIndex"
                     script: {
-                        manageModel.qmlCurrentIndex=STATE_NUM-1;
-                        manageModel.setPositionVagons();
+                        manageModel.qmlCurrentIndex=STATE_NUM-1;                        
                     }
                 }
                 PropertyChanges {
@@ -67,11 +66,11 @@ Rectangle {
                 }
             },
             State {
-                name: "grey"
+                name: "silver"
                 when: STATE_LOCATION !== 1
                 PropertyChanges {
                     target: delegate
-                    color: "grey"
+                    color: "silver"
                 }
             }
         ]

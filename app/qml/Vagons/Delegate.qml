@@ -10,40 +10,31 @@ Rectangle   {
     visible: STATE_ENABLED && STATE_NUM_OTCEP===manageModel.qmlCurrentIndex+1? true:false
     //        visible: STATE_ENABLED ? true:false
     property variant items_color: ["red", "yellow","white","silver","lightcyan","orange"]
-    Item {
-        id: _scale
-        states:[
-            State {
-                name: "scale"
-                when: delegate.ListView.isCurrentItem
-                PropertyChanges {
-                    target: delegate
-                    height:Settings.listView.heightScale;
-                }
-            }
-        ]
-    }
 
-    Item {
-        id: _zkr_progress
-        states:[
-            State{
-                when: STATE_ZKR_PROGRESS===1
-                StateChangeScript {
-                    name: "currentIndex"
-                    script: {
-                        vagonsModel.qmlCurrentIndex=index;                        
-                    }
+
+    states: [
+        State {
+            name: "focus"
+            when: STATE_IS_CURRENT===1
+            StateChangeScript {
+                name: "insertIndex"
+                script: {
+                    vagonsModel.qmlCurrentIndex=index;
+//                    manageModel.setPositionVagons();
                 }
             }
-        ]
-    }
-    onVisibleChanged: manageModel.setPositionVagons();
+            PropertyChanges {
+                target: delegate
+                height:Settings.listView.heightScale
+            }
+        }
+    ]
+
     RowLayout   {
         id: layout
         anchors.fill:parent
         spacing: 0
-//        Number{txt:STATE_NUM_OTCEP}
+        //        Number{txt:STATE_NUM_OTCEP}
         Number
         {
             id: sl_vagon_cnt;
@@ -54,7 +45,7 @@ Rectangle   {
                     when: STATE_ZKR_PROGRESS===1
                     PropertyChanges {
                         target: delegate
-                        color:delegate.items_color[1]
+                        color:"yellow"
                     }
                 },
                 State {
@@ -62,15 +53,15 @@ Rectangle   {
                     when: STATE_LOCATION === 1
                     PropertyChanges {
                         target: delegate
-                        color: items_color[2]
+                        color: "white"
                     }
                 },
                 State {
-                    name: "grey"
+                    name: "silver"
                     when: STATE_LOCATION !== 1
                     PropertyChanges {
                         target: delegate
-                        color: items_color[3]
+                        color: "silver"
                     }
                 }
             ]

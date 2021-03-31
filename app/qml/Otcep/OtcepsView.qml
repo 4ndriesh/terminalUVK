@@ -20,17 +20,20 @@ Rectangle {
             model: otcepsModel
             currentIndex: manageModel.qmlCurrentIndex;
             highlight: Highlight{z:2}
-            delegate: Delegate{}
+            delegate: Delegate{id:delegate}
             interactive: false
-            cacheBuffer:0
-//            cacheBuffer:8000
+            //            cacheBuffer:0
+            cacheBuffer:8000
+            onCurrentIndexChanged: manageModel.setPositionVagons();
 
             MouseArea {
                 id: mouseArea
                 anchors.fill: parent
                 propagateComposedEvents: true
                 acceptedButtons: Qt.LeftButton
-//                onClicked: mouse.accepted = false;
+                onClicked: {
+                    mouse.accepted = false;
+                }
                 onDoubleClicked: {keyboard.open();}
                 onWheel: {
                     if (wheel.angleDelta.y<0){
@@ -43,3 +46,4 @@ Rectangle {
         }
     }
 }
+

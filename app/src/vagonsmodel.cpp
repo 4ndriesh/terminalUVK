@@ -4,6 +4,7 @@
 #include <QDebug>
 #include "mvp_import.h"
 #include <QMetaProperty>
+//#include "managemodel.h"
 
 VagonsModel::VagonsModel(QObject *parent)
     : QAbstractListModel(parent)

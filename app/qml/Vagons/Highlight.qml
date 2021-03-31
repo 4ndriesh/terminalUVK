@@ -10,5 +10,6 @@ Rectangle {
     border.width: 5
     border.color: Settings.highlight.base
     y:_vagons.currentItem.y;
+
     Behavior on y {SpringAnimation { spring: 2; damping: 0.4;}}
 }

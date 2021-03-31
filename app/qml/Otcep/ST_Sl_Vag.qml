@@ -18,7 +18,15 @@ Number {
             }
         }
     ]
-
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+        acceptedButtons: Qt.LeftButton
+        onClicked: {
+            mouse.accepted = false;
+            manageModel.focus=2;
+        }
+    }
     TextOut
     {
         text:STATE_SL_VAGON_CNT ? STATE_SL_VAGON_CNT:"";

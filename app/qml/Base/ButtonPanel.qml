@@ -11,16 +11,19 @@ RowLayout {
     spacing: 5
     property color colorRegimRospusk: manageModel.stateBt.regim_Finish ? Settings.buttonColor.regim : Settings.buttonColor.regimRospusk
     property int regim: manageModel.stateBt.regim
-    property int bef_putNadviga: manageModel.stateBt.bef_putNadviga
+    property int bef_regim: manageModel.stateBt.bef_regim
     property int putNadviga: manageModel.stateBt.putNadviga
     property bool stpull: manageModel.stateBt.pull
-    property bool wink_pause: manageModel.stateBt.wink_Pause
-    property bool wink_pull: manageModel.stateBt.wink_Pull
-    property bool wink_stop: manageModel.stateBt.wink_Stop
-    property bool wink_nadvig: manageModel.stateBt.wink_Nadvig
-    property bool wink_GetList: manageModel.stateBt.wink_GetList
     property bool newList: manageModel.newList
     property bool qmluvkLive: manageModel.uvkLive
+    //    property int bef_putNadviga: manageModel.stateBt.bef_putNadviga
+    //    property bool wink_pause: manageModel.stateBt.wink_Pause
+    //    property bool wink_pull: manageModel.stateBt.wink_Pull
+    //    property bool wink_stop: manageModel.stateBt.wink_Stop
+    //    property bool wink_nadvig: manageModel.stateBt.wink_Nadvig
+    //    property bool wink_GetList: manageModel.stateBt.wink_GetList
+
+
     RChainView{id:_rchaindialog}
     Clock {
         id: timer
@@ -33,8 +36,8 @@ RowLayout {
         Layout.leftMargin: 10
         buttonText: "РОСПУСК"
         colorButton: (regim===1 && putNadviga===1) ? colorRegimRospusk: Settings.buttonColor.baseColor
-
-        wink: (regim===1 && putNadviga===1) ?false:wink_nadvig
+        wink: bef_regim===1 ? true:false
+        //        wink: (regim===1 && putNadviga===1) ?false:wink_nadvig
 
         ButtonArea {setRegim: 1}
 
@@ -44,7 +47,8 @@ RowLayout {
         id: stop
         buttonText: "СТОП"
         colorButton: regim===0 ? Settings.buttonColor.regim:Settings.buttonColor.baseColor
-        wink: regim===0 ? false:wink_stop
+        wink: bef_regim===0 ? true:false
+        //        wink: regim===0 ? false:wink_stop
         ButtonArea {setRegim: 0}
     }
 
@@ -53,23 +57,26 @@ RowLayout {
         buttonText: "ПАУЗА"
         visible: regim===0 ? false:true
         colorButton: regim===2 ? Settings.buttonColor.regim:Settings.buttonColor.baseColor
-        wink: regim===2 ? false:wink_pause
+        wink: bef_regim===2 ? true:false
+        //        wink: regim===2 ? false:wink_pause
         ButtonArea {setRegim: 2}
     }
     MultiButton {
         id: bpull
         buttonText: "ОСАЖИВАНИЕ"
-//        visible: regim===0 ? false:true
+        visible: regim===1 || stpull ? true:false
         colorButton: stpull ? Settings.buttonColor.regim:Settings.buttonColor.baseColor
-        wink: wink_pull
+        //        wink: wink_pull
+        wink: bef_regim===14 ? true:false
         ButtonArea {setRegim: 14}
     }
     MultiButton {
         id: newSortList
         Layout.leftMargin:50
-//        Layout.alignment: Qt.AlignRight
+        //        Layout.alignment: Qt.AlignRight
         colorButton: newList ? Settings.newSortList.actColor : Settings.newSortList.baseColor
-        wink: wink_GetList
+        //        wink: wink_GetList
+        wink: bef_regim===12 ? true:false
         visible: newList
         ImageSVG {
             source: Settings.newSortList.svgSortList
@@ -101,19 +108,6 @@ RowLayout {
             }
         }
     }
-
-//    MultiButton {
-//        id: newSortList
-//        Layout.alignment: Qt.AlignRight
-//        colorButton: newList ? Settings.newSortList.actColor : Settings.newSortList.baseColor
-//        wink: wink_GetList
-//        ImageSVG {
-//            source: Settings.newSortList.svgSortList
-//            widthsvg: parent.height/1.5
-//            heightsvg:  parent.height/1.5
-//        }
-//        ButtonArea {setRegim: 12}
-//    }
 
     MultiButton {
         id: _uvkLive

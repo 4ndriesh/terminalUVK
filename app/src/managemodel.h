@@ -20,11 +20,11 @@ struct QML_ManagerButton
     Q_PROPERTY(int tmp_Cursor MEMBER m_tmp_Cursor)
     Q_PROPERTY(int regim_Finish MEMBER m_regim_Finish)
     Q_PROPERTY(bool wink_Cursor MEMBER m_wCursor)
-    Q_PROPERTY(bool wink_Stop MEMBER m_wStop)
-    Q_PROPERTY(bool wink_Pause MEMBER m_wPause)
-    Q_PROPERTY(bool wink_Pull MEMBER m_wPull)
-    Q_PROPERTY(bool wink_Nadvig MEMBER m_wNadvig)
-    Q_PROPERTY(bool wink_GetList MEMBER m_wGetList)
+//    Q_PROPERTY(bool wink_Stop MEMBER m_wStop)
+//    Q_PROPERTY(bool wink_Pause MEMBER m_wPause)
+//    Q_PROPERTY(bool wink_Pull MEMBER m_wPull)
+//    Q_PROPERTY(bool wink_Nadvig MEMBER m_wNadvig)
+//    Q_PROPERTY(bool wink_GetList MEMBER m_wGetList)
 
 public:
     int m_putNadviga=0;
@@ -35,11 +35,11 @@ public:
     bool m_pull=false;
     int m_regim_Finish=0;
     bool m_wCursor=false;
-    bool m_wStop=false;
-    bool m_wPause=false;
-    bool m_wPull=false;
-    bool m_wNadvig=false;
-    bool m_wGetList=false;
+//    bool m_wStop=false;
+//    bool m_wPause=false;
+//    bool m_wPull=false;
+//    bool m_wNadvig=false;
+//    bool m_wGetList=false;
 };Q_DECLARE_METATYPE(QML_ManagerButton)
 
 struct StructProgressBar{
@@ -139,7 +139,7 @@ public:
     Q_INVOKABLE int setPositionVagons();
     Q_INVOKABLE void updateOtcep();
     Q_INVOKABLE void qmlRegim(const int&);
-    Q_INVOKABLE void addOtcep(const int&);
+    Q_INVOKABLE void addOtcep(const int&,const int&);
     Q_INVOKABLE void delOtcep();
     Q_INVOKABLE void clearAllOtcep();
     Q_INVOKABLE void inputPut(const QString&);

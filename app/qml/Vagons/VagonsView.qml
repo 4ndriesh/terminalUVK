@@ -14,8 +14,8 @@ Rectangle {
         model:vagonsModel
         currentIndex: vagonsModel.qmlCurrentIndex ? vagonsModel.qmlCurrentIndex:0
         interactive: false
-        cacheBuffer:0
-//        cacheBuffer:8000
+//        cacheBuffer:0
+        cacheBuffer:8000
 //        snapMode:ListView.SnapOneItem
         delegate: Delegate{id:delegate}
         highlight:Highlight{z:2}

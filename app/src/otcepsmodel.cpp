@@ -179,7 +179,7 @@ void OtcepsModel::sortirArrived(const tSl2Odo2 *srt)
             tmpSrt=nullptr;
         }
     }else tmpSrt=srt;
-    Mn.m_stateBt.m_wGetList=false;
+//    Mn.m_stateBt.m_wGetList=false;
     emit Mn.newListChanged();
     return;
 }

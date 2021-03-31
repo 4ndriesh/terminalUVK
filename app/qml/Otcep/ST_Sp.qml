@@ -24,7 +24,15 @@ Number {
             }
         }
     ]
-
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+        acceptedButtons: Qt.LeftButton
+        onClicked: {
+            mouse.accepted = false;
+            manageModel.focus=1;
+        }
+      }
     TextOut
     {
         text:STATE_SP ? STATE_SP:"";
