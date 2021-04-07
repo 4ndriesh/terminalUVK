@@ -430,6 +430,16 @@ void MVP_Import::updateOtceps()
     MVP_Import::instance()->cmd->send_cmd(m);
 }
 
+void MVP_Import::setUKVLight(int p)
+{
+    QMap<QString,QString> m;
+    m.clear();
+    m["DEST"]="UVK";
+    m["CMD"]="SET_UKVAG_LIGHT";
+    m["LIGHT"]=QString::number(p);
+    MVP_Import::instance()->cmd->send_cmd(m);
+}
+
 QMap<QString, QString> MVP_Import::getDSOBusyRc()
 {
     QMap<QString, QString> mName2Id;

@@ -57,6 +57,7 @@ public:
     void setCurOtcep(int N);
     void ClearAllOtcep();
     void updateOtceps();
+    void setUKVLight(int p);
     QMap<QString,QString> getDSOBusyRc();
     void resetDSOBusyRc(QString idtsr);
     void send_cmd(QMap<QString,QString> &m);
