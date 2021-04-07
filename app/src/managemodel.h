@@ -65,6 +65,7 @@ class ManageModel: public QObject
 
     Q_PROPERTY(StructProgressBar qmlStatusPB READ qmlStatusPB NOTIFY statusPBChanged)
 
+
     //Управляет фокусом
     Q_PROPERTY_RWN(int,focus);
     //Управляет курсором листвью
@@ -93,7 +94,7 @@ class ManageModel: public QObject
 
 private:    
     void setRegim(const int &);
-    void setCurrentOtcep();
+    void setCurrentOtcep();    
     void setPutNadviga(const int &);
     enum enumRegim{
         Stop=0,
@@ -123,6 +124,7 @@ public:
     }
 
 signals:
+    void closeKeyBoard();
     void focusChanged();
     void msgEventChanged();
     void openRChainChanged();
@@ -148,6 +150,7 @@ public:
     Q_INVOKABLE void deleteMsg();
     //Подтверждает команду кнопкой ENTER
     Q_INVOKABLE void accept();
+
     Json *notice=nullptr;
     void addMsg(const QString &);
 

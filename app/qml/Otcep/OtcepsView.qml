@@ -45,5 +45,11 @@ Rectangle {
             }
         }
     }
+    Connections{
+        target: manageModel
+        function onCloseKeyBoard(){
+            keyboard.close();
+        }
+    }
 }
 

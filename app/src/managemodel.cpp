@@ -361,6 +361,7 @@ void ManageModel::keyDown(const int &key, const bool &ctrl)
 
     case VK_RETURN:
         accept();
+        emit closeKeyBoard();
         break;
 
     case VK_F1:

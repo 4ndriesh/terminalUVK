@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     engine.addImportPath("qrc:/qml");
 //    engine.addImportPath("./qml");
-//    engine.addPluginPath("/");
+    engine.addPluginPath("/");
 
 //    engine.setObjectOwnership(&model,QQmlEngine::ObjectOwnership::CppOwnership);
     //    QQmlEngine::setObjectOwnership(&engine, QQmlEngine::CppOwnership);
