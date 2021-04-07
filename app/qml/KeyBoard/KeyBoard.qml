@@ -19,7 +19,7 @@ Popup {
         anchors.fill: parent
         spacing: 5
 
-        columns: 8
+        columns: 9
         rows: 3
         //        columns: keyboard.inPortrait ? 1 : 2
         //        rows: keyboard.inPortrait ? 6 : 3
@@ -73,10 +73,21 @@ Popup {
             ImageSVG {
                 source: Settings.keyboard.setCurrentOtcep
                 widthsvg: insertDown.width/1.5
-                heightsvg:  insertDown.width/1.5
+                heightsvg:  insertDown.width/1.2
             }
             MouseKeyBoard{onClicked: manageModel.qmlRegim(8);}
         }
+        ButtonKey{
+            id: lightPlus
+//            buttonText: "+"
+            ImageSVG {
+                source: Settings.keyboard.brightness
+                widthsvg: insertDown.width/1.1
+                heightsvg:  insertDown.width/1.1
+            }
+            MouseKeyBoard{onClicked: console.log("+")}
+        }
+
         Item{width: panelKeyboard.itemWidth; height: panelKeyboard.itemHeight}
         ButtonKey{
             buttonText: "4"
@@ -112,6 +123,16 @@ Popup {
         }
 
         Item{width: panelKeyboard.itemWidth; height: panelKeyboard.itemHeight}
+        ButtonKey{
+            id: lightMinus
+//            buttonText: "-"
+            ImageSVG {
+                source: Settings.keyboard.brightness
+                widthsvg: insertDown.width/1.5
+                heightsvg:  insertDown.width/1.5
+            }
+            MouseKeyBoard{onClicked: console.log("-")}
+        }
         ButtonKey{
             buttonText: "0"
             MouseKeyBoard{onClicked: manageModel.keyDown(80,true);}
@@ -167,6 +188,7 @@ Popup {
             }
             MouseKeyBoard{onClicked: manageModel.keyDown(39,false);}
         }
+        Item{width: panelKeyboard.itemWidth; height: panelKeyboard.itemHeight}
 
 
     }

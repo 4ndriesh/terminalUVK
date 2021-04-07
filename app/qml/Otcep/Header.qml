@@ -27,16 +27,38 @@ Rectangle{
                 Layout.fillHeight: true
                 height: minimumHeight
                 color:  Settings.header.baseColor
-                Text {
+                TextOut {
                     text: name;
-                    anchors.fill: parent
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    font.family: Settings.header.fontFamily;
                     color: Settings.header.textColor;
                     font.letterSpacing : 3
-                    font.pointSize: parent.height/2;
-                    fontSizeMode: Text.Fit
+                }
+            }
+        }
+        Rectangle {
+            id: _numberVag
+            border.width: Settings.header.borderWidth
+            Layout.rowSpan: 1
+            Layout.columnSpan: 1
+            Layout.column: 9
+            Layout.row: 1
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            height: 30
+            color:  Settings.isVisibleAllVag ? Settings.header.allVagColor:Settings.header.baseColor
+            TextOut {
+                text: "номер";
+                color: Settings.header.textColor;
+                font.letterSpacing : 3
+            }
+            MouseArea{
+                id: mouseArea
+                anchors.fill: parent
+                acceptedButtons: Qt.LeftButton
+                onClicked: {
+                    if (mouse.button === Qt.LeftButton)
+                    {
+                     Settings.isVisibleAllVag=!Settings.isVisibleAllVag;
+                    }
                 }
             }
         }

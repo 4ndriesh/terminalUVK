@@ -54,8 +54,8 @@ int main(int argc, char *argv[])
     //    QCoreApplication::setAttribute( Qt::AA_UseDesktopOpenGL );
     QCoreApplication::setAttribute( Qt::AA_UseOpenGLES);
     QGuiApplication app(argc, argv);
-    Json *sett = new Json(":/settings.json");
-//    Json *sett = new Json("settings/settings.json");
+//    Json *sett = new Json(":/settings.json");
+    Json *sett = new Json("settings/settings.json");
 
     if(QHostInfo::localHostName() == sett->getSettings("localHostName"))
         KBdllhooks::instance();
@@ -76,7 +76,8 @@ int main(int argc, char *argv[])
     RailChain &rch = RailChain::instance();
     QQmlApplicationEngine engine;
     engine.addImportPath("qrc:/qml");
-//    engine.addPluginPath("qrc:/");
+//    engine.addImportPath("./qml");
+//    engine.addPluginPath("/");
 
 //    engine.setObjectOwnership(&model,QQmlEngine::ObjectOwnership::CppOwnership);
     //    QQmlEngine::setObjectOwnership(&engine, QQmlEngine::CppOwnership);
@@ -86,7 +87,8 @@ int main(int argc, char *argv[])
     context->setContextProperty("manageModel", &manage);
     context->setContextProperty("rChain", &rch);
     context->setContextProperty("vagonsModel", &vagons);
-    const QUrl url(QStringLiteral("qrc:/main.qml"));
+//    const QUrl url(QStringLiteral("qrc:/main.qml"));
+    const QUrl url(QStringLiteral("./main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
         if (!obj && url == objUrl)

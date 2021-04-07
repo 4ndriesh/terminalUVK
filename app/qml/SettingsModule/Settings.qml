@@ -14,6 +14,7 @@ Item {
     property alias progressbar: _progressbar
     property alias rChain: _rChain
 
+    property bool isVisibleAllVag: false
     property bool isDarkTheme: false
     QtObject {
         id: _window
@@ -37,6 +38,7 @@ Item {
         readonly property string trash: "qrc:/qml/Resources/Trash.svg"
         readonly property string del: "qrc:/qml/Resources/Del.svg"
         readonly property string setCurrentOtcep: "qrc:/qml/Resources/SetCurrentOtcep.svg"
+        readonly property string brightness: "qrc:/qml/Resources/Brightness.svg"
     }
     QtObject {
         id: _aliveUvk
@@ -96,6 +98,7 @@ Item {
         id: _header
         //Шапка
         readonly property color baseColor: isDarkTheme ? "#607D8B" : "#b0c4de"
+        readonly property color allVagColor: isDarkTheme ? "orange":"orange"
         readonly property int height: 80
         readonly property int column: 10
         readonly property int borderWidth: 1

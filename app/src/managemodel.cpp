@@ -16,7 +16,7 @@ ManageModel::ManageModel(QObject *parent) : QObject(parent)
     m_textInput="";
     m_focus=1;
 
-//    notice=new Json("settings/notice.json");
+    //    notice=new Json("settings/notice.json");
 }
 
 //Удалить один отцеп
@@ -50,19 +50,16 @@ void ManageModel::qmlRegim(const int & bef_regim)
     switch (bef_regim) {
     case Stop:
         m_stateBt.m_bef_regim=Stop;
-//        m_stateBt.m_wStop=true;
         break;
     case Rospusk:
-        m_stateBt.m_bef_regim=Rospusk;
-//        m_stateBt.m_wNadvig=true;
+        if(m_qmlStatusPB.m_set_visible==false)
+            m_stateBt.m_bef_regim=Rospusk;
         break;
     case Pause:
         m_stateBt.m_bef_regim=Pause;
-//        m_stateBt.m_wPause=true;
         break;
     case Pull:
         m_stateBt.m_bef_regim=Pull;
-//        m_stateBt.m_wPull=true;
         break;
     case DelOtcep:
         //        if(m_stateBt.m_editing==1 || (m_stateBt.m_regim!=1 && m_stateBt.m_regim!=0 && m_qmlCurentIndex>=0)){
@@ -117,12 +114,9 @@ void ManageModel::qmlRegim(const int & bef_regim)
         //        else{addMsg(notice->getMXml("setCurrentOtcep","msg"));}
         break;
     case GetNewList:
-//        for(int i=1;i<100;i++)
-//            addOtcep(i);
-        setqmlCurrentIndex(0);
-        VagonsModel::instance().setqmlCurrentIndex(0);
         if(m_stateBt.m_regim==Stop && m_newList==true){
-//            m_stateBt.m_wGetList=true;
+            setqmlCurrentIndex(0);
+            VagonsModel::instance().setqmlCurrentIndex(0);
             m_stateBt.m_bef_regim=GetNewList;
         }
         else if(m_stateBt.m_regim!=Stop){addMsg(notice->getMXml("getNewList","msg"));}
@@ -138,11 +132,11 @@ void ManageModel::qmlRegim(const int & bef_regim)
         m_textInput="";
         setmsgEvent("");
         m_stateBt.m_wCursor=false;
-//        m_stateBt.m_wPause=false;
-//        m_stateBt.m_wPull=false;
-//        m_stateBt.m_wStop=false;
-//        m_stateBt.m_wNadvig=false;
-//        m_stateBt.m_wGetList=false;
+        //        m_stateBt.m_wPause=false;
+        //        m_stateBt.m_wPull=false;
+        //        m_stateBt.m_wStop=false;
+        //        m_stateBt.m_wNadvig=false;
+        //        m_stateBt.m_wGetList=false;
         break;
     }
 
@@ -186,7 +180,9 @@ void ManageModel::accept()
         setCurrentOtcep();
         break;
     case GetNewList:
-        OtcepsModel::instance().sortirArrived(OtcepsModel::instance().tmpSrt);
+        if(m_qmlStatusPB.m_set_visible==false){
+            OtcepsModel::instance().sortirArrived(OtcepsModel::instance().tmpSrt);
+        }
         break;
 
     case Escape:
@@ -210,7 +206,8 @@ void ManageModel::setPutNadviga(const int &putNadviga)
 
 void ManageModel::setRegim(const int &regim)
 {
-    setqmlCurrentIndex(0);
+    if(regim==Stop)
+        setqmlCurrentIndex(0);
     if (regim==ModelGroupGorka::regimStop){
         if (MVP_Import::instance()->gorka->STATE_REGIM()!=ModelGroupGorka::regimStop)
         {
@@ -274,9 +271,10 @@ void ManageModel::inputPut(const QString &numberPut)
     if(m_stateBt.m_bef_regim==InsertUp){
         setfocus(1);
         addOtcep(m_qmlCurrentIndex+1,m_textInput.toInt());
-//        MVP_Import::instance()->setOtcepSP(m_qmlCurrentIndex+1,m_textInput.toInt());
+        //        MVP_Import::instance()->setOtcepSP(m_qmlCurrentIndex+1,m_textInput.toInt());
         qmlRegim(Escape);
         setqmlCurrentIndex(m_qmlCurrentIndex);
+        setPositionVagons();
         qmlRegim(InputVag);
         setfocus(2);
         return;
@@ -284,9 +282,10 @@ void ManageModel::inputPut(const QString &numberPut)
     else if(m_stateBt.m_bef_regim==InsertDown){
         setfocus(1);
         addOtcep(m_qmlCurrentIndex+2,m_textInput.toInt());
-//        MVP_Import::instance()->setOtcepSP(m_qmlCurrentIndex+2,m_textInput.toInt());
+        //        MVP_Import::instance()->setOtcepSP(m_qmlCurrentIndex+2,m_textInput.toInt());
         qmlRegim(Escape);
         setqmlCurrentIndex(m_qmlCurrentIndex+1);
+        setPositionVagons();
         qmlRegim(InputVag);
         setfocus(2);
         return;
@@ -327,7 +326,7 @@ void ManageModel::keyUpDown(const int &updown)
         {
             m_qmlCurrentIndex--;
             emit qmlCurrentIndexChanged();
-//            setPositionVagons();
+            //            setPositionVagons();
         }
         break;
     case VK_DOWN:
@@ -335,7 +334,7 @@ void ManageModel::keyUpDown(const int &updown)
         {
             m_qmlCurrentIndex++;
             emit qmlCurrentIndexChanged();
-//            setPositionVagons();
+            //            setPositionVagons();
         }
         break;
     case VK_RIGHT:

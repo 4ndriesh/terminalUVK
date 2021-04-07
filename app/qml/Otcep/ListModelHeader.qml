@@ -116,16 +116,16 @@ ListModel {
         minimumHeight: 30
         maximumHeight: 50
     }
-//    ListElement {
-//        name: "Факт"
-//        rowSpan: 1
-//        columnSpan: 1
-//        row: 1
-//        column: 7
-//        minimumWidth: 60
-//        minimumHeight: 30
-//        maximumHeight: 50
-//    }
+    //    ListElement {
+    //        name: "Факт"
+    //        rowSpan: 1
+    //        columnSpan: 1
+    //        row: 1
+    //        column: 7
+    //        minimumWidth: 60
+    //        minimumHeight: 30
+    //        maximumHeight: 50
+    //    }
     ListElement {
         name: "УР"
         rowSpan: 1
@@ -179,15 +179,15 @@ ListModel {
         maximumHeight: 100
     }
 
-    ListElement {
-        name: "номер"
-        rowSpan: 1
-        columnSpan: 1
-        row: 1
-        column: 9
-        minimumWidth: 60
-        minimumHeight: 30
-        maximumHeight: 50
-    }
+//    ListElement {
+//        name: "номер"
+//        rowSpan: 1
+//        columnSpan: 1
+//        row: 1
+//        column: 9
+//        minimumWidth: 60
+//        minimumHeight: 30
+//        maximumHeight: 50
+//    }
 
 }

@@ -21,6 +21,8 @@ Rectangle {
     }
     Text {
         id: _buttonText
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
         font.family: Settings.keyboard.fontFamily;
         font.pointSize: textSize ?textSize : 10
         color: Settings.keyboard.textColor;

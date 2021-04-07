@@ -70,6 +70,7 @@ RowLayout {
         wink: bef_regim===14 ? true:false
         ButtonArea {setRegim: 14}
     }
+
     MultiButton {
         id: newSortList
         Layout.leftMargin:50
