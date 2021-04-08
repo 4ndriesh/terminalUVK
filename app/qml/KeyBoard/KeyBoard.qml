@@ -85,7 +85,7 @@ Popup {
                 widthsvg: insertDown.width/1.1
                 heightsvg:  insertDown.width/1.1
             }
-            MouseKeyBoard{onClicked: console.log("+")}
+            MouseKeyBoard{onClicked: manageModel.setBrightness(7)}
         }
 
         Item{width: panelKeyboard.itemWidth; height: panelKeyboard.itemHeight}
@@ -131,7 +131,7 @@ Popup {
                 widthsvg: insertDown.width/1.5
                 heightsvg:  insertDown.width/1.5
             }
-            MouseKeyBoard{onClicked: console.log("-")}
+            MouseKeyBoard{onClicked: manageModel.setBrightness(5)}
         }
         ButtonKey{
             buttonText: "0"

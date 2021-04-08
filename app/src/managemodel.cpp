@@ -19,6 +19,12 @@ ManageModel::ManageModel(QObject *parent) : QObject(parent)
     //    notice=new Json("settings/notice.json");
 }
 
+//Яркость
+void ManageModel::setBrightness(const int & light)
+{
+    MVP_Import::instance()->setUKVLight(light);
+    return;
+}
 //Удалить один отцеп
 void ManageModel::delOtcep()
 {
@@ -385,6 +391,11 @@ void ManageModel::keyDown(const int &key, const bool &ctrl)
         //Стоп
         qmlRegim(Escape);
         qmlRegim(Pull);
+        break;
+    case VK_F7:
+        //Стоп
+        qmlRegim(Escape);
+        qmlRegim(SetCurrentOtcep);
         break;
 
     case VK_RIGHT:

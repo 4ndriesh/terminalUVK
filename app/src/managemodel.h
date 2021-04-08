@@ -138,6 +138,7 @@ signals:
     void timerDelMsgChanged();
 
 public:
+    Q_INVOKABLE void setBrightness(const int&);
     Q_INVOKABLE int setPositionVagons();
     Q_INVOKABLE void updateOtcep();
     Q_INVOKABLE void qmlRegim(const int&);
