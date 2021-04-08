@@ -58,6 +58,7 @@ public:
     void ClearAllOtcep();
     void updateOtceps();
     void setUKVLight(int p);
+    QString getSumString();
     QMap<QString,QString> getDSOBusyRc();
     void resetDSOBusyRc(QString idtsr);
     void send_cmd(QMap<QString,QString> &m);

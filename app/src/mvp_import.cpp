@@ -440,6 +440,31 @@ void MVP_Import::setUKVLight(int p)
     MVP_Import::instance()->cmd->send_cmd(m);
 }
 
+QString MVP_Import::getSumString()
+{
+    static QString result;
+    result.clear();
+    if ((gorka!=nullptr)&&(otceps!=nullptr)){
+        QMap<int,int> mpo;
+        foreach (auto np, gorka->mSP2MAR.keys()) {
+            mpo[np]=0;
+        }
+        foreach (auto otcep, otceps->l_otceps) {
+            if (!otcep->STATE_ENABLED()) continue;
+            if (mpo[otcep->STATE_SP()]==888) continue;
+            if ((otcep->STATE_SL_VAGON_CNT()==0)&&(otcep->STATE_SL_VAGON_CNT_PRED()==0))
+                mpo[otcep->STATE_SP()]=888;
+            mpo[otcep->STATE_SP()]=mpo[otcep->STATE_SP()]+otcep->STATE_SL_VAGON_CNT();
+        }
+        foreach (auto np, mpo.keys()) {
+            if (mpo[np]==0) continue;
+            if (mpo[np]==888) result=result+QString("%1П-%2 ").arg(np).arg("?"); else
+                              result=result+QString("%1П-%2 ").arg(np).arg(mpo[np]);
+        }
+    }
+    return result;
+}
+
 QMap<QString, QString> MVP_Import::getDSOBusyRc()
 {
     QMap<QString, QString> mName2Id;
