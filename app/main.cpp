@@ -87,8 +87,8 @@ int main(int argc, char *argv[])
     context->setContextProperty("manageModel", &manage);
     context->setContextProperty("rChain", &rch);
     context->setContextProperty("vagonsModel", &vagons);
-//    const QUrl url(QStringLiteral("qrc:/main.qml"));
-    const QUrl url(QStringLiteral("./main.qml"));
+    const QUrl url(QStringLiteral("qrc:/main.qml"));
+//    const QUrl url(QStringLiteral("./main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
         if (!obj && url == objUrl)

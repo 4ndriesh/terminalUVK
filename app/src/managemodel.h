@@ -123,7 +123,7 @@ public:
         return *_instance;
     }
 
-signals:
+signals:    
     void closeKeyBoard();
     void focusChanged();
     void msgEventChanged();
@@ -137,7 +137,8 @@ signals:
     void listMsgChanged();
     void timerDelMsgChanged();
 
-public:
+public:    
+    Q_INVOKABLE QString getInfo();
     Q_INVOKABLE void setBrightness(const int&);
     Q_INVOKABLE int setPositionVagons();
     Q_INVOKABLE void updateOtcep();

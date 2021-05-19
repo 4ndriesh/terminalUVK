@@ -18,7 +18,10 @@ ManageModel::ManageModel(QObject *parent) : QObject(parent)
 
     //    notice=new Json("settings/notice.json");
 }
-
+QString ManageModel::getInfo()
+{
+return MVP_Import::instance()->getSumString();
+}
 //Яркость
 void ManageModel::setBrightness(const int & light)
 {

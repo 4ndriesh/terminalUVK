@@ -57,5 +57,6 @@
         <file>notice.json</file>
         <file>settings.json</file>
         <file>qml/Resources/Brightness.svg</file>
+        <file>qml/Base/InfoRospusk.qml</file>
     </qresource>
 </RCC>

@@ -19,7 +19,7 @@ Window {
 
     GridLayout{
         anchors.fill: parent
-        rows: 6
+        rows: 7
         columns:2
         columnSpacing:0
         rowSpacing: 5
@@ -60,6 +60,12 @@ Window {
         AlarmMessage {
             Layout.fillWidth: true
             Layout.row: 5
+            Layout.columnSpan: 2
+        }
+
+        InfoRospusk {
+            Layout.fillWidth: true
+            Layout.row: 6
             Layout.columnSpan: 2
         }
     }

@@ -8,4 +8,5 @@ ButtonArea 1.0 ButtonArea.qml
 Opacity 1.0 Opacity.qml
 TimerWink 1.0 TimerWink.qml
 TextOut 1.0 TextOut.qml
+InfoRospusk 1.0 InfoRospusk.qml
 plugin clock

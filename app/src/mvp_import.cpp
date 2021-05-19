@@ -446,20 +446,26 @@ QString MVP_Import::getSumString()
     result.clear();
     if ((gorka!=nullptr)&&(otceps!=nullptr)){
         QMap<int,int> mpo;
+        QMap<int,int> mxz;
         foreach (auto np, gorka->mSP2MAR.keys()) {
             mpo[np]=0;
+            mxz[np]=0;
         }
         foreach (auto otcep, otceps->l_otceps) {
             if (!otcep->STATE_ENABLED()) continue;
-            if (mpo[otcep->STATE_SP()]==888) continue;
+            if (otcep->STATE_MAR()==0) continue;
             if ((otcep->STATE_SL_VAGON_CNT()==0)&&(otcep->STATE_SL_VAGON_CNT_PRED()==0))
-                mpo[otcep->STATE_SP()]=888;
+                mxz[otcep->STATE_SP()]=1;
+
             mpo[otcep->STATE_SP()]=mpo[otcep->STATE_SP()]+otcep->STATE_SL_VAGON_CNT();
         }
         foreach (auto np, mpo.keys()) {
-            if (mpo[np]==0) continue;
-            if (mpo[np]==888) result=result+QString("%1П-%2 ").arg(np).arg("?"); else
-                              result=result+QString("%1П-%2 ").arg(np).arg(mpo[np]);
+            if ((mpo[np]==0)&&(mxz[np]==0)) continue;
+            if (!result.isEmpty()) result=result+"   ";
+            if (mpo[np]<10) result=result+QString("%1-0%2").arg(np).arg(mpo[np]);else
+                result=result+QString("%1-%2").arg(np).arg(mpo[np]);
+            if (mxz[np]!=0) result=result+"?";
+
         }
     }
     return result;
